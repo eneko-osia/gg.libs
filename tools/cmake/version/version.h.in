@@ -1,0 +1,20 @@
+#ifndef _gg_version_h_
+#define _gg_version_h_
+
+// include files
+
+#include "gg/core/string/type/string_ref.h"
+
+// namespace
+
+namespace gg
+{
+    static constexpr uint32 version = (@PROJECT_VERSION_MAJOR@ << 16) | (@PROJECT_VERSION_MINOR@ << 8) | (@PROJECT_VERSION_PATCH@ << 0);
+
+    static constexpr string_ref version_major = GG_TEXT("@PROJECT_VERSION_MAJOR@");
+    static constexpr string_ref version_minor = GG_TEXT("@PROJECT_VERSION_MINOR@");
+    static constexpr string_ref version_patch = GG_TEXT("@PROJECT_VERSION_PATCH@");
+    static constexpr string_ref version_string = GG_TEXT("@PROJECT_VERSION@");
+}
+
+#endif // _gg_version_h_

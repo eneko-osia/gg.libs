@@ -1,0 +1,35 @@
+{
+    "C_Cpp.default.configurationProvider":  "ms-vscode.cmake-tools",
+    "cmake.configureOnOpen": true,
+    "cmake.defaultVariants":
+    {
+        "buildType":
+        {
+            "default": "debug",
+            "description": "The build type",
+            "choices":
+            {
+                "debug":
+                {
+                    "short": "debug",
+                    "long": "debug build with debug define enable",
+                    "buildType": "debug"
+                },
+                "release":
+                {
+                    "short": "release",
+                    "long": "release build with debug define enable",
+                    "buildType": "release"
+                },
+                "distribution":
+                {
+                    "short": "distribution",
+                    "long": "distribution build",
+                    "buildType": "distribution"
+                }
+            }
+        }
+    },
+    "git.autofetch": false,
+    "git.enabled": true
+}
