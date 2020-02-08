@@ -38,7 +38,7 @@ namespace gg
         template <typename TYPE, typename... ARGS>
         static void create(ARGS &&... args) noexcept
         {
-            GG_ASSERT_FALSE(is_available());
+            GG_ASSERT(!is_available());
             m_instance =
                 memory::new_object<TYPE>(type::forward<ARGS>(args)...);
         }
