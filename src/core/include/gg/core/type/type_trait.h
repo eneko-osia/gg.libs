@@ -106,6 +106,13 @@ namespace gg
 
         template <typename TO, typename FROM>
         inline
+        constexpr TO cast_reinterpret(FROM const & value) noexcept
+        {
+            return reinterpret_cast<TO>(value);
+        }
+
+        template <typename TO, typename FROM>
+        inline
         constexpr TO cast_static(FROM const & value) noexcept
         {
             GG_ASSERT(value == static_cast<FROM>(static_cast<TO>(value)));
