@@ -41,7 +41,7 @@ target_compile_options(
         $<$<STREQUAL:${compiler},gnu>:-Wextra>
         $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
         #$<$<STREQUAL:${compiler},msvc>:/EHs-c->
-        $<$<STREQUAL:${compiler},msvc>:/W4>
+        #$<$<STREQUAL:${compiler},msvc>:/W4>
         $<$<STREQUAL:${compiler},msvc>:/WX>
 )
 
@@ -72,7 +72,7 @@ if(BUILD_TESTING)
             $<$<STREQUAL:${compiler},gnu>:-Wextra>
             $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
             $<$<STREQUAL:${compiler},msvc>:/EHsc>
-            $<$<STREQUAL:${compiler},msvc>:/W4>
+            #$<$<STREQUAL:${compiler},msvc>:/W4>
             $<$<STREQUAL:${compiler},msvc>:/WX>
     )
 
