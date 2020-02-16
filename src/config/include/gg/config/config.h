@@ -35,23 +35,23 @@ namespace gg
 
         bool8 get_bool(
             string_ref const & key,
-            bool8 default = false) const noexcept;
+            bool8 value = false) const noexcept;
 
         float32 get_float(
             string_ref const & key,
-            float32 default = 0.0f) const noexcept;
+            float32 value = 0.0f) const noexcept;
 
         int32 get_int(
             string_ref const & key,
-            int32 default = 0) const noexcept;
+            int32 value = 0) const noexcept;
 
         string_ref get_string(
             string_ref const & key,
-            string_ref default = GG_TEXT("")) const noexcept;
+            string_ref value = GG_TEXT("")) const noexcept;
 
         uint32 get_uint(
             string_ref const & key,
-            uint32 default = 0) const noexcept;
+            uint32 value = 0) const noexcept;
 
         // inquiries
 

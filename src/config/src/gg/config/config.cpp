@@ -14,38 +14,38 @@ namespace gg
 //==============================================================================
 
 bool8
-config::get_bool(string_ref const & key, bool8 default) const noexcept
+config::get_bool(string_ref const & key, bool8 value) const noexcept
 {
     string_ref value = get_string(key);
-    return value.is_empty() ? default : converter::atob(value.begin());
+    return value.is_empty() ? value : converter::atob(value.begin());
 }
 
 float32
-config::get_float(string_ref const & key, float32 default) const noexcept
+config::get_float(string_ref const & key, float32 value) const noexcept
 {
     string_ref value = get_string(key);
-    return value.is_empty() ? default : converter::atof(value.begin());
+    return value.is_empty() ? value : converter::atof(value.begin());
 }
 
 int32
-config::get_int(string_ref const & key, int32 default) const noexcept
+config::get_int(string_ref const & key, int32 value) const noexcept
 {
     string_ref value = get_string(key);
-    return value.is_empty() ? default : converter::atoi(value.begin());
+    return value.is_empty() ? value : converter::atoi(value.begin());
 }
 
 string_ref
-config::get_string(string_ref const & key, string_ref default) const noexcept
+config::get_string(string_ref const & key, string_ref value) const noexcept
 {
     auto cit = m_values.find(hash::fnv1a::generate(key));
-    return cit == m_values.end() ? default : cit->second;
+    return cit == m_values.end() ? value : cit->second;
 }
 
 uint32
-config::get_uint(string_ref const & key, uint32 default) const noexcept
+config::get_uint(string_ref const & key, uint32 value) const noexcept
 {
     string_ref value = get_string(key);
-    return value.is_empty() ? default : converter::atoui(value.begin());
+    return value.is_empty() ? value : converter::atoui(value.begin());
 }
 
 bool8 config::has_value(string_ref const & key) const noexcept
