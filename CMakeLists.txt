@@ -98,7 +98,7 @@ CMAKE_DEPENDENT_OPTION(
 CMAKE_DEPENDENT_OPTION(
     BUILD_DOC
     "build documentation"
-    ON
+    OFF
     BUILD_GG_CORE
     OFF
 )
