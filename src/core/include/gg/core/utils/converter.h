@@ -6,6 +6,8 @@
 #include "gg/core/type/type_trait.h"
 #include "gg/core/utils/text_utils.h"
 
+#include <cmath>
+
 // namespace
 
 namespace gg
@@ -78,12 +80,12 @@ namespace gg
 
         inline int32 ftoi(float32 f) noexcept
         {
-            return type::cast_static<int32>(f + ((fmod(f, 1.0f) < 0.5f) ? 0 : 1));
+            return type::cast_static<int32>(f + ((fmodf(f, 1.0f) < 0.5f) ? 0 : 1));
         }
 
         inline uint32 ftou(float32 f) noexcept
         {
-            return type::cast_static<uint32>(f + ((fmod(f, 1.0f) < 0.5f) ? 0 : 1));
+            return type::cast_static<uint32>(f + ((fmodf(f, 1.0f) < 0.5f) ? 0 : 1));
         }
 
         inline void itoa(int32 i, char8 * buffer, uint32 size) noexcept
@@ -110,7 +112,7 @@ namespace gg
         {
             return type::cast_static<float32>(u);
         }
-    };
+    }
 }
 
 #endif // _gg_converter_h_
