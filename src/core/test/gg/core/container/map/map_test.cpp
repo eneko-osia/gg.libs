@@ -76,9 +76,9 @@ TEST_CASE("map", "[gg.map]")
     #endif
 #elif defined(GG_WINDOWS)
     #if defined(GG_X86)
-        map_size = 12;
+        map_size = 8;
     #elif defined(GG_X86_64)
-        map_size = 24;
+        map_size = 16;
     #endif
 #endif
 

@@ -55,9 +55,9 @@ TEST_CASE("hash_map", "[gg.hash_map]")
     #endif
 #elif defined(GG_WINDOWS)
     #if defined(GG_X86)
-        map_size = 40;
+        map_size = 32;
     #elif defined(GG_X86_64)
-        map_size = 80;
+        map_size = 64;
     #endif
 #endif
 
