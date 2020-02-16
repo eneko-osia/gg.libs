@@ -14,12 +14,16 @@ TEST_CASE("non_movable", "[gg.non_movable]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<non_movable>());
+#if defined(GG_LINUX)
+        REQUIRE(type::is_pod<non_movable>());
+#elif defined(GG_WINDOWS)
+        REQUIRE(!type::is_pod<non_movable>());
+#endif
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<non_movable>());
+        REQUIRE(!type::is_polymorphic<non_movable>());
     }
 
     SECTION("sizeof")

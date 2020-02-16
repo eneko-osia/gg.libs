@@ -14,12 +14,16 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<non_copyable>());
+#if defined(GG_LINUX)
+        REQUIRE(type::is_pod<non_copyable>());
+#elif defined(GG_WINDOWS)
+        REQUIRE(!type::is_pod<non_copyable>());
+#endif
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<non_copyable>());
+        REQUIRE(!type::is_polymorphic<non_copyable>());
     }
 
     SECTION("sizeof")
