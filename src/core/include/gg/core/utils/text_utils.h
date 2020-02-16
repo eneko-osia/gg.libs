@@ -27,7 +27,7 @@ namespace gg
             return
                 snprintf(buffer, size, message, type::forward<ARGS>(args)...);
         }
-    };
+    }
 }
 
 #endif // _gg_text_utils_h_
