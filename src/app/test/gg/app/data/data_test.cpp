@@ -22,9 +22,9 @@ TEST_CASE("data", "[gg.app.data]")
 
 #if defined(GG_LINUX)
     #if defined(GG_X86)
-        data_size = 12;
+        data_size = 16;
     #elif defined(GG_X86_64)
-        data_size = 24;
+        data_size = 32;
     #endif
 #elif defined(GG_WINDOWS)
     #if defined(GG_X86)
