@@ -35,23 +35,23 @@ namespace gg
 
         bool8 get_bool(
             string_ref const & key,
-            bool8 value = false) const noexcept;
+            bool8 ret_value = false) const noexcept;
 
         float32 get_float(
             string_ref const & key,
-            float32 value = 0.0f) const noexcept;
+            float32 ret_value = 0.0f) const noexcept;
 
         int32 get_int(
             string_ref const & key,
-            int32 value = 0) const noexcept;
+            int32 ret_value = 0) const noexcept;
 
         string_ref get_string(
             string_ref const & key,
-            string_ref value = GG_TEXT("")) const noexcept;
+            string_ref ret_value = GG_TEXT("")) const noexcept;
 
         uint32 get_uint(
             string_ref const & key,
-            uint32 value = 0) const noexcept;
+            uint32 ret_value = 0) const noexcept;
 
         // inquiries
 
@@ -61,13 +61,13 @@ namespace gg
 
         // type definitions
 
-        typedef hash_map<uint32, string_dynamic> value_map;
+        typedef hash_map<uint32, string_dynamic> ret_value_map;
 
     private:
 
         // attributes
 
-        value_map m_values;
+        ret_value_map m_values;
     };
 }
 
