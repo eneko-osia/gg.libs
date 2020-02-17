@@ -1,6 +1,9 @@
-name: Linux
+name: linux
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+    - '**.md'
 
 jobs:
   build:
@@ -8,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-18.04, ubuntu-16.04]
         build_type: [debug, release, distribution]
       fail-fast: false
 
