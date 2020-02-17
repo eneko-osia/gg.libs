@@ -24,7 +24,7 @@ TEST_CASE("file_istream", "[gg.file_istream]")
     SECTION("sizeof")
     {
     #if defined(GG_X86)
-        REQUIRE(sizeof(file_istream) == 12);
+        REQUIRE(sizeof(file_istream) == 16);
     #elif defined(GG_X86_64)
         REQUIRE(sizeof(file_istream) == 24);
     #endif
