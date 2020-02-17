@@ -43,7 +43,7 @@ def write_files_in_folder(fd, folder: str, directory: Path, extensions: str, whi
 
 # open
 current_path = pathlib.Path().cwd()
-fd = open(current_path.joinpath("GGSrcFiles.cmake"),"w+")
+fd = open(str(current_path.joinpath("GGSrcFiles.cmake")),"w+")
 fd.write("# @generated - run cmake configure to generate this file\n\n")
 
 # write files
