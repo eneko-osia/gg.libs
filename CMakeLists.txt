@@ -121,23 +121,6 @@ configure_file(
 # set global properties
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# testing
-if(GG_ENABLE_TESTING)
-    # enable testing
-    enable_testing()
-
-    # include catch test parser
-    include(catch/ParseAndAddCatchTests)
-endif()
-
-# subdirectories
-foreach(library ${gg_libraries})
-    string(TOUPPER ${library} upper_library)
-    if(GG_${upper_library})
-        add_subdirectory(${gg_src_directory}/${library})
-    endif()
-endforeach()
-
 # documentation
 if(GG_ENABLE_DOC)
     # find doxygen dependency
@@ -175,3 +158,20 @@ if(GG_ENABLE_DOC)
     # group folder
     set_target_properties(gg.docs PROPERTIES FOLDER gg.libs.docs)
 endif()
+
+# testing
+if(GG_ENABLE_TESTING)
+    # enable testing
+    enable_testing()
+
+    # include catch test parser
+    include(catch/ParseAndAddCatchTests)
+endif()
+
+# subdirectories
+foreach(library ${gg_libraries})
+    string(TOUPPER ${library} upper_library)
+    if(GG_${upper_library})
+        add_subdirectory(${gg_src_directory}/${library})
+    endif()
+endforeach()
