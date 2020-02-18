@@ -52,12 +52,12 @@ target_link_libraries(gg.app ${X11_LIBRARIES} gg.core)
 # group folder
 set_target_properties(gg.app PROPERTIES FOLDER gg.libs)
 
-# test
-if(BUILD_TESTING)
+# testing
+if(GG_ENABLE_TESTING)
     # executable
     add_executable(gg.app.test ${test_files})
 
-    # include  directories
+    # include directories
     target_include_directories(
         gg.app.test
         PRIVATE

@@ -51,12 +51,12 @@ target_link_libraries(gg.config gg.crypt)
 # group folder
 set_target_properties(gg.config PROPERTIES FOLDER gg.libs)
 
-# test
-if(BUILD_TESTING)
+# testing
+if(GG_ENABLE_TESTING)
     # executable
     add_executable(gg.config.test ${test_files})
 
-    # include  directories
+    # include directories
     target_include_directories(
         gg.config.test
         PRIVATE

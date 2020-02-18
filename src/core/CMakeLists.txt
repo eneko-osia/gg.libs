@@ -87,12 +87,12 @@ target_link_libraries(gg.core Threads::Threads)
 # group folder
 set_target_properties(gg.core PROPERTIES FOLDER gg.libs)
 
-# test
-if(BUILD_TESTING)
+# testing
+if(GG_ENABLE_TESTING)
     # executable
     add_executable(gg.core.test ${test_files})
 
-    # include  directories
+    # include directories
     target_include_directories(
         gg.core.test
         PRIVATE
