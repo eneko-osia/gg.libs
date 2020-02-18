@@ -59,39 +59,39 @@ include(GGPython)
 
 # options
 option(
-    BUILD_GG_CORE
-    "build core library"
+    GG_CORE
+    "core library"
     ON
 )
 
 option(
-    BUILD_GG_TEST
-    "build test library"
+    GG_TEST
+    "test library"
     ON
 )
 
 # dependent options
 CMAKE_DEPENDENT_OPTION(
-    BUILD_GG_APP
-    "build app library"
+    GG_APP
+    "app library"
     ON
-    BUILD_GG_CORE
+    GG_CORE
     OFF
 )
 
 CMAKE_DEPENDENT_OPTION(
-    BUILD_GG_CRYPT
-    "build crypt library"
+    GG_CRYPT
+    "crypt library"
     ON
-    BUILD_GG_CORE
+    GG_CORE
     OFF
 )
 
 CMAKE_DEPENDENT_OPTION(
-    BUILD_GG_CONFIG
-    "build config library"
+    GG_CONFIG
+    "config library"
     ON
-    BUILD_GG_CRYPT
+    GG_CRYPT
     OFF
 )
 
@@ -99,7 +99,7 @@ CMAKE_DEPENDENT_OPTION(
     GG_ENABLE_DOC
     "enable documentation"
     ON
-    BUILD_GG_CORE
+    GG_CORE
     OFF
 )
 
@@ -107,7 +107,7 @@ CMAKE_DEPENDENT_OPTION(
     GG_ENABLE_TESTING
     "enable tests"
     ON
-    BUILD_GG_TEST
+    GG_TEST
     OFF
 )
 
@@ -133,7 +133,7 @@ endif()
 # subdirectories
 foreach(library ${gg_libraries})
     string(TOUPPER ${library} upper_library)
-    if(BUILD_GG_${upper_library})
+    if(GG_${upper_library})
         add_subdirectory(${gg_src_directory}/${library})
     endif()
 endforeach()
@@ -146,7 +146,7 @@ if(GG_ENABLE_DOC)
     # add documentaion source directories
     foreach(library ${gg_libraries})
         string(TOUPPER ${library} upper_library)
-        if(BUILD_GG${upper_library})
+        if(GG_${upper_library})
             set(doxygen_src_dir
                 ${doxygen_src_dir}
                 ${gg_src_directory}/${library}
