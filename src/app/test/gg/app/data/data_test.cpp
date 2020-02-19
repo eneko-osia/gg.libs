@@ -11,30 +11,42 @@ namespace gg
 
 TEST_CASE("data", "[gg.app.data]")
 {
-    SECTION("polymorphic")
+    SECTION("assignable")
     {
-        REQUIRE_FALSE(type::is_polymorphic<data>());
+        REQUIRE(!type::is_assignable<data>::value);
     }
 
-    SECTION("sizeof")
+    SECTION("constructor")
     {
-        uint32 data_size = 0;
+        REQUIRE(type::is_constructible<data>::value);
+        REQUIRE(!type::no_constructor<data>::value);
+    }
 
-#if defined(GG_LINUX)
-    #if defined(GG_X86)
-        data_size = 16;
-    #elif defined(GG_X86_64)
-        data_size = 32;
-    #endif
-#elif defined(GG_WINDOWS)
-    #if defined(GG_X86)
-        data_size = 16;
-    #elif defined(GG_X86_64)
-        data_size = 32;
-    #endif
-#endif
+    SECTION("copy_constructor")
+    {
+        REQUIRE(!type::is_copyable<data>::value);
+        REQUIRE(!type::no_copy_constructor<data>::value);
+    }
 
-        REQUIRE(sizeof(data) == data_size);
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<data>::value);
+        REQUIRE(!type::no_destructor<data>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<data>::value);
+    }
+
+    SECTION("pod")
+    {
+        REQUIRE(!type::is_pod<data>::value);
+    }
+
+    SECTION("polymorphic")
+    {
+        REQUIRE(!type::is_polymorphic<data>());
     }
 }
 
