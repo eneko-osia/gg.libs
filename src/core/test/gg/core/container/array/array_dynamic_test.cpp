@@ -98,20 +98,6 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
         REQUIRE(!type::is_polymorphic<simple_mock_item_array>::value);
         REQUIRE(!type::is_polymorphic<complex_mock_item_array>::value);
     }
-
-    SECTION("sizeof")
-    {
-        REQUIRE(sizeof(simple_mock_item_array::item_type) == 4);
-        REQUIRE(sizeof(complex_mock_item_array::item_type) == 8);
-
-    #if defined(GG_X86)
-        REQUIRE(sizeof(simple_mock_item_array) == 12);
-        REQUIRE(sizeof(complex_mock_item_array) == 12);
-    #elif defined(GG_X86_64)
-        REQUIRE(sizeof(simple_mock_item_array) == 24);
-        REQUIRE(sizeof(complex_mock_item_array) == 24);
-    #endif
-    }
 }
 
 TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
