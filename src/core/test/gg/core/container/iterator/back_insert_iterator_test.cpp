@@ -72,15 +72,6 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
     {
         REQUIRE(!type::is_polymorphic<mock_back_insert_iterator>::value);
     }
-
-    SECTION("sizeof")
-    {
-    #if defined(GG_X86)
-        REQUIRE(sizeof(mock_back_insert_iterator) == 4);
-    #elif defined(GG_X86_64)
-        REQUIRE(sizeof(mock_back_insert_iterator) == 8);
-    #endif
-    }
 }
 
 TEST_CASE("back_insert_iterator.operator=", "[gg.back_insert_iterator]")
