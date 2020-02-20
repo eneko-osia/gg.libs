@@ -11,39 +11,30 @@ namespace gg::memory_buffer_dynamic_test
 
 TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
 {
-    SECTION("sizeof")
-    {
-    #if defined(GG_X86)
-        REQUIRE(sizeof(memory_buffer_dynamic) == 8);
-    #elif defined(GG_X86_64)
-        REQUIRE(sizeof(memory_buffer_dynamic) == 16);
-    #endif
-    }
-
-    SECTION("constructible")
-    {
-        REQUIRE(type::is_constructible<memory_buffer_dynamic>::value);
-        REQUIRE(!type::no_constructor<memory_buffer_dynamic>::value);
-    }
-
-    SECTION("destructible")
-    {
-        REQUIRE(type::is_destructible<memory_buffer_dynamic>::value);
-        REQUIRE(!type::no_destructor<memory_buffer_dynamic>::value);
-    }
-
-    SECTION("copyable")
-    {
-        REQUIRE(!type::is_copyable<memory_buffer_dynamic>::value);
-        REQUIRE(!type::no_copy_constructor<memory_buffer_dynamic>::value);
-    }
-
     SECTION("assignable")
     {
         REQUIRE(!type::is_assignable<memory_buffer_dynamic>::value);
     }
 
-    SECTION("comparable")
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<memory_buffer_dynamic>::value);
+        REQUIRE(!type::no_constructor<memory_buffer_dynamic>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(!type::is_copyable<memory_buffer_dynamic>::value);
+        REQUIRE(!type::no_copy_constructor<memory_buffer_dynamic>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<memory_buffer_dynamic>::value);
+        REQUIRE(!type::no_destructor<memory_buffer_dynamic>::value);
+    }
+
+    SECTION("equality_operator")
     {
         REQUIRE(type::no_equality_operator<memory_buffer_dynamic>::value);
     }
