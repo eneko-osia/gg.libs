@@ -72,15 +72,6 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         {
             REQUIRE(!type::is_polymorphic<iterator>::value);
         }
-
-        SECTION("sizeof")
-        {
-        #if defined(GG_X86)
-            REQUIRE(sizeof(iterator) == 4);
-        #elif defined(GG_X86_64)
-            REQUIRE(sizeof(iterator) == 8);
-        #endif
-        }
     }
 
     SECTION("is_const")
@@ -123,15 +114,6 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("polymorphic")
         {
             REQUIRE(!type::is_polymorphic<const_iterator>::value);
-        }
-
-        SECTION("sizeof")
-        {
-        #if defined(GG_X86)
-            REQUIRE(sizeof(const_iterator) == 4);
-        #elif defined(GG_X86_64)
-            REQUIRE(sizeof(const_iterator) == 8);
-        #endif
         }
     }
 }
