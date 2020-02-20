@@ -16,35 +16,30 @@ typedef memory_buffer_static<k_bytes> mock_memory_buffer_static;
 
 TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
 {
-    SECTION("sizeof")
-    {
-        REQUIRE(sizeof(mock_memory_buffer_static) == k_bytes);
-    }
-
-    SECTION("constructible")
-    {
-        REQUIRE(type::is_constructible<mock_memory_buffer_static>::value);
-        REQUIRE(type::no_constructor<mock_memory_buffer_static>::value);
-    }
-
-    SECTION("destructible")
-    {
-        REQUIRE(type::is_destructible<mock_memory_buffer_static>::value);
-        REQUIRE(type::no_destructor<mock_memory_buffer_static>::value);
-    }
-
-    SECTION("copyable")
-    {
-        REQUIRE(!type::is_copyable<mock_memory_buffer_static>::value);
-        REQUIRE(!type::no_copy_constructor<mock_memory_buffer_static>::value);
-    }
-
     SECTION("assignable")
     {
         REQUIRE(!type::is_assignable<mock_memory_buffer_static>::value);
     }
 
-    SECTION("comparable")
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<mock_memory_buffer_static>::value);
+        REQUIRE(type::no_constructor<mock_memory_buffer_static>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(!type::is_copyable<mock_memory_buffer_static>::value);
+        REQUIRE(!type::no_copy_constructor<mock_memory_buffer_static>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<mock_memory_buffer_static>::value);
+        REQUIRE(type::no_destructor<mock_memory_buffer_static>::value);
+    }
+
+    SECTION("equality_operator")
     {
         REQUIRE(type::no_equality_operator<mock_memory_buffer_static>::value);
     }
@@ -61,6 +56,11 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<mock_memory_buffer_static>::value);
+    }
+
+    SECTION("sizeof")
+    {
+        REQUIRE(sizeof(mock_memory_buffer_static) == k_bytes);
     }
 }
 
