@@ -102,9 +102,6 @@ TEST_CASE("array_static", "[gg.array_static]")
 
     SECTION("sizeof")
     {
-        REQUIRE(sizeof(simple_mock_item_array::item_type) == 4);
-        REQUIRE(sizeof(complex_mock_item_array::item_type) == 8);
-
         REQUIRE(
             sizeof(simple_mock_item_array) ==
             k_num_items * sizeof(simple_mock_item_array::item_type));
