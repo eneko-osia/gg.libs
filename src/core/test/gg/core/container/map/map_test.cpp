@@ -54,35 +54,42 @@ typedef map<mock_key, mock_item> mock_item_map;
 
 TEST_CASE("map", "[gg.map]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(type::is_assignable<mock_item_map>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<mock_item_map>::value);
+        REQUIRE(!type::no_constructor<mock_item_map>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<mock_item_map>::value);
+        REQUIRE(!type::no_copy_constructor<mock_item_map>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<mock_item_map>::value);
+        REQUIRE(!type::no_destructor<mock_item_map>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(!type::no_equality_operator<mock_item_map>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<mock_item_map>());
+        REQUIRE(!type::is_pod<mock_item_map>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<mock_item_map>());
-    }
-
-    SECTION("sizeof")
-    {
-//     int32 map_size = 0;
-
-// #if defined(GG_LINUX)
-//     #if defined(GG_X86)
-//         map_size = 24;
-//     #elif defined(GG_X86_64)
-//         map_size = 48;
-//     #endif
-// #elif defined(GG_WINDOWS)
-//     #if defined(GG_X86)
-//         map_size = 8;
-//     #elif defined(GG_X86_64)
-//         map_size = 16;
-//     #endif
-// #endif
-
-//         REQUIRE(sizeof(mock_item_map) == map_size);
+        REQUIRE(!type::is_polymorphic<mock_item_map>::value);
     }
 }
 
