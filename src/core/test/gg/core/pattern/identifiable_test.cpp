@@ -15,6 +15,10 @@ public:
 
     // constructors
 
+    mock_id(void) noexcept : m_id (0)
+    {
+    }
+
     mock_id(uint32 id) noexcept : m_id(id)
     {
     }
@@ -57,6 +61,11 @@ class mock_identifiable : public identifiable<mock_id>
 {
 public:
 
+    mock_identifiable(void) noexcept
+        : identifiable<mock_id>()
+    {
+    }
+
     mock_identifiable(mock_id const & id) noexcept
         : identifiable<mock_id>(id)
     {
@@ -82,26 +91,59 @@ public:
 
 TEST_CASE("identifiable", "[gg.identifiable]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(!type::is_assignable<mock_identifiable>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<mock_identifiable>::value);
+        REQUIRE(!type::no_constructor<mock_identifiable>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<mock_identifiable>::value);
+        REQUIRE(!type::no_copy_constructor<mock_identifiable>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<mock_identifiable>::value);
+        REQUIRE(!type::no_destructor<mock_identifiable>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<mock_identifiable>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<identifiable<mock_id>>());
+        REQUIRE(!type::is_pod<mock_identifiable>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<identifiable<mock_id>>());
+        REQUIRE(!type::is_polymorphic<mock_identifiable>::value);
     }
 
     SECTION("sizeof")
     {
         REQUIRE(
-            sizeof(identifiable<mock_id>) ==
-            sizeof(identifiable<mock_id>::id_type));
+            sizeof(mock_identifiable) == sizeof(mock_identifiable::id_type));
     }
 }
 
 TEST_CASE("identifiable.constructor", "[gg.identifiable]")
 {
+    SECTION("identifiable")
+    {
+        mock_identifiable identifiable;
+        REQUIRE(identifiable.is_id(0));
+    }
+
     SECTION("identifiable(id_type)")
     {
         mock_id id(123);
@@ -190,7 +232,7 @@ TEST_CASE("identifiable.is_id", "[gg.identifiable]")
     {
         mock_identifiable identifiable(0);
         identifiable.set_id(123);
-        REQUIRE_FALSE(identifiable.is_id(321));
+        REQUIRE(!identifiable.is_id(321));
     }
 }
 

@@ -28,6 +28,11 @@ namespace gg
 
         // constructors
 
+        identifiable(void) noexcept
+            : m_id()
+        {
+        }
+
         identifiable(id_type const & id) noexcept
             : m_id(id)
         {
@@ -88,7 +93,9 @@ namespace gg
 
         // constructors
 
-        ~identifiable(void) noexcept = default;
+        ~identifiable(void) noexcept
+        {
+        }
 
     private:
 
