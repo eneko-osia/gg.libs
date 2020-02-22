@@ -13,18 +13,18 @@ namespace gg
 
         // constructors
 
-        non_copyable(void) = default;
-        ~non_copyable(void) = default;
+        non_copyable(void) noexcept = default;
+        ~non_copyable(void) noexcept = default;
 
     private:
 
         // constructors
 
-        non_copyable(non_copyable const &) = delete;
+        non_copyable(non_copyable const &) noexcept = delete;
 
         // operators
 
-        non_copyable const & operator=(non_copyable const &) = delete;
+        non_copyable const & operator=(non_copyable const &) noexcept = delete;
     };
 }
 
