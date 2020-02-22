@@ -15,6 +15,10 @@ public:
 
     // constructors
 
+    mock_size(void) noexcept : m_size(0)
+    {
+    }
+
     mock_size(uint32 size) noexcept : m_size(size)
     {
     }
@@ -57,6 +61,11 @@ class mock_sizeable : public sizeable<mock_size>
 {
 public:
 
+    mock_sizeable(void) noexcept
+        : sizeable<mock_size>()
+    {
+    }
+
     mock_sizeable(mock_size const & height, mock_size const & width) noexcept
         : sizeable<mock_size>(height, width)
     {
@@ -82,26 +91,59 @@ public:
 
 TEST_CASE("sizeable", "[gg.sizeable]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(!type::is_assignable<mock_sizeable>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<mock_sizeable>::value);
+        REQUIRE(!type::no_constructor<mock_sizeable>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<mock_sizeable>::value);
+        REQUIRE(!type::no_copy_constructor<mock_sizeable>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<mock_sizeable>::value);
+        REQUIRE(!type::no_destructor<mock_sizeable>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<mock_sizeable>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<sizeable<mock_size>>::value);
+        REQUIRE(!type::is_pod<mock_sizeable>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<sizeable<mock_size>>::value);
+        REQUIRE(!type::is_polymorphic<mock_sizeable>::value);
     }
 
     SECTION("sizeof")
     {
         REQUIRE(
-            sizeof(sizeable<mock_size>) ==
-            (sizeof(sizeable<mock_size>::size_type) * 2));
+            sizeof(mock_sizeable) == (sizeof(mock_sizeable::size_type) << 1));
     }
 }
 
 TEST_CASE("sizeable.constructor", "[gg.sizeable]")
 {
+    SECTION("sizeable")
+    {
+        mock_sizeable sizeable;
+        REQUIRE(sizeable.is_sized(0, 0));
+    }
+
     SECTION("sizeable(size_type)")
     {
         mock_size height(123);

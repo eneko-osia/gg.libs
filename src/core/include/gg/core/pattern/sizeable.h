@@ -22,6 +22,12 @@ namespace gg
 
         // constructors
 
+        sizeable(void) noexcept
+            : m_height()
+            , m_width()
+        {
+        }
+
         sizeable(size_type const & height, size_type const & width) noexcept
             : m_height(height)
             , m_width(width)
@@ -108,7 +114,9 @@ namespace gg
 
         // constructors
 
-        ~sizeable(void) noexcept = default;
+        ~sizeable(void) noexcept
+        {
+        }
 
     private:
 
