@@ -28,6 +28,11 @@ namespace gg
 
         // constructors
 
+        nameable(void) noexcept
+            : m_name()
+        {
+        }
+
         nameable(name_type const & name) noexcept
             : m_name(name)
         {
@@ -88,7 +93,9 @@ namespace gg
 
         // constructors
 
-        ~nameable(void) noexcept = default;
+        ~nameable(void) noexcept
+        {
+        }
 
     private:
 
