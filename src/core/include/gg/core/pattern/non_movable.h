@@ -13,18 +13,18 @@ namespace gg
 
         // constructors
 
-        non_movable(void) = default;
-        ~non_movable(void) = default;
+        non_movable(void) noexcept = default;
+        ~non_movable(void) noexcept = default;
 
     private:
 
         // constructors
 
-        non_movable(non_movable &&) = delete;
+        non_movable(non_movable &&) noexcept = delete;
 
         // operators
 
-        non_movable const & operator=(non_movable &&) = delete;
+        non_movable const & operator=(non_movable &&) noexcept = delete;
     };
 }
 
