@@ -12,23 +12,43 @@ namespace gg::string_ref_test
 
 TEST_CASE("string_ref", "[gg.string_ref]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(type::is_assignable<string_ref>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<string_ref>::value);
+        REQUIRE(!type::no_constructor<string_ref>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<string_ref>::value);
+        REQUIRE(!type::no_copy_constructor<string_ref>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<string_ref>::value);
+        REQUIRE(type::no_destructor<string_ref>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        // @todo fix this
+        // REQUIRE(!type::no_equality_operator<string_ref>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<string_ref>());
+        REQUIRE(!type::is_pod<string_ref>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<string_ref>());
-    }
-
-    SECTION("sizeof")
-    {
-    #if defined(GG_X86)
-        REQUIRE(sizeof(string_ref) == 4);
-    #elif defined(GG_X86_64)
-        REQUIRE(sizeof(string_ref) == 8);
-    #endif
+        REQUIRE(!type::is_polymorphic<string_ref>::value);
     }
 }
 
@@ -38,7 +58,6 @@ TEST_CASE("string_ref.constructor", "[gg.string_ref]")
     {
         string_ref string;
 
-        REQUIRE(string.begin() == nullptr);
         REQUIRE(string.begin() == string.end());
         REQUIRE(string.size() == 0);
         REQUIRE(string.is_empty());
@@ -64,7 +83,6 @@ TEST_CASE("string_ref.constructor", "[gg.string_ref]")
         string_ref string(type::move(moved_string));
         REQUIRE((string == copied_string));
 
-        REQUIRE(moved_string.begin() == nullptr);
         REQUIRE(moved_string.begin() == moved_string.end());
         REQUIRE(moved_string.size() == 0);
         REQUIRE(moved_string.is_empty());
@@ -114,7 +132,6 @@ TEST_CASE("string_ref.operator=", "[gg.string_ref]")
         string = type::move(moved_string);
         REQUIRE((string == "test"));
 
-        REQUIRE(moved_string.begin() == nullptr);
         REQUIRE(moved_string.begin() == moved_string.end());
         REQUIRE(moved_string.size() == 0);
         REQUIRE(moved_string.is_empty());
@@ -357,7 +374,6 @@ TEST_CASE("string_ref.set", "[gg.string_ref]")
         string.set(type::move(moved_string));
         REQUIRE((string == "this is a test string"));
 
-        REQUIRE(moved_string.begin() == nullptr);
         REQUIRE(moved_string.begin() == moved_string.end());
         REQUIRE(moved_string.size() == 0);
         REQUIRE(moved_string.is_empty());

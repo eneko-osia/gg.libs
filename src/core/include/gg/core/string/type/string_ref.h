@@ -20,30 +20,28 @@ namespace gg
         // constructors
 
         constexpr string_ref(void)
-            : m_data(nullptr)
+            : m_data("")
         {
         }
 
         constexpr string_ref(string_ref const & string) noexcept
-            : m_data(nullptr)
+            : m_data("")
         {
             set(string);
         }
 
         constexpr string_ref(string_ref && string) noexcept
-            : m_data(nullptr)
+            : m_data("")
         {
             set(type::move(string));
         }
 
         template <typename STRING_TYPE>
-        constexpr string_ref(STRING_TYPE const & string)
-            : m_data(nullptr)
+        constexpr string_ref(STRING_TYPE const & string) noexcept
+            : m_data("")
         {
             set(string);
         }
-
-        ~string_ref(void) = default;
 
         // operators
 
@@ -127,7 +125,7 @@ namespace gg
 
         constexpr void clear(void) noexcept
         {
-            m_data = nullptr;
+            m_data = "";
         }
 
         char8 const * end(void) const noexcept
@@ -172,7 +170,7 @@ namespace gg
         {
             GG_ASSERT_NOT_EQUALS(this, &string);
             m_data = type::move(string.m_data);
-            string.m_data = nullptr;
+            string.m_data = "";
 
             return *this;
         }
