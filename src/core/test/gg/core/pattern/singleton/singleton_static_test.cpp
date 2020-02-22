@@ -25,15 +25,15 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
     SECTION("pod")
     {
 #if defined(GG_LINUX)
-        REQUIRE(type::is_pod<singleton_static<uint32>>());
+        REQUIRE(type::is_pod<singleton_static<uint32>>::value);
 #elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<singleton_static<uint32>>());
+        REQUIRE(!type::is_pod<singleton_static<uint32>>::value);
 #endif
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<singleton_static<uint32>>());
+        REQUIRE(!type::is_polymorphic<singleton_static<uint32>>::value);
     }
 
     SECTION("sizeof")

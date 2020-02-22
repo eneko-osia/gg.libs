@@ -14,12 +14,12 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<string_dynamic>());
+        REQUIRE_FALSE(type::is_pod<string_dynamic>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<string_dynamic>());
+        REQUIRE_FALSE(type::is_polymorphic<string_dynamic>::value);
     }
 
     SECTION("sizeof")

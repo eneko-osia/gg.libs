@@ -26,12 +26,12 @@ TEST_CASE("number", "[gg.number]")
 {
     SECTION("pod")
     {
-        REQUIRE(type::is_pod<mock_number>());
+        REQUIRE(type::is_pod<mock_number>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<mock_number>());
+        REQUIRE_FALSE(type::is_polymorphic<mock_number>::value);
     }
 
     SECTION("sizeof")

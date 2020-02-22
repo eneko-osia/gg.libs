@@ -29,12 +29,12 @@ TEST_CASE("thread", "[gg.thread]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<thread>());
+        REQUIRE_FALSE(type::is_pod<thread>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<thread>());
+        REQUIRE_FALSE(type::is_polymorphic<thread>::value);
     }
 
     SECTION("sizeof")

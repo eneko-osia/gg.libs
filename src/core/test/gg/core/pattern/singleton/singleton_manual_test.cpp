@@ -33,12 +33,12 @@ TEST_CASE("singleton_manual", "[gg.singleton_manual]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<singleton_manual<uint32>>());
+        REQUIRE_FALSE(type::is_pod<singleton_manual<uint32>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<singleton_manual<uint32>>());
+        REQUIRE_FALSE(type::is_polymorphic<singleton_manual<uint32>>::value);
     }
 
     SECTION("sizeof")

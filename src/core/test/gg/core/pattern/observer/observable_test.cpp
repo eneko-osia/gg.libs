@@ -73,12 +73,12 @@ TEST_CASE("observable", "[gg.observable]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<observable<imock_observer>>());
+        REQUIRE_FALSE(type::is_pod<observable<imock_observer>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<observable<imock_observer>>());
+        REQUIRE_FALSE(type::is_polymorphic<observable<imock_observer>>::value);
     }
 
     SECTION("sizeof")

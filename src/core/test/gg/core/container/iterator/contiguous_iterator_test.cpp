@@ -33,7 +33,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
 {
     SECTION("no_const")
     {
-        REQUIRE(!type::is_const<iterator::item_type>());
+        REQUIRE(!type::is_const<iterator::item_type>::value);
 
         SECTION("assignable")
         {
@@ -76,7 +76,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
 
     SECTION("is_const")
     {
-        REQUIRE(type::is_const<const_iterator::item_type>());
+        REQUIRE(type::is_const<const_iterator::item_type>::value);
 
         SECTION("assignable")
         {

@@ -14,12 +14,12 @@ TEST_CASE("string_static", "[gg.string_static]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<string_static<>>());
+        REQUIRE_FALSE(type::is_pod<string_static<>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<string_static<32>>());
+        REQUIRE_FALSE(type::is_polymorphic<string_static<32>>::value);
     }
 
     SECTION("sizeof")
@@ -33,7 +33,7 @@ TEST_CASE("string_static", "[gg.string_static]")
 
 TEST_CASE("string_static.constructor", "[gg.string_static]")
 {
-    SECTION("string_static<>()")
+    SECTION("string_static<>")
     {
         string_static<> string;
 

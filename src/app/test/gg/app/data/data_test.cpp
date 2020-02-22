@@ -46,7 +46,7 @@ TEST_CASE("data", "[gg.app.data]")
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<data>());
+        REQUIRE(!type::is_polymorphic<data>::value);
     }
 }
 

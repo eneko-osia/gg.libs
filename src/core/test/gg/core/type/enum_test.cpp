@@ -26,12 +26,12 @@ TEST_CASE("enum", "[gg.enum]")
 {
     SECTION("pod")
     {
-        REQUIRE(type::is_pod<mock_enum>());
+        REQUIRE(type::is_pod<mock_enum>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<mock_enum>());
+        REQUIRE_FALSE(type::is_polymorphic<mock_enum>::value);
     }
 
     SECTION("sizeof")

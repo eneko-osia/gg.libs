@@ -13,12 +13,12 @@ TEST_CASE("engine", "[gg.engine]")
 {
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<engine>());
+        REQUIRE(!type::is_pod<engine>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(type::is_polymorphic<engine>());
+        REQUIRE(type::is_polymorphic<engine>::value);
     }
 }
 

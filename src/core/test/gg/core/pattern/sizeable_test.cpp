@@ -84,12 +84,12 @@ TEST_CASE("sizeable", "[gg.sizeable]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<sizeable<mock_size>>());
+        REQUIRE_FALSE(type::is_pod<sizeable<mock_size>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<sizeable<mock_size>>());
+        REQUIRE_FALSE(type::is_polymorphic<sizeable<mock_size>>::value);
     }
 
     SECTION("sizeof")

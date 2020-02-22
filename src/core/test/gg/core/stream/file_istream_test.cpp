@@ -13,12 +13,12 @@ TEST_CASE("file_istream", "[gg.file_istream]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<file_istream>());
+        REQUIRE_FALSE(type::is_pod<file_istream>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<file_istream>());
+        REQUIRE_FALSE(type::is_polymorphic<file_istream>::value);
     }
 
     SECTION("sizeof")
