@@ -31,19 +31,49 @@ private:
 
 TEST_CASE("singleton_manual", "[gg.singleton_manual]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(!type::is_assignable<singleton_manual<mock_singleton>>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(
+            !type::is_constructible<singleton_manual<mock_singleton>>::value);
+        REQUIRE(
+            !type::no_constructor<singleton_manual<mock_singleton>>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(
+            !type::is_copyable<singleton_manual<mock_singleton>>::value);
+        REQUIRE(
+            !type::no_copy_constructor<singleton_manual<mock_singleton>>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(
+            !type::is_destructible<singleton_manual<mock_singleton>>::value);
+        REQUIRE(
+            !type::no_destructor<singleton_manual<mock_singleton>>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(
+            type::no_equality_operator<singleton_manual<mock_singleton>>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<singleton_manual<uint32>>::value);
+        REQUIRE(!type::is_pod<singleton_manual<mock_singleton>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<singleton_manual<uint32>>::value);
-    }
-
-    SECTION("sizeof")
-    {
-        REQUIRE(sizeof(singleton_manual<uint32>) == 1);
+        REQUIRE(!type::is_polymorphic<singleton_manual<mock_singleton>>::value);
     }
 }
 
