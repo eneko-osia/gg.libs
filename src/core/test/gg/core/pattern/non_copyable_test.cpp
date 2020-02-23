@@ -43,7 +43,7 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
     SECTION("pod")
     {
 #if defined(GG_LINUX)
-        REQUIRE(type::is_pod<non_copyable>::value;
+        REQUIRE(type::is_pod<non_copyable>::value);
 #elif defined(GG_WINDOWS)
         REQUIRE(!type::is_pod<non_copyable>::value);
 #endif
