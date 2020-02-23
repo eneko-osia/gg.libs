@@ -11,6 +11,34 @@ namespace gg::file_istream_test
 
 TEST_CASE("file_istream", "[gg.file_istream]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(type::is_assignable<file_istream>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(!type::is_constructible<file_istream>::value);
+        REQUIRE(!type::no_constructor<file_istream>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<file_istream>::value);
+        REQUIRE(!type::no_copy_constructor<file_istream>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<file_istream>::value);
+        REQUIRE(!type::no_destructor<file_istream>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<file_istream>::value);
+    }
+
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<file_istream>::value);
@@ -19,15 +47,6 @@ TEST_CASE("file_istream", "[gg.file_istream]")
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<file_istream>::value);
-    }
-
-    SECTION("sizeof")
-    {
-    #if defined(GG_X86)
-        REQUIRE(sizeof(file_istream) == 16);
-    #elif defined(GG_X86_64)
-        REQUIRE(sizeof(file_istream) == 24);
-    #endif
     }
 }
 
@@ -44,7 +63,7 @@ TEST_CASE("file_istream.constructor", "[gg.file_istream]")
 
     SECTION("file_istream(invalid filename)")
     {
-        file_istream file("temp/invalid_file.txt", stream_mode::text);
+        file_istream file("invalid_file.txt", stream_mode::text);
 
         REQUIRE(!file.is_valid());
         REQUIRE(file.get_position() == 0);
