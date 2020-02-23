@@ -48,6 +48,7 @@ namespace gg
 
         void add_observer(observer_type * const observer) noexcept
         {
+            GG_ASSERT(!has_observer(observer));
             m_observers.push_back(observer);
         }
 
