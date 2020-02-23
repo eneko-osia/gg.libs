@@ -285,7 +285,7 @@ TEST_CASE("sizeable.is_sized", "[gg.sizeable]")
         mock_sizeable sizeable(0, 0);
         sizeable.set_height(123);
         sizeable.set_width(456);
-        REQUIRE_FALSE(sizeable.is_sized(321, 654));
+        REQUIRE(!sizeable.is_sized(321, 654));
     }
 }
 

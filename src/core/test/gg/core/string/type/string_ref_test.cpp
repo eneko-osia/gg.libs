@@ -155,7 +155,7 @@ TEST_CASE("string_ref.operator==", "[gg.string_ref]")
 
     SECTION("!(string_ref == char*)")
     {
-        REQUIRE_FALSE(string_ref("test") == "string");
+        REQUIRE(!(string_ref("test") == "string"));
     }
 
     SECTION("char* == string_ref")
@@ -165,7 +165,7 @@ TEST_CASE("string_ref.operator==", "[gg.string_ref]")
 
     SECTION("!(char* == string_ref)")
     {
-        REQUIRE_FALSE("test" == string_ref("string"));
+        REQUIRE(!("test" == string_ref("string")));
     }
 
     SECTION("string_ref == string")
@@ -175,7 +175,7 @@ TEST_CASE("string_ref.operator==", "[gg.string_ref]")
 
     SECTION("!(string_ref == string)")
     {
-        REQUIRE_FALSE(string_ref("test") == string_ref("string"));
+        REQUIRE(!(string_ref("test") == string_ref("string")));
     }
 }
 
@@ -188,7 +188,7 @@ TEST_CASE("string_ref.operator!=", "[gg.string_ref]")
 
     SECTION("!(string_ref != char*)")
     {
-        REQUIRE_FALSE(string_ref("test") != "test");
+        REQUIRE(!(string_ref("test") != "test"));
     }
 
     SECTION("char* != string_ref")
@@ -198,7 +198,7 @@ TEST_CASE("string_ref.operator!=", "[gg.string_ref]")
 
     SECTION("!(char* != string_ref)")
     {
-        REQUIRE_FALSE("test" != string_ref("test"));
+        REQUIRE(!("test" != string_ref("test")));
     }
 
     SECTION("string_ref != string")
@@ -208,7 +208,7 @@ TEST_CASE("string_ref.operator!=", "[gg.string_ref]")
 
     SECTION("!(string_ref != string)")
     {
-        REQUIRE_FALSE(string_ref("test") != string_ref("test"));
+        REQUIRE(!(string_ref("test") != string_ref("test")));
     }
 }
 
@@ -221,7 +221,7 @@ TEST_CASE("string_ref.operator<", "[gg.string_ref]")
 
     SECTION("!(string_ref < char*)")
     {
-        REQUIRE_FALSE(string_ref("test_b") < "test_a");
+        REQUIRE(!(string_ref("test_b") < "test_a"));
     }
 
     SECTION("char* < string_ref")
@@ -231,7 +231,7 @@ TEST_CASE("string_ref.operator<", "[gg.string_ref]")
 
     SECTION("!(char* < string_ref)")
     {
-        REQUIRE_FALSE("test_b" < string_ref("test_a"));
+        REQUIRE(!("test_b" < string_ref("test_a")));
     }
 
     SECTION("string_ref < string")
@@ -241,8 +241,7 @@ TEST_CASE("string_ref.operator<", "[gg.string_ref]")
 
     SECTION("!(string_ref < string)")
     {
-        REQUIRE_FALSE(
-            string_ref("test_b") < string_ref("test_a"));
+        REQUIRE(!(string_ref("test_b") < string_ref("test_a")));
     }
 }
 
@@ -255,7 +254,7 @@ TEST_CASE("string_ref.operator>", "[gg.string_ref]")
 
     SECTION("!(string_ref > char*)")
     {
-        REQUIRE_FALSE(string_ref("test_a") > "test_b");
+        REQUIRE(!(string_ref("test_a") > "test_b"));
     }
 
     SECTION("char* > string_ref")
@@ -265,7 +264,7 @@ TEST_CASE("string_ref.operator>", "[gg.string_ref]")
 
     SECTION("!(char* > string_ref)")
     {
-        REQUIRE_FALSE("test_a" > string_ref("test_b"));
+        REQUIRE(!("test_a" > string_ref("test_b")));
     }
 
     SECTION("string_ref > string")
@@ -275,7 +274,7 @@ TEST_CASE("string_ref.operator>", "[gg.string_ref]")
 
     SECTION("!(string_ref > string)")
     {
-        REQUIRE_FALSE(string_ref("test_a") > string_ref("test_b"));
+        REQUIRE(!(string_ref("test_a") > string_ref("test_b")));
     }
 }
 
@@ -293,7 +292,7 @@ TEST_CASE("string_ref.clear", "[gg.string_ref]")
     SECTION("clear")
     {
         string_ref string("this is a test string");
-        REQUIRE_FALSE(string.is_empty());
+        REQUIRE(!string.is_empty());
 
         string.clear();
         REQUIRE(string.is_empty());
@@ -408,7 +407,7 @@ TEST_CASE("string_ref.is_empty", "[gg.string_ref]")
     SECTION("!(is_empty)")
     {
         string_ref string("test");
-        REQUIRE_FALSE(string.is_empty());
+        REQUIRE(!string.is_empty());
     }
 }
 

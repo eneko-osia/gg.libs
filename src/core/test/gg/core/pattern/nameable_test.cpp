@@ -186,7 +186,7 @@ TEST_CASE("nameable.is_named", "[gg.nameable]")
     {
         mock_nameable nameable("");
         nameable.set_name("123");
-        REQUIRE_FALSE(nameable.is_named("321"));
+        REQUIRE(!nameable.is_named("321"));
     }
 }
 

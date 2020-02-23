@@ -13,12 +13,12 @@ TEST_CASE("file_istream", "[gg.file_istream]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<file_istream>::value);
+        REQUIRE(!type::is_pod<file_istream>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<file_istream>::value);
+        REQUIRE(!type::is_polymorphic<file_istream>::value);
     }
 
     SECTION("sizeof")
@@ -46,7 +46,7 @@ TEST_CASE("file_istream.constructor", "[gg.file_istream]")
     {
         file_istream file("temp/invalid_file.txt", stream_mode::text);
 
-        REQUIRE_FALSE(file.is_valid());
+        REQUIRE(!file.is_valid());
         REQUIRE(file.get_position() == 0);
         REQUIRE(file.size() == 0);
     }

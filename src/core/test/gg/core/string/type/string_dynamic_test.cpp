@@ -14,12 +14,12 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<string_dynamic>::value);
+        REQUIRE(!type::is_pod<string_dynamic>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<string_dynamic>::value);
+        REQUIRE(!type::is_polymorphic<string_dynamic>::value);
     }
 
     SECTION("sizeof")
@@ -156,7 +156,7 @@ TEST_CASE("string_dynamic.operator==", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic == char*)")
     {
-        REQUIRE_FALSE(string_dynamic("test") == "string");
+        REQUIRE(!(string_dynamic("test") == "string"));
     }
 
     SECTION("char* == string_dynamic")
@@ -166,7 +166,7 @@ TEST_CASE("string_dynamic.operator==", "[gg.string_dynamic]")
 
     SECTION("!(char* == string_dynamic)")
     {
-        REQUIRE_FALSE("test" == string_dynamic("string"));
+        REQUIRE(!("test" == string_dynamic("string")));
     }
 
     SECTION("string_dynamic == string")
@@ -176,7 +176,7 @@ TEST_CASE("string_dynamic.operator==", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic == string)")
     {
-        REQUIRE_FALSE(string_dynamic("test") == string_dynamic("string"));
+        REQUIRE(!(string_dynamic("test") == string_dynamic("string")));
     }
 }
 
@@ -189,7 +189,7 @@ TEST_CASE("string_dynamic.operator!=", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic != char*)")
     {
-        REQUIRE_FALSE(string_dynamic("test") != "test");
+        REQUIRE(!(string_dynamic("test") != "test"));
     }
 
     SECTION("char* != string_dynamic")
@@ -199,7 +199,7 @@ TEST_CASE("string_dynamic.operator!=", "[gg.string_dynamic]")
 
     SECTION("!(char* != string_dynamic)")
     {
-        REQUIRE_FALSE("test" != string_dynamic("test"));
+        REQUIRE(!("test" != string_dynamic("test")));
     }
 
     SECTION("string_dynamic != string")
@@ -209,7 +209,7 @@ TEST_CASE("string_dynamic.operator!=", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic != string)")
     {
-        REQUIRE_FALSE(string_dynamic("test") != string_dynamic("test"));
+        REQUIRE(!(string_dynamic("test") != string_dynamic("test")));
     }
 }
 
@@ -222,7 +222,7 @@ TEST_CASE("string_dynamic.operator<", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic < char*)")
     {
-        REQUIRE_FALSE(string_dynamic("test_b") < "test_a");
+        REQUIRE(!(string_dynamic("test_b") < "test_a"));
     }
 
     SECTION("char* < string_dynamic")
@@ -232,7 +232,7 @@ TEST_CASE("string_dynamic.operator<", "[gg.string_dynamic]")
 
     SECTION("!(char* < string_dynamic)")
     {
-        REQUIRE_FALSE("test_b" < string_dynamic("test_a"));
+        REQUIRE(!("test_b" < string_dynamic("test_a")));
     }
 
     SECTION("string_dynamic < string")
@@ -242,8 +242,7 @@ TEST_CASE("string_dynamic.operator<", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic < string)")
     {
-        REQUIRE_FALSE(
-            string_dynamic("test_b") < string_dynamic("test_a"));
+        REQUIRE(!(string_dynamic("test_b") < string_dynamic("test_a")));
     }
 }
 
@@ -256,7 +255,7 @@ TEST_CASE("string_dynamic.operator>", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic > char*)")
     {
-        REQUIRE_FALSE(string_dynamic("test_a") > "test_b");
+        REQUIRE(!(string_dynamic("test_a") > "test_b"));
     }
 
     SECTION("char* > string_dynamic")
@@ -266,7 +265,7 @@ TEST_CASE("string_dynamic.operator>", "[gg.string_dynamic]")
 
     SECTION("!(char* > string_dynamic)")
     {
-        REQUIRE_FALSE("test_a" > string_dynamic("test_b"));
+        REQUIRE(!("test_a" > string_dynamic("test_b")));
     }
 
     SECTION("string_dynamic > string")
@@ -276,7 +275,7 @@ TEST_CASE("string_dynamic.operator>", "[gg.string_dynamic]")
 
     SECTION("!(string_dynamic > string)")
     {
-        REQUIRE_FALSE(string_dynamic("test_a") > string_dynamic("test_b"));
+        REQUIRE(!(string_dynamic("test_a") > string_dynamic("test_b")));
     }
 }
 
@@ -339,7 +338,7 @@ TEST_CASE("string_dynamic.clear", "[gg.string_dynamic]")
         string_dynamic string("this is a test string");
         REQUIRE(string.max_size() == 22);
         REQUIRE(string.size() == 21);
-        REQUIRE_FALSE(string.is_empty());
+        REQUIRE(!string.is_empty());
 
         string.clear();
         REQUIRE(string.max_size() == 22);
@@ -616,7 +615,7 @@ TEST_CASE("string_dynamic.is_empty", "[gg.string_dynamic]")
     SECTION("!(is_empty)")
     {
         string_dynamic string("test");
-        REQUIRE_FALSE(string.is_empty());
+        REQUIRE(!string.is_empty());
     }
 }
 

@@ -14,12 +14,12 @@ TEST_CASE("string_static", "[gg.string_static]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<string_static<>>::value);
+        REQUIRE(!type::is_pod<string_static<>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<string_static<32>>::value);
+        REQUIRE(!type::is_polymorphic<string_static<32>>::value);
     }
 
     SECTION("sizeof")
@@ -116,7 +116,7 @@ TEST_CASE("string_static.operator==", "[gg.string_static]")
 
     SECTION("!(string_static == char*)")
     {
-        REQUIRE_FALSE(string_static<>("test") == "string");
+        REQUIRE(!(string_static<>("test") == "string"));
     }
 
     SECTION("char* == string_static")
@@ -126,7 +126,7 @@ TEST_CASE("string_static.operator==", "[gg.string_static]")
 
     SECTION("!(char* == string_static)")
     {
-        REQUIRE_FALSE("test" == string_static<>("string"));
+        REQUIRE(!("test" == string_static<>("string")));
     }
 
     SECTION("string_static == string")
@@ -136,7 +136,7 @@ TEST_CASE("string_static.operator==", "[gg.string_static]")
 
     SECTION("!(string_static == string)")
     {
-        REQUIRE_FALSE(string_static<>("test") == string_static<>("string"));
+        REQUIRE(!(string_static<>("test") == string_static<>("string")));
     }
 }
 
@@ -149,7 +149,7 @@ TEST_CASE("string_static.operator!=", "[gg.string_static]")
 
     SECTION("!(string_static != char*)")
     {
-        REQUIRE_FALSE(string_static<>("test") != "test");
+        REQUIRE(!(string_static<>("test") != "test"));
     }
 
     SECTION("char* != string_static")
@@ -159,7 +159,7 @@ TEST_CASE("string_static.operator!=", "[gg.string_static]")
 
     SECTION("!(char* != string_static)")
     {
-        REQUIRE_FALSE("test" != string_static<>("test"));
+        REQUIRE(!("test" != string_static<>("test")));
     }
 
     SECTION("string_static != string")
@@ -169,7 +169,7 @@ TEST_CASE("string_static.operator!=", "[gg.string_static]")
 
     SECTION("!(string_static != string)")
     {
-        REQUIRE_FALSE(string_static<>("test") != string_static<>("test"));
+        REQUIRE(!(string_static<>("test") != string_static<>("test")));
     }
 }
 
@@ -182,7 +182,7 @@ TEST_CASE("string_static.operator<", "[gg.string_static]")
 
     SECTION("!(string_static < char*)")
     {
-        REQUIRE_FALSE(string_static<>("test_b") < "test_a");
+        REQUIRE(!(string_static<>("test_b") < "test_a"));
     }
 
     SECTION("char* < string_static")
@@ -192,7 +192,7 @@ TEST_CASE("string_static.operator<", "[gg.string_static]")
 
     SECTION("!(char* < string_static)")
     {
-        REQUIRE_FALSE("test_b" < string_static<>("test_a"));
+        REQUIRE(!("test_b" < string_static<>("test_a")));
     }
 
     SECTION("string_static < string")
@@ -202,8 +202,7 @@ TEST_CASE("string_static.operator<", "[gg.string_static]")
 
     SECTION("!(string_static < string)")
     {
-        REQUIRE_FALSE(
-            string_static<>("test_b") < string_static<>("test_a"));
+        REQUIRE(!(string_static<>("test_b") < string_static<>("test_a")));
     }
 }
 
@@ -216,7 +215,7 @@ TEST_CASE("string_static.operator>", "[gg.string_static]")
 
     SECTION("!(string_static > char*)")
     {
-        REQUIRE_FALSE(string_static<>("test_a") > "test_b");
+        REQUIRE(!(string_static<>("test_a") > "test_b"));
     }
 
     SECTION("char* > string_static")
@@ -226,7 +225,7 @@ TEST_CASE("string_static.operator>", "[gg.string_static]")
 
     SECTION("!(char* > string_static)")
     {
-        REQUIRE_FALSE("test_a" > string_static<>("test_b"));
+        REQUIRE(!("test_a" > string_static<>("test_b")));
     }
 
     SECTION("string_static > string")
@@ -236,7 +235,7 @@ TEST_CASE("string_static.operator>", "[gg.string_static]")
 
     SECTION("!(string_static > string)")
     {
-        REQUIRE_FALSE(string_static<>("test_a") > string_static<>("test_b"));
+        REQUIRE(!(string_static<>("test_a") > string_static<>("test_b")));
     }
 }
 
@@ -327,7 +326,7 @@ TEST_CASE("string_static.clear", "[gg.string_static]")
     SECTION("clear")
     {
         string_static<32> string("this is a test string");
-        REQUIRE_FALSE(string.is_empty());
+        REQUIRE(!string.is_empty());
 
         string.clear();
         REQUIRE(string.is_empty());
@@ -619,7 +618,7 @@ TEST_CASE("string_static.is_empty", "[gg.string_static]")
     SECTION("!(is_empty)")
     {
         string_static<> string("test");
-        REQUIRE_FALSE(string.is_empty());
+        REQUIRE(!string.is_empty());
     }
 }
 

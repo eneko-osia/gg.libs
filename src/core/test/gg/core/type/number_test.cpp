@@ -31,7 +31,7 @@ TEST_CASE("number", "[gg.number]")
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<mock_number>::value);
+        REQUIRE(!type::is_polymorphic<mock_number>::value);
     }
 
     SECTION("sizeof")
@@ -171,7 +171,7 @@ TEST_CASE("number.operator==", "[gg.number]")
 
     SECTION("!(number == number)")
     {
-        REQUIRE_FALSE(mock_number(0) == mock_number(5));
+        REQUIRE(!(mock_number(0) == mock_number(5)));
     }
 }
 
@@ -184,7 +184,7 @@ TEST_CASE("number.operator!=", "[gg.number]")
 
     SECTION("!(number != number)")
     {
-        REQUIRE_FALSE(mock_number(5) != mock_number(5));
+        REQUIRE(!(mock_number(5) != mock_number(5)));
     }
 }
 
@@ -197,7 +197,7 @@ TEST_CASE("number.operator<", "[gg.number]")
 
     SECTION("!(number < number)")
     {
-        REQUIRE_FALSE(mock_number(5) < mock_number(0));
+        REQUIRE(!(mock_number(5) < mock_number(0)));
     }
 }
 
@@ -215,7 +215,7 @@ TEST_CASE("number.operator<=", "[gg.number]")
 
     SECTION("!(number <= number)")
     {
-        REQUIRE_FALSE(mock_number(5) <= mock_number(0));
+        REQUIRE(!(mock_number(5) <= mock_number(0)));
     }
 }
 
@@ -228,7 +228,7 @@ TEST_CASE("number.operator>", "[gg.number]")
 
     SECTION("!(number > number)")
     {
-        REQUIRE_FALSE(mock_number(0) > mock_number(5));
+        REQUIRE(!(mock_number(0) > mock_number(5)));
     }
 }
 
@@ -246,7 +246,7 @@ TEST_CASE("number.operator>=", "[gg.number]")
 
     SECTION("!(number >= number)")
     {
-        REQUIRE_FALSE(mock_number(0) >= mock_number(5));
+        REQUIRE(!(mock_number(0) >= mock_number(5)));
     }
 }
 

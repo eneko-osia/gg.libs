@@ -31,7 +31,7 @@ TEST_CASE("enum", "[gg.enum]")
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<mock_enum>::value);
+        REQUIRE(!type::is_polymorphic<mock_enum>::value);
     }
 
     SECTION("sizeof")

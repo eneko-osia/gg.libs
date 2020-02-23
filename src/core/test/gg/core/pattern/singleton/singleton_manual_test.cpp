@@ -33,12 +33,12 @@ TEST_CASE("singleton_manual", "[gg.singleton_manual]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<singleton_manual<uint32>>::value);
+        REQUIRE(!type::is_pod<singleton_manual<uint32>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<singleton_manual<uint32>>::value);
+        REQUIRE(!type::is_polymorphic<singleton_manual<uint32>>::value);
     }
 
     SECTION("sizeof")
@@ -51,20 +51,20 @@ TEST_CASE("singleton_manual.create", "[gg.singleton_manual]")
 {
     SECTION("create")
     {
-        REQUIRE_FALSE(mock_singleton::is_available());
+        REQUIRE(!mock_singleton::is_available());
         mock_singleton::create();
         REQUIRE(mock_singleton::is_available());
         mock_singleton::destroy();
-        REQUIRE_FALSE(mock_singleton::is_available());
+        REQUIRE(!mock_singleton::is_available());
     }
 
     SECTION("create<TYPE>")
     {
-        REQUIRE_FALSE(mock_singleton::is_available());
+        REQUIRE(!mock_singleton::is_available());
         mock_singleton::create<mock_singleton_derived>();
         REQUIRE(mock_singleton::is_available());
         mock_singleton::destroy();
-        REQUIRE_FALSE(mock_singleton::is_available());
+        REQUIRE(!mock_singleton::is_available());
     }
 }
 

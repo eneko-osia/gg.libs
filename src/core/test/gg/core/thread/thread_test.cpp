@@ -29,12 +29,12 @@ TEST_CASE("thread", "[gg.thread]")
 {
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<thread>::value);
+        REQUIRE(!type::is_pod<thread>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<thread>::value);
+        REQUIRE(!type::is_polymorphic<thread>::value);
     }
 
     SECTION("sizeof")
@@ -94,7 +94,7 @@ TEST_CASE("thread.detach", "[gg.thread]")
         thread t(&slow_increment, type::ref(value), 5);
         REQUIRE(t.is_joinable());
         t.detach();
-        REQUIRE_FALSE(t.is_joinable());
+        REQUIRE(!t.is_joinable());
         REQUIRE(value == 0);
     }
 }
@@ -107,7 +107,7 @@ TEST_CASE("thread.join", "[gg.thread]")
         thread t(&fast_increment, type::ref(value), 5);
         REQUIRE(t.is_joinable());
         t.join();
-        REQUIRE_FALSE(t.is_joinable());
+        REQUIRE(!t.is_joinable());
         REQUIRE(value == 5);
     }
 }

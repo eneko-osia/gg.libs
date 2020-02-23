@@ -224,7 +224,7 @@ TEST_CASE("map.operator==", "[gg.map]")
         map_2.insert(mock_key(2), mock_item(2));
         map_2.insert(mock_key(3), mock_item(2));
 
-        REQUIRE_FALSE((map_1 == map_2));
+        REQUIRE(!(map_1 == map_2));
     }
 
     SECTION("map == map(wrong size)")
@@ -241,7 +241,7 @@ TEST_CASE("map.operator==", "[gg.map]")
         map_2.insert(mock_key(3), mock_item(3));
         map_2.insert(mock_key(4), mock_item(4));
 
-        REQUIRE_FALSE((map_1 == map_2));
+        REQUIRE(!(map_1 == map_2));
     }
 }
 
@@ -300,7 +300,7 @@ TEST_CASE("map.clear", "[gg.map]")
         map.insert(mock_key(1), mock_item(1));
         map.insert(mock_key(2), mock_item(2));
         map.insert(mock_key(3), mock_item(3));
-        REQUIRE_FALSE(map.is_empty());
+        REQUIRE(!map.is_empty());
 
         map.clear();
         REQUIRE(map.is_empty());
@@ -350,7 +350,7 @@ TEST_CASE("map.erase", "[gg.map]")
         REQUIRE(map.find(mock_key(1))->second.m_value == 1);
         map.erase(mock_key(1));
         REQUIRE(map.size() == 2);
-        REQUIRE_FALSE(map.has(mock_key(1)));
+        REQUIRE(!map.has(mock_key(1)));
 
         // REQUIRE(map.max_size() == 16);
     }
@@ -366,7 +366,7 @@ TEST_CASE("map.erase", "[gg.map]")
         REQUIRE(map.find(mock_key(1))->second.m_value == 1);
         map.erase(map.find(mock_key(1)));
         REQUIRE(map.size() == 2);
-        REQUIRE_FALSE(map.has(mock_key(1)));
+        REQUIRE(!map.has(mock_key(1)));
 
         // REQUIRE(map.max_size() == 16);
     }
@@ -381,7 +381,7 @@ TEST_CASE("map.erase", "[gg.map]")
         int32 value = map.begin()->second.m_value;
         map.erase(map.begin(), ++map.begin());
         REQUIRE(map.size() == 2);
-        REQUIRE_FALSE(map.begin()->second.m_value == value);
+        REQUIRE(map.begin()->second.m_value != value);
 
         // REQUIRE(map.max_size() == 16);
     }
@@ -485,7 +485,7 @@ TEST_CASE("map.insert", "[gg.map]")
         map.insert(mock_key(2), mock_item(2));
         map.insert(mock_key(3), mock_item(3));
 
-        REQUIRE_FALSE(map.has(mock_key(4)));
+        REQUIRE(!map.has(mock_key(4)));
         map.insert(mock_key(4), mock_item(4));
         REQUIRE(map.size() == 4);
         REQUIRE(map.has(mock_key(4)));
@@ -501,7 +501,7 @@ TEST_CASE("map.insert", "[gg.map]")
         map.insert(mock_key(2), mock_item(2));
         map.insert(mock_key(3), mock_item(3));
 
-        REQUIRE_FALSE(map.has(mock_key(4)));
+        REQUIRE(!map.has(mock_key(4)));
         map.insert(mock_key(4), type::move(mock_item(4)));
         REQUIRE(map.size() == 4);
         REQUIRE(map.has(mock_key(4)));
@@ -536,7 +536,7 @@ TEST_CASE("map.has", "[gg.map]")
     SECTION("has")
     {
         mock_item_map map;
-        REQUIRE_FALSE(map.has(mock_key(1)));
+        REQUIRE(!map.has(mock_key(1)));
         map.insert(mock_key(1), mock_item(1));
         REQUIRE(map.has(mock_key(1)));
     }
@@ -557,7 +557,7 @@ TEST_CASE("map.is_empty", "[gg.map]")
 
         size_type max_size = map.max_size();
         REQUIRE(map.size() == 5);
-        REQUIRE_FALSE(map.is_empty());
+        REQUIRE(!map.is_empty());
 
         map.clear();
 
