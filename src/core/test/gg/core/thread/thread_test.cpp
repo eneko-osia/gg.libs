@@ -27,6 +27,34 @@ void slow_increment(int32 & value, int32 amount)
 
 TEST_CASE("thread", "[gg.thread]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(!type::is_assignable<thread>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(!type::is_constructible<thread>::value);
+        REQUIRE(!type::no_constructor<thread>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(!type::is_copyable<thread>::value);
+        REQUIRE(!type::no_copy_constructor<thread>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<thread>::value);
+        REQUIRE(!type::no_destructor<thread>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<thread>::value);
+    }
+
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<thread>::value);
@@ -35,27 +63,6 @@ TEST_CASE("thread", "[gg.thread]")
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<thread>::value);
-    }
-
-    SECTION("sizeof")
-    {
-        uint32 thread_size = 0;
-
-#if defined(GG_LINUX)
-    #if defined(GG_X86)
-        thread_size = 4;
-    #elif defined(GG_X86_64)
-        thread_size = 8;
-    #endif
-#elif defined(GG_WINDOWS)
-    #if defined(GG_X86)
-        thread_size = 8;
-    #elif defined(GG_X86_64)
-        thread_size = 16;
-    #endif
-#endif
-
-        REQUIRE(sizeof(thread) == thread_size);
     }
 }
 
