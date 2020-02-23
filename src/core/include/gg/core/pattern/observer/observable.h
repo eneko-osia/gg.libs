@@ -105,7 +105,9 @@ namespace gg
 
         // constructors
 
-        ~observable(void) noexcept = default;
+        ~observable(void) noexcept
+        {
+        }
 
     private:
 

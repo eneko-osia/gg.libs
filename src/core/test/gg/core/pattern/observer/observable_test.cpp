@@ -19,28 +19,26 @@ public:
     virtual void on_method2(void) noexcept = 0;
 };
 
-class mock_observable
-    : public imock_observer
-    , public observable<imock_observer>
+class mock_observer : public imock_observer
 {
 public:
 
     // constructors
 
-    mock_observable(void) noexcept
-        : m_method1_called(false)
-        , m_method2_called(false)
+    mock_observer(void) noexcept
+        : m_method1_called(0)
+        , m_method2_called(0)
     {
     }
 
     // inquiries
 
-    bool8 is_method1_called(void) const noexcept
+    uint8 get_method1_called(void) const noexcept
     {
         return m_method1_called;
     }
 
-    bool8 is_method2_called(void) const noexcept
+    uint8 get_method2_called(void) const noexcept
     {
         return m_method2_called;
     }
@@ -51,72 +49,99 @@ private:
 
     void on_method1(void) noexcept override
     {
-        m_method1_called = true;
+        ++m_method1_called;
     }
 
     void on_method2(void) noexcept override
     {
-        m_method2_called = true;
+        ++m_method2_called;
     }
 
 private:
 
     // attributes
 
-    bool8 m_method1_called : 1;
-    bool8 m_method2_called : 1;
+    uint8 m_method1_called;
+    uint8 m_method2_called;
 };
+
+class mock_observable : public observable<imock_observer> {};
 
 //==============================================================================
 
 TEST_CASE("observable", "[gg.observable]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(!type::is_assignable<mock_observable>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<mock_observable>::value);
+        REQUIRE(!type::no_constructor<mock_observable>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<mock_observable>::value);
+        REQUIRE(!type::no_copy_constructor<mock_observable>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<mock_observable>::value);
+        REQUIRE(!type::no_destructor<mock_observable>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<mock_observable>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE_FALSE(type::is_pod<observable<imock_observer>>::value);
+        REQUIRE(!type::is_pod<mock_observable>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE_FALSE(type::is_polymorphic<observable<imock_observer>>::value);
-    }
-
-    SECTION("sizeof")
-    {
-        REQUIRE(
-            sizeof(observable<imock_observer>) ==
-            sizeof(array_dynamic<imock_observer *>));
+        REQUIRE(!type::is_polymorphic<mock_observable>::value);
     }
 }
 
 TEST_CASE("observable.constructor", "[gg.observable]")
 {
-    SECTION("observable()")
+    SECTION("observable")
     {
+        mock_observer observer;
         mock_observable observable;
-        REQUIRE_FALSE(observable.has_observers());
+        REQUIRE(!observable.has_observers());
 
-        observable.add_observer(&observable);
+        observable.add_observer(&observer);
         REQUIRE(observable.has_observers());
     }
 
     SECTION("observable(observable)")
     {
+        mock_observer observer;
         mock_observable copied_observable;
-        copied_observable.add_observer(&copied_observable);
-        REQUIRE(copied_observable.has_observers());
+        copied_observable.add_observer(&observer);
 
         mock_observable observable(copied_observable);
         REQUIRE(observable.has_observers());
+        REQUIRE(copied_observable.has_observers());
     }
 
     SECTION("observable(rvalue_observable)")
     {
+        mock_observer observer;
         mock_observable moved_observable;
-        moved_observable.add_observer(&moved_observable);
+        moved_observable.add_observer(&observer);
+
         mock_observable observable(type::move(moved_observable));
         REQUIRE(observable.has_observers());
-        REQUIRE_FALSE(moved_observable.has_observers());
+        REQUIRE(!moved_observable.has_observers());
     }
 }
 
@@ -124,10 +149,13 @@ TEST_CASE("observable.add_observer", "[gg.observable]")
 {
     SECTION("add_observer")
     {
+        mock_observer observer;
         mock_observable observable;
-        observable.add_observer(&observable);
-        REQUIRE(observable.has_observer(&observable));
+        REQUIRE(!observable.has_observers());
+
+        observable.add_observer(&observer);
         REQUIRE(observable.has_observers());
+        REQUIRE(observable.has_observer(&observer));
     }
 }
 
@@ -135,12 +163,16 @@ TEST_CASE("observable.clear_observers", "[gg.observable]")
 {
     SECTION("clear_observers")
     {
+        mock_observer observer1;
+        mock_observer observer2;
         mock_observable observable;
-        observable.add_observer(&observable);
-        REQUIRE(observable.has_observer(&observable));
+        observable.add_observer(&observer1);
+        observable.add_observer(&observer2);
+
         observable.clear_observers();
-        REQUIRE_FALSE(observable.has_observer(&observable));
-        REQUIRE_FALSE(observable.has_observers());
+        REQUIRE(!observable.has_observers());
+        REQUIRE(!observable.has_observer(&observer1));
+        REQUIRE(!observable.has_observer(&observer2));
     }
 }
 
@@ -148,12 +180,16 @@ TEST_CASE("observable.remove_observer", "[gg.observable]")
 {
     SECTION("remove_observer")
     {
+        mock_observer observer1;
+        mock_observer observer2;
         mock_observable observable;
-        observable.add_observer(&observable);
-        REQUIRE(observable.has_observer(&observable));
-        observable.remove_observer(&observable);
-        REQUIRE_FALSE(observable.has_observer(&observable));
-        REQUIRE_FALSE(observable.has_observers());
+        observable.add_observer(&observer1);
+        observable.add_observer(&observer2);
+
+        observable.remove_observer(&observer2);
+        REQUIRE(observable.has_observers());
+        REQUIRE(observable.has_observer(&observer1));
+        REQUIRE(!observable.has_observer(&observer2));
     }
 }
 
@@ -161,18 +197,27 @@ TEST_CASE("observable.notify_observers", "[gg.observable]")
 {
     SECTION("notify_observers")
     {
+        mock_observer observer;
         mock_observable observable;
-        observable.add_observer(&observable);
-        REQUIRE_FALSE(observable.is_method1_called());
-        REQUIRE_FALSE(observable.is_method2_called());
+        observable.add_observer(&observer);
+        REQUIRE(0 == observer.get_method1_called());
+        REQUIRE(0 == observer.get_method2_called());
 
         observable.notify_observers(&imock_observer::on_method1);
-        REQUIRE(observable.is_method1_called());
-        REQUIRE_FALSE(observable.is_method2_called());
+        REQUIRE(1 == observer.get_method1_called());
+        REQUIRE(0 == observer.get_method2_called());
 
         observable.notify_observers(&imock_observer::on_method2);
-        REQUIRE(observable.is_method1_called());
-        REQUIRE(observable.is_method2_called());
+        REQUIRE(1 == observer.get_method1_called());
+        REQUIRE(1 == observer.get_method2_called());
+
+        observable.notify_observers(&imock_observer::on_method1);
+        REQUIRE(2 == observer.get_method1_called());
+        REQUIRE(1 == observer.get_method2_called());
+
+        observable.notify_observers(&imock_observer::on_method2);
+        REQUIRE(2 == observer.get_method1_called());
+        REQUIRE(2 == observer.get_method2_called());
     }
 }
 
