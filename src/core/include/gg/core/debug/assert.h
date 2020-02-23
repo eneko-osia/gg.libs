@@ -29,10 +29,6 @@
     #undef GG_ASSERT_FAILED
 #endif
 
-#ifdef GG_ASSERT_FALSE
-    #undef GG_ASSERT_FALSE
-#endif
-
 #ifdef GG_ASSERT_EQUALS
     #undef GG_ASSERT_EQUALS
 #endif
@@ -91,9 +87,6 @@
     #define GG_ASSERT_FAILED()                                      \
         GG_ASSERT(false)
 
-    #define GG_ASSERT_FALSE(cond)                                   \
-        GG_ASSERT(!(cond))
-
     #define GG_ASSERT_EQUALS(a, b)                                  \
         GG_ASSERT(((a) == (b)))
 
@@ -132,7 +125,6 @@
 
     #define GG_ASSERT(cond)
     #define GG_ASSERT_FAILED()
-    #define GG_ASSERT_FALSE(cond)
     #define GG_ASSERT_EQUALS(a, b)
     #define GG_ASSERT_NOT_EQUALS(a, b)
     #define GG_ASSERT_GREATER_THAN(a, b)
