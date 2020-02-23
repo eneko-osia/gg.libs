@@ -22,23 +22,53 @@ private:
 
 TEST_CASE("singleton_static", "[gg.singleton_static]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(!type::is_assignable<singleton_static<mock_singleton>>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(
+            !type::is_constructible<singleton_static<mock_singleton>>::value);
+        REQUIRE(
+            !type::no_constructor<singleton_static<mock_singleton>>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(
+            !type::is_copyable<singleton_static<mock_singleton>>::value);
+        REQUIRE(
+            !type::no_copy_constructor<singleton_static<mock_singleton>>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(
+            !type::is_destructible<singleton_static<mock_singleton>>::value);
+        REQUIRE(
+            !type::no_destructor<singleton_static<mock_singleton>>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(
+            type::no_equality_operator<singleton_static<mock_singleton>>::value);
+    }
+
     SECTION("pod")
     {
 #if defined(GG_LINUX)
-        REQUIRE(type::is_pod<singleton_static<uint32>>::value);
+        REQUIRE(type::is_pod<singleton_static<mock_singleton>>::value);
 #elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<singleton_static<uint32>>::value);
+        REQUIRE(!type::is_pod<singleton_static<mock_singleton>>::value);
 #endif
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<singleton_static<uint32>>::value);
-    }
-
-    SECTION("sizeof")
-    {
-        REQUIRE(sizeof(singleton_static<uint32>) == 1);
+        REQUIRE(!type::is_polymorphic<singleton_static<mock_singleton>>::value);
     }
 }
 
@@ -46,7 +76,7 @@ TEST_CASE("singleton_static.get_instance", "[gg.singleton_static]")
 {
     SECTION("get_instance")
     {
-        mock_singleton& instance = mock_singleton::get_instance();
+        mock_singleton const & instance = mock_singleton::get_instance();
         REQUIRE(&instance == &mock_singleton::get_instance());
     }
 }

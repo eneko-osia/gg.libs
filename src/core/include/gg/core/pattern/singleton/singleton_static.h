@@ -39,8 +39,13 @@ namespace gg
 
         // constructors
 
-        singleton_static(void) noexcept = default;
-        ~singleton_static(void) noexcept = default;
+        singleton_static(void) noexcept
+        {
+        }
+
+        ~singleton_static(void) noexcept
+        {
+        }
     };
 }
 
