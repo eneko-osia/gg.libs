@@ -43,7 +43,7 @@ TEST_CASE("non_movable", "[gg.non_movable]")
     SECTION("pod")
     {
 #if defined(GG_LINUX)
-        REQUIRE(type::is_pod<non_movable>::value;
+        REQUIRE(type::is_pod<non_movable>::value);
 #elif defined(GG_WINDOWS)
         REQUIRE(!type::is_pod<non_movable>::value);
 #endif
