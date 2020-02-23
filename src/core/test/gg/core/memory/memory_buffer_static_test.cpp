@@ -10,7 +10,7 @@ namespace gg::memory_buffer_static_test
 //==============================================================================
 
 static constexpr uint32 k_bytes = 32;
-typedef memory_buffer_static<k_bytes> mock_memory_buffer_static;
+using mock_memory_buffer_static = memory_buffer_static<k_bytes>;
 
 //==============================================================================
 

@@ -11,8 +11,8 @@ namespace gg::array_dynamic_test
 {
 //==============================================================================
 
-typedef array_dynamic<simple_mock_item>     simple_mock_item_array;
-typedef array_dynamic<complex_mock_item>    complex_mock_item_array;
+using simple_mock_item_array = array_dynamic<simple_mock_item>;
+using complex_mock_item_array = array_dynamic<complex_mock_item>;
 
 //==============================================================================
 

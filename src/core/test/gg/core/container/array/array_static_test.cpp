@@ -12,8 +12,8 @@ namespace gg::array_static_test
 //==============================================================================
 
 static constexpr uint32 k_num_items = 8;
-typedef array_static<simple_mock_item, k_num_items>    simple_mock_item_array;
-typedef array_static<complex_mock_item, k_num_items>   complex_mock_item_array;
+using simple_mock_item_array = array_static<simple_mock_item, k_num_items>;
+using complex_mock_item_array = array_static<complex_mock_item, k_num_items>;
 
 //==============================================================================
 
