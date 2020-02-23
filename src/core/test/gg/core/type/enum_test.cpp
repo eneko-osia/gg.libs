@@ -24,6 +24,34 @@ GG_ENUM(mock_enum);
 
 TEST_CASE("enum", "[gg.enum]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(type::is_assignable<mock_enum>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(type::is_constructible<mock_enum>::value);
+        REQUIRE(type::no_constructor<mock_enum>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(type::is_copyable<mock_enum>::value);
+        REQUIRE(type::no_copy_constructor<mock_enum>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(type::is_destructible<mock_enum>::value);
+        REQUIRE(type::no_destructor<mock_enum>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(!type::no_equality_operator<mock_enum>::value);
+    }
+
     SECTION("pod")
     {
         REQUIRE(type::is_pod<mock_enum>::value);
