@@ -73,40 +73,40 @@ TEST_CASE("observable", "[gg.observable]")
 {
     SECTION("assignable")
     {
-        REQUIRE(!type::is_assignable<mock_observable>::value);
+        REQUIRE(!type::is_assignable<observable<imock_observer>>::value);
     }
 
     SECTION("constructor")
     {
-        REQUIRE(type::is_constructible<mock_observable>::value);
-        REQUIRE(!type::no_constructor<mock_observable>::value);
+        REQUIRE(!type::is_constructible<observable<imock_observer>>::value);
+        REQUIRE(!type::no_constructor<observable<imock_observer>>::value);
     }
 
     SECTION("copy_constructor")
     {
-        REQUIRE(type::is_copyable<mock_observable>::value);
-        REQUIRE(!type::no_copy_constructor<mock_observable>::value);
+        REQUIRE(!type::is_copyable<observable<imock_observer>>::value);
+        REQUIRE(!type::no_copy_constructor<observable<imock_observer>>::value);
     }
 
     SECTION("destructor")
     {
-        REQUIRE(type::is_destructible<mock_observable>::value);
-        REQUIRE(!type::no_destructor<mock_observable>::value);
+        REQUIRE(!type::is_destructible<observable<imock_observer>>::value);
+        REQUIRE(!type::no_destructor<observable<imock_observer>>::value);
     }
 
     SECTION("equality_operator")
     {
-        REQUIRE(type::no_equality_operator<mock_observable>::value);
+        REQUIRE(type::no_equality_operator<observable<imock_observer>>::value);
     }
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<mock_observable>::value);
+        REQUIRE(!type::is_pod<observable<imock_observer>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<mock_observable>::value);
+        REQUIRE(!type::is_polymorphic<observable<imock_observer>>::value);
     }
 }
 

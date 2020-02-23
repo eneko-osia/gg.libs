@@ -93,46 +93,47 @@ TEST_CASE("sizeable", "[gg.sizeable]")
 {
     SECTION("assignable")
     {
-        REQUIRE(!type::is_assignable<mock_sizeable>::value);
+        REQUIRE(!type::is_assignable<sizeable<mock_size>>::value);
     }
 
     SECTION("constructor")
     {
-        REQUIRE(type::is_constructible<mock_sizeable>::value);
-        REQUIRE(!type::no_constructor<mock_sizeable>::value);
+        REQUIRE(!type::is_constructible<sizeable<mock_size>>::value);
+        REQUIRE(!type::no_constructor<sizeable<mock_size>>::value);
     }
 
     SECTION("copy_constructor")
     {
-        REQUIRE(type::is_copyable<mock_sizeable>::value);
-        REQUIRE(!type::no_copy_constructor<mock_sizeable>::value);
+        REQUIRE(!type::is_copyable<sizeable<mock_size>>::value);
+        REQUIRE(!type::no_copy_constructor<sizeable<mock_size>>::value);
     }
 
     SECTION("destructor")
     {
-        REQUIRE(type::is_destructible<mock_sizeable>::value);
-        REQUIRE(!type::no_destructor<mock_sizeable>::value);
+        REQUIRE(!type::is_destructible<sizeable<mock_size>>::value);
+        REQUIRE(!type::no_destructor<sizeable<mock_size>>::value);
     }
 
     SECTION("equality_operator")
     {
-        REQUIRE(type::no_equality_operator<mock_sizeable>::value);
+        REQUIRE(type::no_equality_operator<sizeable<mock_size>>::value);
     }
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<mock_sizeable>::value);
+        REQUIRE(!type::is_pod<sizeable<mock_size>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<mock_sizeable>::value);
+        REQUIRE(!type::is_polymorphic<sizeable<mock_size>>::value);
     }
 
     SECTION("sizeof")
     {
         REQUIRE(
-            sizeof(mock_sizeable) == (sizeof(mock_sizeable::size_type) << 1));
+            sizeof(sizeable<mock_size>) ==
+            (sizeof(sizeable<mock_size>::size_type) << 1));
     }
 }
 

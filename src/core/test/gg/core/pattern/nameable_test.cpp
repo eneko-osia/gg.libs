@@ -47,45 +47,47 @@ TEST_CASE("nameable", "[gg.nameable]")
 {
     SECTION("assignable")
     {
-        REQUIRE(!type::is_assignable<mock_nameable>::value);
+        REQUIRE(!type::is_assignable<nameable<string_ref>>::value);
     }
 
     SECTION("constructor")
     {
-        REQUIRE(type::is_constructible<mock_nameable>::value);
-        REQUIRE(!type::no_constructor<mock_nameable>::value);
+        REQUIRE(!type::is_constructible<nameable<string_ref>>::value);
+        REQUIRE(!type::no_constructor<nameable<string_ref>>::value);
     }
 
     SECTION("copy_constructor")
     {
-        REQUIRE(type::is_copyable<mock_nameable>::value);
-        REQUIRE(!type::no_copy_constructor<mock_nameable>::value);
+        REQUIRE(!type::is_copyable<nameable<string_ref>>::value);
+        REQUIRE(!type::no_copy_constructor<nameable<string_ref>>::value);
     }
 
     SECTION("destructor")
     {
-        REQUIRE(type::is_destructible<mock_nameable>::value);
-        REQUIRE(!type::no_destructor<mock_nameable>::value);
+        REQUIRE(!type::is_destructible<nameable<string_ref>>::value);
+        REQUIRE(!type::no_destructor<nameable<string_ref>>::value);
     }
 
     SECTION("equality_operator")
     {
-        REQUIRE(type::no_equality_operator<mock_nameable>::value);
+        REQUIRE(type::no_equality_operator<nameable<string_ref>>::value);
     }
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<mock_nameable>::value);
+        REQUIRE(!type::is_pod<nameable<string_ref>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<mock_nameable>::value);
+        REQUIRE(!type::is_polymorphic<nameable<string_ref>>::value);
     }
 
     SECTION("sizeof")
     {
-        REQUIRE(sizeof(mock_nameable) == sizeof(mock_nameable::name_type));
+        REQUIRE(
+            sizeof(nameable<string_ref>) ==
+            sizeof(nameable<string_ref>::name_type));
     }
 }
 

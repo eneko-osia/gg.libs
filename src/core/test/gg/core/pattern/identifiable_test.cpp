@@ -93,46 +93,47 @@ TEST_CASE("identifiable", "[gg.identifiable]")
 {
     SECTION("assignable")
     {
-        REQUIRE(!type::is_assignable<mock_identifiable>::value);
+        REQUIRE(!type::is_assignable<identifiable<mock_id>>::value);
     }
 
     SECTION("constructor")
     {
-        REQUIRE(type::is_constructible<mock_identifiable>::value);
-        REQUIRE(!type::no_constructor<mock_identifiable>::value);
+        REQUIRE(!type::is_constructible<identifiable<mock_id>>::value);
+        REQUIRE(!type::no_constructor<identifiable<mock_id>>::value);
     }
 
     SECTION("copy_constructor")
     {
-        REQUIRE(type::is_copyable<mock_identifiable>::value);
-        REQUIRE(!type::no_copy_constructor<mock_identifiable>::value);
+        REQUIRE(!type::is_copyable<identifiable<mock_id>>::value);
+        REQUIRE(!type::no_copy_constructor<identifiable<mock_id>>::value);
     }
 
     SECTION("destructor")
     {
-        REQUIRE(type::is_destructible<mock_identifiable>::value);
-        REQUIRE(!type::no_destructor<mock_identifiable>::value);
+        REQUIRE(!type::is_destructible<identifiable<mock_id>>::value);
+        REQUIRE(!type::no_destructor<identifiable<mock_id>>::value);
     }
 
     SECTION("equality_operator")
     {
-        REQUIRE(type::no_equality_operator<mock_identifiable>::value);
+        REQUIRE(type::no_equality_operator<identifiable<mock_id>>::value);
     }
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<mock_identifiable>::value);
+        REQUIRE(!type::is_pod<identifiable<mock_id>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<mock_identifiable>::value);
+        REQUIRE(!type::is_polymorphic<identifiable<mock_id>>::value);
     }
 
     SECTION("sizeof")
     {
         REQUIRE(
-            sizeof(mock_identifiable) == sizeof(mock_identifiable::id_type));
+            sizeof(identifiable<mock_id>) ==
+            sizeof(identifiable<mock_id>::id_type));
     }
 }
 
