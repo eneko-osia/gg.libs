@@ -78,7 +78,7 @@ namespace gg
 
         template <typename TYPE>
         // https://docs.microsoft.com/en-us/cpp/extensions/compiler-support-for-type-traits-cpp-component-extensions?view=vs-2019
-        struct no_constructor { constexpr static bool8 value = !__has_trivial_constructor(TYPE); };
+        struct no_constructor { constexpr static bool8 value = __has_trivial_constructor(TYPE); };
 
         template <typename TYPE>
         using no_copy_constructor = std::is_trivially_copy_constructible<TYPE>;
