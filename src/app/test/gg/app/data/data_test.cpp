@@ -31,7 +31,7 @@ TEST_CASE("data", "[gg.app.data]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<data>::value);
-        REQUIRE(!type::no_destructor<data>::value);
+        REQUIRE(!type::has_trivial_destructor<data>::value);
     }
 
     SECTION("equality_operator")

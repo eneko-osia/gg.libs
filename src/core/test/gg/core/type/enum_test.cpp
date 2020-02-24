@@ -44,7 +44,7 @@ TEST_CASE("enum", "[gg.enum]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<mock_enum>::value);
-        REQUIRE(type::no_destructor<mock_enum>::value);
+        REQUIRE(type::has_trivial_destructor<mock_enum>::value);
     }
 
     SECTION("equality_operator")

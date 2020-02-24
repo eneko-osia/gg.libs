@@ -31,7 +31,7 @@ TEST_CASE("file_istream", "[gg.file_istream]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<file_istream>::value);
-        REQUIRE(!type::no_destructor<file_istream>::value);
+        REQUIRE(!type::has_trivial_destructor<file_istream>::value);
     }
 
     SECTION("equality_operator")

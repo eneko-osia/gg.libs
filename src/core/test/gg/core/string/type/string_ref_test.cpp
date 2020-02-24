@@ -32,7 +32,7 @@ TEST_CASE("string_ref", "[gg.string_ref]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<string_ref>::value);
-        REQUIRE(type::no_destructor<string_ref>::value);
+        REQUIRE(type::has_trivial_destructor<string_ref>::value);
     }
 
     SECTION("equality_operator")

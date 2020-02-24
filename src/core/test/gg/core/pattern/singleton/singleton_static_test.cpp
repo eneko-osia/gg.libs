@@ -48,7 +48,7 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
         REQUIRE(
             !type::is_destructible<singleton_static<mock_singleton>>::value);
         REQUIRE(
-            !type::no_destructor<singleton_static<mock_singleton>>::value);
+            !type::has_trivial_destructor<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("equality_operator")

@@ -55,7 +55,7 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<mock_back_insert_iterator>::value);
-        REQUIRE(type::no_destructor<mock_back_insert_iterator>::value);
+        REQUIRE(type::has_trivial_destructor<mock_back_insert_iterator>::value);
     }
 
     SECTION("equality_operator")

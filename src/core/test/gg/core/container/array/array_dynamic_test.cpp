@@ -60,16 +60,16 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::no_destructor<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::has_trivial_destructor<simple_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_destructible<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::no_destructor<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::has_trivial_destructor<complex_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_destructible<simple_mock_item_array>::value);
-        REQUIRE(!type::no_destructor<simple_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_destructor<simple_mock_item_array>::value);
 
         REQUIRE(type::is_destructible<complex_mock_item_array>::value);
-        REQUIRE(!type::no_destructor<complex_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_destructor<complex_mock_item_array>::value);
     }
 
     SECTION("equality_operator")

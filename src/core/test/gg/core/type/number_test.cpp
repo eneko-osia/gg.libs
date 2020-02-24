@@ -44,7 +44,7 @@ TEST_CASE("number", "[gg.number]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<number<mock_number, int32>>::value);
-        REQUIRE(!type::no_destructor<number<mock_number, int32>>::value);
+        REQUIRE(!type::has_trivial_destructor<number<mock_number, int32>>::value);
     }
 
     SECTION("equality_operator")

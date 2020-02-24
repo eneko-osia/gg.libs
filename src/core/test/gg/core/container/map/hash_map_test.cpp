@@ -53,7 +53,7 @@ TEST_CASE("hash_map", "[gg.hash_map]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<mock_item_map>::value);
-        REQUIRE(!type::no_destructor<mock_item_map>::value);
+        REQUIRE(!type::has_trivial_destructor<mock_item_map>::value);
     }
 
     SECTION("equality_operator")

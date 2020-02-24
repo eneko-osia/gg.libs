@@ -47,7 +47,7 @@ TEST_CASE("thread", "[gg.thread]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<thread>::value);
-        REQUIRE(!type::no_destructor<thread>::value);
+        REQUIRE(!type::has_trivial_destructor<thread>::value);
     }
 
     SECTION("equality_operator")

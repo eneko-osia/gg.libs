@@ -62,6 +62,12 @@ namespace gg
             constexpr static bool8 value = __has_trivial_copy(TYPE);
         };
 
+        template <typename TYPE>
+        struct has_trivial_destructor
+        {
+            constexpr static bool8 value = __has_trivial_destructor(TYPE);
+        };
+
         // using
 
         template <bool8 TEST, typename TYPE1, typename TYPE2>
@@ -93,9 +99,6 @@ namespace gg
 
         template <typename TYPE>
         using is_polymorphic = std::is_polymorphic<TYPE>;
-
-        template <typename TYPE>
-        using no_destructor = std::is_trivially_destructible<TYPE>;
 
         template <typename TYPE>
         using no_equality_operator = impl::no_equality_operator<TYPE>;

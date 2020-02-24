@@ -32,7 +32,7 @@ TEST_CASE("module_locator", "[gg.module_locator]")
     SECTION("destructible")
     {
         REQUIRE(type::is_destructible<module_locator>::value);
-        REQUIRE(!type::no_destructor<module_locator>::value);
+        REQUIRE(!type::has_trivial_destructor<module_locator>::value);
     }
 
     SECTION("copyable")

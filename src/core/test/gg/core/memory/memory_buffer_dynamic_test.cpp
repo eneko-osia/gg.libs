@@ -31,7 +31,7 @@ TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<memory_buffer_dynamic>::value);
-        REQUIRE(!type::no_destructor<memory_buffer_dynamic>::value);
+        REQUIRE(!type::has_trivial_destructor<memory_buffer_dynamic>::value);
     }
 
     SECTION("equality_operator")

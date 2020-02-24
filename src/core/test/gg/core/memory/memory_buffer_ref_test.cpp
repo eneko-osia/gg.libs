@@ -33,7 +33,7 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<memory_buffer_ref>::value);
-        REQUIRE(type::no_destructor<memory_buffer_ref>::value);
+        REQUIRE(type::has_trivial_destructor<memory_buffer_ref>::value);
     }
 
     SECTION("equality_operator")

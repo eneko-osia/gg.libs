@@ -65,7 +65,7 @@ TEST_CASE("nameable", "[gg.nameable]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<nameable<string_ref>>::value);
-        REQUIRE(!type::no_destructor<nameable<string_ref>>::value);
+        REQUIRE(!type::has_trivial_destructor<nameable<string_ref>>::value);
     }
 
     SECTION("equality_operator")

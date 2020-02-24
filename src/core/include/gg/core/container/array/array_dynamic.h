@@ -395,13 +395,13 @@ namespace gg
         }
 
         template<typename T = array_dynamic>
-        type::enable_if_t<type::no_destructor<typename T::item_type>::value>
+        type::enable_if_t<type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(void) noexcept
         {
         }
 
         template<typename T = array_dynamic>
-        type::enable_if_t<!type::no_destructor<typename T::item_type>::value>
+        type::enable_if_t<!type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(void) noexcept
         {
             for (size_type i = 0; i < size(); ++i)

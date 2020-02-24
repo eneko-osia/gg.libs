@@ -32,7 +32,7 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<non_copyable>::value);
-        REQUIRE(!type::no_destructor<non_copyable>::value);
+        REQUIRE(!type::has_trivial_destructor<non_copyable>::value);
     }
 
     SECTION("equality_operator")

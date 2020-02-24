@@ -91,7 +91,7 @@ TEST_CASE("observable", "[gg.observable]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<observable<imock_observer>>::value);
-        REQUIRE(!type::no_destructor<observable<imock_observer>>::value);
+        REQUIRE(!type::has_trivial_destructor<observable<imock_observer>>::value);
     }
 
     SECTION("equality_operator")

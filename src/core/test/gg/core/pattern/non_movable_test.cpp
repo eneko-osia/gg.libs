@@ -32,7 +32,7 @@ TEST_CASE("non_movable", "[gg.non_movable]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<non_movable>::value);
-        REQUIRE(!type::no_destructor<non_movable>::value);
+        REQUIRE(!type::has_trivial_destructor<non_movable>::value);
     }
 
     SECTION("equality_operator")

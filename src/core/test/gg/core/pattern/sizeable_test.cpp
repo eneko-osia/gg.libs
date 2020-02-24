@@ -111,7 +111,7 @@ TEST_CASE("sizeable", "[gg.sizeable]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<sizeable<mock_size>>::value);
-        REQUIRE(!type::no_destructor<sizeable<mock_size>>::value);
+        REQUIRE(!type::has_trivial_destructor<sizeable<mock_size>>::value);
     }
 
     SECTION("equality_operator")

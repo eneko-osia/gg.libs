@@ -36,7 +36,7 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
     SECTION("destructor")
     {
         REQUIRE(type::is_destructible<mock_memory_buffer_static>::value);
-        REQUIRE(type::no_destructor<mock_memory_buffer_static>::value);
+        REQUIRE(type::has_trivial_destructor<mock_memory_buffer_static>::value);
     }
 
     SECTION("equality_operator")

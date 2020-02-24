@@ -55,7 +55,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("destructor")
         {
             REQUIRE(type::is_destructible<iterator>::value);
-            REQUIRE(type::no_destructor<iterator>::value);
+            REQUIRE(type::has_trivial_destructor<iterator>::value);
         }
 
         SECTION("equality_operator")
@@ -98,7 +98,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("destructor")
         {
             REQUIRE(type::is_destructible<const_iterator>::value);
-            REQUIRE(type::no_destructor<const_iterator>::value);
+            REQUIRE(type::has_trivial_destructor<const_iterator>::value);
         }
 
         SECTION("equality_operator")

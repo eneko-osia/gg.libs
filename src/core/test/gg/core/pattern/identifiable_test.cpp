@@ -111,7 +111,7 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     SECTION("destructor")
     {
         REQUIRE(!type::is_destructible<identifiable<mock_id>>::value);
-        REQUIRE(!type::no_destructor<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_destructor<identifiable<mock_id>>::value);
     }
 
     SECTION("equality_operator")
