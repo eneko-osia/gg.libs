@@ -11,32 +11,33 @@ namespace gg::file_istream_test
 
 TEST_CASE("file_istream", "[gg.file_istream]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(type::is_assignable<file_istream>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<file_istream>::value);
         REQUIRE(!type::has_trivial_constructor<file_istream>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(type::is_copyable<file_istream>::value);
         REQUIRE(!type::has_trivial_copy<file_istream>::value);
+        REQUIRE(!type::has_copy_contructor<file_istream>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<file_istream>::value);
         REQUIRE(!type::has_trivial_destructor<file_istream>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<file_istream>::value);
+        REQUIRE(!type::has_equality_operator<file_istream>::value);
     }
 
     SECTION("pod")

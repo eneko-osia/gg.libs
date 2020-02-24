@@ -35,32 +35,32 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
     {
         REQUIRE(!type::is_const<iterator::item_type>::value);
 
-        SECTION("assignable")
+        SECTION("assign")
         {
             REQUIRE(type::is_assignable<iterator>::value);
         }
 
-        SECTION("constructor")
+        SECTION("construct")
         {
             REQUIRE(type::is_constructible<iterator>::value);
             REQUIRE(!type::has_trivial_constructor<iterator>::value);
         }
 
-        SECTION("copy_constructor")
+        SECTION("copy")
         {
             REQUIRE(type::is_copyable<iterator>::value);
             REQUIRE(!type::has_trivial_copy<iterator>::value);
         }
 
-        SECTION("destructor")
+        SECTION("destroy")
         {
             REQUIRE(type::is_destructible<iterator>::value);
             REQUIRE(type::has_trivial_destructor<iterator>::value);
         }
 
-        SECTION("equality_operator")
+        SECTION("equality")
         {
-            REQUIRE(!type::no_equality_operator<iterator>::value);
+            REQUIRE(type::has_equality_operator<iterator>::value);
         }
 
         SECTION("pod")
@@ -78,32 +78,32 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
     {
         REQUIRE(type::is_const<const_iterator::item_type>::value);
 
-        SECTION("assignable")
+        SECTION("assign")
         {
             REQUIRE(type::is_assignable<const_iterator>::value);
         }
 
-        SECTION("constructor")
+        SECTION("construct")
         {
             REQUIRE(type::is_constructible<const_iterator>::value);
             REQUIRE(!type::has_trivial_constructor<const_iterator>::value);
         }
 
-        SECTION("copy_constructor")
+        SECTION("copy")
         {
             REQUIRE(type::is_copyable<const_iterator>::value);
             REQUIRE(type::has_trivial_copy<const_iterator>::value);
         }
 
-        SECTION("destructor")
+        SECTION("destroy")
         {
             REQUIRE(type::is_destructible<const_iterator>::value);
             REQUIRE(type::has_trivial_destructor<const_iterator>::value);
         }
 
-        SECTION("equality_operator")
+        SECTION("equality")
         {
-            REQUIRE(!type::no_equality_operator<const_iterator>::value);
+            REQUIRE(type::has_equality_operator<const_iterator>::value);
         }
 
         SECTION("pod")

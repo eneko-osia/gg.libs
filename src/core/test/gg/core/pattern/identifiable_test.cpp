@@ -91,32 +91,32 @@ public:
 
 TEST_CASE("identifiable", "[gg.identifiable]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<identifiable<mock_id>>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<identifiable<mock_id>>::value);
         REQUIRE(!type::has_trivial_constructor<identifiable<mock_id>>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<identifiable<mock_id>>::value);
         REQUIRE(!type::has_trivial_copy<identifiable<mock_id>>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<identifiable<mock_id>>::value);
         REQUIRE(!type::has_trivial_destructor<identifiable<mock_id>>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_equality_operator<identifiable<mock_id>>::value);
     }
 
     SECTION("pod")

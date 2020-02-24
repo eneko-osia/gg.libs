@@ -12,32 +12,32 @@ namespace gg::non_copyable_test
 
 TEST_CASE("non_copyable", "[gg.non_copyable]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<non_copyable>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<non_copyable>::value);
         REQUIRE(!type::has_trivial_constructor<non_copyable>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<non_copyable>::value);
         REQUIRE(!type::has_trivial_copy<non_copyable>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<non_copyable>::value);
         REQUIRE(!type::has_trivial_destructor<non_copyable>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<non_copyable>::value);
+        REQUIRE(!type::has_equality_operator<non_copyable>::value);
     }
 
     SECTION("pod")

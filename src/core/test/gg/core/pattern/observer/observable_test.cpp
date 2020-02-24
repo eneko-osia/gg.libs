@@ -71,32 +71,32 @@ class mock_observable : public observable<imock_observer> {};
 
 TEST_CASE("observable", "[gg.observable]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<observable<imock_observer>>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<observable<imock_observer>>::value);
         REQUIRE(!type::has_trivial_constructor<observable<imock_observer>>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<observable<imock_observer>>::value);
         REQUIRE(!type::has_trivial_copy<observable<imock_observer>>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<observable<imock_observer>>::value);
         REQUIRE(!type::has_trivial_destructor<observable<imock_observer>>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<observable<imock_observer>>::value);
+        REQUIRE(!type::has_equality_operator<observable<imock_observer>>::value);
     }
 
     SECTION("pod")

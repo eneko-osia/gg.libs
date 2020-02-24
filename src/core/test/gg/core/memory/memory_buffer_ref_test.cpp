@@ -13,32 +13,32 @@ namespace gg::memory_buffer_ref_test
 
 TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<memory_buffer_ref>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(type::is_constructible<memory_buffer_ref>::value);
         REQUIRE(!type::has_trivial_constructor<memory_buffer_ref>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<memory_buffer_ref>::value);
         REQUIRE(!type::has_trivial_copy<memory_buffer_ref>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<memory_buffer_ref>::value);
         REQUIRE(type::has_trivial_destructor<memory_buffer_ref>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<memory_buffer_ref>::value);
+        REQUIRE(!type::has_equality_operator<memory_buffer_ref>::value);
     }
 
     SECTION("pod")

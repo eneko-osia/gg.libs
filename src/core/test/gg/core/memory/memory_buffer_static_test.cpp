@@ -16,32 +16,32 @@ using mock_memory_buffer_static = memory_buffer_static<k_bytes>;
 
 TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<mock_memory_buffer_static>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(type::is_constructible<mock_memory_buffer_static>::value);
         REQUIRE(type::has_trivial_constructor<mock_memory_buffer_static>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<mock_memory_buffer_static>::value);
         REQUIRE(!type::has_trivial_copy<mock_memory_buffer_static>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<mock_memory_buffer_static>::value);
         REQUIRE(type::has_trivial_destructor<mock_memory_buffer_static>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<mock_memory_buffer_static>::value);
+        REQUIRE(!type::has_equality_operator<mock_memory_buffer_static>::value);
     }
 
     SECTION("pod")

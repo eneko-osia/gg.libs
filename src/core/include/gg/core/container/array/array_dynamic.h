@@ -412,7 +412,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            type::has_trivial_copy<typename T::item_type>::value>
+            type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(
             T & GG_UNUSED_ARGUMENT(it_start),
             T & GG_UNUSED_ARGUMENT(it_end)) noexcept
@@ -421,7 +421,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            !type::has_trivial_copy<typename T::item_type>::value>
+            !type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(T & it_start, T & it_end) noexcept
         {
             for (auto it = it_start; it != it_end; ++it)
@@ -470,7 +470,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            !type::no_equality_operator<typename T::item_type>::value, bool8>
+            type::has_equality_operator<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
         {
             bool8 equals = true;
@@ -483,7 +483,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            type::no_equality_operator<typename T::item_type>::value, bool8>
+            !type::has_equality_operator<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
         {
             return memory::compare(data(), array.data(), array.size()) == 0;

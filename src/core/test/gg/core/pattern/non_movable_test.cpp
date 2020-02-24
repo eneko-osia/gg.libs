@@ -12,32 +12,32 @@ namespace gg::non_movable_test
 
 TEST_CASE("non_movable", "[gg.non_movable]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<non_movable>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<non_movable>::value);
         REQUIRE(!type::has_trivial_constructor<non_movable>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<non_movable>::value);
         REQUIRE(!type::has_trivial_copy<non_movable>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<non_movable>::value);
         REQUIRE(!type::has_trivial_destructor<non_movable>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<non_movable>::value);
+        REQUIRE(!type::has_equality_operator<non_movable>::value);
     }
 
     SECTION("pod")

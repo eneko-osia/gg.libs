@@ -11,32 +11,32 @@ namespace gg
 
 TEST_CASE("data", "[gg.app.data]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<data>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(type::is_constructible<data>::value);
         REQUIRE(!type::has_trivial_constructor<data>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<data>::value);
         REQUIRE(!type::has_trivial_copy<data>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<data>::value);
         REQUIRE(!type::has_trivial_destructor<data>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<data>::value);
+        REQUIRE(!type::has_equality_operator<data>::value);
     }
 
     SECTION("pod")

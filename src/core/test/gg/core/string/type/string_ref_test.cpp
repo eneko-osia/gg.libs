@@ -12,33 +12,33 @@ namespace gg::string_ref_test
 
 TEST_CASE("string_ref", "[gg.string_ref]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(type::is_assignable<string_ref>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(type::is_constructible<string_ref>::value);
         REQUIRE(!type::has_trivial_constructor<string_ref>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(type::is_copyable<string_ref>::value);
         REQUIRE(!type::has_trivial_copy<string_ref>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<string_ref>::value);
         REQUIRE(type::has_trivial_destructor<string_ref>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
         // @todo fix this
-        // REQUIRE(!type::no_equality_operator<string_ref>::value);
+        // REQUIRE(type::has_equality_operator<string_ref>::value);
     }
 
     SECTION("pod")

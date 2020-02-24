@@ -41,14 +41,14 @@ TEST_CASE("module_locator", "[gg.module_locator]")
         REQUIRE(!type::has_trivial_copy<module_locator>::value);
     }
 
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(type::is_assignable<module_locator>::value);
     }
 
     SECTION("comparable")
     {
-        REQUIRE(type::no_equality_operator<module_locator>::value);
+        REQUIRE(!type::has_equality_operator<module_locator>::value);
     }
 
     SECTION("pod")

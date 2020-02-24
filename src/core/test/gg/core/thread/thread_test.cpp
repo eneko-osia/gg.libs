@@ -27,32 +27,32 @@ void slow_increment(int32 & value, int32 amount)
 
 TEST_CASE("thread", "[gg.thread]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<thread>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<thread>::value);
         REQUIRE(!type::has_trivial_constructor<thread>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<thread>::value);
         REQUIRE(!type::has_trivial_copy<thread>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<thread>::value);
         REQUIRE(!type::has_trivial_destructor<thread>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<thread>::value);
+        REQUIRE(!type::has_equality_operator<thread>::value);
     }
 
     SECTION("pod")

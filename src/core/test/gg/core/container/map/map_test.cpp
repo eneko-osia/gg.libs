@@ -54,32 +54,32 @@ typedef map<mock_key, mock_item> mock_item_map;
 
 TEST_CASE("map", "[gg.map]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(type::is_assignable<mock_item_map>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(type::is_constructible<mock_item_map>::value);
         REQUIRE(!type::has_trivial_constructor<mock_item_map>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(type::is_copyable<mock_item_map>::value);
         REQUIRE(!type::has_trivial_copy<mock_item_map>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<mock_item_map>::value);
         REQUIRE(!type::has_trivial_destructor<mock_item_map>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(!type::no_equality_operator<mock_item_map>::value);
+        REQUIRE(type::has_equality_operator<mock_item_map>::value);
     }
 
     SECTION("pod")

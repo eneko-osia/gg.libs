@@ -45,32 +45,32 @@ public:
 
 TEST_CASE("nameable", "[gg.nameable]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<nameable<string_ref>>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_constructor<nameable<string_ref>>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_copy<nameable<string_ref>>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_destructor<nameable<string_ref>>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<nameable<string_ref>>::value);
+        REQUIRE(!type::has_equality_operator<nameable<string_ref>>::value);
     }
 
     SECTION("pod")

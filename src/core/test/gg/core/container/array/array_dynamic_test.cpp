@@ -18,7 +18,7 @@ using complex_mock_item_array = array_dynamic<complex_mock_item>;
 
 TEST_CASE("array_dynamic", "[gg.array_dynamic]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(type::is_assignable<simple_mock_item_array::item_type>::value);
         REQUIRE(type::is_assignable<complex_mock_item_array::item_type>::value);
@@ -27,7 +27,7 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
         REQUIRE(type::is_assignable<complex_mock_item_array>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(type::is_constructible<simple_mock_item_array::item_type>::value);
         REQUIRE(type::has_trivial_constructor<simple_mock_item_array::item_type>::value);
@@ -42,7 +42,7 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
         REQUIRE(!type::has_trivial_constructor<complex_mock_item_array>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(type::is_copyable<simple_mock_item_array::item_type>::value);
         REQUIRE(type::has_trivial_copy<simple_mock_item_array::item_type>::value);
@@ -57,7 +57,7 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
         REQUIRE(!type::has_trivial_copy<complex_mock_item_array>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(type::is_destructible<simple_mock_item_array::item_type>::value);
         REQUIRE(type::has_trivial_destructor<simple_mock_item_array::item_type>::value);
@@ -72,13 +72,13 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
         REQUIRE(!type::has_trivial_destructor<complex_mock_item_array>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<simple_mock_item_array::item_type>::value);
-        REQUIRE(!type::no_equality_operator<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::has_equality_operator<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::has_equality_operator<complex_mock_item_array::item_type>::value);
 
-        REQUIRE(!type::no_equality_operator<simple_mock_item_array>::value);
-        REQUIRE(!type::no_equality_operator<complex_mock_item_array>::value);
+        REQUIRE(type::has_equality_operator<simple_mock_item_array>::value);
+        REQUIRE(type::has_equality_operator<complex_mock_item_array>::value);
     }
 
     SECTION("pod")

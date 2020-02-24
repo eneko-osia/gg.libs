@@ -24,32 +24,32 @@ public:
 
 TEST_CASE("number", "[gg.number]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(type::is_assignable<number<mock_number, int32>>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<number<mock_number, int32>>::value);
         REQUIRE(type::has_trivial_constructor<number<mock_number, int32>>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<number<mock_number, int32>>::value);
         REQUIRE(!type::has_trivial_copy<number<mock_number, int32>>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<number<mock_number, int32>>::value);
         REQUIRE(!type::has_trivial_destructor<number<mock_number, int32>>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<number<mock_number, int32>>::value);
+        REQUIRE(!type::has_equality_operator<number<mock_number, int32>>::value);
     }
 
     SECTION("pod")

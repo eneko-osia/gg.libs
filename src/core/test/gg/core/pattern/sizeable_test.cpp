@@ -91,32 +91,32 @@ public:
 
 TEST_CASE("sizeable", "[gg.sizeable]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<sizeable<mock_size>>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(!type::is_constructible<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_constructor<sizeable<mock_size>>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(!type::is_copyable<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_copy<sizeable<mock_size>>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_destructor<sizeable<mock_size>>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
-        REQUIRE(type::no_equality_operator<sizeable<mock_size>>::value);
+        REQUIRE(!type::has_equality_operator<sizeable<mock_size>>::value);
     }
 
     SECTION("pod")

@@ -18,54 +18,91 @@ namespace gg
 
     namespace type
     {
-        namespace impl
-        {
-            // structs
-
-            struct equality_operator {};
-            template <typename TYPE>
-            equality_operator operator==(TYPE const &, TYPE const &);
-
-            template <typename TYPE>
-            struct no_equality_operator
-            {
-                enum
-                {
-                    value =
-                        std::is_same<
-                            decltype(
-                                *static_cast<TYPE *>(nullptr) ==
-                                *static_cast<TYPE *>(nullptr)),
-                            equality_operator>::value
-                };
-            };
-        }
-
         // structs
-        // https://docs.microsoft.com/en-us/cpp/extensions/compiler-support-for-type-traits-cpp-component-extensions?view=vs-2019
 
-        template <typename TYPE, typename... ARGS>
-        struct is_constructible
+        template <typename TYPE>
+        struct has_assign_operator
         {
-            constexpr static bool8 value = __is_constructible(TYPE, ARGS...);
+            static constexpr bool8 value = __has_assign(TYPE);
+        };
+
+        template <typename TYPE>
+        struct has_copy_contructor
+        {
+            static constexpr bool8 value = __has_copy(TYPE);
+        };
+
+        template <typename TYPE>
+        struct has_equality_operator
+        {
+            static constexpr bool8 value =
+                impl::has_equality_operator<TYPE>::value;
+        };
+
+        template <typename TYPE>
+        struct has_trivial_assign
+        {
+            static constexpr bool8 value = __has_trivial_assign(TYPE);
         };
 
         template <typename TYPE>
         struct has_trivial_constructor
         {
-            constexpr static bool8 value = __has_trivial_constructor(TYPE);
+            static constexpr bool8 value = __has_trivial_constructor(TYPE);
         };
 
         template <typename TYPE>
         struct has_trivial_copy
         {
-            constexpr static bool8 value = __has_trivial_copy(TYPE);
+            static constexpr bool8 value = __has_trivial_copy(TYPE);
         };
 
         template <typename TYPE>
         struct has_trivial_destructor
         {
-            constexpr static bool8 value = __has_trivial_destructor(TYPE);
+            static constexpr bool8 value = __has_trivial_destructor(TYPE);
+        };
+
+        template <typename TYPE>
+        struct is_assignable
+        {
+            static constexpr bool8 value =
+                __is_assignable(
+                    std::add_lvalue_reference_t<TYPE>,
+                    std::add_lvalue_reference_t<const TYPE>);
+        };
+
+        template <typename TYPE, typename... ARGS>
+        struct is_constructible
+        {
+            static constexpr bool8 value = __is_constructible(TYPE, ARGS...);
+        };
+
+        template <typename TYPE>
+        struct is_copyable
+        {
+            static constexpr bool8 value =
+                __is_constructible(
+                    TYPE,
+                    std::add_lvalue_reference_t<const TYPE>);
+        };
+
+        template <typename TYPE>
+        struct is_destructible
+        {
+            static constexpr bool8 value = __is_destructible(TYPE);
+        };
+
+        template <typename TYPE>
+        struct is_pod
+        {
+            static constexpr bool8 value = __is_pod(TYPE);
+        };
+
+        template <typename TYPE>
+        struct is_polymorphic
+        {
+            static constexpr bool8 value = __is_polymorphic(TYPE);
         };
 
         // using
@@ -80,28 +117,10 @@ namespace gg
         using enable_if_t = typename enable_if<TEST, TYPE>::type;
 
         template <typename TYPE>
-        using is_assignable = std::is_copy_assignable<TYPE>;
-
-        template <typename TYPE>
         using is_const = std::is_const<TYPE>;
 
         template <typename TYPE>
-        using is_copyable = std::is_copy_constructible<TYPE>;
-
-        template <typename TYPE>
-        using is_destructible = std::is_destructible<TYPE>;
-
-        template <typename TYPE>
-        using is_pod = std::is_pod<TYPE>;
-
-        template <typename TYPE>
         using is_pointer = std::is_pointer<TYPE>;
-
-        template <typename TYPE>
-        using is_polymorphic = std::is_polymorphic<TYPE>;
-
-        template <typename TYPE>
-        using no_equality_operator = impl::no_equality_operator<TYPE>;
 
         // methods
 
@@ -162,6 +181,29 @@ namespace gg
         inline std::reference_wrapper<TYPE> ref(TYPE & value) noexcept
         {
             return std::ref<TYPE>(value);
+        }
+
+        namespace impl
+        {
+            // structs
+
+            struct equality_operator {};
+            template <typename TYPE>
+            equality_operator operator==(TYPE const &, TYPE const &);
+
+            template <typename TYPE>
+            struct has_equality_operator
+            {
+                enum
+                {
+                    value =
+                        !std::is_same<
+                            decltype(
+                                *static_cast<TYPE *>(nullptr) ==
+                                *static_cast<TYPE *>(nullptr)),
+                            equality_operator>::value
+                };
+            };
         }
     }
 }

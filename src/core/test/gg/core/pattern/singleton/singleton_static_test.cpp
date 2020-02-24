@@ -22,12 +22,12 @@ private:
 
 TEST_CASE("singleton_static", "[gg.singleton_static]")
 {
-    SECTION("assignable")
+    SECTION("assign")
     {
         REQUIRE(!type::is_assignable<singleton_static<mock_singleton>>::value);
     }
 
-    SECTION("constructor")
+    SECTION("construct")
     {
         REQUIRE(
             !type::is_constructible<singleton_static<mock_singleton>>::value);
@@ -35,7 +35,7 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
             !type::has_trivial_constructor<singleton_static<mock_singleton>>::value);
     }
 
-    SECTION("copy_constructor")
+    SECTION("copy")
     {
         REQUIRE(
             !type::is_copyable<singleton_static<mock_singleton>>::value);
@@ -43,7 +43,7 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
             !type::has_trivial_copy<singleton_static<mock_singleton>>::value);
     }
 
-    SECTION("destructor")
+    SECTION("destroy")
     {
         REQUIRE(
             !type::is_destructible<singleton_static<mock_singleton>>::value);
@@ -51,10 +51,10 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
             !type::has_trivial_destructor<singleton_static<mock_singleton>>::value);
     }
 
-    SECTION("equality_operator")
+    SECTION("equality")
     {
         REQUIRE(
-            type::no_equality_operator<singleton_static<mock_singleton>>::value);
+            !type::has_equality_operator<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("pod")
