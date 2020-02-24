@@ -23,10 +23,10 @@ namespace gg
             // structs
 
             struct equality_operator {};
-            template<typename TYPE>
+            template <typename TYPE>
             equality_operator operator==(TYPE const &, TYPE const &);
 
-            template<typename TYPE>
+            template <typename TYPE>
             struct no_equality_operator
             {
                 enum
@@ -77,7 +77,8 @@ namespace gg
         using is_polymorphic = std::is_polymorphic<TYPE>;
 
         template <typename TYPE>
-        using no_constructor = std::is_trivially_constructible<TYPE>;
+        // https://docs.microsoft.com/en-us/cpp/extensions/compiler-support-for-type-traits-cpp-component-extensions?view=vs-2019
+        struct no_constructor { constexpr static bool8 value = !__has_trivial_constructor(TYPE); };
 
         template <typename TYPE>
         using no_copy_constructor = std::is_trivially_copy_constructible<TYPE>;
