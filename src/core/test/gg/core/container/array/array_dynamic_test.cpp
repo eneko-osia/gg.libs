@@ -45,16 +45,16 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
     SECTION("copy_constructor")
     {
         REQUIRE(type::is_copyable<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::no_copy_constructor<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::has_trivial_copy<simple_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_copyable<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::no_copy_constructor<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::has_trivial_copy<complex_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_copyable<simple_mock_item_array>::value);
-        REQUIRE(!type::no_copy_constructor<simple_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_copy<simple_mock_item_array>::value);
 
         REQUIRE(type::is_copyable<complex_mock_item_array>::value);
-        REQUIRE(!type::no_copy_constructor<complex_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_copy<complex_mock_item_array>::value);
     }
 
     SECTION("destructor")

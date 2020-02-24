@@ -181,7 +181,7 @@ namespace gg
 
         template<typename T = array_static>
         type::enable_if_t<
-            type::no_copy_constructor<typename T::item_type>::value>
+            type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T const & array) noexcept
         {
             memory::copy(data(), array.data(), array.size());
@@ -189,7 +189,7 @@ namespace gg
 
         template<typename T = array_static>
         type::enable_if_t<
-            !type::no_copy_constructor<typename T::item_type>::value>
+            !type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T const & array) noexcept
         {
             for (size_type i = 0; i < array.size(); ++i)

@@ -41,6 +41,27 @@ namespace gg
             };
         }
 
+        // structs
+        // https://docs.microsoft.com/en-us/cpp/extensions/compiler-support-for-type-traits-cpp-component-extensions?view=vs-2019
+
+        template <typename TYPE, typename... ARGS>
+        struct is_constructible
+        {
+            constexpr static bool8 value = __is_constructible(TYPE, ARGS...);
+        };
+
+        template <typename TYPE>
+        struct has_trivial_constructor
+        {
+            constexpr static bool8 value = __has_trivial_constructor(TYPE);
+        };
+
+        template <typename TYPE>
+        struct has_trivial_copy
+        {
+            constexpr static bool8 value = __has_trivial_copy(TYPE);
+        };
+
         // using
 
         template <bool8 TEST, typename TYPE1, typename TYPE2>
@@ -58,9 +79,6 @@ namespace gg
         template <typename TYPE>
         using is_const = std::is_const<TYPE>;
 
-        template <typename TYPE, typename... ARGS>
-        using is_constructible = std::is_constructible<TYPE, ARGS...>;
-
         template <typename TYPE>
         using is_copyable = std::is_copy_constructible<TYPE>;
 
@@ -75,16 +93,6 @@ namespace gg
 
         template <typename TYPE>
         using is_polymorphic = std::is_polymorphic<TYPE>;
-
-        template <typename TYPE>
-        // https://docs.microsoft.com/en-us/cpp/extensions/compiler-support-for-type-traits-cpp-component-extensions?view=vs-2019
-        struct has_trivial_constructor
-        {
-            constexpr static bool8 value = __has_trivial_constructor(TYPE);
-        };
-
-        template <typename TYPE>
-        using no_copy_constructor = std::is_trivially_copy_constructible<TYPE>;
 
         template <typename TYPE>
         using no_destructor = std::is_trivially_destructible<TYPE>;

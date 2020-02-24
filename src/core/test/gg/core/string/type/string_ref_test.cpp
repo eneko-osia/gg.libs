@@ -26,7 +26,7 @@ TEST_CASE("string_ref", "[gg.string_ref]")
     SECTION("copy_constructor")
     {
         REQUIRE(type::is_copyable<string_ref>::value);
-        REQUIRE(!type::no_copy_constructor<string_ref>::value);
+        REQUIRE(!type::has_trivial_copy<string_ref>::value);
     }
 
     SECTION("destructor")

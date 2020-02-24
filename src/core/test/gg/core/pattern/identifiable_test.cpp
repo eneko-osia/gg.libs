@@ -105,7 +105,7 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     SECTION("copy_constructor")
     {
         REQUIRE(!type::is_copyable<identifiable<mock_id>>::value);
-        REQUIRE(!type::no_copy_constructor<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_copy<identifiable<mock_id>>::value);
     }
 
     SECTION("destructor")

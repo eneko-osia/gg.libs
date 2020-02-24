@@ -68,7 +68,7 @@ TEST_CASE("map", "[gg.map]")
     SECTION("copy_constructor")
     {
         REQUIRE(type::is_copyable<mock_item_map>::value);
-        REQUIRE(!type::no_copy_constructor<mock_item_map>::value);
+        REQUIRE(!type::has_trivial_copy<mock_item_map>::value);
     }
 
     SECTION("destructor")

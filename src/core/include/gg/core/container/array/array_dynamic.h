@@ -412,7 +412,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            type::no_copy_constructor<typename T::item_type>::value>
+            type::has_trivial_copy<typename T::item_type>::value>
         clear_data(
             T & GG_UNUSED_ARGUMENT(it_start),
             T & GG_UNUSED_ARGUMENT(it_end)) noexcept
@@ -421,7 +421,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            !type::no_copy_constructor<typename T::item_type>::value>
+            !type::has_trivial_copy<typename T::item_type>::value>
         clear_data(T & it_start, T & it_end) noexcept
         {
             for (auto it = it_start; it != it_end; ++it)
@@ -432,7 +432,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            type::no_copy_constructor<typename T::item_type>::value>
+            type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T const & array) noexcept
         {
             memory::copy(data(), array.data(), array.size());
@@ -440,7 +440,7 @@ namespace gg
 
         template<typename T = array_dynamic>
         type::enable_if_t<
-            !type::no_copy_constructor<typename T::item_type>::value>
+            !type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T const & array) noexcept
         {
             for (size_type i = 0; i < array.size(); ++i)
@@ -451,7 +451,7 @@ namespace gg
 
         template<typename T, typename U>
         type::enable_if_t<
-            type::no_copy_constructor<typename T::item_type>::value>
+            type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T & it, U const & cit_start, U const & cit_end) noexcept
         {
             memory::copy(&(*it), &(*cit_start), (cit_end - cit_start));
@@ -459,7 +459,7 @@ namespace gg
 
         template<typename T, typename U>
         type::enable_if_t<
-            !type::no_copy_constructor<typename T::item_type>::value>
+            !type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T & it, U const & cit_start, U const & cit_end) noexcept
         {
             for (auto cit = cit_start; cit != cit_end; ++cit, ++it)

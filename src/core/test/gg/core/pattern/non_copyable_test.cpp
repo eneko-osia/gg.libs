@@ -26,7 +26,7 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
     SECTION("copy_constructor")
     {
         REQUIRE(!type::is_copyable<non_copyable>::value);
-        REQUIRE(!type::no_copy_constructor<non_copyable>::value);
+        REQUIRE(!type::has_trivial_copy<non_copyable>::value);
     }
 
     SECTION("destructor")

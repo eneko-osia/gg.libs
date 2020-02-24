@@ -25,7 +25,7 @@ TEST_CASE("data", "[gg.app.data]")
     SECTION("copy_constructor")
     {
         REQUIRE(!type::is_copyable<data>::value);
-        REQUIRE(!type::no_copy_constructor<data>::value);
+        REQUIRE(!type::has_trivial_copy<data>::value);
     }
 
     SECTION("destructor")

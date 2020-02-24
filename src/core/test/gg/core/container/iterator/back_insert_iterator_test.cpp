@@ -49,7 +49,7 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
     SECTION("copy_constructor")
     {
         REQUIRE(type::is_copyable<mock_back_insert_iterator>::value);
-        REQUIRE(type::no_copy_constructor<mock_back_insert_iterator>::value);
+        REQUIRE(type::has_trivial_copy<mock_back_insert_iterator>::value);
     }
 
     SECTION("destructor")

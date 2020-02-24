@@ -105,7 +105,7 @@ TEST_CASE("sizeable", "[gg.sizeable]")
     SECTION("copy_constructor")
     {
         REQUIRE(!type::is_copyable<sizeable<mock_size>>::value);
-        REQUIRE(!type::no_copy_constructor<sizeable<mock_size>>::value);
+        REQUIRE(!type::has_trivial_copy<sizeable<mock_size>>::value);
     }
 
     SECTION("destructor")

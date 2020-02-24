@@ -38,7 +38,7 @@ TEST_CASE("module_locator", "[gg.module_locator]")
     SECTION("copyable")
     {
         REQUIRE(type::is_copyable<module_locator>::value);
-        REQUIRE(!type::no_copy_constructor<module_locator>::value);
+        REQUIRE(!type::has_trivial_copy<module_locator>::value);
     }
 
     SECTION("assignable")

@@ -24,29 +24,49 @@ public:
 
 TEST_CASE("number", "[gg.number]")
 {
+    SECTION("assignable")
+    {
+        REQUIRE(type::is_assignable<number<mock_number, int32>>::value);
+    }
+
+    SECTION("constructor")
+    {
+        REQUIRE(!type::is_constructible<number<mock_number, int32>>::value);
+        REQUIRE(type::has_trivial_constructor<number<mock_number, int32>>::value);
+    }
+
+    SECTION("copy_constructor")
+    {
+        REQUIRE(!type::is_copyable<number<mock_number, int32>>::value);
+        REQUIRE(!type::has_trivial_copy<number<mock_number, int32>>::value);
+    }
+
+    SECTION("destructor")
+    {
+        REQUIRE(!type::is_destructible<number<mock_number, int32>>::value);
+        REQUIRE(!type::no_destructor<number<mock_number, int32>>::value);
+    }
+
+    SECTION("equality_operator")
+    {
+        REQUIRE(type::no_equality_operator<number<mock_number, int32>>::value);
+    }
+
     SECTION("pod")
     {
-        REQUIRE(type::is_pod<mock_number>::value);
+        REQUIRE(type::is_pod<number<mock_number, int32>>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<mock_number>::value);
+        REQUIRE(!type::is_polymorphic<number<mock_number, int32>>::value);
     }
 
     SECTION("sizeof")
     {
-        REQUIRE(sizeof(mock_number) == sizeof(mock_number::storage_type));
-    }
-
-    SECTION("no_copy_constructor")
-    {
-        REQUIRE(type::no_copy_constructor<mock_number>::value);
-    }
-
-    SECTION("no_destructor")
-    {
-        REQUIRE(type::no_destructor<mock_number>::value);
+        REQUIRE(
+            sizeof(number<mock_number, int32>) ==
+            sizeof(number<mock_number, int32>::storage_type));
     }
 }
 
@@ -54,6 +74,7 @@ TEST_CASE("number.constructor", "[gg.number]")
 {
     SECTION("number()")
     {
+        number<mock_number, int32> a;
         REQUIRE(mock_number().get() == 0);
     }
 

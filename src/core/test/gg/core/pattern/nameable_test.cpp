@@ -59,7 +59,7 @@ TEST_CASE("nameable", "[gg.nameable]")
     SECTION("copy_constructor")
     {
         REQUIRE(!type::is_copyable<nameable<string_ref>>::value);
-        REQUIRE(!type::no_copy_constructor<nameable<string_ref>>::value);
+        REQUIRE(!type::has_trivial_copy<nameable<string_ref>>::value);
     }
 
     SECTION("destructor")
