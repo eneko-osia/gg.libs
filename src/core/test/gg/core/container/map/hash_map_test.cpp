@@ -41,7 +41,7 @@ TEST_CASE("hash_map", "[gg.hash_map]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<mock_item_map>::value);
-        REQUIRE(!type::no_constructor<mock_item_map>::value);
+        REQUIRE(!type::has_trivial_constructor<mock_item_map>::value);
     }
 
     SECTION("copy_constructor")

@@ -19,7 +19,7 @@ TEST_CASE("file_istream", "[gg.file_istream]")
     SECTION("constructor")
     {
         REQUIRE(!type::is_constructible<file_istream>::value);
-        REQUIRE(!type::no_constructor<file_istream>::value);
+        REQUIRE(!type::has_trivial_constructor<file_istream>::value);
     }
 
     SECTION("copy_constructor")

@@ -30,16 +30,16 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::no_constructor<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::has_trivial_constructor<simple_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_constructible<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::no_constructor<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::has_trivial_constructor<complex_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_constructible<simple_mock_item_array>::value);
-        REQUIRE(!type::no_constructor<simple_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_constructor<simple_mock_item_array>::value);
 
         REQUIRE(type::is_constructible<complex_mock_item_array>::value);
-        REQUIRE(!type::no_constructor<complex_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_constructor<complex_mock_item_array>::value);
     }
 
     SECTION("copy_constructor")

@@ -79,7 +79,7 @@ TEST_CASE("observable", "[gg.observable]")
     SECTION("constructor")
     {
         REQUIRE(!type::is_constructible<observable<imock_observer>>::value);
-        REQUIRE(!type::no_constructor<observable<imock_observer>>::value);
+        REQUIRE(!type::has_trivial_constructor<observable<imock_observer>>::value);
     }
 
     SECTION("copy_constructor")

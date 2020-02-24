@@ -32,7 +32,7 @@ TEST_CASE("enum", "[gg.enum]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<mock_enum>::value);
-        REQUIRE(type::no_constructor<mock_enum>::value);
+        REQUIRE(type::has_trivial_constructor<mock_enum>::value);
     }
 
     SECTION("copy_constructor")

@@ -26,7 +26,7 @@ TEST_CASE("module_locator", "[gg.module_locator]")
     SECTION("constructible")
     {
         REQUIRE(type::is_constructible<module_locator>::value);
-        REQUIRE(!type::no_constructor<module_locator>::value);
+        REQUIRE(!type::has_trivial_constructor<module_locator>::value);
     }
 
     SECTION("destructible")

@@ -24,7 +24,7 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<mock_memory_buffer_static>::value);
-        REQUIRE(type::no_constructor<mock_memory_buffer_static>::value);
+        REQUIRE(type::has_trivial_constructor<mock_memory_buffer_static>::value);
     }
 
     SECTION("copy_constructor")

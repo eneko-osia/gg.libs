@@ -21,7 +21,7 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<memory_buffer_ref>::value);
-        REQUIRE(!type::no_constructor<memory_buffer_ref>::value);
+        REQUIRE(!type::has_trivial_constructor<memory_buffer_ref>::value);
     }
 
     SECTION("copy_constructor")

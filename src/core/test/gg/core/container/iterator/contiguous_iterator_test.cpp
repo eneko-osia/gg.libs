@@ -43,7 +43,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("constructor")
         {
             REQUIRE(type::is_constructible<iterator>::value);
-            REQUIRE(!type::no_constructor<iterator>::value);
+            REQUIRE(!type::has_trivial_constructor<iterator>::value);
         }
 
         SECTION("copy_constructor")
@@ -86,7 +86,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("constructor")
         {
             REQUIRE(type::is_constructible<const_iterator>::value);
-            REQUIRE(!type::no_constructor<const_iterator>::value);
+            REQUIRE(!type::has_trivial_constructor<const_iterator>::value);
         }
 
         SECTION("copy_constructor")

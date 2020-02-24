@@ -164,13 +164,13 @@ namespace gg
         }
 
         template<typename T = array_static>
-        type::enable_if_t<type::no_constructor<typename T::item_type>::value>
+        type::enable_if_t<type::has_trivial_constructor<typename T::item_type>::value>
         construct_data(void) noexcept
         {
         }
 
         template<typename T = array_static>
-        type::enable_if_t<!type::no_constructor<typename T::item_type>::value>
+        type::enable_if_t<!type::has_trivial_constructor<typename T::item_type>::value>
         construct_data(void) noexcept
         {
             for (size_type i = 0; i < size(); ++i)

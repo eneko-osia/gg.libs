@@ -41,7 +41,7 @@ TEST_CASE("singleton_manual", "[gg.singleton_manual]")
         REQUIRE(
             !type::is_constructible<singleton_manual<mock_singleton>>::value);
         REQUIRE(
-            !type::no_constructor<singleton_manual<mock_singleton>>::value);
+            !type::has_trivial_constructor<singleton_manual<mock_singleton>>::value);
     }
 
     SECTION("copy_constructor")

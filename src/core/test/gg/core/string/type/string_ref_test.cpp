@@ -20,7 +20,7 @@ TEST_CASE("string_ref", "[gg.string_ref]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<string_ref>::value);
-        REQUIRE(!type::no_constructor<string_ref>::value);
+        REQUIRE(!type::has_trivial_constructor<string_ref>::value);
     }
 
     SECTION("copy_constructor")

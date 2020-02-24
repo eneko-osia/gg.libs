@@ -20,7 +20,7 @@ TEST_CASE("non_movable", "[gg.non_movable]")
     SECTION("constructor")
     {
         REQUIRE(!type::is_constructible<non_movable>::value);
-        REQUIRE(!type::no_constructor<non_movable>::value);
+        REQUIRE(!type::has_trivial_constructor<non_movable>::value);
     }
 
     SECTION("copy_constructor")

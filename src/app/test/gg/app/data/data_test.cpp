@@ -19,7 +19,7 @@ TEST_CASE("data", "[gg.app.data]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<data>::value);
-        REQUIRE(!type::no_constructor<data>::value);
+        REQUIRE(!type::has_trivial_constructor<data>::value);
     }
 
     SECTION("copy_constructor")

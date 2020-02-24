@@ -35,7 +35,7 @@ TEST_CASE("thread", "[gg.thread]")
     SECTION("constructor")
     {
         REQUIRE(!type::is_constructible<thread>::value);
-        REQUIRE(!type::no_constructor<thread>::value);
+        REQUIRE(!type::has_trivial_constructor<thread>::value);
     }
 
     SECTION("copy_constructor")

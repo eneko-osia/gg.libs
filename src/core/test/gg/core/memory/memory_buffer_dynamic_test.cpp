@@ -19,7 +19,7 @@ TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
     SECTION("constructor")
     {
         REQUIRE(type::is_constructible<memory_buffer_dynamic>::value);
-        REQUIRE(!type::no_constructor<memory_buffer_dynamic>::value);
+        REQUIRE(!type::has_trivial_constructor<memory_buffer_dynamic>::value);
     }
 
     SECTION("copy_constructor")
