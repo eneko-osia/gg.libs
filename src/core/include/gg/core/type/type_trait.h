@@ -54,7 +54,7 @@ namespace gg
         struct has_trivial_assign
         {
             static constexpr bool8 value =
-                std::is_trivially_assignable<TYPE>::value;
+                std::is_trivially_assignable<TYPE, TYPE>::value;
         };
 
         template <typename TYPE>
