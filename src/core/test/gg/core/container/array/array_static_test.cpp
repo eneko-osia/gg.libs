@@ -22,10 +22,16 @@ TEST_CASE("array_static", "[gg.array_static]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::has_trivial_assign<simple_mock_item_array::item_type>::value);
+
         REQUIRE(type::is_assignable<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::has_trivial_assign<complex_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_assignable<simple_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_assign<simple_mock_item_array>::value);
+
         REQUIRE(type::is_assignable<complex_mock_item_array>::value);
+        REQUIRE(!type::has_trivial_assign<complex_mock_item_array>::value);
     }
 
     SECTION("construct")

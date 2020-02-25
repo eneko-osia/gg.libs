@@ -30,6 +30,7 @@ TEST_CASE("thread", "[gg.thread]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<thread>::value);
+        REQUIRE(!type::has_trivial_assign<thread>::value);
     }
 
     SECTION("construct")

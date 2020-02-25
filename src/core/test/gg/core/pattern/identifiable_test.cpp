@@ -94,6 +94,7 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_assign<identifiable<mock_id>>::value);
     }
 
     SECTION("construct")

@@ -14,6 +14,7 @@ TEST_CASE("data", "[gg.app.data]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<data>::value);
+        REQUIRE(!type::has_trivial_assign<data>::value);
     }
 
     SECTION("construct")

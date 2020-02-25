@@ -24,7 +24,10 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<singleton_static<mock_singleton>>::value);
+        REQUIRE(
+            !type::is_assignable<singleton_static<mock_singleton>>::value);
+        REQUIRE(
+            !type::has_trivial_assign<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("construct")

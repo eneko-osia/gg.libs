@@ -94,6 +94,7 @@ TEST_CASE("sizeable", "[gg.sizeable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<sizeable<mock_size>>::value);
+        REQUIRE(!type::has_trivial_assign<sizeable<mock_size>>::value);
     }
 
     SECTION("construct")

@@ -74,6 +74,7 @@ TEST_CASE("observable", "[gg.observable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<observable<imock_observer>>::value);
+        REQUIRE(!type::has_trivial_assign<observable<imock_observer>>::value);
     }
 
     SECTION("construct")

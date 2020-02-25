@@ -48,7 +48,7 @@ public:
     int32 m_value;
 };
 
-typedef map<mock_key, mock_item> mock_item_map;
+using mock_item_map = map<mock_key, mock_item>;
 
 //==============================================================================
 
@@ -57,6 +57,7 @@ TEST_CASE("map", "[gg.map]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<mock_item_map>::value);
+        REQUIRE(!type::has_trivial_assign<mock_item_map>::value);
     }
 
     SECTION("construct")

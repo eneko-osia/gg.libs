@@ -14,6 +14,7 @@ TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<memory_buffer_dynamic>::value);
+        REQUIRE(!type::has_trivial_assign<memory_buffer_dynamic>::value);
     }
 
     SECTION("construct")

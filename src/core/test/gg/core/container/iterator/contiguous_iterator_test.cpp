@@ -24,8 +24,8 @@ struct mock_container
     int8 m_data[k_max_items];
 };
 
-typedef contiguous_iterator<int8, iterator_type::no_const> iterator;
-typedef contiguous_iterator<int8, iterator_type::is_const> const_iterator;
+using iterator = contiguous_iterator<int8, iterator_type::no_const>;
+using const_iterator = contiguous_iterator<int8, iterator_type::is_const>;
 
 //==============================================================================
 
@@ -38,6 +38,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("assign")
         {
             REQUIRE(type::is_assignable<iterator>::value);
+            REQUIRE(type::has_trivial_assign<iterator>::value);
         }
 
         SECTION("construct")
@@ -81,6 +82,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("assign")
         {
             REQUIRE(type::is_assignable<const_iterator>::value);
+            REQUIRE(type::has_trivial_assign<const_iterator>::value);
         }
 
         SECTION("construct")

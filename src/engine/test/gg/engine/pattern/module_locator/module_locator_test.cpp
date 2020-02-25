@@ -21,6 +21,7 @@ TEST_CASE("module_locator", "[gg.module_locator]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<module_locator>::value);
+        REQUIRE(!type::has_trivial_assign<module_locator>::value);
     }
 
     SECTION("construct")

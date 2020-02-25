@@ -15,6 +15,7 @@ TEST_CASE("non_movable", "[gg.non_movable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<non_movable>::value);
+        REQUIRE(!type::has_trivial_assign<non_movable>::value);
     }
 
     SECTION("construct")

@@ -16,6 +16,7 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<memory_buffer_ref>::value);
+        REQUIRE(!type::has_trivial_assign<memory_buffer_ref>::value);
     }
 
     SECTION("construct")

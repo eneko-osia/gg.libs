@@ -29,7 +29,7 @@ struct mock_container
     int8 m_index;
 };
 
-typedef back_insert_iterator<mock_container> mock_back_insert_iterator;
+using mock_back_insert_iterator = back_insert_iterator<mock_container>;
 
 //==============================================================================
 
@@ -38,6 +38,7 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<mock_back_insert_iterator>::value);
+        REQUIRE(!type::has_trivial_assign<mock_back_insert_iterator>::value);
     }
 
     SECTION("construct")

@@ -15,6 +15,7 @@ TEST_CASE("string_static", "[gg.string_static]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<string_static<>>::value);
+        REQUIRE(!type::has_trivial_assign<string_static<>>::value);
     }
 
     SECTION("construct")

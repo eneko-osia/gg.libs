@@ -15,6 +15,7 @@ TEST_CASE("string_ref", "[gg.string_ref]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<string_ref>::value);
+        REQUIRE(!type::has_trivial_assign<string_ref>::value);
     }
 
     SECTION("construct")

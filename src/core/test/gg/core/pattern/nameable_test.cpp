@@ -48,6 +48,7 @@ TEST_CASE("nameable", "[gg.nameable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<nameable<string_ref>>::value);
+        REQUIRE(!type::has_trivial_assign<nameable<string_ref>>::value);
     }
 
     SECTION("construct")

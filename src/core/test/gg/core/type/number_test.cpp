@@ -27,6 +27,7 @@ TEST_CASE("number", "[gg.number]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<number<mock_number, int32>>::value);
+        REQUIRE(type::has_trivial_assign<number<mock_number, int32>>::value);
     }
 
     SECTION("construct")

@@ -27,6 +27,7 @@ TEST_CASE("enum", "[gg.enum]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<mock_enum>::value);
+        REQUIRE(!type::has_trivial_assign<mock_enum>::value);
     }
 
     SECTION("construct")

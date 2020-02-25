@@ -15,6 +15,7 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<non_copyable>::value);
+        REQUIRE(!type::has_trivial_assign<non_copyable>::value);
     }
 
     SECTION("construct")

@@ -14,6 +14,7 @@ TEST_CASE("file_istream", "[gg.file_istream]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<file_istream>::value);
+        REQUIRE(type::has_trivial_assign<file_istream>::value);
     }
 
     SECTION("construct")
@@ -55,7 +56,6 @@ TEST_CASE("file_istream.constructor", "[gg.file_istream]")
     SECTION("file_istream(filename)")
     {
         // file_istream file("temp/file.txt", stream_mode::text);
-
         // REQUIRE(file.is_valid());
         // REQUIRE(file.get_position() == 0);
         // REQUIRE(file.size() == 24);
@@ -64,7 +64,6 @@ TEST_CASE("file_istream.constructor", "[gg.file_istream]")
     SECTION("file_istream(invalid filename)")
     {
         file_istream file("invalid_file.txt", stream_mode::text);
-
         REQUIRE(!file.is_valid());
         REQUIRE(file.get_position() == 0);
         REQUIRE(file.size() == 0);

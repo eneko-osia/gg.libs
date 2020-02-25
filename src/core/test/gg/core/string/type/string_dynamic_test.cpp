@@ -15,6 +15,7 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<string_dynamic>::value);
+        REQUIRE(!type::has_trivial_assign<string_dynamic>::value);
     }
 
     SECTION("construct")

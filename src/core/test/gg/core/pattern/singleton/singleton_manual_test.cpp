@@ -33,7 +33,10 @@ TEST_CASE("singleton_manual", "[gg.singleton_manual]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<singleton_manual<mock_singleton>>::value);
+        REQUIRE(
+            !type::is_assignable<singleton_manual<mock_singleton>>::value);
+        REQUIRE(
+            !type::has_trivial_assign<singleton_manual<mock_singleton>>::value);
     }
 
     SECTION("construct")
