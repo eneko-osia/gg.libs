@@ -12,6 +12,35 @@ namespace gg::string_dynamic_test
 
 TEST_CASE("string_dynamic", "[gg.string_dynamic]")
 {
+    SECTION("assign")
+    {
+        REQUIRE(type::is_assignable<string_dynamic>::value);
+    }
+
+    SECTION("construct")
+    {
+        REQUIRE(type::is_constructible<string_dynamic>::value);
+        REQUIRE(!type::has_trivial_constructor<string_dynamic>::value);
+    }
+
+    SECTION("copy")
+    {
+        REQUIRE(type::is_copyable<string_dynamic>::value);
+        REQUIRE(!type::has_trivial_copy<string_dynamic>::value);
+    }
+
+    SECTION("destroy")
+    {
+        REQUIRE(type::is_destructible<string_dynamic>::value);
+        REQUIRE(!type::has_trivial_destructor<string_dynamic>::value);
+    }
+
+    SECTION("equality")
+    {
+        // @todo fix this
+        // REQUIRE(type::has_equality<string_dynamic>::value);
+    }
+
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<string_dynamic>::value);
@@ -20,15 +49,6 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<string_dynamic>::value);
-    }
-
-    SECTION("sizeof")
-    {
-    #if defined(GG_X86)
-        REQUIRE(sizeof(string_dynamic) == 12);
-    #elif defined(GG_X86_64)
-        REQUIRE(sizeof(string_dynamic) == 24);
-    #endif
     }
 }
 

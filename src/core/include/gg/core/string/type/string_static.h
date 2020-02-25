@@ -26,17 +26,20 @@ namespace gg
         // constructors
 
         string_static(void) noexcept
+            : m_data()
         {
             set("");
         }
 
         string_static(string_static const & string) noexcept
+            : m_data()
         {
             set(string);
         }
 
         template <typename STRING_TYPE>
         explicit string_static(const STRING_TYPE & string) noexcept
+            : m_data()
         {
             set(string);
         }
