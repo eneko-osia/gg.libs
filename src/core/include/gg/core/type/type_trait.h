@@ -18,6 +18,29 @@ namespace gg
 
     namespace type
     {
+        namespace impl
+        {
+            // structs
+
+            struct equality_operator {};
+            template <typename TYPE>
+            equality_operator operator==(TYPE const &, TYPE const &);
+
+            template <typename TYPE>
+            struct has_equality_operator
+            {
+                enum
+                {
+                    value =
+                        !std::is_same<
+                            decltype(
+                                *static_cast<TYPE *>(nullptr) ==
+                                *static_cast<TYPE *>(nullptr)),
+                            equality_operator>::value
+                };
+            };
+        }
+
         // structs
 
         // template <typename TYPE>
@@ -181,29 +204,6 @@ namespace gg
         inline std::reference_wrapper<TYPE> ref(TYPE & value) noexcept
         {
             return std::ref<TYPE>(value);
-        }
-
-        namespace impl
-        {
-            // structs
-
-            struct equality_operator {};
-            template <typename TYPE>
-            equality_operator operator==(TYPE const &, TYPE const &);
-
-            template <typename TYPE>
-            struct has_equality_operator
-            {
-                enum
-                {
-                    value =
-                        !std::is_same<
-                            decltype(
-                                *static_cast<TYPE *>(nullptr) ==
-                                *static_cast<TYPE *>(nullptr)),
-                            equality_operator>::value
-                };
-            };
         }
     }
 }
