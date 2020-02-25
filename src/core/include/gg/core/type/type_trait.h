@@ -43,18 +43,6 @@ namespace gg
 
         // structs
 
-        // template <typename TYPE>
-        // struct has_assign_operator
-        // {
-        //     static constexpr bool8 value = __has_assign(TYPE);
-        // };
-
-        // template <typename TYPE>
-        // struct has_copy_contructor
-        // {
-        //     static constexpr bool8 value = __has_copy(TYPE);
-        // };
-
         template <typename TYPE>
         struct has_equality_operator
         {
@@ -90,9 +78,7 @@ namespace gg
         struct is_assignable
         {
             static constexpr bool8 value =
-                __is_assignable(
-                    std::add_lvalue_reference_t<TYPE>,
-                    std::add_lvalue_reference_t<const TYPE>);
+                __is_assignable(TYPE&, const TYPE&);
         };
 
         template <typename TYPE, typename... ARGS>
@@ -105,9 +91,7 @@ namespace gg
         struct is_copyable
         {
             static constexpr bool8 value =
-                __is_constructible(
-                    TYPE,
-                    std::add_lvalue_reference_t<const TYPE>);
+                __is_constructible(TYPE, const TYPE&);
         };
 
         template <typename TYPE>
