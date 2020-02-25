@@ -12,6 +12,35 @@ namespace gg::string_static_test
 
 TEST_CASE("string_static", "[gg.string_static]")
 {
+    SECTION("assign")
+    {
+        REQUIRE(type::is_assignable<string_static<>>::value);
+    }
+
+    SECTION("construct")
+    {
+        REQUIRE(type::is_constructible<string_static<>>::value);
+        REQUIRE(!type::has_trivial_constructor<string_static<>>::value);
+    }
+
+    SECTION("copy")
+    {
+        REQUIRE(type::is_copyable<string_static<>>::value);
+        REQUIRE(!type::has_trivial_copy<string_static<>>::value);
+    }
+
+    SECTION("destroy")
+    {
+        REQUIRE(type::is_destructible<string_static<>>::value);
+        REQUIRE(!type::has_trivial_destructor<string_static<>>::value);
+    }
+
+    SECTION("equality")
+    {
+        // @todo fix this
+        // REQUIRE(type::has_equality<string_static<>>::value);
+    }
+
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<string_static<>>::value);
@@ -19,7 +48,7 @@ TEST_CASE("string_static", "[gg.string_static]")
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<string_static<32>>::value);
+        REQUIRE(!type::is_polymorphic<string_static<>>::value);
     }
 
     SECTION("sizeof")
@@ -62,11 +91,25 @@ TEST_CASE("string_static.constructor", "[gg.string_static]")
         REQUIRE(string == copied_string);
     }
 
+    SECTION("string_static<>(string_static) - overflow")
+    {
+        string_static<> copied_string("test");
+        string_static<2> string(copied_string);
+        REQUIRE(string == "t");
+    }
+
     SECTION("string_static<>(string)")
     {
         string_ref copied_string("test");
         string_static<> string(copied_string);
         REQUIRE(string == copied_string);
+    }
+
+    SECTION("string_static<>(string) - overflow")
+    {
+        string_ref copied_string("test");
+        string_static<2> string(copied_string);
+        REQUIRE(string == "t");
     }
 }
 
