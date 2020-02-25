@@ -18,35 +18,30 @@ class mock_module
 
 TEST_CASE("module_locator", "[gg.module_locator]")
 {
-    SECTION("sizeof")
-    {
-        REQUIRE(sizeof(module_locator) == sizeof(hash_map<uint32, void *>));
-    }
-
-    SECTION("constructible")
-    {
-        REQUIRE(type::is_constructible<module_locator>::value);
-        REQUIRE(!type::has_trivial_constructor<module_locator>::value);
-    }
-
-    SECTION("destructible")
-    {
-        REQUIRE(type::is_destructible<module_locator>::value);
-        REQUIRE(!type::has_trivial_destructor<module_locator>::value);
-    }
-
-    SECTION("copyable")
-    {
-        REQUIRE(type::is_copyable<module_locator>::value);
-        REQUIRE(!type::has_trivial_copy<module_locator>::value);
-    }
-
     SECTION("assign")
     {
         REQUIRE(type::is_assignable<module_locator>::value);
     }
 
-    SECTION("comparable")
+    SECTION("construct")
+    {
+        REQUIRE(type::is_constructible<module_locator>::value);
+        REQUIRE(!type::has_trivial_constructor<module_locator>::value);
+    }
+
+    SECTION("copy")
+    {
+        REQUIRE(type::is_copyable<module_locator>::value);
+        REQUIRE(!type::has_trivial_copy<module_locator>::value);
+    }
+
+    SECTION("destroy")
+    {
+        REQUIRE(type::is_destructible<module_locator>::value);
+        REQUIRE(!type::has_trivial_destructor<module_locator>::value);
+    }
+
+    SECTION("equality")
     {
         REQUIRE(!type::has_equality<module_locator>::value);
     }
