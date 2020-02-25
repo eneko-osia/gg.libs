@@ -26,7 +26,6 @@ TEST_CASE("file_istream", "[gg.file_istream]")
     {
         REQUIRE(type::is_copyable<file_istream>::value);
         REQUIRE(!type::has_trivial_copy<file_istream>::value);
-        REQUIRE(!type::has_copy_contructor<file_istream>::value);
     }
 
     SECTION("destroy")

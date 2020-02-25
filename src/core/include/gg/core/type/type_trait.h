@@ -20,17 +20,17 @@ namespace gg
     {
         // structs
 
-        template <typename TYPE>
-        struct has_assign_operator
-        {
-            static constexpr bool8 value = __has_assign(TYPE);
-        };
+        // template <typename TYPE>
+        // struct has_assign_operator
+        // {
+        //     static constexpr bool8 value = __has_assign(TYPE);
+        // };
 
-        template <typename TYPE>
-        struct has_copy_contructor
-        {
-            static constexpr bool8 value = __has_copy(TYPE);
-        };
+        // template <typename TYPE>
+        // struct has_copy_contructor
+        // {
+        //     static constexpr bool8 value = __has_copy(TYPE);
+        // };
 
         template <typename TYPE>
         struct has_equality_operator
