@@ -116,7 +116,7 @@ TEST_CASE("sizeable", "[gg.sizeable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<sizeable<mock_size>>::value);
+        REQUIRE(!type::has_equality<sizeable<mock_size>>::value);
     }
 
     SECTION("pod")

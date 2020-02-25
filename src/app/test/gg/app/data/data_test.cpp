@@ -36,7 +36,7 @@ TEST_CASE("data", "[gg.app.data]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<data>::value);
+        REQUIRE(!type::has_equality<data>::value);
     }
 
     SECTION("pod")

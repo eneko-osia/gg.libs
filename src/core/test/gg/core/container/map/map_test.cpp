@@ -79,7 +79,7 @@ TEST_CASE("map", "[gg.map]")
 
     SECTION("equality")
     {
-        REQUIRE(type::has_equality_operator<mock_item_map>::value);
+        REQUIRE(type::has_equality<mock_item_map>::value);
     }
 
     SECTION("pod")

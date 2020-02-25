@@ -49,7 +49,7 @@ TEST_CASE("enum", "[gg.enum]")
 
     SECTION("equality")
     {
-        REQUIRE(type::has_equality_operator<mock_enum>::value);
+        REQUIRE(type::has_equality<mock_enum>::value);
     }
 
     SECTION("pod")

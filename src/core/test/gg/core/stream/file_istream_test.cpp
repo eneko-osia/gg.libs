@@ -36,7 +36,7 @@ TEST_CASE("file_istream", "[gg.file_istream]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<file_istream>::value);
+        REQUIRE(!type::has_equality<file_istream>::value);
     }
 
     SECTION("pod")

@@ -32,7 +32,7 @@ TEST_CASE("number", "[gg.number]")
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<number<mock_number, int32>>::value);
-        REQUIRE(type::has_trivial_constructor<number<mock_number, int32>>::value);
+        REQUIRE(!type::has_trivial_constructor<number<mock_number, int32>>::value);
     }
 
     SECTION("copy")
@@ -49,7 +49,7 @@ TEST_CASE("number", "[gg.number]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<number<mock_number, int32>>::value);
+        REQUIRE(!type::has_equality<number<mock_number, int32>>::value);
     }
 
     SECTION("pod")
@@ -74,7 +74,6 @@ TEST_CASE("number.constructor", "[gg.number]")
 {
     SECTION("number()")
     {
-        number<mock_number, int32> a;
         REQUIRE(mock_number().get() == 0);
     }
 

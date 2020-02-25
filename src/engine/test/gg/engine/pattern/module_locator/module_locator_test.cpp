@@ -48,7 +48,7 @@ TEST_CASE("module_locator", "[gg.module_locator]")
 
     SECTION("comparable")
     {
-        REQUIRE(!type::has_equality_operator<module_locator>::value);
+        REQUIRE(!type::has_equality<module_locator>::value);
     }
 
     SECTION("pod")

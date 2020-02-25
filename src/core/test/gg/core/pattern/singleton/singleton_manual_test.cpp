@@ -63,7 +63,7 @@ TEST_CASE("singleton_manual", "[gg.singleton_manual]")
     SECTION("equality")
     {
         REQUIRE(
-            !type::has_equality_operator<singleton_manual<mock_singleton>>::value);
+            !type::has_equality<singleton_manual<mock_singleton>>::value);
     }
 
     SECTION("pod")

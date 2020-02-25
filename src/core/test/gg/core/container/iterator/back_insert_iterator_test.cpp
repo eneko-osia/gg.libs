@@ -60,7 +60,7 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<mock_back_insert_iterator>::value);
+        REQUIRE(!type::has_equality<mock_back_insert_iterator>::value);
     }
 
     SECTION("pod")

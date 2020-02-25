@@ -37,7 +37,7 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<non_copyable>::value);
+        REQUIRE(!type::has_equality<non_copyable>::value);
     }
 
     SECTION("pod")

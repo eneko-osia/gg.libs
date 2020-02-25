@@ -38,7 +38,7 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<memory_buffer_ref>::value);
+        REQUIRE(!type::has_equality<memory_buffer_ref>::value);
     }
 
     SECTION("pod")

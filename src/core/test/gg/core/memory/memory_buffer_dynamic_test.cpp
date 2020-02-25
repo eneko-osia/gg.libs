@@ -36,7 +36,7 @@ TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<memory_buffer_dynamic>::value);
+        REQUIRE(!type::has_equality<memory_buffer_dynamic>::value);
     }
 
     SECTION("pod")

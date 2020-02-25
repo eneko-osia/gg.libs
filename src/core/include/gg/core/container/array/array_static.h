@@ -200,7 +200,7 @@ namespace gg
 
         template<typename T = array_static>
         type::enable_if_t<
-            type::has_equality_operator<typename T::item_type>::value, bool8>
+            type::has_equality<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
         {
             bool8 equals = true;
@@ -213,7 +213,7 @@ namespace gg
 
         template<typename T = array_static>
         type::enable_if_t<
-            !type::has_equality_operator<typename T::item_type>::value, bool8>
+            !type::has_equality<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
         {
             return memory::compare(data(), array.data(), array.size()) == 0;

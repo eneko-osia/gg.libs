@@ -24,11 +24,11 @@ namespace gg
         // static asserts
 
         GG_STATIC_ASSERT(
-            !type::is_pointer<actual_type>(),
+            !type::is_pointer<actual_type>::value,
             "pointer actual_type is not allowed");
 
         GG_STATIC_ASSERT(
-            !type::is_pointer<storage_type>(),
+            !type::is_pointer<storage_type>::value,
             "pointer storage_type is not allowed");
 
         // constructors

@@ -37,7 +37,7 @@ TEST_CASE("non_movable", "[gg.non_movable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<non_movable>::value);
+        REQUIRE(!type::has_equality<non_movable>::value);
     }
 
     SECTION("pod")

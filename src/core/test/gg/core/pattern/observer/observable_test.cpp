@@ -96,7 +96,7 @@ TEST_CASE("observable", "[gg.observable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<observable<imock_observer>>::value);
+        REQUIRE(!type::has_equality<observable<imock_observer>>::value);
     }
 
     SECTION("pod")

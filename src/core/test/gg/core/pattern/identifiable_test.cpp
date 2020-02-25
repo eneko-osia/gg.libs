@@ -116,7 +116,7 @@ TEST_CASE("identifiable", "[gg.identifiable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_equality<identifiable<mock_id>>::value);
     }
 
     SECTION("pod")

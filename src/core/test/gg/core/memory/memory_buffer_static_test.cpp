@@ -41,7 +41,7 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<mock_memory_buffer_static>::value);
+        REQUIRE(!type::has_equality<mock_memory_buffer_static>::value);
     }
 
     SECTION("pod")

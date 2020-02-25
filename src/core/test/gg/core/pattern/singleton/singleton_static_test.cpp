@@ -54,7 +54,7 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
     SECTION("equality")
     {
         REQUIRE(
-            !type::has_equality_operator<singleton_static<mock_singleton>>::value);
+            !type::has_equality<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("pod")

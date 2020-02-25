@@ -24,7 +24,7 @@ namespace gg
         // static asserts
 
         GG_STATIC_ASSERT(
-            !type::is_pointer<singleton_type>(),
+            !type::is_pointer<singleton_type>::value,
             "pointer singleton_type is not allowed");
 
         // static accessors

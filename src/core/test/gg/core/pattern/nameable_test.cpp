@@ -70,7 +70,7 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<nameable<string_ref>>::value);
+        REQUIRE(!type::has_equality<nameable<string_ref>>::value);
     }
 
     SECTION("pod")

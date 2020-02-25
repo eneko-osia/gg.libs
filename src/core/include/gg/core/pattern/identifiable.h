@@ -23,7 +23,7 @@ namespace gg
         // static asserts
 
         GG_STATIC_ASSERT(
-            !type::is_pointer<id_type>(),
+            !type::is_pointer<id_type>::value,
             "pointer id_type is not allowed");
 
         // constructors

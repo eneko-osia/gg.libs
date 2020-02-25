@@ -22,12 +22,12 @@ namespace gg
         {
             // structs
 
-            struct equality_operator {};
+            struct equality {};
             template <typename TYPE>
-            equality_operator operator==(TYPE const &, TYPE const &);
+            equality operator==(TYPE const &, TYPE const &);
 
             template <typename TYPE>
-            struct has_equality_operator
+            struct has_equality
             {
                 enum
                 {
@@ -36,7 +36,7 @@ namespace gg
                             decltype(
                                 *static_cast<TYPE *>(nullptr) ==
                                 *static_cast<TYPE *>(nullptr)),
-                            equality_operator>::value
+                            equality>::value
                 };
             };
         }
@@ -44,72 +44,90 @@ namespace gg
         // structs
 
         template <typename TYPE>
-        struct has_equality_operator
+        struct has_equality
         {
             static constexpr bool8 value =
-                impl::has_equality_operator<TYPE>::value;
+                impl::has_equality<TYPE>::value;
         };
 
         template <typename TYPE>
         struct has_trivial_assign
         {
-            static constexpr bool8 value = __has_trivial_assign(TYPE);
+            static constexpr bool8 value =
+                std::is_trivially_assignable<TYPE>::value;
         };
 
         template <typename TYPE>
         struct has_trivial_constructor
         {
-            static constexpr bool8 value = __has_trivial_constructor(TYPE);
+            static constexpr bool8 value =
+                std::is_trivially_constructible<TYPE>::value;
         };
 
         template <typename TYPE>
         struct has_trivial_copy
         {
-            static constexpr bool8 value = __has_trivial_copy(TYPE);
+            static constexpr bool8 value =
+                std::is_trivially_copy_constructible<TYPE>::value;
         };
 
         template <typename TYPE>
         struct has_trivial_destructor
         {
-            static constexpr bool8 value = __has_trivial_destructor(TYPE);
+            static constexpr bool8 value =
+                std::is_trivially_destructible<TYPE>::value;
         };
 
         template <typename TYPE>
         struct is_assignable
         {
             static constexpr bool8 value =
-                __is_assignable(TYPE&, const TYPE&);
+                std::is_copy_assignable<TYPE>::value;
+        };
+
+        template <typename TYPE>
+        struct is_const
+        {
+            static constexpr bool8 value = std::is_const<TYPE>::value;
         };
 
         template <typename TYPE, typename... ARGS>
         struct is_constructible
         {
-            static constexpr bool8 value = __is_constructible(TYPE, ARGS...);
+            static constexpr bool8 value =
+                std::is_constructible<TYPE, ARGS...>::value;
         };
 
         template <typename TYPE>
         struct is_copyable
         {
             static constexpr bool8 value =
-                __is_constructible(TYPE, const TYPE&);
+                std::is_copy_constructible<TYPE>::value;
         };
 
         template <typename TYPE>
         struct is_destructible
         {
-            static constexpr bool8 value = __is_destructible(TYPE);
+            static constexpr bool8 value =
+                std::is_destructible<TYPE>::value;
         };
 
         template <typename TYPE>
         struct is_pod
         {
-            static constexpr bool8 value = __is_pod(TYPE);
+            static constexpr bool8 value = std::is_pod<TYPE>::value;
+        };
+
+        template <typename TYPE>
+        struct is_pointer
+        {
+            static constexpr bool8 value = std::is_pointer<TYPE>::value;
         };
 
         template <typename TYPE>
         struct is_polymorphic
         {
-            static constexpr bool8 value = __is_polymorphic(TYPE);
+            static constexpr bool8 value = std::is_polymorphic<TYPE>::value;
         };
 
         // using
@@ -122,12 +140,6 @@ namespace gg
 
         template<bool8 TEST, typename TYPE = void>
         using enable_if_t = typename enable_if<TEST, TYPE>::type;
-
-        template <typename TYPE>
-        using is_const = std::is_const<TYPE>;
-
-        template <typename TYPE>
-        using is_pointer = std::is_pointer<TYPE>;
 
         // methods
 

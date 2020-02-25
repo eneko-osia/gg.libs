@@ -52,7 +52,7 @@ TEST_CASE("thread", "[gg.thread]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<thread>::value);
+        REQUIRE(!type::has_equality<thread>::value);
     }
 
     SECTION("pod")

@@ -60,7 +60,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
 
         SECTION("equality")
         {
-            REQUIRE(type::has_equality_operator<iterator>::value);
+            REQUIRE(type::has_equality<iterator>::value);
         }
 
         SECTION("pod")
@@ -103,7 +103,7 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
 
         SECTION("equality")
         {
-            REQUIRE(type::has_equality_operator<const_iterator>::value);
+            REQUIRE(type::has_equality<const_iterator>::value);
         }
 
         SECTION("pod")

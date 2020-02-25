@@ -74,11 +74,11 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality_operator<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::has_equality_operator<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::has_equality<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::has_equality<complex_mock_item_array::item_type>::value);
 
-        REQUIRE(type::has_equality_operator<simple_mock_item_array>::value);
-        REQUIRE(type::has_equality_operator<complex_mock_item_array>::value);
+        REQUIRE(type::has_equality<simple_mock_item_array>::value);
+        REQUIRE(type::has_equality<complex_mock_item_array>::value);
     }
 
     SECTION("pod")
