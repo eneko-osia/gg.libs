@@ -23,19 +23,19 @@ namespace gg
         // methods
 
         inline diff_type
-        compare(char8 const * lstr, char8 const * rstr) noexcept
+        compare(char8 const * lhs, char8 const * rhs) noexcept
         {
-            GG_ASSERT_NOT_NULL(lstr);
-            GG_ASSERT_NOT_NULL(rstr);
-            return std::strcmp(lstr, rstr);
+            GG_ASSERT_NOT_NULL(lhs);
+            GG_ASSERT_NOT_NULL(rhs);
+            return std::strcmp(lhs, rhs);
         }
 
         inline char8 const *
-        find(char8 const * lstr, char8 const * rstr) noexcept
+        find(char8 const * lhs, char8 const * rhs) noexcept
         {
-            GG_ASSERT_NOT_NULL(lstr);
-            GG_ASSERT_NOT_NULL(rstr);
-            return std::strstr(lstr, rstr);
+            GG_ASSERT_NOT_NULL(lhs);
+            GG_ASSERT_NOT_NULL(rhs);
+            return std::strstr(lhs, rhs);
         }
 
         inline size_type length(char8 const * str) noexcept
