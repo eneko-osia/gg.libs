@@ -22,11 +22,9 @@ namespace gg
 
         // constructors
 
-        sizeable(void) noexcept
-            : m_height()
-            , m_width()
-        {
-        }
+        sizeable(void) noexcept = default;
+        sizeable(sizeable const & obj) noexcept = default;
+        sizeable(sizeable && obj) noexcept = default;
 
         sizeable(size_type const & height, size_type const & width) noexcept
             : m_height(height)
@@ -37,18 +35,6 @@ namespace gg
         sizeable(size_type && height, size_type && width) noexcept
             : m_height(type::move(height))
             , m_width(type::move(width))
-        {
-        }
-
-        sizeable(sizeable const & obj) noexcept
-            : m_height(obj.m_height)
-            , m_width(obj.m_width)
-        {
-        }
-
-        sizeable(sizeable && obj) noexcept
-            : m_height(type::move(obj.m_height))
-            , m_width(type::move(obj.m_width))
         {
         }
 
@@ -114,9 +100,7 @@ namespace gg
 
         // constructors
 
-        ~sizeable(void) noexcept
-        {
-        }
+        ~sizeable(void) noexcept = default;
 
     private:
 

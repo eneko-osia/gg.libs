@@ -61,10 +61,9 @@ class mock_sizeable : public sizeable<mock_size>
 {
 public:
 
-    mock_sizeable(void) noexcept
-        : sizeable<mock_size>()
-    {
-    }
+    mock_sizeable(void) noexcept = default;
+    mock_sizeable(mock_sizeable const & obj) noexcept = default;
+    mock_sizeable(mock_sizeable && obj) noexcept = default;
 
     mock_sizeable(mock_size const & height, mock_size const & width) noexcept
         : sizeable<mock_size>(height, width)
@@ -75,16 +74,15 @@ public:
         : sizeable<mock_size>(type::move(height), type::move(width))
     {
     }
+};
 
-    mock_sizeable(mock_sizeable const & obj) noexcept
-        : sizeable<mock_size>(obj)
-    {
-    }
+class trivial_mock_sizeable : public sizeable<uint32>
+{
+public:
 
-    mock_sizeable(mock_sizeable && obj) noexcept
-        : sizeable<mock_size>(type::move(obj))
-    {
-    }
+    trivial_mock_sizeable(void) noexcept = default;
+    trivial_mock_sizeable(trivial_mock_sizeable const & obj) noexcept = default;
+    trivial_mock_sizeable(trivial_mock_sizeable && obj) noexcept = default;
 };
 
 //==============================================================================
@@ -95,39 +93,89 @@ TEST_CASE("sizeable", "[gg.sizeable]")
     {
         REQUIRE(!type::is_assignable<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_assign<sizeable<mock_size>>::value);
+
+        REQUIRE(!type::is_assignable<mock_sizeable>::value);
+        REQUIRE(!type::has_trivial_assign<mock_sizeable>::value);
+
+        REQUIRE(!type::is_assignable<sizeable<uint32>>::value);
+        REQUIRE(!type::has_trivial_assign<sizeable<uint32>>::value);
+
+        REQUIRE(!type::is_assignable<trivial_mock_sizeable>::value);
+        REQUIRE(!type::has_trivial_assign<trivial_mock_sizeable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_constructor<sizeable<mock_size>>::value);
+
+        REQUIRE(type::is_constructible<mock_sizeable>::value);
+        REQUIRE(!type::has_trivial_constructor<mock_sizeable>::value);
+
+        REQUIRE(!type::is_constructible<sizeable<uint32>>::value);
+        REQUIRE(!type::has_trivial_constructor<sizeable<uint32>>::value);
+
+        REQUIRE(type::is_constructible<trivial_mock_sizeable>::value);
+        REQUIRE(type::has_trivial_constructor<trivial_mock_sizeable>::value);
     }
 
     SECTION("copy")
     {
         REQUIRE(!type::is_copyable<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_copy<sizeable<mock_size>>::value);
+
+        REQUIRE(type::is_copyable<mock_sizeable>::value);
+        REQUIRE(!type::has_trivial_copy<mock_sizeable>::value);
+
+        REQUIRE(!type::is_copyable<sizeable<uint32>>::value);
+        REQUIRE(!type::has_trivial_copy<sizeable<uint32>>::value);
+
+        REQUIRE(type::is_copyable<trivial_mock_sizeable>::value);
+        REQUIRE(type::has_trivial_copy<trivial_mock_sizeable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<sizeable<mock_size>>::value);
         REQUIRE(!type::has_trivial_destructor<sizeable<mock_size>>::value);
+
+        REQUIRE(type::is_destructible<mock_sizeable>::value);
+        REQUIRE(type::has_trivial_destructor<mock_sizeable>::value);
+
+        REQUIRE(!type::is_destructible<sizeable<uint32>>::value);
+        REQUIRE(!type::has_trivial_destructor<sizeable<uint32>>::value);
+
+        REQUIRE(type::is_destructible<trivial_mock_sizeable>::value);
+        REQUIRE(type::has_trivial_destructor<trivial_mock_sizeable>::value);
     }
 
     SECTION("equality")
     {
         REQUIRE(!type::has_equality<sizeable<mock_size>>::value);
+        REQUIRE(!type::has_equality<mock_sizeable>::value);
+        REQUIRE(!type::has_equality<sizeable<uint32>>::value);
+        REQUIRE(!type::has_equality<trivial_mock_sizeable>::value);
     }
 
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<sizeable<mock_size>>::value);
+        REQUIRE(!type::is_pod<mock_sizeable>::value);
+#if defined(GG_LINUX)
+        REQUIRE(type::is_pod<sizeable<uint32>>::value);
+        REQUIRE(type::is_pod<trivial_mock_sizeable>::value);
+#elif defined(GG_WINDOWS)
+        REQUIRE(!type::is_pod<sizeable<uint32>>::value);
+        REQUIRE(!type::is_pod<trivial_mock_sizeable>::value);
+#endif
     }
 
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<sizeable<mock_size>>::value);
+        REQUIRE(!type::is_polymorphic<mock_sizeable>::value);
+        REQUIRE(!type::is_polymorphic<sizeable<uint32>>::value);
+        REQUIRE(!type::is_polymorphic<trivial_mock_sizeable>::value);
     }
 
     SECTION("sizeof")
@@ -135,6 +183,15 @@ TEST_CASE("sizeable", "[gg.sizeable]")
         REQUIRE(
             sizeof(sizeable<mock_size>) ==
             (sizeof(sizeable<mock_size>::size_type) << 1));
+        REQUIRE(
+            sizeof(mock_sizeable) ==
+            (sizeof(mock_sizeable::size_type) << 1));
+        REQUIRE(
+            sizeof(sizeable<uint32>) ==
+            (sizeof(sizeable<uint32>::size_type) << 1));
+        REQUIRE(
+            sizeof(trivial_mock_sizeable) ==
+            (sizeof(trivial_mock_sizeable::size_type) << 1));
     }
 }
 
