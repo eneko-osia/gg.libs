@@ -158,7 +158,11 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     {
         REQUIRE(!type::is_pod<identifiable<mock_id>>::value);
         REQUIRE(!type::is_pod<mock_identifiable>::value);
+#if defined(GG_LINUX)
+        REQUIRE(type::is_pod<identifiable<uint32>>::value);
+#elif defined(GG_WINDOWS)
         REQUIRE(!type::is_pod<identifiable<uint32>>::value);
+#endif
         REQUIRE(!type::is_pod<trivial_mock_identifiable>::value);
     }
 
