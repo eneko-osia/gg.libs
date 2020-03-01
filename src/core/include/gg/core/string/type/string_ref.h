@@ -19,7 +19,7 @@ namespace gg
 
         // constructors
 
-        constexpr string_ref(void)
+        constexpr string_ref(void) noexcept
             : m_data("")
         {
         }

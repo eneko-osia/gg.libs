@@ -19,13 +19,13 @@ namespace gg
 
         // integer types
 
-        typedef signed char         int8;
+        typedef char                int8;
         typedef unsigned char       uint8;
-        typedef signed short int    int16;
+        typedef short int           int16;
         typedef unsigned short int  uint16;
-        typedef signed int          int32;
+        typedef int                 int32;
         typedef unsigned int        uint32;
-        typedef signed long long    int64;
+        typedef long long           int64;
         typedef unsigned long long  uint64;
 
         // float types
@@ -37,9 +37,9 @@ namespace gg
 
         typedef char                char8;
         typedef unsigned char       uchar8;
-        typedef unsigned short      char16;
+        typedef short               char16;
         typedef unsigned short      uchar16;
-        typedef unsigned int        char32;
+        typedef int                 char32;
         typedef unsigned int        uchar32;
 
         // size types

@@ -15,10 +15,9 @@ class mock_nameable : public nameable<string_ref>
 {
 public:
 
-    mock_nameable(void) noexcept
-        : nameable<string_ref>()
-    {
-    }
+    mock_nameable(void) noexcept = default;
+    mock_nameable(mock_nameable const & obj) noexcept = default;
+    mock_nameable(mock_nameable && obj) noexcept = default;
 
     mock_nameable(string_ref const & name) noexcept
         : nameable<string_ref>(name)
@@ -29,16 +28,15 @@ public:
         : nameable<string_ref>(type::move(name))
     {
     }
+};
 
-    mock_nameable(mock_nameable const & obj) noexcept
-        : nameable<string_ref>(obj)
-    {
-    }
+class trivial_mock_nameable : public nameable<char8 const *>
+{
+public:
 
-    mock_nameable(mock_nameable && obj) noexcept
-        : nameable<string_ref>(type::move(obj))
-    {
-    }
+    trivial_mock_nameable(void) noexcept = default;
+    trivial_mock_nameable(trivial_mock_nameable const & obj) noexcept = default;
+    trivial_mock_nameable(trivial_mock_nameable && obj) noexcept = default;
 };
 
 //==============================================================================
@@ -49,39 +47,89 @@ TEST_CASE("nameable", "[gg.nameable]")
     {
         REQUIRE(!type::is_assignable<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_assign<nameable<string_ref>>::value);
+
+        REQUIRE(!type::is_assignable<mock_nameable>::value);
+        REQUIRE(!type::has_trivial_assign<mock_nameable>::value);
+
+        REQUIRE(!type::is_assignable<nameable<char8 const *>>::value);
+        REQUIRE(!type::has_trivial_assign<nameable<char8 const *>>::value);
+
+        REQUIRE(!type::is_assignable<trivial_mock_nameable>::value);
+        REQUIRE(!type::has_trivial_assign<trivial_mock_nameable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_constructor<nameable<string_ref>>::value);
+
+        REQUIRE(type::is_constructible<mock_nameable>::value);
+        REQUIRE(!type::has_trivial_constructor<mock_nameable>::value);
+
+        REQUIRE(!type::is_constructible<nameable<char8 const *>>::value);
+        REQUIRE(!type::has_trivial_constructor<nameable<char8 const *>>::value);
+
+        REQUIRE(type::is_constructible<trivial_mock_nameable>::value);
+        REQUIRE(type::has_trivial_constructor<trivial_mock_nameable>::value);
     }
 
     SECTION("copy")
     {
         REQUIRE(!type::is_copyable<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_copy<nameable<string_ref>>::value);
+
+        REQUIRE(type::is_copyable<mock_nameable>::value);
+        REQUIRE(!type::has_trivial_copy<mock_nameable>::value);
+
+        REQUIRE(!type::is_copyable<nameable<char8 const *>>::value);
+        REQUIRE(!type::has_trivial_copy<nameable<char8 const *>>::value);
+
+        REQUIRE(type::is_copyable<trivial_mock_nameable>::value);
+        REQUIRE(type::has_trivial_copy<trivial_mock_nameable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<nameable<string_ref>>::value);
         REQUIRE(!type::has_trivial_destructor<nameable<string_ref>>::value);
+
+        REQUIRE(type::is_destructible<mock_nameable>::value);
+        REQUIRE(type::has_trivial_destructor<mock_nameable>::value);
+
+        REQUIRE(!type::is_destructible<nameable<char8 const *>>::value);
+        REQUIRE(!type::has_trivial_destructor<nameable<char8 const *>>::value);
+
+        REQUIRE(type::is_destructible<trivial_mock_nameable>::value);
+        REQUIRE(type::has_trivial_destructor<trivial_mock_nameable>::value);
     }
 
     SECTION("equality")
     {
         REQUIRE(!type::has_equality<nameable<string_ref>>::value);
+        REQUIRE(!type::has_equality<mock_nameable>::value);
+        REQUIRE(!type::has_equality<nameable<char8 const *>>::value);
+        REQUIRE(!type::has_equality<trivial_mock_nameable>::value);
     }
 
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<nameable<string_ref>>::value);
+        REQUIRE(!type::is_pod<mock_nameable>::value);
+#if defined(GG_LINUX)
+        REQUIRE(type::is_pod<nameable<char8 const *>>::value);
+        REQUIRE(type::is_pod<trivial_mock_nameable>::value);
+#elif defined(GG_WINDOWS)
+        REQUIRE(!type::is_pod<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_pod<trivial_mock_nameable>::value);
+#endif
     }
 
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<nameable<string_ref>>::value);
+        REQUIRE(!type::is_polymorphic<mock_nameable>::value);
+        REQUIRE(!type::is_polymorphic<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_polymorphic<trivial_mock_nameable>::value);
     }
 
     SECTION("sizeof")
@@ -89,6 +137,15 @@ TEST_CASE("nameable", "[gg.nameable]")
         REQUIRE(
             sizeof(nameable<string_ref>) ==
             sizeof(nameable<string_ref>::name_type));
+        REQUIRE(
+            sizeof(mock_nameable) ==
+            sizeof(mock_nameable::name_type));
+        REQUIRE(
+            sizeof(nameable<uint32>) ==
+            sizeof(nameable<uint32>::name_type));
+        REQUIRE(
+            sizeof(trivial_mock_nameable) ==
+            sizeof(trivial_mock_nameable::name_type));
     }
 }
 

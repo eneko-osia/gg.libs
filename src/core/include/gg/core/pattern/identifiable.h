@@ -20,12 +20,6 @@ namespace gg
 
         typedef ID_TYPE id_type;
 
-        // static asserts
-
-        GG_STATIC_ASSERT(
-            !type::is_pointer<id_type>::value,
-            "pointer id_type is not allowed");
-
         // constructors
 
         identifiable(void) noexcept = default;

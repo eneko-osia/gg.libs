@@ -20,18 +20,11 @@ namespace gg
 
         typedef NAME_TYPE name_type;
 
-        // static asserts
-
-        GG_STATIC_ASSERT(
-            !type::is_pointer<name_type>::value,
-            "pointer name_type is not allowed");
-
         // constructors
 
-        nameable(void) noexcept
-            : m_name()
-        {
-        }
+        nameable(void) noexcept = default;
+        nameable(nameable const & obj) noexcept = default;
+        nameable(nameable && obj) noexcept = default;
 
         nameable(name_type const & name) noexcept
             : m_name(name)
@@ -40,16 +33,6 @@ namespace gg
 
         nameable(name_type && name) noexcept
             : m_name(type::move(name))
-        {
-        }
-
-        nameable(nameable const & obj) noexcept
-            : m_name(obj.m_name)
-        {
-        }
-
-        nameable(nameable && obj) noexcept
-            : m_name(type::move(obj.m_name))
         {
         }
 
@@ -93,9 +76,7 @@ namespace gg
 
         // constructors
 
-        ~nameable(void) noexcept
-        {
-        }
+        ~nameable(void) noexcept = default;
 
     private:
 
