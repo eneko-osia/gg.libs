@@ -76,10 +76,7 @@ namespace gg
 
         // constructors
 
-        singleton_manual(void) noexcept
-        {
-        }
-
+        singleton_manual(void) noexcept = default;
         ~singleton_manual(void) noexcept
         {
             GG_ASSERT_NULL(m_instance);
