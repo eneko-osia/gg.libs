@@ -28,10 +28,9 @@ namespace gg
 
         // constructors
 
-        identifiable(void) noexcept
-            : m_id()
-        {
-        }
+        identifiable(void) noexcept = default;
+        identifiable(identifiable const & obj) noexcept = default;
+        identifiable(identifiable && obj) noexcept = default;
 
         identifiable(id_type const & id) noexcept
             : m_id(id)
@@ -40,16 +39,6 @@ namespace gg
 
         identifiable(id_type && id) noexcept
             : m_id(type::move(id))
-        {
-        }
-
-        identifiable(identifiable const & obj) noexcept
-            : m_id(obj.m_id)
-        {
-        }
-
-        identifiable(identifiable && obj) noexcept
-            : m_id(type::move(obj.m_id))
         {
         }
 
@@ -93,9 +82,7 @@ namespace gg
 
         // constructors
 
-        ~identifiable(void) noexcept
-        {
-        }
+        ~identifiable(void) noexcept = default;
 
     private:
 

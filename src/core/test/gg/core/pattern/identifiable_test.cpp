@@ -32,6 +32,11 @@ public:
         id.m_id = 0;
     }
 
+    ~mock_id(void) noexcept
+    {
+        m_id = 0;
+    }
+
     // operators
 
     mock_id & operator=(mock_id const & id) noexcept
@@ -61,10 +66,9 @@ class mock_identifiable : public identifiable<mock_id>
 {
 public:
 
-    mock_identifiable(void) noexcept
-        : identifiable<mock_id>()
-    {
-    }
+    mock_identifiable(void) noexcept = default;
+    mock_identifiable(mock_identifiable const & obj) noexcept = default;
+    mock_identifiable(mock_identifiable && obj) noexcept = default;
 
     mock_identifiable(mock_id const & id) noexcept
         : identifiable<mock_id>(id)
@@ -75,16 +79,15 @@ public:
         : identifiable<mock_id>(type::move(id))
     {
     }
+};
 
-    mock_identifiable(mock_identifiable const & obj) noexcept
-        : identifiable<mock_id>(obj)
-    {
-    }
+class trivial_mock_identifiable : public identifiable<uint32>
+{
+public:
 
-    mock_identifiable(mock_identifiable && obj) noexcept
-        : identifiable<mock_id>(type::move(obj))
-    {
-    }
+    trivial_mock_identifiable(void) noexcept = default;
+    trivial_mock_identifiable(trivial_mock_identifiable const & obj) noexcept = default;
+    trivial_mock_identifiable(trivial_mock_identifiable && obj) noexcept = default;
 };
 
 //==============================================================================
@@ -94,40 +97,77 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     SECTION("assign")
     {
         REQUIRE(!type::is_assignable<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_assignable<mock_identifiable>::value);
         REQUIRE(!type::has_trivial_assign<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_assign<mock_identifiable>::value);
+
+        REQUIRE(!type::is_assignable<identifiable<uint32>>::value);
+        REQUIRE(!type::is_assignable<trivial_mock_identifiable>::value);
+        REQUIRE(!type::has_trivial_assign<identifiable<uint32>>::value);
+        REQUIRE(!type::has_trivial_assign<trivial_mock_identifiable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<identifiable<mock_id>>::value);
+        REQUIRE(type::is_constructible<mock_identifiable>::value);
         REQUIRE(!type::has_trivial_constructor<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_constructor<mock_identifiable>::value);
+
+        REQUIRE(!type::is_constructible<identifiable<uint32>>::value);
+        REQUIRE(type::is_constructible<trivial_mock_identifiable>::value);
+        REQUIRE(!type::has_trivial_constructor<identifiable<uint32>>::value);
+        REQUIRE(type::has_trivial_constructor<trivial_mock_identifiable>::value);
     }
 
     SECTION("copy")
     {
         REQUIRE(!type::is_copyable<identifiable<mock_id>>::value);
+        REQUIRE(type::is_copyable<mock_identifiable>::value);
         REQUIRE(!type::has_trivial_copy<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_copy<mock_identifiable>::value);
+
+        REQUIRE(!type::is_copyable<identifiable<uint32>>::value);
+        REQUIRE(type::is_copyable<trivial_mock_identifiable>::value);
+        REQUIRE(!type::has_trivial_copy<identifiable<uint32>>::value);
+        REQUIRE(type::has_trivial_copy<trivial_mock_identifiable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<identifiable<mock_id>>::value);
+        REQUIRE(type::is_destructible<mock_identifiable>::value);
         REQUIRE(!type::has_trivial_destructor<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_trivial_destructor<mock_identifiable>::value);
+
+        REQUIRE(!type::is_destructible<identifiable<uint32>>::value);
+        REQUIRE(type::is_destructible<trivial_mock_identifiable>::value);
+        REQUIRE(!type::has_trivial_destructor<identifiable<uint32>>::value);
+        REQUIRE(type::has_trivial_destructor<trivial_mock_identifiable>::value);
     }
 
     SECTION("equality")
     {
         REQUIRE(!type::has_equality<identifiable<mock_id>>::value);
+        REQUIRE(!type::has_equality<mock_identifiable>::value);
+        REQUIRE(!type::has_equality<identifiable<uint32>>::value);
+        REQUIRE(!type::has_equality<trivial_mock_identifiable>::value);
     }
 
     SECTION("pod")
     {
         REQUIRE(!type::is_pod<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_pod<mock_identifiable>::value);
+        REQUIRE(!type::is_pod<identifiable<uint32>>::value);
+        REQUIRE(!type::is_pod<trivial_mock_identifiable>::value);
     }
 
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_polymorphic<mock_identifiable>::value);
+        REQUIRE(!type::is_polymorphic<identifiable<uint32>>::value);
+        REQUIRE(!type::is_polymorphic<trivial_mock_identifiable>::value);
     }
 
     SECTION("sizeof")
@@ -135,6 +175,15 @@ TEST_CASE("identifiable", "[gg.identifiable]")
         REQUIRE(
             sizeof(identifiable<mock_id>) ==
             sizeof(identifiable<mock_id>::id_type));
+        REQUIRE(
+            sizeof(mock_identifiable) ==
+            sizeof(mock_identifiable::id_type));
+        REQUIRE(
+            sizeof(identifiable<uint32>) ==
+            sizeof(identifiable<uint32>::id_type));
+        REQUIRE(
+            sizeof(trivial_mock_identifiable) ==
+            sizeof(trivial_mock_identifiable::id_type));
     }
 }
 
