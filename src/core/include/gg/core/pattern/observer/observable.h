@@ -29,20 +29,9 @@ namespace gg
 
         // constructors
 
-        observable(void) noexcept
-            : m_observers()
-        {
-        }
-
-        observable(observable const & obj) noexcept
-            : m_observers(obj.m_observers)
-        {
-        }
-
-        observable(observable && obj) noexcept
-            : m_observers(type::move(obj.m_observers))
-        {
-        }
+        observable(void) noexcept = default;
+        observable(observable const & obj) noexcept = default;
+        observable(observable && obj) noexcept = default;
 
         // methods
 
@@ -106,9 +95,7 @@ namespace gg
 
         // constructors
 
-        ~observable(void) noexcept
-        {
-        }
+        ~observable(void) noexcept = default;
 
     private:
 
