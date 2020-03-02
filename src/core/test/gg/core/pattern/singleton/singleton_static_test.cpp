@@ -62,7 +62,11 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
 
     SECTION("pod")
     {
+#if defined(GG_LINUX)
+        REQUIRE(type::is_pod<singleton_static<mock_singleton>>::value);
+#elif defined(GG_WINDOWS)
         REQUIRE(!type::is_pod<singleton_static<mock_singleton>>::value);
+#endif
     }
 
     SECTION("polymorphic")
