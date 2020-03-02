@@ -1,10 +1,10 @@
-#ifndef _gg_engine_pc_h_
-#define _gg_engine_pc_h_
+#ifndef _gg_runtime_pc_h_
+#define _gg_runtime_pc_h_
 
 // include files
 
 #include "gg/app/window/iwindow_observer.h"
-#include "gg/engine/engine_base.h"
+#include "gg/engine/runtime/runtime_base.h"
 
 // namespace
 
@@ -12,22 +12,22 @@ namespace gg
 {
     // type definitions
 
-    typedef class engine_pc engine_platform;
+    typedef class runtime_pc runtime_platform;
 
-    // class in charge of define a pc engine
+    // class in charge of define a pc runtime
 
-    class engine_pc : public engine_base, public iwindow_observer
+    class runtime_pc : public runtime_base, public iwindow_observer
     {
     protected:
 
         // constructors
 
-        engine_pc(data const & data) noexcept;
-        virtual ~engine_pc(void) noexcept = default;
+        runtime_pc(data const & data) noexcept;
+        virtual ~runtime_pc(void) noexcept = default;
 
     private:
 
-        // engine base override methods
+        // runtime base override methods
 
         void finalize(void) noexcept override;
         bool8 init(void) noexcept override;
@@ -48,4 +48,4 @@ namespace gg
     };
 }
 
-#endif // _gg_engine_pc_h_
+#endif // _gg_runtime_pc_h_

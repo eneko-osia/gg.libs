@@ -1,25 +1,17 @@
-#include "gg/test/catch.h"
+#include "gg/engine/runtime/runtime.h"
 
 //==============================================================================
 
-#include "gg/engine/engine.h"
+GG_APPLICATION(gg::runtime)
 
 //==============================================================================
 namespace gg
 {
 //==============================================================================
 
-TEST_CASE("engine", "[gg.engine]")
+runtime::runtime(data const & data) noexcept
+    : runtime_platform(data)
 {
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<engine>::value);
-    }
-
-    SECTION("polymorphic")
-    {
-        REQUIRE(type::is_polymorphic<engine>::value);
-    }
 }
 
 //==============================================================================

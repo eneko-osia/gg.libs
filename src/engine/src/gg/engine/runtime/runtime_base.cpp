@@ -1,23 +1,23 @@
-#include "gg/engine/engine_base.h"
+#include "gg/engine/runtime/runtime_base.h"
 
 //==============================================================================
 namespace gg
 {
 //==============================================================================
 
-engine_base::engine_base(data const & data) noexcept
+runtime_base::runtime_base(data const & data) noexcept
     : application(data)
     , m_modules()
 {
 }
 
-engine_base::~engine_base(void) noexcept
+runtime_base::~runtime_base(void) noexcept
 {
 }
 
 //==============================================================================
 
-int32 engine_base::main(void) noexcept
+int32 runtime_base::main(void) noexcept
 {
     if (init())
     {

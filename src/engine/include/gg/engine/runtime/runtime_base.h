@@ -1,35 +1,32 @@
-#ifndef _gg_engine_base_h_
-#define _gg_engine_base_h_
+#ifndef _gg_runtime_base_h_
+#define _gg_runtime_base_h_
 
 // include files
 
 #include "gg/app/application/application.h"
-#include "gg/core/container/array/array_dynamic.h"
 #include "gg/engine/pattern/module_locator/module_locator.h"
 
 // namespace
 
 namespace gg
 {
-    // class in charge of define a base engine
+    // class in charge of define a base runtime
 
-    class engine_base : public application
+    class runtime_base : public application
     {
     protected:
 
         // constructors
 
-        engine_base(data const & data) noexcept;
-        virtual ~engine_base(void) noexcept;
+        runtime_base(data const & data) noexcept;
+        virtual ~runtime_base(void) noexcept;
 
         template <typename MODULE_TYPE>
         void finalize_module(uint32 module_id) noexcept
         {
             GG_RETURN_IF_FALSE_ASSERT(m_modules.has(module_id));
-
             MODULE_TYPE * module = m_modules.get<MODULE_TYPE>(module_id);
             m_modules.unpublish(module_id);
-
             module->finalize();
             memory::delete_object(module);
         }
@@ -50,7 +47,6 @@ namespace gg
         bool8 init_module(uint32 module_id) noexcept
         {
             GG_RETURN_FALSE_IF_TRUE_ASSERT(m_modules.has(module_id));
-
             MODULE_TYPE * module = memory::new_object<MODULE_TYPE>();
             if (!module->init())
             {
@@ -58,7 +54,6 @@ namespace gg
                 memory::delete_object(module);
                 return false;
             }
-
             m_modules.publish(module_id, module);
             return true;
         }
@@ -83,4 +78,4 @@ namespace gg
     };
 }
 
-#endif // _gg_engine_base_h_
+#endif // _gg_runtime_base_h_

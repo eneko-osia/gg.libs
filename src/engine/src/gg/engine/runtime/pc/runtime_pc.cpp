@@ -1,7 +1,7 @@
 #if defined(GG_MAC) || defined(GG_LINUX) || defined(GG_WINDOWS)
 //==============================================================================
 
-#include "gg/engine/pc/engine_pc.h"
+#include "gg/engine/runtime/pc/runtime_pc.h"
 
 //==============================================================================
 
@@ -15,22 +15,22 @@ namespace gg
 {
 //==============================================================================
 
-engine_pc::engine_pc(data const & data) noexcept
-    : engine_base(data)
+runtime_pc::runtime_pc(data const & data) noexcept
+    : runtime_base(data)
     , m_running(false)
 {
 }
 
 //==============================================================================
 
-void engine_pc::finalize(void) noexcept
+void runtime_pc::finalize(void) noexcept
 {
     window * win = get_window(1);
     win->remove_observer(this);
     destroy_window(1);
 }
 
-bool8 engine_pc::init(void) noexcept
+bool8 runtime_pc::init(void) noexcept
 {
     window * win = create_window(1, string_ref(GG_TEXT("main")), 640, 480);
     GG_RETURN_FALSE_IF_NULL_ASSERT(win);
@@ -78,25 +78,25 @@ bool8 engine_pc::init(void) noexcept
     return m_running = true;
 }
 
-void engine_pc::on_close(void) noexcept
+void runtime_pc::on_close(void) noexcept
 {
     m_running = false;
 }
 
-void engine_pc::on_gain_focus(void) noexcept
+void runtime_pc::on_gain_focus(void) noexcept
 {
 }
 
-void engine_pc::on_lost_focus(void) noexcept
+void runtime_pc::on_lost_focus(void) noexcept
 {
 }
 
-void engine_pc::on_quit(void) noexcept
+void runtime_pc::on_quit(void) noexcept
 {
     m_running = false;
 }
 
-int32 engine_pc::run(void) noexcept
+int32 runtime_pc::run(void) noexcept
 {
     while (m_running)
     {
