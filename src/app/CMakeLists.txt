@@ -53,7 +53,7 @@ target_link_libraries(gg.app ${X11_LIBRARIES} gg.core)
 set_target_properties(gg.app PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GG_ENABLE_TESTING)
+if(GGLIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.app.test ${test_files})
 

@@ -96,7 +96,7 @@ CMAKE_DEPENDENT_OPTION(
 )
 
 CMAKE_DEPENDENT_OPTION(
-    GG_ENABLE_DOC
+    GGLIBS_ENABLE_DOC
     "enable documentation"
     ON
     GG_CORE
@@ -104,7 +104,7 @@ CMAKE_DEPENDENT_OPTION(
 )
 
 CMAKE_DEPENDENT_OPTION(
-    GG_ENABLE_TESTING
+    GGLIBS_ENABLE_TESTING
     "enable tests"
     ON
     GG_TEST
@@ -122,7 +122,7 @@ configure_file(
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # documentation
-if(GG_ENABLE_DOC)
+if(GGLIBS_ENABLE_DOC)
     # find doxygen dependency
     find_package(Doxygen REQUIRED)
 
@@ -160,7 +160,7 @@ if(GG_ENABLE_DOC)
 endif()
 
 # testing
-if(GG_ENABLE_TESTING)
+if(GGLIBS_ENABLE_TESTING)
     # enable testing
     enable_testing()
 

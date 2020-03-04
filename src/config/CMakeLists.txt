@@ -52,7 +52,7 @@ target_link_libraries(gg.config gg.crypt)
 set_target_properties(gg.config PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GG_ENABLE_TESTING)
+if(GGLIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.config.test ${test_files})
 

@@ -88,7 +88,7 @@ target_link_libraries(gg.core Threads::Threads)
 set_target_properties(gg.core PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GG_ENABLE_TESTING)
+if(GGLIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.core.test ${test_files})
 
