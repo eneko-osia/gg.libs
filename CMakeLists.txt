@@ -39,7 +39,6 @@ set(gg_libraries
     "app"
     "config"
     "crypt"
-    "engine"
 )
 
 # modules path
@@ -93,22 +92,6 @@ CMAKE_DEPENDENT_OPTION(
     "config library"
     ON
     GG_CRYPT
-    OFF
-)
-
-CMAKE_DEPENDENT_OPTION(
-    GG_ENGINE
-    "engine library"
-    ON
-    GG_CRYPT
-    OFF
-)
-
-CMAKE_DEPENDENT_OPTION(
-    GG_ENGINE_BIN
-    "engine binary"
-    ON
-    GG_ENGINE
     OFF
 )
 
