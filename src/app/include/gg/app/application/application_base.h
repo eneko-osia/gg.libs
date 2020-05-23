@@ -3,7 +3,9 @@
 
 // include files
 
+#include "gg/core/pattern/nameable.h"
 #include "gg/core/pattern/singleton/singleton_manual.h"
+#include "gg/core/string/type/string_dynamic.h"
 
 // namespace
 
@@ -15,7 +17,9 @@ namespace gg
 
     // class in charge of define a base application
 
-    class application_base : public singleton_manual<application_base>
+    class application_base
+        : public singleton_manual<application_base>
+        , public nameable<string_dynamic>
     {
     public:
 
