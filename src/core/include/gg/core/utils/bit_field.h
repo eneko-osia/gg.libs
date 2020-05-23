@@ -40,7 +40,7 @@ namespace gg
         {
             return (value & mask) == mask;
         }
-    };
+    }
 }
 
 #endif // _gg_bit_field_h_
