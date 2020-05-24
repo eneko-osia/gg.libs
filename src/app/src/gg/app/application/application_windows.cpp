@@ -52,7 +52,7 @@ void application_windows::handle_messages(void) noexcept
 
     // initialize msg
 
-    memory::zero(&msg, 1);
+    memory::zero(&msg);
 
     // handle the windows messages
 

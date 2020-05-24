@@ -57,7 +57,7 @@ window_windows::window_windows(uint32 id, string_ref const & name)
     , m_hwnd(nullptr)
     , m_wnd_class()
 {
-    memory::zero(&m_wnd_class, 1);
+    memory::zero(&m_wnd_class);
 }
 
 window_windows::~window_windows(void)
@@ -74,7 +74,7 @@ void window_windows::finalize(void)
     // unregister class
 
     unregister_class();
-    memory::zero(&m_wnd_class, 1);
+    memory::zero(&m_wnd_class);
 
     // destroy window
 
