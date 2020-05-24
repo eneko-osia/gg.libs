@@ -34,7 +34,7 @@ namespace gg
 
         template <typename TYPE>
         static int32
-        compare(TYPE const * lptr, TYPE const * rptr, size_type items) noexcept
+        compare(TYPE const * lptr, TYPE const * rptr, size_type items = 1) noexcept
         {
             return compare(
                 type::cast_static<void const *>(lptr),
@@ -58,7 +58,7 @@ namespace gg
 
         template <typename TYPE>
         static TYPE *
-        copy(TYPE * destination, TYPE const * source, size_type items) noexcept
+        copy(TYPE * destination, TYPE const * source, size_type items = 1) noexcept
         {
             return type::cast_static<TYPE *>(
                 copy(
@@ -77,7 +77,7 @@ namespace gg
 
         template <typename TYPE>
         static TYPE *
-        move(TYPE * destination, TYPE const * source, size_type items) noexcept
+        move(TYPE * destination, TYPE const * source, size_type items = 1) noexcept
         {
             return type::cast_static<TYPE *>(
                 move(
@@ -95,7 +95,7 @@ namespace gg
 
         template <typename TYPE>
         static TYPE *
-        set(TYPE * destination, value_type value, size_type items) noexcept
+        set(TYPE * destination, value_type value, size_type items = 1) noexcept
         {
             return type::cast_static<TYPE *>(
                 set(
@@ -113,7 +113,7 @@ namespace gg
 
         template <typename TYPE>
         static TYPE *
-        zero(TYPE * destination, size_type items) noexcept
+        zero(TYPE * destination, size_type items = 1) noexcept
         {
             return type::cast_static<TYPE *>(
                 zero(
@@ -127,7 +127,7 @@ namespace gg
         }
 
         template <typename TYPE>
-        static TYPE * allocate(size_type items) noexcept
+        static TYPE * allocate(size_type items = 1) noexcept
         {
             return type::cast_static<TYPE *>(allocate(items * sizeof(TYPE)));
         }
