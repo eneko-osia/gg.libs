@@ -5,14 +5,14 @@
 
 #include "gg/app/runtime/window_runtime.h"
 
+// forward declarations
+
+namespace gg { class string_ref; }
+
 // namespace
 
 namespace gg::app
 {
-    // forward declarations
-
-    class string_ref;
-
     // type definitions
 
     typedef class runtime_linux runtime_platform;
