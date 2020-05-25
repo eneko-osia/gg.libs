@@ -46,7 +46,11 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.crypt gg.core)
+target_link_libraries(
+    gg.crypt
+    PUBLIC
+        gg.core
+)
 
 # group folder
 set_target_properties(gg.crypt PROPERTIES FOLDER gg.libs)
