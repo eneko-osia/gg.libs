@@ -20,7 +20,7 @@ int main(int argc, char const **argv)
 
     // run main
 
-    return gg::runtime::main(data);
+    return gg::app::runtime::main(data);
 }
 
 //==============================================================================
