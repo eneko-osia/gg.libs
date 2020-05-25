@@ -45,7 +45,7 @@ namespace gg::app
 
         // friendships
 
-        friend class memory;
+        friend class gg::memory;
 
         // static methods
 
