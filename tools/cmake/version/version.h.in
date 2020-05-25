@@ -10,10 +10,10 @@
 namespace gg
 {
     static constexpr uint32 version = (@PROJECT_VERSION_MAJOR@ << 16) | (@PROJECT_VERSION_MINOR@ << 8) | (@PROJECT_VERSION_PATCH@ << 0);
+    static constexpr uint32 version_major = @PROJECT_VERSION_MAJOR@;
+    static constexpr uint32 version_minor = @PROJECT_VERSION_MINOR@;
+    static constexpr uint32 version_patch = @PROJECT_VERSION_PATCH@;
 
-    static constexpr string_ref version_major = GG_TEXT("@PROJECT_VERSION_MAJOR@");
-    static constexpr string_ref version_minor = GG_TEXT("@PROJECT_VERSION_MINOR@");
-    static constexpr string_ref version_patch = GG_TEXT("@PROJECT_VERSION_PATCH@");
     static constexpr string_ref version_string = GG_TEXT("@PROJECT_VERSION@");
 }
 
