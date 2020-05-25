@@ -31,6 +31,7 @@
             }
         }
     },
+    "cmake.preferredGenerators": [ "Ninja" ],
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
     "files.trimTrailingWhitespace": true,
