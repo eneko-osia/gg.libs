@@ -45,7 +45,7 @@ namespace gg
 
         // operators
 
-        char8 const & operator[](size_type idx) const noexcept
+        constexpr char8 const & operator[](size_type idx) const noexcept
         {
             GG_ASSERT_LESS_THAN(idx, size());
             return begin()[idx];
@@ -72,46 +72,46 @@ namespace gg
             return set(string);
         }
 
-        bool8 operator==(char8 const * string) const noexcept
+        constexpr bool8 operator==(char8 const * string) const noexcept
         {
             return string::compare(begin(), string) == 0;
         }
 
         template <typename STRING_TYPE>
-        bool8 operator==(STRING_TYPE const & string) const noexcept
+        constexpr bool8 operator==(STRING_TYPE const & string) const noexcept
         {
             return *this == string.begin();
         }
 
-        bool8 operator!=(char8 const * string) const noexcept
+        constexpr bool8 operator!=(char8 const * string) const noexcept
         {
             return !(*this == string);
         }
 
         template <typename STRING_TYPE>
-        bool8 operator!=(STRING_TYPE const & string) const noexcept
+        constexpr bool8 operator!=(STRING_TYPE const & string) const noexcept
         {
             return !(*this == string);
         }
 
-        bool8 operator<(char8 const * string) const noexcept
+        constexpr bool8 operator<(char8 const * string) const noexcept
         {
             return string::compare(begin(), string) < 0;
         }
 
         template <typename STRING_TYPE>
-        bool8 operator<(STRING_TYPE const & string) const noexcept
+        constexpr bool8 operator<(STRING_TYPE const & string) const noexcept
         {
             return *this < string.begin();
         }
 
-        bool8 operator>(char8 const * string) const noexcept
+        constexpr bool8 operator>(char8 const * string) const noexcept
         {
             return string::compare(begin(), string) > 0;
         }
 
         template <typename STRING_TYPE>
-        bool8 operator>(STRING_TYPE const & string) const noexcept
+        constexpr bool8 operator>(STRING_TYPE const & string) const noexcept
         {
             return *this > string.begin();
         }
@@ -128,12 +128,13 @@ namespace gg
             m_data = "";
         }
 
-        char8 const * end(void) const noexcept
+        constexpr char8 const * end(void) const noexcept
         {
             return begin() + size();
         }
 
-        size_type find(char8 const * string, size_type idx = 0) const noexcept
+        constexpr size_type
+        find(char8 const * string, size_type idx = 0) const noexcept
         {
             GG_ASSERT_LESS_THAN(idx, size());
             char8 const * position = string::find(begin() + idx, string);
@@ -142,7 +143,7 @@ namespace gg
         }
 
         template <typename STRING_TYPE>
-        size_type
+        constexpr size_type
         find(STRING_TYPE const & string, size_type idx = 0) const noexcept
         {
             return find(string.begin(), idx);
@@ -171,7 +172,6 @@ namespace gg
             GG_ASSERT_NOT_EQUALS(this, &string);
             m_data = type::move(string.m_data);
             string.m_data = "";
-
             return *this;
         }
 
@@ -181,14 +181,14 @@ namespace gg
             return set(string.begin());
         }
 
-        size_type size(void) const noexcept
+        constexpr size_type size(void) const noexcept
         {
             return begin() ? size_type(string::length(begin())) : 0;
         }
 
         // inquiries
 
-        bool8 is_empty(void) const noexcept
+        constexpr bool8 is_empty(void) const noexcept
         {
             return 0 == size();
         }
@@ -202,22 +202,26 @@ namespace gg
 
     // helpers
 
-    inline bool8 operator<(char8 const * lstring, string_ref const & rstring)
+    inline constexpr bool8
+    operator<(char8 const * lstring, string_ref const & rstring)
     {
         return rstring > lstring;
     }
 
-    inline bool8 operator>(char8 const * lstring, string_ref const & rstring)
+    inline constexpr bool8
+    operator>(char8 const * lstring, string_ref const & rstring)
     {
         return rstring < lstring;
     }
 
-    inline bool8 operator==(char8 const * lstring, string_ref const & rstring)
+    inline constexpr bool8
+    operator==(char8 const * lstring, string_ref const & rstring)
     {
         return rstring == lstring;
     }
 
-    inline bool8 operator!=(char8 const * lstring, string_ref const & rstring)
+    inline constexpr bool8
+    operator!=(char8 const * lstring, string_ref const & rstring)
     {
         return rstring != lstring;
     }
