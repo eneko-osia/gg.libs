@@ -25,8 +25,8 @@ namespace gg
 
             inline constexpr uint32 generate(string_ref const & string)
             {
-                static constexpr uint32 k_offset_basis = 0x811c9dc5;
-                static constexpr uint32 k_prime = (1 << 24) + (1 << 8) + 0x93;
+                constexpr uint32 k_offset_basis = 0x811c9dc5;
+                constexpr uint32 k_prime = (1 << 24) + (1 << 8) + 0x93;
 
                 uint32 hash = k_offset_basis;
                 for (auto cit = string.begin(); cit != string.end(); ++cit)
@@ -46,8 +46,8 @@ namespace gg
 
             inline constexpr uint32 generate(string_ref const & string)
             {
-                static constexpr uint32 k_offset_basis = 0x811c9dc5;
-                static constexpr uint32 k_prime = (1 << 24) + (1 << 8) + 0x93;
+                constexpr uint32 k_offset_basis = 0x811c9dc5;
+                constexpr uint32 k_prime = (1 << 24) + (1 << 8) + 0x93;
 
                 uint32 hash = k_offset_basis;
                 for (auto cit = string.begin(); cit != string.end(); ++cit)
