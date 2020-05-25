@@ -5,7 +5,8 @@
     <DisplayString>{{size = {m_size}}}</DisplayString>
     <Expand>
         <Item Name="[buffer]">m_buffer</Item>
-        <Item Name="[max_size]">m_buffer.m_size</Item>
+        <Item Name="[item_size]">sizeof($T1)</Item>
+        <Item Name="[max_size]">m_buffer.m_size / sizeof($T1)</Item>
         <Item Name="[size]">m_size</Item>
         <ArrayItems>
             <Size>m_size</Size>
@@ -18,6 +19,7 @@
     <DisplayString>{{size = {$T2}}}</DisplayString>
     <Expand>
         <Item Name="[buffer]">m_buffer</Item>
+        <Item Name="[item_size]">sizeof($T1)</Item>
         <Item Name="[size]">$T2</Item>
         <ArrayItems>
             <Size>$T2</Size>
