@@ -1,5 +1,5 @@
-#ifndef _gg_data_h_
-#define _gg_data_h_
+#ifndef _gg_app_data_h_
+#define _gg_app_data_h_
 
 // include files
 
@@ -7,7 +7,7 @@
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // class in charge of define an application data
 
@@ -22,4 +22,4 @@ namespace gg
     };
 }
 
-#endif // _gg_data_h_
+#endif // _gg_app_data_h_

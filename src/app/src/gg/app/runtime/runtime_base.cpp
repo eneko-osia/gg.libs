@@ -1,18 +1,18 @@
-#include "gg/app/application/application_base.h"
+#include "gg/app/runtime/runtime_base.h"
 
 //==============================================================================
-namespace gg
+namespace gg::app
 {
 //==============================================================================
 
-application_base::application_base(data const & data) noexcept
+runtime_base::runtime_base(data const & data) noexcept
     : m_data(data)
 {
 }
 
 //==============================================================================
 
-int32 application_base::main(data const & data) noexcept
+int32 runtime_base::main(data const & data) noexcept
 {
     create(data);
     int32 result = get_instance().main();

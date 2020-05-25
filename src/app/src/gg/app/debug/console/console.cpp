@@ -5,17 +5,17 @@
 
 //==============================================================================
 
-#include "gg/app/application/application.h"
+#include "gg/app/runtime/runtime.h"
 #include <cstdio>
 #include <iostream>
 #include <windows.h>
 
 //==============================================================================
-namespace gg::console
+namespace gg::app
 {
 //==============================================================================
 
-void finalize(void) noexcept
+void console::finalize(void) noexcept
 {
     GG_RETURN_IF_NULL(GetConsoleWindow());
 
@@ -25,14 +25,13 @@ void finalize(void) noexcept
     GG_RETURN_IF_TRUE(FALSE == FreeConsole());
 }
 
-bool8 init(void) noexcept
+bool8 console::init(void) noexcept
 {
     GG_RETURN_TRUE_IF_NOT_NULL(GetConsoleWindow());
 
     GG_RETURN_FALSE_IF_TRUE(FALSE == AllocConsole());
     GG_RETURN_FALSE_IF_TRUE(
-        FALSE == SetConsoleTitle(
-            application::get_instance().get_name().begin()));
+        FALSE == SetConsoleTitle(runtime::get_instance().get_name().begin()));
     GG_RETURN_FALSE_IF_NULL(freopen("CONIN$", "r", stdin));
     GG_RETURN_FALSE_IF_NULL(freopen("CONOUT$", "w", stdout));
     GG_RETURN_FALSE_IF_NULL(freopen("CONOUT$", "w", stderr));

@@ -1,23 +1,23 @@
-#ifndef _gg_window_application_h_
-#define _gg_window_application_h_
+#ifndef _gg_app_window_runtime_h_
+#define _gg_app_window_runtime_h_
 
 // include files
 
-#include "gg/app/application/application_base.h"
+#include "gg/app/runtime/runtime_base.h"
 #include "gg/core/container/array/array_dynamic.h"
 #include "gg/core/container/container.h"
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // forward declarations
 
     class window;
 
-    // class in charge of define a window application
+    // class in charge of define a window runtime
 
-    class window_application : public application_base
+    class window_runtime : public runtime_base
     {
     public:
 
@@ -30,8 +30,8 @@ namespace gg
 
         // constructors
 
-        window_application(data const & data) noexcept;
-        virtual ~window_application(void) noexcept = default;
+        window_runtime(data const & data) noexcept;
+        virtual ~window_runtime(void) noexcept = default;
 
         // methods
 
@@ -70,4 +70,4 @@ namespace gg
     };
 }
 
-#endif // _gg_app_window_application_h_
+#endif // _gg_app_window_runtime_h_

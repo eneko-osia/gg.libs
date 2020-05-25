@@ -1,5 +1,5 @@
-#ifndef _gg_data_platform_h_
-#define _gg_data_platform_h_
+#ifndef _gg_app_data_platform_h_
+#define _gg_app_data_platform_h_
 
 // include files
 
@@ -13,4 +13,4 @@
     #error "Can't include data platform for unsupported platform"
 #endif
 
-#endif // _gg_data_platform_h_
+#endif // _gg_app_data_platform_h_

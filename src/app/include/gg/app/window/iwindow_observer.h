@@ -1,9 +1,9 @@
-#ifndef _gg_iwindow_observer_h_
-#define _gg_iwindow_observer_h_
+#ifndef _gg_app_iwindow_observer_h_
+#define _gg_app_iwindow_observer_h_
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // interface in charge of define a window observer
 
@@ -21,4 +21,4 @@ namespace gg
     };
 }
 
-#endif // _gg_iwindow_observer_h_
+#endif // _gg_app_iwindow_observer_h_

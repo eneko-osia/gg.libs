@@ -1,8 +1,8 @@
 #if defined(GG_WINDOWS)
 //==============================================================================
 
-#include "gg/app/application/application.h"
 #include "gg/app/data/data.h"
+#include "gg/app/runtime/runtime.h"
 #include "gg/core/macro/macro.h"
 #include "gg/core/string/type/string_ref.h"
 #include "gg/core/string/type/string_static.h"
@@ -11,7 +11,7 @@
 
 int main(int argc, char const ** argv)
 {
-    gg::data data;
+    gg::app::data data;
 
     // populate data
 
@@ -22,7 +22,7 @@ int main(int argc, char const ** argv)
 
     // run main
 
-    return gg::application::main(data);
+    return gg::app::runtime::main(data);
 }
 
 //==============================================================================
@@ -41,7 +41,7 @@ INT WINAPI WinMain(
 
     // populate data
 
-    gg::data data;
+    gg::app::data data;
     data.set_hinstance(hinstance);
 
     for (int i = 0; i < argc; ++i)
@@ -63,7 +63,7 @@ INT WINAPI WinMain(
 
     // run main
 
-    return gg::application::main(data);
+    return gg::app::runtime::main(data);
 }
 
 //==============================================================================

@@ -1,7 +1,7 @@
 #if defined(GG_WINDOWS)
 //==============================================================================
 
-#include "gg/app/application/application_windows.h"
+#include "gg/app/runtime/runtime_windows.h"
 
 //==============================================================================
 
@@ -9,18 +9,18 @@
 #include <windows.h>
 
 //==============================================================================
-namespace gg
+namespace gg::app
 {
 //==============================================================================
 
-application_windows::application_windows(data const & data) noexcept
-    : window_application(data)
+runtime_windows::runtime_windows(data const & data) noexcept
+    : window_runtime(data)
 {
 }
 
 //==============================================================================
 
-window * application_windows::create_window(
+window * runtime_windows::create_window(
     uint32 id,
     string_ref const & name,
     uint16 width,
@@ -39,14 +39,14 @@ window * application_windows::create_window(
     return win;
 }
 
-void application_windows::destroy_window(uint32 id)
+void runtime_windows::destroy_window(uint32 id)
 {
     window * win = get_window(id);
     if (win) { win->finalize(); }
     remove_window(id);
 }
 
-void application_windows::handle_messages(void) noexcept
+void runtime_windows::handle_messages(void) noexcept
 {
     MSG msg;
 

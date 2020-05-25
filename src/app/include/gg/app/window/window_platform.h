@@ -1,5 +1,5 @@
-#ifndef _gg_window_platform_h_
-#define _gg_window_platform_h_
+#ifndef _gg_app_window_platform_h_
+#define _gg_app_window_platform_h_
 
 // include files
 
@@ -13,4 +13,4 @@
     #error "Can't include window platform for unsupported platform"
 #endif
 
-#endif // _gg_window_platform_h_
+#endif // _gg_app_window_platform_h_

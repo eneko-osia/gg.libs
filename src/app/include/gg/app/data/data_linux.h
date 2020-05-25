@@ -1,5 +1,5 @@
-#ifndef _gg_data_linux_h_
-#define _gg_data_linux_h_
+#ifndef _gg_app_data_linux_h_
+#define _gg_app_data_linux_h_
 
 // include files
 
@@ -7,7 +7,7 @@
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // type definitions
 
@@ -32,4 +32,4 @@ namespace gg
     };
 }
 
-#endif // _gg_data_linux_h_
+#endif // _gg_app_data_linux_h_

@@ -5,12 +5,12 @@
 
 //==============================================================================
 
-#include "gg/app/application/application.h"
-#include "gg/app/window/window.h"
 #include "gg/app/data/data.h"
+#include "gg/app/runtime/runtime.h"
+#include "gg/app/window/window.h"
 
 //==============================================================================
-namespace gg
+namespace gg::app
 {
 //==============================================================================
 
@@ -132,7 +132,7 @@ bool8 window_windows::init(uint16 width, uint16 height)
     // register window class
 
     GG_RETURN_FALSE_IF_FALSE_ASSERT(
-        register_class(application::get_instance().get_data().get_hinstance()));
+        register_class(runtime::get_instance().get_data().get_hinstance()));
 
     // prepare window rectangle
 

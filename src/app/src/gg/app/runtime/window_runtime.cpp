@@ -1,16 +1,16 @@
-#include "gg/app/application/window_application.h"
+#include "gg/app/runtime/window_runtime.h"
 
 //==============================================================================
 
 #include "gg/app/window/window.h"
 
 //==============================================================================
-namespace gg
+namespace gg::app
 {
 //==============================================================================
 
-window_application::window_application(data const & data) noexcept
-    : application_base(data)
+window_runtime::window_runtime(data const & data) noexcept
+    : runtime_base(data)
     , m_windows()
 {
     static constexpr uint8 k_initial_allocation = 8;
@@ -19,7 +19,7 @@ window_application::window_application(data const & data) noexcept
 
 //==============================================================================
 
-void window_application::add_window(window * window)
+void window_runtime::add_window(window * window)
 {
     GG_ASSERT_NOT_NULL(window);
     GG_ASSERT_NULL(get_window(window->get_id()));
@@ -27,7 +27,7 @@ void window_application::add_window(window * window)
     m_windows.push_back(window);
 }
 
-window * window_application::get_window(uint32 id) noexcept
+window * window_runtime::get_window(uint32 id) noexcept
 {
     auto it = container::find_if(
         m_windows.begin(),
@@ -39,7 +39,7 @@ window * window_application::get_window(uint32 id) noexcept
     return (it != m_windows.end()) ? *it : nullptr;
 }
 
-window const * window_application::get_window(uint32 id) const noexcept
+window const * window_runtime::get_window(uint32 id) const noexcept
 {
     auto cit = container::find_if(
         m_windows.begin(),
@@ -51,7 +51,7 @@ window const * window_application::get_window(uint32 id) const noexcept
     return (cit != m_windows.end()) ? *cit : nullptr;
 }
 
-void window_application::remove_window(uint32 id)
+void window_runtime::remove_window(uint32 id)
 {
     m_windows.erase(
         container::remove_if(

@@ -1,12 +1,12 @@
-#include "gg/app/application/application.h"
+#include "gg/app/runtime/runtime.h"
 
 //==============================================================================
-namespace gg
+namespace gg::app
 {
 //==============================================================================
 
-application::application(data const & data) noexcept
-    : application_platform(data)
+runtime::runtime(data const & data) noexcept
+    : runtime_platform(data)
 {
 }
 

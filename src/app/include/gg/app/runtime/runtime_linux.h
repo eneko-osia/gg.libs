@@ -1,13 +1,13 @@
-#ifndef _gg_application_linux_h_
-#define _gg_application_linux_h_
+#ifndef _gg_app_runtime_linux_h_
+#define _gg_app_runtime_linux_h_
 
 // include files
 
-#include "gg/app/application/window_application.h"
+#include "gg/app/runtime/window_runtime.h"
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // forward declarations
 
@@ -15,11 +15,11 @@ namespace gg
 
     // type definitions
 
-    typedef class application_linux application_platform;
+    typedef class runtime_linux runtime_platform;
 
-    // class in charge of define a linux application
+    // class in charge of define a linux runtime
 
-    class application_linux : public window_application
+    class runtime_linux : public window_runtime
     {
     public:
 
@@ -36,8 +36,8 @@ namespace gg
 
         // constructors
 
-        application_linux(data const & data) noexcept;
-        virtual ~application_linux(void) noexcept = default;
+        runtime_linux(data const & data) noexcept;
+        virtual ~runtime_linux(void) noexcept = default;
 
         // methods
 
@@ -45,4 +45,4 @@ namespace gg
     };
 }
 
-#endif // _gg_application_linux_h_
+#endif // _gg_app_runtime_linux_h_

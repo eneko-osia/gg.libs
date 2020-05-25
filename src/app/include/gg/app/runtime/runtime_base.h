@@ -1,5 +1,5 @@
-#ifndef _gg_application_base_h_
-#define _gg_application_base_h_
+#ifndef _gg_app_runtime_base_h_
+#define _gg_app_runtime_base_h_
 
 // include files
 
@@ -9,16 +9,16 @@
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // forward declarations
 
     class data;
 
-    // class in charge of define a base application
+    // class in charge of define a base runtime
 
-    class application_base
-        : public singleton_manual<application_base>
+    class runtime_base
+        : public singleton_manual<runtime_base>
         , public nameable<string_dynamic>
     {
     public:
@@ -38,8 +38,8 @@ namespace gg
 
         // constructors
 
-        application_base(data const & data) noexcept;
-        virtual ~application_base(void) noexcept = default;
+        runtime_base(data const & data) noexcept;
+        virtual ~runtime_base(void) noexcept = default;
 
     private:
 
@@ -71,10 +71,10 @@ namespace gg
 
 // define macros
 
-#define GG_APPLICATION(APPLICATION_TYPE)                                    \
-    void gg::application_base::create(data const & data) noexcept           \
+#define GG_APPLICATION(RUNTIME_TYPE)                                    \
+    void gg::app::runtime_base::create(data const & data) noexcept           \
     {                                                                       \
-        singleton_manual<application_base>::create<APPLICATION_TYPE>(data); \
+        singleton_manual<runtime_base>::create<RUNTIME_TYPE>(data); \
     }
 
-#endif // _gg_app_application_base_h_
+#endif // _gg_app_runtime_base_h_

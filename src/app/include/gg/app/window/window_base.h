@@ -1,5 +1,5 @@
-#ifndef _gg_window_base_h_
-#define _gg_window_base_h_
+#ifndef _gg_app_window_base_h_
+#define _gg_app_window_base_h_
 
 // include files
 
@@ -14,7 +14,7 @@
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // class in charge of define a base window
 
@@ -39,4 +39,4 @@ namespace gg
     };
 }
 
-#endif // _gg_window_base_h_
+#endif // _gg_app_window_base_h_

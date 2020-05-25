@@ -1,15 +1,15 @@
 #if defined(GG_LINUX)
 //==============================================================================
 
-#include "gg/app/application/application.h"
 #include "gg/app/data/data.h"
+#include "gg/app/runtime/runtime.h"
 #include "gg/core/string/type/string_ref.h"
 
 //==============================================================================
 
 int main(int argc, char const **argv)
 {
-    gg::data data;
+    gg::app::data data;
 
     // populate data
 
@@ -20,7 +20,7 @@ int main(int argc, char const **argv)
 
     // run main
 
-    return gg::application::main(data);
+    return gg::runtime::main(data);
 }
 
 //==============================================================================

@@ -1,5 +1,5 @@
-#ifndef _gg_data_windows_h_
-#define _gg_data_windows_h_
+#ifndef _gg_app_data_windows_h_
+#define _gg_app_data_windows_h_
 
 // include files
 
@@ -8,7 +8,7 @@
 
 // namespace
 
-namespace gg
+namespace gg::app
 {
     // type definitions
 
@@ -51,4 +51,4 @@ namespace gg
     };
 }
 
-#endif // _gg_data_windows_h_
+#endif // _gg_app_data_windows_h_
