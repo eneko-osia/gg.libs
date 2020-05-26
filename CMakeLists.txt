@@ -37,8 +37,9 @@ set(gg_libraries
     "core"
     "test"
     "app"
-    "config"
     "crypt"
+    "config"
+    "gfx"
 )
 
 # modules path
@@ -92,6 +93,14 @@ CMAKE_DEPENDENT_OPTION(
     "config library"
     ON
     GG_CRYPT
+    OFF
+)
+
+CMAKE_DEPENDENT_OPTION(
+    GG_GFX
+    "gfx library"
+    ON
+    GG_APP
     OFF
 )
 
