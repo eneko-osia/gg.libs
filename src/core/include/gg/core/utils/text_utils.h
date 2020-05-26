@@ -20,7 +20,7 @@ namespace gg
         inline int32
         format(
             char8 * buffer,
-            uint32 size,
+            size_type size,
             char8 const * message,
             ARGS &&... args)
         {
