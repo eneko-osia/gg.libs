@@ -13,14 +13,14 @@ struct mock_container
 {
     mock_container(void)
     {
-        for (int8 i = 0; i < k_max_items; ++i)
+        for (size_type i = 0; i < k_max_items; ++i)
         {
             m_data[i] = (i << 1);
         }
     }
     ~mock_container(void) = default;
 
-    static constexpr int8 k_max_items = 16;
+    static constexpr size_type k_max_items = 16;
     int8 m_data[k_max_items];
 };
 

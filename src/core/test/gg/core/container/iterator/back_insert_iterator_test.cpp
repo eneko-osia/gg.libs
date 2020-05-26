@@ -24,9 +24,9 @@ struct mock_container
         m_data[m_index++] = item;
     }
 
-    static constexpr int8 k_max_items = 16;
+    static constexpr size_type k_max_items = 16;
     int8 m_data[k_max_items];
-    int8 m_index;
+    size_type m_index;
 };
 
 using mock_back_insert_iterator = back_insert_iterator<mock_container>;
