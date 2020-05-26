@@ -13,19 +13,19 @@ struct mock_container
 {
     mock_container(void)
     {
-        for (size_type i = 0; i < k_max_items; ++i)
+        for (uint32 i = 0; i < k_max_items; ++i)
         {
             m_data[i] = (i << 1);
         }
     }
     ~mock_container(void) = default;
 
-    static constexpr size_type k_max_items = 16;
-    int8 m_data[k_max_items];
+    static constexpr uint32 k_max_items = 16;
+    uint32 m_data[k_max_items];
 };
 
-using iterator = contiguous_iterator<int8, iterator_type::no_const>;
-using const_iterator = contiguous_iterator<int8, iterator_type::is_const>;
+using iterator = contiguous_iterator<uint32, iterator_type::no_const>;
+using const_iterator = contiguous_iterator<uint32, iterator_type::is_const>;
 
 //==============================================================================
 
