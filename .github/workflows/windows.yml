@@ -25,7 +25,7 @@ jobs:
     - name: Configure
       shell: bash
       working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -A ${{ matrix.architecture }} -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DGGLIBS_ENABLE_DOC=OFF -DGGLIBS_ENABLE_TESTING=ON
+      run: cmake $GITHUB_WORKSPACE -A ${{ matrix.architecture }} -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DGG_OPENGL=OFF -DGG_VULKAN=OFF -DGGLIBS_ENABLE_DOC=OFF -DGGLIBS_ENABLE_TESTING=ON
 
     - name: Build
       shell: bash
