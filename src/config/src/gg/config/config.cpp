@@ -38,7 +38,7 @@ string_ref
 config::get_string(string_ref const & key, string_ref ret_value) const noexcept
 {
     auto cit = m_values.find(hash::fnv1a::generate(key));
-    return cit == m_values.end() ? ret_value : cit->second;
+    return cit == m_values.end() ? ret_value : string_ref(cit->second);
 }
 
 uint32
