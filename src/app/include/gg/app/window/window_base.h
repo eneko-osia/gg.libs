@@ -4,10 +4,9 @@
 // include files
 
 #include "gg/app/window/iwindow_observer.h"
-#include "gg/core/pattern/observer/observable.h"
-
 #include "gg/core/pattern/identifiable.h"
 #include "gg/core/pattern/nameable.h"
+#include "gg/core/pattern/observer/observable.h"
 #include "gg/core/pattern/sizeable.h"
 #include "gg/core/string/type/string_dynamic.h"
 #include "gg/core/string/type/string_ref.h"
@@ -19,7 +18,7 @@ namespace gg::app
     // class in charge of define a base window
 
     class window_base
-        : public identifiable<uint32>
+        : public identifiable<id_type>
         , public nameable<string_dynamic>
         , public sizeable<uint16>
         , public observable<iwindow_observer>
@@ -28,9 +27,9 @@ namespace gg::app
 
         // constructors
 
-        window_base(uint32 id, string_ref const & name)
-            : identifiable<uint32>(id)
-            , nameable<string_dynamic>(type::move(string_dynamic(name)))
+        window_base(id_type id, string_ref const & name)
+            : identifiable<id_type>(id)
+            , nameable<string_dynamic>(name)
             , sizeable<uint16>(0, 0)
         {
         }

@@ -99,14 +99,9 @@ void window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam)
         }
 
         case WM_CLOSE:
-        {
-            notify_observers(&iwindow_observer::on_close);
-            break;
-        }
-
         case WM_QUIT:
         {
-            notify_observers(&iwindow_observer::on_quit);
+            notify_observers(&iwindow_observer::on_close);
             break;
         }
 

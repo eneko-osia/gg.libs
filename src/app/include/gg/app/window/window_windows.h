@@ -22,9 +22,8 @@ namespace gg::app
 
         // methods
 
-        bool8 init(uint16 width, uint16 height);
         void finalize(void);
-
+        bool8 init(uint16 width, uint16 height);
         void handle_messages(UINT msg, WPARAM wparam, LPARAM lparam);
 
         HWND get_hwnd(void) const

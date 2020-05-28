@@ -24,7 +24,6 @@ namespace gg::app
 
         bool8 init(uint16 width, uint16 height);
         void finalize(void);
-
         void handle_messages(void);
 
         Display * get_display(void) const

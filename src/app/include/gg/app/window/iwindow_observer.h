@@ -14,8 +14,6 @@ namespace gg::app
         // virtual methods
 
         virtual void on_close(void) noexcept = 0;
-        virtual void on_quit(void) noexcept = 0;
-
         virtual void on_gain_focus(void) noexcept = 0;
         virtual void on_lost_focus(void) noexcept = 0;
     };
