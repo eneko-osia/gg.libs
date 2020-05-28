@@ -17,12 +17,6 @@ namespace gg::app
 
     class data_linux : public data_base
     {
-    private:
-
-        // type definitions
-
-        typedef data_base base;
-
     protected:
 
         // constructors
