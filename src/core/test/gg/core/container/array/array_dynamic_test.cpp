@@ -2016,9 +2016,9 @@ TEST_CASE("array_dynamic.resize", "[gg.array_dynamic]")
         REQUIRE(array.max_size() == 0);
         REQUIRE(array.size() == 0);
 
-        array.resize(256);
-        REQUIRE(array.max_size() == 256);
-        REQUIRE(array.size() == 256);
+        array.resize(250);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 250);
     }
 
     SECTION("resize decrease")
@@ -2027,13 +2027,13 @@ TEST_CASE("array_dynamic.resize", "[gg.array_dynamic]")
         REQUIRE(array.max_size() == 0);
         REQUIRE(array.size() == 0);
 
-        array.resize(256);
-        REQUIRE(array.max_size() == 256);
-        REQUIRE(array.size() == 256);
+        array.resize(250);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 250);
 
-        array.resize(16);
-        REQUIRE(array.max_size() == 256);
-        REQUIRE(array.size() == 16);
+        array.resize(20);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 20);
     }
 }
 

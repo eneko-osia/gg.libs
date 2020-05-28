@@ -312,6 +312,7 @@ namespace gg
         {
             if (size > this->size())
             {
+                reallocate_if_needed(size);
                 while (size != this->size())
                 {
                     emplace_back();
@@ -319,10 +320,7 @@ namespace gg
             }
             else
             {
-                while (size != this->size())
-                {
-                    pop_back();
-                }
+                erase(end() - (this->size() - size), end());
             }
         }
 
