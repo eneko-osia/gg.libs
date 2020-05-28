@@ -21,17 +21,6 @@ namespace gg::app
 
     class runtime_linux : public runtime_base
     {
-    public:
-
-        // methods
-
-        window * create_window(
-            uint32 id,
-            string_ref const & name,
-            uint16 width,
-            uint16 height);
-        void destroy_window(uint32 id);
-
     protected:
 
         // constructors

@@ -9,21 +9,21 @@ namespace gg::app
 {
 //==============================================================================
 
-window_linux::window_linux(uint32 id, string_ref const & name)
+window_linux::window_linux(uint32 id, string_ref const & name) noexcept
     : window_base(id, name)
     , m_display(nullptr)
     , m_screen(None)
 {
 }
 
-window_linux::~window_linux(void)
+window_linux::~window_linux(void) noexcept
 {
     finalize();
 }
 
 //==============================================================================
 
-void window_linux::finalize(void)
+void window_linux::finalize(void) noexcept
 {
     if (m_display)
     {
@@ -32,7 +32,7 @@ void window_linux::finalize(void)
     }
 }
 
-void window_linux::handle_messages(void)
+void window_linux::handle_messages(void) noexcept
 {
     XEvent event;
 
@@ -63,7 +63,7 @@ void window_linux::handle_messages(void)
     }
 }
 
-bool8 window_linux::init(uint16 width, uint16 height)
+bool8 window_linux::init(uint16 width, uint16 height) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL_ASSERT(m_display);
     GG_RETURN_FALSE_IF_FALSE_ASSERT(None == m_screen);

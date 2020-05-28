@@ -17,11 +17,8 @@ namespace gg::app
 
         // constructors
 
-        window(uint32 id, string_ref const & name)
-            : window_platform(id, name)
-        {
-        }
-        ~window(void) = default;
+        window(id_type id, string_ref const & name) noexcept;
+        ~window(void) noexcept = default;
     };
 }
 

@@ -32,11 +32,14 @@ namespace gg::app
 
         // methods
 
-        void add_window(window * window) noexcept;
-        void remove_window(uint32 id) noexcept;
+        window * create_window(
+            id_type id,
+            string_ref const & name,
+            uint16 width, uint16 height) noexcept;
+        void destroy_window(id_type id) noexcept;
 
-        window * get_window(uint32 id) noexcept;
-        window const * get_window(uint32 id) const noexcept;
+        window * get_window(id_type id) noexcept;
+        window const * get_window(id_type id) const noexcept;
 
         template <typename FUNCTION>
         void for_each_window(FUNCTION && function) noexcept
@@ -66,7 +69,7 @@ namespace gg::app
         // constructors
 
         runtime_base(data const & data) noexcept;
-        virtual ~runtime_base(void) noexcept = default;
+        virtual ~runtime_base(void) noexcept;
 
     private:
 
@@ -85,6 +88,11 @@ namespace gg::app
         // virtual methods
 
         virtual int32 main(void) noexcept = 0;
+
+        // methods
+
+        void add_window(window * window) noexcept;
+        void remove_window(id_type id) noexcept;
 
     private:
 

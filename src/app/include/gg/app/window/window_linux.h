@@ -22,16 +22,16 @@ namespace gg::app
 
         // methods
 
-        bool8 init(uint16 width, uint16 height);
-        void finalize(void);
-        void handle_messages(void);
+        bool8 init(uint16 width, uint16 height) noexcept;
+        void finalize(void) noexcept;
+        void handle_messages(void) noexcept;
 
-        Display * get_display(void) const
+        Display * get_display(void) const noexcept
         {
             return m_display;
         }
 
-        int32 get_screen(void) const
+        int32 get_screen(void) const noexcept
         {
             return m_screen;
         }
@@ -40,8 +40,8 @@ namespace gg::app
 
         // constructors
 
-        window_linux(uint32 id, string_ref const & name);
-        ~window_linux(void);
+        window_linux(uint32 id, string_ref const & name) noexcept;
+        ~window_linux(void) noexcept;
 
     private:
 

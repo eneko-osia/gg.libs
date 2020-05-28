@@ -22,11 +22,11 @@ namespace gg::app
 
         // methods
 
-        void finalize(void);
-        bool8 init(uint16 width, uint16 height);
-        void handle_messages(UINT msg, WPARAM wparam, LPARAM lparam);
+        void finalize(void) noexcept;
+        bool8 init(uint16 width, uint16 height) noexcept;
+        void handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept;
 
-        HWND get_hwnd(void) const
+        HWND get_hwnd(void) const noexcept
         {
             return m_hwnd;
         }
@@ -35,15 +35,15 @@ namespace gg::app
 
         // constructors
 
-        window_windows(uint32 id, string_ref const & name);
-        ~window_windows(void);
+        window_windows(id_type id, string_ref const & name) noexcept;
+        ~window_windows(void) noexcept;
 
     private:
 
         // methods
 
-        bool8 register_class(HINSTANCE hinstance);
-        bool8 unregister_class(void);
+        bool8 register_class(HINSTANCE hinstance) noexcept;
+        bool8 unregister_class(void) noexcept;
 
         // attributes
 

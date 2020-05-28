@@ -16,16 +16,15 @@ namespace gg::app
 
 static window * get_window(HWND hwnd)
 {
-    LONG_PTR user_data = GetWindowLongPtr(hwnd, GWLP_USERDATA);
-    return reinterpret_cast<window *>(user_data);
+    auto user_data = GetWindowLongPtr(hwnd, GWLP_USERDATA);
+    return type::cast_reinterpret<window *>(user_data);
 }
 
 static void set_window(HWND hwnd, LPARAM lparam)
 {
-    CREATESTRUCT * create_struct = reinterpret_cast<CREATESTRUCT*>(lparam);
-    window * win =
-        reinterpret_cast<window*>(create_struct->lpCreateParams);
-    SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(win));
+    auto * create_struct = type::cast_reinterpret<CREATESTRUCT *>(lparam);
+    auto * win = type::cast_reinterpret<window *>(create_struct->lpCreateParams);
+    SetWindowLongPtr(hwnd, GWLP_USERDATA, type::cast_reinterpret<LONG_PTR>(win));
 }
 
 static LRESULT WINAPI wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -52,7 +51,7 @@ static LRESULT WINAPI wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 //==============================================================================
 
-window_windows::window_windows(uint32 id, string_ref const & name)
+window_windows::window_windows(id_type id, string_ref const & name) noexcept
     : window_base(id, name)
     , m_hwnd(nullptr)
     , m_wnd_class()
@@ -67,7 +66,7 @@ window_windows::~window_windows(void)
 
 //==============================================================================
 
-void window_windows::finalize(void)
+void window_windows::finalize(void) noexcept
 {
     GG_RETURN_IF_NULL(m_hwnd);
 
@@ -82,7 +81,8 @@ void window_windows::finalize(void)
     m_hwnd = nullptr;
 }
 
-void window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam)
+void
+window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
 {
     GG_UNUSED(lparam);
 
@@ -117,9 +117,11 @@ void window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam)
 #endif
 }
 
-bool8 window_windows::init(uint16 width, uint16 height)
+bool8 window_windows::init(uint16 width, uint16 height) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL_ASSERT(m_hwnd);
+
+    // set size
 
     set_width(width);
     set_height(height);
@@ -132,7 +134,6 @@ bool8 window_windows::init(uint16 width, uint16 height)
     // prepare window rectangle
 
     DWORD window_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
-
     RECT rect =
     {
         0, 0,
@@ -144,12 +145,16 @@ bool8 window_windows::init(uint16 width, uint16 height)
     // create window
 
     m_hwnd =
-        CreateWindow(get_name().begin(),
-                     get_name().begin(),
-                     window_style, 0, 0,
-                     rect.right - rect.left, rect.bottom - rect.top,
-                     0, 0, m_wnd_class.hInstance, this);
-
+        CreateWindow(
+            get_name().begin(),
+            get_name().begin(),
+            window_style,
+            0, 0,
+            rect.right - rect.left, rect.bottom - rect.top,
+            nullptr,
+            nullptr,
+            m_wnd_class.hInstance,
+            this);
     GG_RETURN_FALSE_IF_NULL_ASSERT(m_hwnd);
 
     // show display
@@ -161,10 +166,8 @@ bool8 window_windows::init(uint16 width, uint16 height)
     return true;
 }
 
-bool8 window_windows::register_class(HINSTANCE hinstance)
+bool8 window_windows::register_class(HINSTANCE hinstance) noexcept
 {
-    // create window class
-
     m_wnd_class.cbSize = sizeof(WNDCLASSEX);
     m_wnd_class.style = CS_CLASSDC;
     m_wnd_class.lpfnWndProc = wndproc;
@@ -177,11 +180,10 @@ bool8 window_windows::register_class(HINSTANCE hinstance)
     m_wnd_class.hbrBackground = (HBRUSH) GetStockObject(BLACK_BRUSH);
     m_wnd_class.lpszMenuName = 0;
     m_wnd_class.lpszClassName = get_name().begin();
-
     return FALSE != RegisterClassEx(&m_wnd_class);
 }
 
-bool8 window_windows::unregister_class(void)
+bool8 window_windows::unregister_class(void) noexcept
 {
     return FALSE != UnregisterClass(get_name().begin(), m_wnd_class.hInstance);
 }

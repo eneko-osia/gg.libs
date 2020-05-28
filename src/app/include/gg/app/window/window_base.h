@@ -9,7 +9,6 @@
 #include "gg/core/pattern/observer/observable.h"
 #include "gg/core/pattern/sizeable.h"
 #include "gg/core/string/type/string_dynamic.h"
-#include "gg/core/string/type/string_ref.h"
 
 // namespace
 
@@ -27,14 +26,8 @@ namespace gg::app
 
         // constructors
 
-        window_base(id_type id, string_ref const & name)
-            : identifiable<id_type>(id)
-            , nameable<string_dynamic>(name)
-            , sizeable<uint16>(0, 0)
-        {
-        }
-
-        ~window_base(void) = default;
+        window_base(id_type id, string_ref const & name) noexcept;
+        ~window_base(void) noexcept = default;
     };
 }
 
