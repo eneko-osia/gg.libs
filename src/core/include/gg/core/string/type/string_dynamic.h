@@ -42,7 +42,7 @@ namespace gg
         }
 
         template <typename STRING_TYPE>
-        explicit string_dynamic(STRING_TYPE const & string) noexcept
+        string_dynamic(STRING_TYPE const & string) noexcept
             : m_data()
         {
             set(string);
