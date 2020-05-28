@@ -3,7 +3,7 @@
 
 // include files
 
-#include "gg/app/runtime/window_runtime.h"
+#include "gg/app/runtime/runtime_base.h"
 
 // forward declarations
 
@@ -19,7 +19,7 @@ namespace gg::app
 
     // class in charge of define a windows runtime
 
-    class runtime_windows : public window_runtime
+    class runtime_windows : public runtime_base
     {
     public:
 

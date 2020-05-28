@@ -3,6 +3,8 @@
 
 // include files
 
+#include "gg/core/container/array/array_dynamic.h"
+#include "gg/core/container/container.h"
 #include "gg/core/pattern/nameable.h"
 #include "gg/core/pattern/singleton/singleton_manual.h"
 #include "gg/core/string/type/string_dynamic.h"
@@ -14,6 +16,7 @@ namespace gg::app
     // forward declarations
 
     class data;
+    class window;
 
     // class in charge of define a base runtime
 
@@ -28,6 +31,30 @@ namespace gg::app
         static int32 main(data const & data) noexcept;
 
         // methods
+
+        void add_window(window * window) noexcept;
+        void remove_window(uint32 id) noexcept;
+
+        window * get_window(uint32 id) noexcept;
+        window const * get_window(uint32 id) const noexcept;
+
+        template <typename FUNCTION>
+        void for_each_window(FUNCTION && function) noexcept
+        {
+            container::for_each(
+                m_windows.begin(),
+                m_windows.end(),
+                type::forward<FUNCTION>(function));
+        }
+
+        template <typename FUNCTION>
+        void for_each_window(FUNCTION && function) const noexcept
+        {
+            container::for_each(
+                m_windows.begin(),
+                m_windows.end(),
+                type::forward<FUNCTION>(function));
+        }
 
         data const & get_data(void) const noexcept
         {
@@ -47,6 +74,10 @@ namespace gg::app
 
         friend class gg::memory;
 
+        // type definitions
+
+        typedef array_dynamic<window *> window_container;
+
         // static methods
 
         static void create(data const & data) noexcept;
@@ -60,6 +91,7 @@ namespace gg::app
         // attributes
 
         data const & m_data;
+        window_container m_windows;
     };
 }
 
@@ -71,9 +103,9 @@ namespace gg::app
 
 // define macros
 
-#define GG_APPLICATION(RUNTIME_TYPE)                                    \
-    void gg::app::runtime_base::create(data const & data) noexcept           \
-    {                                                                       \
+#define GG_APPLICATION(RUNTIME_TYPE)                                \
+    void gg::app::runtime_base::create(data const & data) noexcept  \
+    {                                                               \
         singleton_manual<runtime_base>::create<RUNTIME_TYPE>(data); \
     }
 

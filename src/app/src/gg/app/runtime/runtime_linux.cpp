@@ -13,7 +13,7 @@ namespace gg::app
 //==============================================================================
 
 runtime_linux::runtime_linux(data const & data) noexcept
-    : window_runtime(data)
+    : runtime_base(data)
 {
 }
 
