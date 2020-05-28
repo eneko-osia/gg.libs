@@ -56,7 +56,7 @@ TEST_CASE("data::add_argument", "[gg.app.data]")
     SECTION("add_argument")
     {
         data app_data;
-        app_data.add_argument(string_ref("argument_1"));
+        app_data.add_argument("argument_1");
         REQUIRE(app_data.get_arguments().front() == "argument_1");
     }
 }
@@ -65,7 +65,7 @@ TEST_CASE("data::add_argument", "[gg.app.data]")
 
 TEST_CASE("data::set_hinstance", "[gg.app.data]")
 {
-    #if defined(GG_WINDOWS)
+#if defined(GG_WINDOWS)
     SECTION("set_hinstance")
     {
         data app_data;
@@ -74,7 +74,7 @@ TEST_CASE("data::set_hinstance", "[gg.app.data]")
         app_data.set_hinstance(hinstance);
         REQUIRE(app_data.get_hinstance() == hinstance);
     }
-    #endif
+#endif
 }
 
 //==============================================================================
