@@ -3,21 +3,6 @@
 
 // include files
 
-#include "gg/core/type/type.h"
-
-// namespace
-
-namespace gg::app
-{
-    // namespace in charge of define a console
-
-    namespace console
-    {
-        // methods
-
-        void finalize(void) noexcept;
-        bool8 init(void) noexcept;
-    }
-}
+#include "gg/app/debug/console/console_platform.h"
 
 #endif // _gg_app_console_h_
