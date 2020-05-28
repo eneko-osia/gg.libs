@@ -42,6 +42,10 @@ namespace gg
         typedef int                 char32;
         typedef unsigned int        uchar32;
 
+        // identifier types
+
+        typedef uint32              id_type;
+
         // size types
 
         typedef uint8               byte;
@@ -72,6 +76,8 @@ using gg::type::char16;
 using gg::type::uchar16;
 using gg::type::char32;
 using gg::type::uchar32;
+
+using gg::type::id_type;
 
 using gg::type::byte;
 using gg::type::diff_type;
