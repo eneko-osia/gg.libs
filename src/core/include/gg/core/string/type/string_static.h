@@ -38,7 +38,7 @@ namespace gg
         }
 
         template <typename STRING_TYPE>
-        explicit string_static(const STRING_TYPE & string) noexcept
+        string_static(const STRING_TYPE & string) noexcept
             : m_data()
         {
             set(string);
