@@ -3,7 +3,6 @@
 
 #include "gg/app/data/data.h"
 #include "gg/app/runtime/runtime.h"
-#include "gg/core/string/type/string_ref.h"
 
 //==============================================================================
 
@@ -15,7 +14,7 @@ int main(int argc, char const **argv)
 
     for (int i = 0; i < argc; ++i)
     {
-        data.add_argument(gg::string_ref(argv[i]));
+        data.add_argument(argv[i]);
     }
 
     // run main

@@ -3,8 +3,6 @@
 
 #include "gg/app/data/data.h"
 #include "gg/app/runtime/runtime.h"
-#include "gg/core/macro/macro.h"
-#include "gg/core/string/type/string_ref.h"
 #include "gg/core/string/type/string_static.h"
 
 //==============================================================================
@@ -17,7 +15,7 @@ int main(int argc, char const ** argv)
 
     for (int i = 0; i < argc; ++i)
     {
-        data.add_argument(gg::string_ref(argv[i]));
+        data.add_argument(argv[i]);
     }
 
     // run main
@@ -54,7 +52,7 @@ INT WINAPI WinMain(
             buffer.max_size(),
             argv[i],
             buffer.max_size());
-        data.add_argument(gg::string_ref(buffer));
+        data.add_argument(buffer);
     }
 
     // free arguments
