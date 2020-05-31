@@ -23,38 +23,33 @@
 
 // namespace
 
-namespace gg
+namespace gg::gfx
 {
-    // namespace in charge of define graphics
+    // class in charge of define vulkan context
 
-    namespace gfx
+    class vulkan_context final : public icontext
     {
-        // class in charge of define vulkan context
+    public:
 
-        class vulkan_context final : public icontext
-        {
-        public:
+        // constructors
 
-            // constructors
+        vulkan_context(void) noexcept;
+        ~vulkan_context(void) noexcept = default;
 
-            vulkan_context(void) noexcept;
-            ~vulkan_context(void) noexcept = default;
+        // icontext override methods
 
-            // icontext override methods
+        void finalize(void) noexcept override;
+        bool8 init(void) noexcept override;
 
-            void finalize(void) noexcept override;
-            bool8 init(void) noexcept override;
+    private:
 
-        private:
+        VkDevice m_device;
+        VkInstance m_instance;
 
-            VkDevice m_device;
-            VkInstance m_instance;
-
-        #if GG_VULKAN_VALIDATION_ENABLED
-            VkDebugUtilsMessengerEXT m_messenger;
-        #endif
-        };
-    }
+    #if GG_VULKAN_VALIDATION_ENABLED
+        VkDebugUtilsMessengerEXT m_messenger;
+    #endif
+    };
 }
 
 #endif // _gg_gfx_vulkan_context_h_

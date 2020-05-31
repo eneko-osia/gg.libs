@@ -8,28 +8,23 @@
 
 // namespace
 
-namespace gg
+namespace gg::gfx
 {
-    // namespace in charge of define graphics
+    // interface in charge of define graphics context
 
-    namespace gfx
+    class icontext
     {
-        // interface in charge of define graphics context
+    public:
 
-        class icontext
-        {
-        public:
+        // constructors
 
-            // constructors
+        virtual ~icontext(void) noexcept = default;
 
-            virtual ~icontext(void) noexcept = default;
+        // methods
 
-            // methods
-
-            virtual void finalize(void) noexcept = 0;
-            virtual bool8 init(void) noexcept = 0;
-        };
-    }
+        virtual void finalize(void) noexcept = 0;
+        virtual bool8 init(void) noexcept = 0;
+    };
 }
 
 #endif // _gg_gfx_icontext_h_
