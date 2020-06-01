@@ -6,6 +6,16 @@
 #include <algorithm>
 #include <limits>
 
+// undefined previous definitions
+
+#ifdef max
+	#undef max
+#endif
+
+#ifdef min
+	#undef min
+#endif
+
 // namespace
 
 namespace gg
@@ -19,17 +29,17 @@ namespace gg
         template <typename TYPE>
         struct numeric
         {
-            static constexpr TYPE epsilon() noexcept
+            static constexpr TYPE epsilon(void) noexcept
             {
                 return std::numeric_limits<TYPE>::epsilon();
             }
 
-            static constexpr TYPE max() noexcept
+            static constexpr TYPE max(void) noexcept
             {
                 return std::numeric_limits<TYPE>::max();
             }
 
-            static constexpr TYPE min() noexcept
+            static constexpr TYPE min(void) noexcept
             {
                 return std::numeric_limits<TYPE>::min();
             }
