@@ -10,6 +10,10 @@
 #include "gg/core/pattern/sizeable.h"
 #include "gg/core/string/type/string_dynamic.h"
 
+// forward declarations
+
+namespace gg { class string_ref; }
+
 // namespace
 
 namespace gg::app
