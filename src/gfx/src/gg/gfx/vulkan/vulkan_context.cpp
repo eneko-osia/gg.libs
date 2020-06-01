@@ -91,7 +91,7 @@ vulkan_context::vulkan_context(void) noexcept
 
 //==============================================================================
 
-void vulkan_context::finalize(void) noexcept
+void vulkan_context::on_finalize(void) noexcept
 {
     vkDestroyDevice(m_device, nullptr);
 
@@ -104,7 +104,7 @@ void vulkan_context::finalize(void) noexcept
     vkDestroyInstance(m_instance, nullptr);
 }
 
-bool8 vulkan_context::init(void) noexcept
+bool8 vulkan_context::on_init(void) noexcept
 {
 #if GG_VULKAN_VALIDATION_ENABLED
     array_dynamic<char8 const *> validation;

@@ -17,13 +17,8 @@ namespace gg::gfx
 
         // constructors
 
-        opengl_context(void) noexcept;
+        opengl_context(void) noexcept = default;
         ~opengl_context(void) noexcept = default;
-
-        // icontext override methods
-
-        void finalize(void) noexcept override;
-        bool8 init(void) noexcept override;
     };
 }
 

@@ -1,24 +1,18 @@
-#if defined(GG_OPENGL)
+#if defined(GG_LINUX) && defined(GG_OPENGL)
 //==============================================================================
 
-#include "gg/gfx/opengl/opengl_context.h"
+#include "gg/gfx/opengl/opengl_context_linux.h"
 
 //==============================================================================
 namespace gg::gfx
 {
 //==============================================================================
 
-opengl_context::opengl_context(void) noexcept
+void opengl_context_linux::on_finalize(void) noexcept
 {
 }
 
-//==============================================================================
-
-void opengl_context::finalize(void) noexcept
-{
-}
-
-bool8 opengl_context::init(void) noexcept
+bool8 opengl_context_linux::on_init(void) noexcept
 {
     return true;
 }

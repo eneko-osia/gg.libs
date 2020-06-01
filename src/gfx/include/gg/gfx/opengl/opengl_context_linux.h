@@ -21,8 +21,15 @@ namespace gg::gfx
 
         // constructors
 
-        opengl_context_linux(void) = default;
-        virtual ~opengl_context_linux(void) = default;
+        opengl_context_linux(void) noexcept = default;
+        virtual ~opengl_context_linux(void) noexcept = default;
+
+    private:
+
+        // context override methods
+
+        void on_finalize(void) noexcept override final {}
+        bool8 on_init(void) noexcept override final { return true; }
     };
 }
 

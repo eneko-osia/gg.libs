@@ -18,7 +18,7 @@
 
 // include files
 
-#include "gg/gfx/icontext.h"
+#include "gg/gfx/context.h"
 #include <vulkan/vulkan.h>
 
 // namespace
@@ -27,7 +27,7 @@ namespace gg::gfx
 {
     // class in charge of define vulkan context
 
-    class vulkan_context final : public icontext
+    class vulkan_context final : public context
     {
     public:
 
@@ -36,10 +36,10 @@ namespace gg::gfx
         vulkan_context(void) noexcept;
         ~vulkan_context(void) noexcept = default;
 
-        // icontext override methods
+        // context override methods
 
-        void finalize(void) noexcept override;
-        bool8 init(void) noexcept override;
+        void on_finalize(void) noexcept override;
+        bool8 on_init(void) noexcept override;
 
     private:
 

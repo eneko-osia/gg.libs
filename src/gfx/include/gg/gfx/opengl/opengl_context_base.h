@@ -3,7 +3,7 @@
 
 // include files
 
-#include "gg/gfx/icontext.h"
+#include "gg/gfx/context.h"
 
 // namespace
 
@@ -11,7 +11,7 @@ namespace gg::gfx
 {
     // class in charge of define a base opengl context
 
-    class opengl_context_base : public icontext
+    class opengl_context_base : public context
     {
     protected:
 

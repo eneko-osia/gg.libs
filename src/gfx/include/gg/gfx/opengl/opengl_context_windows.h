@@ -4,6 +4,7 @@
 // include files
 
 #include "gg/gfx/opengl/opengl_context_base.h"
+#include <windows.h>
 
 // namespace
 
@@ -21,8 +22,22 @@ namespace gg::gfx
 
         // constructors
 
-        opengl_context_windows(void) = default;
-        virtual ~opengl_context_windows(void) = default;
+        opengl_context_windows(void) noexcept;
+        virtual ~opengl_context_windows(void) noexcept = default;
+
+    private:
+
+        // context override methods
+
+        void on_finalize(void) noexcept override final;
+        bool8 on_init(void) noexcept override final;
+
+    private:
+
+        // attributes
+
+        HDC m_context;
+        HGLRC m_render_context;
     };
 }
 
