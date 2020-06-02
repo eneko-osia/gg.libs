@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
 # project
-project(gg.libs VERSION 0.0.1 LANGUAGES CXX)
+project(gg.libs VERSION 0.0.1 LANGUAGES C CXX)
 
 # variables
 set(gg_directory
