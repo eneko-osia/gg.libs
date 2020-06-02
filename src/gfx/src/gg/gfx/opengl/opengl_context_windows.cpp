@@ -6,6 +6,7 @@
 //==============================================================================
 
 #include "gg/app/window/window.h"
+#include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
 namespace gg::gfx
@@ -74,36 +75,33 @@ bool8 opengl_context_windows::on_init(void) noexcept
 
     m_render_context = wglCreateContext(m_context);
     GG_RETURN_FALSE_IF_NULL(m_render_context);
-
     GG_RETURN_FALSE_IF_FALSE(wglMakeCurrent(m_context, m_render_context));
-    // GG_RETURN_FALSE_IF_FALSE(GLEW_OK == glewInit());
-    // GG_RETURN_FALSE_IF_FALSE(wglewIsSupported("WGL_ARB_create_context"));
-    // int32 const p_render_attr[] =
-    // {
-    //     WGL_CONTEXT_MAJOR_VERSION_ARB,
-    //     3,
-    //     WGL_CONTEXT_MINOR_VERSION_ARB,
-    //     0,
-    //     0
-    // };
 
-    // HGLRC p_render_context = wglCreateContextAttribsARB(m_context,
-    //                                                     nullptr,
-    //                                                     p_render_attr);
+    GG_RETURN_FALSE_IF_FALSE(GLEW_OK == glewInit());
+    GG_RETURN_FALSE_IF_FALSE(wglewIsSupported("WGL_ARB_create_context"));
 
-    // GG_RETURN_FALSE_IF_NULL(p_render_context);
+    int32 const p_render_attr[] =
+    {
+        WGL_CONTEXT_MAJOR_VERSION_ARB,
+        3,
+        WGL_CONTEXT_MINOR_VERSION_ARB,
+        0,
+        0
+    };
 
-    // wglMakeCurrent(nullptr, nullptr);
-    // wglDeleteContext(m_render_context);
-    // m_render_context = p_render_context;
+    HGLRC p_render_context =
+        wglCreateContextAttribsARB(m_context, nullptr, p_render_attr);
+    GG_RETURN_FALSE_IF_NULL(p_render_context);
 
-    // GG_RETURN_FALSE_IF_FALSE(
-    //     wglMakeCurrent(m_context, m_render_context));
+    wglMakeCurrent(nullptr, nullptr);
+    wglDeleteContext(m_render_context);
 
-    // int32 major_version(0);
-    // int32 minor_version(0);
-    // ref_string gl_version =
-    //                 (char8 const *) glGetString(GL_VERSION);
+    m_render_context = p_render_context;
+    GG_RETURN_FALSE_IF_FALSE(wglMakeCurrent(m_context, m_render_context));
+
+    // int32 major_version = 0;
+    // int32 minor_version = 0;
+    // string_ref gl_version = (char8 const *) glGetString(GL_VERSION);
     // ASSERT_GL_ERROR();
     // glGetIntegerv(GL_MAJOR_VERSION, &major_version);
     // ASSERT_GL_ERROR();
