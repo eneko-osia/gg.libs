@@ -57,6 +57,8 @@ target_compile_definitions(
         $<$<IN_LIST:vulkan,${gfx}>:GG_VULKAN>
     PRIVATE
         $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
+        $<$<IN_LIST:opengl,${gfx}>:GLEW_NO_GLU>
+        $<$<IN_LIST:opengl,${gfx}>:GLEW_STATIC>
 )
 
 # compile options
