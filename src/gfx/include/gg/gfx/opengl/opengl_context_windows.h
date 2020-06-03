@@ -10,6 +10,10 @@
 
 namespace gg::gfx
 {
+    // forward declarations
+
+    struct opengl_context_info;
+
     // type definitions
 
     typedef class opengl_context_windows opengl_context_platform;
@@ -30,7 +34,13 @@ namespace gg::gfx
         // context override methods
 
         void on_finalize(void) noexcept override final;
-        bool8 on_init(void) noexcept override final;
+        bool8 on_init(context_info const * info) noexcept override final;
+
+    private:
+
+        // methods
+
+        bool8 on_init(opengl_context_info const * info) noexcept;
 
     private:
 

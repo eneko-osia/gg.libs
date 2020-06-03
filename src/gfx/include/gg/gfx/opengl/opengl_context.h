@@ -1,5 +1,5 @@
-#ifndef _gg_gfx_opengl_context_context_h_
-#define _gg_gfx_opengl_context_context_h_
+#ifndef _gg_gfx_opengl_context_h_
+#define _gg_gfx_opengl_context_h_
 
 // include files
 
@@ -22,4 +22,4 @@ namespace gg::gfx
     };
 }
 
-#endif // _gg_gfx_opengl_context_context_h_
+#endif // _gg_gfx_opengl_context_h_

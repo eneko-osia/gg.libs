@@ -104,8 +104,9 @@ void vulkan_context::on_finalize(void) noexcept
     vkDestroyInstance(m_instance, nullptr);
 }
 
-bool8 vulkan_context::on_init(void) noexcept
+bool8 vulkan_context::on_init(context_info const * info) noexcept
 {
+    (void) info;
 #if GG_VULKAN_VALIDATION_ENABLED
     array_dynamic<char8 const *> validation;
     validation.emplace_back("VK_LAYER_KHRONOS_validation");

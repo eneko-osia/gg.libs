@@ -12,8 +12,9 @@ void opengl_context_linux::on_finalize(void) noexcept
 {
 }
 
-bool8 opengl_context_linux::on_init(void) noexcept
+bool8 opengl_context_linux::on_init(context_info const * info) noexcept
 {
+    (void) info;
     return true;
 }
 

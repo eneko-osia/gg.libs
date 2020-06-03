@@ -6,6 +6,7 @@
 //==============================================================================
 
 #include "gg/app/window/window.h"
+#include "gg/gfx/opengl/opengl_context_info.h"
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
@@ -41,7 +42,12 @@ void opengl_context_windows::on_finalize(void) noexcept
     }
 }
 
-bool8 opengl_context_windows::on_init(void) noexcept
+bool8 opengl_context_windows::on_init(context_info const * info) noexcept
+{
+    return on_init(type::cast_static<opengl_context_info const *>(info));
+}
+
+bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL(m_context);
     GG_RETURN_FALSE_IF_NOT_NULL(m_render_context);
@@ -55,16 +61,12 @@ bool8 opengl_context_windows::on_init(void) noexcept
     descriptor.nSize = sizeof(PIXELFORMATDESCRIPTOR);
     descriptor.nVersion = 1;
     descriptor.dwFlags =
-        PFD_DRAW_TO_WINDOW |
-        PFD_DOUBLEBUFFER |
-        PFD_SUPPORT_OPENGL;
+        PFD_DRAW_TO_WINDOW | PFD_DOUBLEBUFFER | PFD_SUPPORT_OPENGL;
     descriptor.iPixelType = PFD_TYPE_RGBA;
-    // descriptor.cColorBits =
-    //     get_red_size() +
-    //     get_green_size() +
-    //     get_blue_size();
-    // descriptor.cDepthBits = get_depth_size();
-    // descriptor.cStencilBits = get_stencil_size();
+    descriptor.cColorBits =
+        info->m_red_size + info->m_green_size + info->m_blue_size;
+    descriptor.cDepthBits = info->m_depth_size;
+    descriptor.cStencilBits = info->m_stencil_size;
     descriptor.iLayerType = PFD_MAIN_PLANE;
 
     int32 pixel_format = ChoosePixelFormat(m_context, &descriptor);
@@ -80,23 +82,23 @@ bool8 opengl_context_windows::on_init(void) noexcept
     GG_RETURN_FALSE_IF_FALSE(GLEW_OK == glewInit());
     GG_RETURN_FALSE_IF_FALSE(wglewIsSupported("WGL_ARB_create_context"));
 
-    int32 const p_render_attr[] =
+    int32 const render_attr[] =
     {
         WGL_CONTEXT_MAJOR_VERSION_ARB,
-        3,
+        info->m_version_major,
         WGL_CONTEXT_MINOR_VERSION_ARB,
-        0,
+        info->m_version_minor,
         0
     };
 
-    HGLRC p_render_context =
-        wglCreateContextAttribsARB(m_context, nullptr, p_render_attr);
-    GG_RETURN_FALSE_IF_NULL(p_render_context);
+    HGLRC render_context =
+        wglCreateContextAttribsARB(m_context, nullptr, render_attr);
+    GG_RETURN_FALSE_IF_NULL(render_context);
 
     wglMakeCurrent(nullptr, nullptr);
     wglDeleteContext(m_render_context);
 
-    m_render_context = p_render_context;
+    m_render_context = render_context;
     GG_RETURN_FALSE_IF_FALSE(wglMakeCurrent(m_context, m_render_context));
 
     // int32 major_version = 0;

@@ -28,8 +28,8 @@ namespace gg::gfx
 
         // context override methods
 
-        void on_finalize(void) noexcept override final {}
-        bool8 on_init(void) noexcept override final { return true; }
+        void on_finalize(void) noexcept override final;
+        bool8 on_init(context_info const * info) noexcept override final;
     };
 }
 

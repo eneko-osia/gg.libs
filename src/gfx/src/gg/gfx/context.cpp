@@ -3,6 +3,7 @@
 //==============================================================================
 
 #include "gg/core/macro/macro.h"
+#include "gg/gfx/context_info.h"
 
 //==============================================================================
 namespace gg::gfx
@@ -28,19 +29,19 @@ void context::finalize(void) noexcept
     m_window = nullptr;
 }
 
-bool8 context::init(app::window const * window) noexcept
+bool8
+context::init(app::window const * window, context_info const * info) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL(m_window);
     GG_ASSERT_NOT_NULL(window);
     m_window = window;
 
-    if (!on_init())
+    bool8 initialized = on_init(info);
+    if (!initialized)
     {
         finalize();
-        return false;
     }
-
-    return true;
+    return initialized;
 }
 
 //==============================================================================
