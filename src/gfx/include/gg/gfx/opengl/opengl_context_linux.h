@@ -5,6 +5,10 @@
 
 #include "gg/gfx/opengl/opengl_context_base.h"
 
+// forward declarations
+
+typedef struct __GLXcontextRec * GLXContext;
+
 // namespace
 
 namespace gg::gfx
@@ -30,6 +34,17 @@ namespace gg::gfx
 
         void on_finalize(void) noexcept override final;
         bool8 on_init(context_info const * info) noexcept override final;
+
+        // methods
+
+        bool8 on_init(opengl_context_info const * info) noexcept;
+
+    private:
+
+        // attributes
+
+        GLXContext mp_context;
+        uint32 m_window;
     };
 }
 

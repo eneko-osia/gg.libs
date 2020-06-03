@@ -36,8 +36,6 @@ namespace gg::gfx
         void on_finalize(void) noexcept override final;
         bool8 on_init(context_info const * info) noexcept override final;
 
-    private:
-
         // methods
 
         bool8 on_init(opengl_context_info const * info) noexcept;

@@ -34,6 +34,7 @@ context::init(app::window const * window, context_info const * info) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL(m_window);
     GG_ASSERT_NOT_NULL(window);
+    GG_ASSERT_NOT_NULL(info);
     m_window = window;
 
     bool8 initialized = on_init(info);

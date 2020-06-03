@@ -26,7 +26,6 @@ namespace gg::gfx
 
         // constructors
 
-        context(void) noexcept;
         virtual ~context(void) noexcept;
 
         // methods
@@ -37,6 +36,10 @@ namespace gg::gfx
             context_info const * info) noexcept;
 
     protected:
+
+        // constructors
+
+        context(void) noexcept;
 
         // methods
 
