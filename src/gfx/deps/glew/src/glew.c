@@ -31,7 +31,7 @@
 */
 
 #ifndef GLEW_INCLUDE
-#include "glew/glew.h"
+#include <GL/glew.h>
 #else
 #include GLEW_INCLUDE
 #endif
@@ -40,7 +40,7 @@
 #  define GLAPI extern
 #  include <GL/osmesa.h>
 #elif defined(GLEW_EGL)
-#  include "glew/eglew.h"
+#  include <GL/eglew.h>
 #elif defined(_WIN32)
 /*
  * If NOGDI is defined, wingdi.h won't be included by windows.h, and thus
@@ -50,9 +50,9 @@
 #  if defined(NOGDI)
 #    undef NOGDI
 #  endif
-#  include "glew/wglew.h"
+#  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
-#  include "glew/glxew.h"
+#  include <GL/glxew.h>
 #endif
 
 #include <stddef.h>  /* For size_t */
@@ -16162,7 +16162,6 @@ static GLenum GLEWAPIENTRY glewContextInit ()
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
-  size_t n;
 
   #ifdef _WIN32
   getString = glGetString;
@@ -16213,12 +16212,12 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     GLEW_VERSION_1_1   = GLEW_VERSION_1_2   == GL_TRUE || ( major == 1 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
   }
 
-  for (n = 0; n < sizeof(_glewExtensionString) / sizeof(_glewExtensionString[0]); ++n)
+  for (size_t n = 0; n < sizeof(_glewExtensionString) / sizeof(_glewExtensionString[0]); ++n)
     _glewExtensionString[n] = GL_FALSE;
 
   if (GLEW_VERSION_3_0)
   {
-    GLint _n = 0;
+    GLint n = 0;
     GLint i;
     PFNGLGETINTEGERVPROC getIntegerv;
     PFNGLGETSTRINGIPROC getStringi;
@@ -16232,12 +16231,12 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     #endif
 
     if (getIntegerv)
-      getIntegerv(GL_NUM_EXTENSIONS, &_n);
+      getIntegerv(GL_NUM_EXTENSIONS, &n);
 
     /* glGetStringi is OpenGL 3.0 */
     getStringi = (PFNGLGETSTRINGIPROC) glewGetProcAddress((const GLubyte*)"glGetStringi");
     if (getStringi)
-      for (i = 0; i<_n; ++i)
+      for (i = 0; i<n; ++i)
       {
         ext = (const char *) getStringi(GL_EXTENSIONS, i);
 
