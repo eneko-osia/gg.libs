@@ -8,7 +8,6 @@ include(GGSrcFiles.cmake)
 add_library(
     gg.test
     STATIC
-        ${deps_files}
         ${include_files}
         ${src_files}
 )

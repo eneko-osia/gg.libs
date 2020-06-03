@@ -9,7 +9,6 @@ include(GGSrcFiles.cmake)
 add_library(
     gg.core
     STATIC
-        ${deps_files}
         ${include_files}
         ${src_files}
 )
@@ -20,7 +19,6 @@ target_include_directories(
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/deps
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 

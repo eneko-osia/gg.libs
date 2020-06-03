@@ -48,14 +48,12 @@ fd.write("# @generated - run cmake configure to generate this file\n\n")
 
 # write files
 whiteline = False
-whiteline = write_files_in_folder(fd, "deps",    current_path, [".h", ".hpp", ".c", ".cpp"], whiteline)
 whiteline = write_files_in_folder(fd, "include", current_path, [".h", ".hpp"],               whiteline)
 whiteline = write_files_in_folder(fd, "src",     current_path, [".h", ".hpp", ".c", ".cpp"], whiteline)
 whiteline = write_files_in_folder(fd, "test",    current_path, [".h", ".hpp", ".c", ".cpp"], whiteline)
 
 # groups
 fd.write("\n")
-fd.write("create_groups(${CMAKE_CURRENT_SOURCE_DIR} \"${deps_files}\")\n")
 fd.write("create_groups(${CMAKE_CURRENT_SOURCE_DIR} \"${include_files}\")\n")
 fd.write("create_groups(${CMAKE_CURRENT_SOURCE_DIR} \"${src_files}\")\n")
 fd.write("create_groups(${CMAKE_CURRENT_SOURCE_DIR} \"${test_files}\")\n")

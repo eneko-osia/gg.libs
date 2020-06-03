@@ -10,14 +10,17 @@ if(GG_VULKAN)
     include(GGVulkan)
 endif()
 
-# includes
 include(GGSrcFiles.cmake)
+
+# add dependencies
+if(GG_OPENGL)
+    add_subdirectory("deps/glew")
+endif()
 
 # library
 add_library(
     gg.gfx
     STATIC
-        ${deps_files}
         ${include_files}
         ${src_files}
 )
@@ -28,7 +31,6 @@ target_include_directories(
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/deps
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
@@ -53,13 +55,25 @@ target_compile_definitions(
     gg.gfx
     PUBLIC
         GG_GFX
-        $<$<IN_LIST:opengl,${gfx}>:GG_OPENGL>
-        $<$<IN_LIST:vulkan,${gfx}>:GG_VULKAN>
     PRIVATE
         $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
-        $<$<IN_LIST:opengl,${gfx}>:GLEW_NO_GLU>
-        $<$<IN_LIST:opengl,${gfx}>:GLEW_STATIC>
 )
+
+if(GG_OPENGL)
+    target_compile_definitions(
+        gg.gfx
+        PUBLIC
+            GG_OPENGL
+    )
+endif()
+
+if(GG_VULKAN)
+    target_compile_definitions(
+        gg.gfx
+        PUBLIC
+            GG_VULKAN
+    )
+endif()
 
 # compile options
 target_compile_options(
@@ -80,9 +94,24 @@ target_link_libraries(
     gg.gfx
     PUBLIC
         gg.app
-        $<$<IN_LIST:opengl,${gfx}>:${OPENGL_LIBRARIES}>
-        $<$<IN_LIST:vulkan,${gfx}>:${Vulkan_LIBRARIES}>
 )
+
+if(GG_OPENGL)
+    target_link_libraries(
+        gg.gfx
+        PRIVATE
+            ${OPENGL_LIBRARIES}
+            gg.glew
+    )
+endif()
+
+if(GG_VULKAN)
+    target_link_libraries(
+        gg.gfx
+        PRIVATE
+            ${Vulkan_LIBRARIES}
+    )
+endif()
 
 # group folder
 set_target_properties(gg.gfx PROPERTIES FOLDER gg.libs)
