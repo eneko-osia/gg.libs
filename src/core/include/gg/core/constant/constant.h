@@ -65,6 +65,10 @@ namespace gg
         static constexpr float64 float64_epsilon = limit::numeric<float64>::epsilon();
         static constexpr float64 float64_max = limit::numeric<float64>::max();
         static constexpr float64 float64_min = limit::numeric<float64>::min();
+
+        // id_type constants
+
+        static constexpr id_type id_type_invalid = limit::numeric<id_type>::max();
     }
 }
 
@@ -101,5 +105,7 @@ using gg::constant::float32_min;
 using gg::constant::float64_epsilon;
 using gg::constant::float64_max;
 using gg::constant::float64_min;
+
+using gg::constant::id_type_invalid;
 
 #endif // _gg_constant_h_
