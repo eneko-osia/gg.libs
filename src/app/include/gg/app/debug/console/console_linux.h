@@ -5,6 +5,10 @@
 
 #include "gg/core/type/type.h"
 
+// forward declarations
+
+namespace gg { class string_ref; }
+
 // namespace
 
 namespace gg::app
@@ -15,8 +19,8 @@ namespace gg::app
     {
         // methods
 
-        inline void finalize(void) noexcept {}
-        inline bool8 init(void) noexcept { return true; }
+        void finalize(void) noexcept;
+        bool8 init(string_ref const & name) noexcept;
     }
 }
 
