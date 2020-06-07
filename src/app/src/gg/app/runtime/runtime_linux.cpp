@@ -42,10 +42,11 @@ id_type runtime_linux::create_window(
 
 void runtime_linux::handle_messages(void) noexcept
 {
-    for_each_window([] (window * win)
-    {
-        win->handle_messages();
-    });
+    for_each_window(
+        [] (window & win)
+        {
+            win.handle_messages();
+        });
 }
 
 //==============================================================================
