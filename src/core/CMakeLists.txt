@@ -42,6 +42,7 @@ target_compile_definitions(
         $<$<STREQUAL:${platform},mac>:GG_MAC>
         $<$<STREQUAL:${platform},linux>:GG_LINUX>
         $<$<STREQUAL:${platform},windows>:GG_WINDOWS>
+        $<$<STREQUAL:${platform},windows>:NOMINMAX>
         $<$<STREQUAL:${platform},uwp>:GG_UWP>
         $<$<STREQUAL:${platform_architecture},x86>:GG_X86>
         $<$<STREQUAL:${platform_architecture},x86_64>:GG_X86_64>
