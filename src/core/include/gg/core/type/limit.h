@@ -6,16 +6,6 @@
 #include <algorithm>
 #include <limits>
 
-// undefined previous definitions
-
-#ifdef max
-	#undef max
-#endif
-
-#ifdef min
-	#undef min
-#endif
-
 // namespace
 
 namespace gg
