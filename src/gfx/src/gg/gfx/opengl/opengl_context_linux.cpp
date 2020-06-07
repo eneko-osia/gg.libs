@@ -14,7 +14,7 @@ namespace gg::gfx
 {
 //==============================================================================
 
-opengl_context_linux::opengl_context_windows(void) noexcept
+opengl_context_linux::opengl_context_linux(void) noexcept
     : m_context(nullptr)
     , m_window(None)
 {

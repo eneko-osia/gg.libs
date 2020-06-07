@@ -43,7 +43,7 @@ namespace gg::gfx
 
         // attributes
 
-        GLXContext mp_context;
+        GLXContext m_context;
         uint32 m_window;
     };
 }
