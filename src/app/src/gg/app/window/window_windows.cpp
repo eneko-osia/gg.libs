@@ -93,11 +93,6 @@ window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
             break;
         }
     }
-
-#if defined(GG_INPUT)
-    // handle input
-    get_input_manager()->handle_messages(get_hwnd(), msg, wparam, lparam);
-#endif
 }
 
 void window_windows::on_finalize(void) noexcept

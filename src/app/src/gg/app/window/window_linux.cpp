@@ -50,11 +50,6 @@ void window_linux::handle_messages(void) noexcept
                 break;
             }
         }
-
-    #if defined(GG_INPUT)
-        // handle input
-        get_input_manager()->handle_messages(event);
-    #endif
     }
 }
 

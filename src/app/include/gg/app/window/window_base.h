@@ -40,7 +40,7 @@ namespace gg::app
         // constructors
 
         window_base(void) noexcept = default;
-        ~window_base(void) noexcept = default;
+        virtual ~window_base(void) noexcept = default;
 
     private:
 
