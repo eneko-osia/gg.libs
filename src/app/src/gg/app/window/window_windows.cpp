@@ -5,8 +5,7 @@
 
 //==============================================================================
 
-#include "gg/app/data/data.h"
-#include "gg/app/runtime/runtime.h"
+#include "gg/app/window/window_info.h"
 #include "gg/app/window/window.h"
 
 //==============================================================================
@@ -51,9 +50,8 @@ static LRESULT WINAPI wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 //==============================================================================
 
-window_windows::window_windows(id_type id, string_ref const & name) noexcept
-    : window_base(id, name)
-    , m_hwnd(nullptr)
+window_windows::window_windows(void) noexcept
+    : m_hwnd(nullptr)
     , m_wnd_class()
 {
     memory::zero(&m_wnd_class);
@@ -61,25 +59,10 @@ window_windows::window_windows(id_type id, string_ref const & name) noexcept
 
 window_windows::~window_windows(void)
 {
-    finalize();
+    GG_ASSERT_NULL(m_hwnd);
 }
 
 //==============================================================================
-
-void window_windows::finalize(void) noexcept
-{
-    GG_RETURN_IF_NULL(m_hwnd);
-
-    // unregister class
-
-    unregister_class();
-    memory::zero(&m_wnd_class);
-
-    // destroy window
-
-    DestroyWindow(m_hwnd);
-    m_hwnd = nullptr;
-}
 
 void
 window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
@@ -117,19 +100,28 @@ window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
 #endif
 }
 
-bool8 window_windows::init(uint16 width, uint16 height) noexcept
+void window_windows::on_finalize(void) noexcept
 {
-    GG_RETURN_FALSE_IF_NOT_NULL_ASSERT(m_hwnd);
+    GG_RETURN_IF_NULL(m_hwnd);
 
-    // set size
+    // unregister class
 
-    set_width(width);
-    set_height(height);
+    unregister_class();
+    memory::zero(&m_wnd_class);
+
+    // destroy window
+
+    DestroyWindow(m_hwnd);
+    m_hwnd = nullptr;
+}
+
+bool8 window_windows::on_init(window_info const * info) noexcept
+{
+    GG_RETURN_FALSE_IF_NOT_NULL(m_hwnd);
 
     // register window class
 
-    GG_RETURN_FALSE_IF_FALSE_ASSERT(
-        register_class(runtime::get_instance().get_data().get_hinstance()));
+    GG_RETURN_FALSE_IF_FALSE(register_class(info->m_hinstance));
 
     // prepare window rectangle
 
@@ -155,7 +147,7 @@ bool8 window_windows::init(uint16 width, uint16 height) noexcept
             nullptr,
             m_wnd_class.hInstance,
             this);
-    GG_RETURN_FALSE_IF_NULL_ASSERT(m_hwnd);
+    GG_RETURN_FALSE_IF_NULL(m_hwnd);
 
     // show display
 

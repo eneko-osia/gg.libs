@@ -32,12 +32,7 @@ namespace gg::app
 
         // methods
 
-        window * create_window(
-            id_type id,
-            string_ref const & name,
-            uint16 width, uint16 height) noexcept;
         void destroy_window(id_type id) noexcept;
-
         window * get_window(id_type id) noexcept;
         window const * get_window(id_type id) const noexcept;
 
@@ -79,7 +74,7 @@ namespace gg::app
 
         // type definitions
 
-        typedef array_dynamic<window *> window_container;
+        typedef array_dynamic<window> window_container;
 
         // static methods
 
@@ -89,17 +84,17 @@ namespace gg::app
 
         virtual int32 main(void) noexcept = 0;
 
-        // methods
+    protected:
 
-        void add_window(window * window) noexcept;
-        void remove_window(id_type id) noexcept;
+        // attributes
+
+        window_container m_windows;
 
     private:
 
         // attributes
 
         data const & m_data;
-        window_container m_windows;
     };
 }
 

@@ -2,18 +2,36 @@
 
 //==============================================================================
 
-#include "gg/core/string/type/string_ref.h"
+#include "gg/app/window/window_info.h"
 
 //==============================================================================
 namespace gg::app
 {
 //==============================================================================
 
-window_base::window_base(id_type id, string_ref const & name) noexcept
-    : identifiable<id_type>(id)
-    , nameable<string_dynamic>(name)
-    , sizeable<uint16>(0, 0)
+void window_base::finalize(void) noexcept
 {
+    on_finalize();
+}
+
+bool8 window_base::init(window_info const * info) noexcept
+{
+    GG_ASSERT_NOT_NULL(info);
+
+    // set base data
+
+    set_name(info->m_name);
+    set_width(info->m_width);
+    set_height(info->m_height);
+
+    // initialize
+
+    bool8 initialized = on_init(info);
+    if (!initialized)
+    {
+        finalize();
+    }
+    return initialized;
 }
 
 //==============================================================================

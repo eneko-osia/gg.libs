@@ -22,8 +22,6 @@ namespace gg::app
 
         // methods
 
-        bool8 init(uint16 width, uint16 height) noexcept;
-        void finalize(void) noexcept;
         void handle_messages(void) noexcept;
 
         Display * get_display(void) const noexcept
@@ -40,8 +38,15 @@ namespace gg::app
 
         // constructors
 
-        window_linux(uint32 id, string_ref const & name) noexcept;
+        window_linux(void) noexcept;
         ~window_linux(void) noexcept;
+
+    private:
+
+        // window_base override methods
+
+        void on_finalize(void) noexcept override final;
+        bool8 on_init(window_info const * info) noexcept override final;
 
     private:
 

@@ -9,7 +9,7 @@
 
 namespace gg::app
 {
-    // class in charge of define an runtime
+    // class in charge of define a runtime
 
     class runtime : public runtime_platform
     {
