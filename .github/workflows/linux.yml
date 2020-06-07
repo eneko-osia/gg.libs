@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -16,6 +15,14 @@ jobs:
       fail-fast: false
 
     steps:
+    - name: Install Open GL
+      run: sudo apt install libgl1-mesa-dev
+
+    - name: Install Vulkan
+      run: |
+          sudo apt install libvulkan1 libvulkan-dev
+          echo "::set-env name=VULKAN_SDK::${env:VULKAN_SDK}"
+
     - uses: actions/checkout@v2
 
     - name: Create build directory
@@ -24,7 +31,7 @@ jobs:
     - name: Configure
       shell: bash
       working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DGG_OPENGL=OFF -DGG_VULKAN=OFF -DGGLIBS_ENABLE_DOC=OFF -DGGLIBS_ENABLE_TESTING=ON
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DGG_OPENGL=ON -DGG_VULKAN=ON -DGGLIBS_ENABLE_DOC=OFF -DGGLIBS_ENABLE_TESTING=ON
 
     - name: Build
       shell: bash
