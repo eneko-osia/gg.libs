@@ -13,6 +13,10 @@ typedef struct __GLXcontextRec * GLXContext;
 
 namespace gg::gfx
 {
+    // forward declarations
+
+    struct opengl_context_info;
+
     // type definitions
 
     typedef class opengl_context_linux opengl_context_platform;
@@ -25,7 +29,7 @@ namespace gg::gfx
 
         // constructors
 
-        opengl_context_linux(void) noexcept = default;
+        opengl_context_linux(void) noexcept;
         virtual ~opengl_context_linux(void) noexcept = default;
 
     private:
