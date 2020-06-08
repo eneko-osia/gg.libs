@@ -5,7 +5,6 @@
 
 //==============================================================================
 
-#include "gg/app/runtime/runtime.h"
 #include "gg/core/container/array/array_dynamic.h"
 #include "gg/core/container/array/array_static.h"
 #include "gg/core/version.h"
@@ -121,7 +120,7 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
     memory::zero(&app_info);
 
     app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    app_info.pApplicationName = app::runtime::get_instance().get_name().begin();
+    app_info.pApplicationName = "gg.engine";
     app_info.applicationVersion =
         VK_MAKE_VERSION(version_major, version_minor, version_patch);
     app_info.pEngineName = "gg.libs";
