@@ -10,8 +10,8 @@ namespace gg::app
 //==============================================================================
 
 runtime_base::runtime_base(data const & data) noexcept
-    : m_windows()
-    , m_data(data)
+    : m_data(data)
+    , m_windows()
 {
 }
 
