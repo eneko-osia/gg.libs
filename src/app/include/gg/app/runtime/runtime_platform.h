@@ -1,8 +1,6 @@
 #ifndef _gg_app_runtime_platform_h_
 #define _gg_app_runtime_platform_h_
 
-// include files
-
 #if defined(GG_MAC)
     #error "Can't include runtime platform for mac osx"
 #elif defined(GG_LINUX)

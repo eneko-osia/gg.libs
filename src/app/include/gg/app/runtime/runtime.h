@@ -1,16 +1,10 @@
 #ifndef _gg_app_runtime_h_
 #define _gg_app_runtime_h_
 
-// include files
-
 #include "gg/app/runtime/runtime_platform.h"
-
-// namespace
 
 namespace gg::app
 {
-    // class in charge of define a runtime
-
     class runtime : public runtime_platform
     {
     protected:

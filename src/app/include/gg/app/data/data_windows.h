@@ -1,33 +1,23 @@
 #ifndef _gg_app_data_windows_h_
 #define _gg_app_data_windows_h_
 
-// include files
-
 #include "gg/app/data/data_base.h"
-#include <wtypes.h>
-
-// namespace
+#include <windows.h>
 
 namespace gg::app
 {
-    // type definitions
-
-    typedef class data_windows data_platform;
-
-    // class in charge of define a windows application data
-
     class data_windows : public data_base
     {
     public:
 
         // methods
 
-        HINSTANCE get_hinstance(void) const
+        HINSTANCE get_hinstance(void) const noexcept
         {
             return m_hinstance;
         }
 
-        void set_hinstance(HINSTANCE hinstance)
+        void set_hinstance(HINSTANCE hinstance) noexcept
         {
             m_hinstance = hinstance;
         }
@@ -36,12 +26,11 @@ namespace gg::app
 
         // constructors
 
-        data_windows(void)
+        data_windows(void) noexcept
             : m_hinstance(nullptr)
         {
         }
-
-        ~data_windows(void) = default;
+        ~data_windows(void) noexcept = default;
 
     private:
 
@@ -49,6 +38,8 @@ namespace gg::app
 
         HINSTANCE m_hinstance;
     };
+
+    typedef data_windows data_platform;
 }
 
 #endif // _gg_app_data_windows_h_

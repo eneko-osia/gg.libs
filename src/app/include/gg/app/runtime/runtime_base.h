@@ -1,28 +1,16 @@
 #ifndef _gg_app_runtime_base_h_
 #define _gg_app_runtime_base_h_
 
-// include files
-
 #include "gg/core/container/array/array_dynamic.h"
 #include "gg/core/container/container.h"
-#include "gg/core/pattern/nameable.h"
 #include "gg/core/pattern/singleton/singleton_manual.h"
-#include "gg/core/string/type/string_dynamic.h"
-
-// namespace
 
 namespace gg::app
 {
-    // forward declarations
-
     class data;
     class window;
 
-    // class in charge of define a base runtime
-
-    class runtime_base
-        : public singleton_manual<runtime_base>
-        , public nameable<string_dynamic>
+    class runtime_base : public singleton_manual<runtime_base>
     {
     public:
 
@@ -88,23 +76,14 @@ namespace gg::app
 
         // attributes
 
-        window_container m_windows;
-
-    private:
-
-        // attributes
-
         data const & m_data;
+        window_container m_windows;
     };
 }
-
-// undefined previous definitions
 
 #ifdef GG_APPLICATION
     #undef GG_APPLICATION
 #endif
-
-// define macros
 
 #define GG_APPLICATION(RUNTIME_TYPE)                                \
     void gg::app::runtime_base::create(data const & data) noexcept  \

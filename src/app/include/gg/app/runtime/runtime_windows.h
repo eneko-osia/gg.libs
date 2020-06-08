@@ -1,24 +1,12 @@
 #ifndef _gg_app_runtime_windows_h_
 #define _gg_app_runtime_windows_h_
 
-// include files
-
 #include "gg/app/runtime/runtime_base.h"
-
-// forward declarations
 
 namespace gg { class string_ref; }
 
-// namespace
-
 namespace gg::app
 {
-    // type definitions
-
-    typedef class runtime_windows runtime_platform;
-
-    // class in charge of define a windows runtime
-
     class runtime_windows : public runtime_base
     {
     public:
@@ -41,6 +29,8 @@ namespace gg::app
 
         void handle_messages(void) noexcept;
     };
+
+    typedef runtime_windows runtime_platform;
 }
 
 #endif // _gg_app_runtime_windows_h_
