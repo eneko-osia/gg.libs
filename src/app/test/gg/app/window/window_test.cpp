@@ -54,23 +54,22 @@ TEST_CASE("window", "[gg.app.window]")
 
 TEST_CASE("window::init", "[gg.app.window]")
 {
+#if defined(GG_WINDOWS)
     SECTION("init")
     {
         window_info info =
         {
             GG_TEXT("Test"),
             64,
-            64
+            64,
+            (HINSTANCE) GetModuleHandle(NULL)
         };
-
-#if defined(GG_WINDOWS)
-        info.m_hinstance = (HINSTANCE) GetModuleHandle(NULL);
-#endif
 
         window win;
         REQUIRE(win.init(&info));
         win.finalize();
     }
+#endif
 }
 
 //==============================================================================
