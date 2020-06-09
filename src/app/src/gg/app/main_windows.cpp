@@ -11,14 +11,10 @@ int main(int argc, char const ** argv)
 {
     gg::app::data data;
 
-    // populate data
-
     for (int i = 0; i < argc; ++i)
     {
         data.add_argument(argv[i]);
     }
-
-    // run main
 
     return gg::app::runtime::main(data);
 }
@@ -31,16 +27,11 @@ INT WINAPI WinMain(
     LPSTR GG_UNUSED_ARGUMENT(cmd_line),
     int GG_UNUSED_ARGUMENT(n_cmd_show))
 {
-    // get command line arguments
-
     int argc = 0;
     LPWSTR * argv = CommandLineToArgvW(GetCommandLineW(), &argc);
     GG_RETURN_VALUE_IF_NULL(argv, EXIT_FAILURE);
 
-    // populate data
-
     gg::app::data data;
-    data.set_hinstance(hinstance);
 
     for (int i = 0; i < argc; ++i)
     {
@@ -54,12 +45,9 @@ INT WINAPI WinMain(
             buffer.max_size());
         data.add_argument(buffer);
     }
-
-    // free arguments
-
     LocalFree(argv);
 
-    // run main
+    data.set_hinstance(hinstance);
 
     return gg::app::runtime::main(data);
 }

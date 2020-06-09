@@ -31,6 +31,7 @@ static LRESULT WINAPI wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
     if (WM_CREATE == msg)
     {
         set_window(hwnd, lparam);
+        return 0;
     }
     else if (WM_DESTROY == msg)
     {
@@ -39,13 +40,9 @@ static LRESULT WINAPI wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
     }
 
     window * win = get_window(hwnd);
-
-    if (win)
-    {
-        win->handle_messages(msg, wparam, lparam);
-    }
-
-    return DefWindowProc(hwnd, msg, wparam, lparam);
+    return (win && win->handle_messages(msg, wparam, lparam)) ?
+        0 :
+        DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
 //==============================================================================
@@ -64,12 +61,10 @@ window_windows::~window_windows(void)
 
 //==============================================================================
 
-void
+bool8
 window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
 {
     GG_UNUSED(lparam);
-
-    // handle messages
 
     switch(msg)
     {
@@ -78,47 +73,36 @@ window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
             notify_observers((TRUE == wparam) ?
                 &iwindow_observer::on_gain_focus :
                 &iwindow_observer::on_lost_focus);
-            break;
+            return true;
         }
 
         case WM_CLOSE:
         case WM_QUIT:
         {
             notify_observers(&iwindow_observer::on_close);
-            break;
-        }
-
-        default:
-        {
-            break;
+            return true;
         }
     }
+
+    return false;
 }
 
 void window_windows::on_finalize(void) noexcept
 {
     GG_RETURN_IF_NULL(m_hwnd);
 
-    // unregister class
+    DestroyWindow(m_hwnd);
+    m_hwnd = nullptr;
 
     unregister_class();
     memory::zero(&m_wnd_class);
-
-    // destroy window
-
-    DestroyWindow(m_hwnd);
-    m_hwnd = nullptr;
 }
 
 bool8 window_windows::on_init(window_info const * info) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL(m_hwnd);
 
-    // register window class
-
     GG_RETURN_FALSE_IF_FALSE(register_class(info->m_hinstance));
-
-    // prepare window rectangle
 
     DWORD window_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     RECT rect =
@@ -129,12 +113,10 @@ bool8 window_windows::on_init(window_info const * info) noexcept
     };
     AdjustWindowRect(&rect, window_style, FALSE);
 
-    // create window
-
     m_hwnd =
         CreateWindow(
-            get_name().begin(),
-            get_name().begin(),
+            get_name().c_str(),
+            get_name().c_str(),
             window_style,
             0, 0,
             rect.right - rect.left, rect.bottom - rect.top,
@@ -143,8 +125,6 @@ bool8 window_windows::on_init(window_info const * info) noexcept
             m_wnd_class.hInstance,
             this);
     GG_RETURN_FALSE_IF_NULL(m_hwnd);
-
-    // show display
 
     ShowWindow(m_hwnd, SW_SHOW);
     SetFocus(m_hwnd);
@@ -166,13 +146,13 @@ bool8 window_windows::register_class(HINSTANCE hinstance) noexcept
     m_wnd_class.hCursor = LoadCursor(0, IDC_ARROW);
     m_wnd_class.hbrBackground = (HBRUSH) GetStockObject(BLACK_BRUSH);
     m_wnd_class.lpszMenuName = 0;
-    m_wnd_class.lpszClassName = get_name().begin();
+    m_wnd_class.lpszClassName = get_name().c_str();
     return FALSE != RegisterClassEx(&m_wnd_class);
 }
 
 bool8 window_windows::unregister_class(void) noexcept
 {
-    return FALSE != UnregisterClass(get_name().begin(), m_wnd_class.hInstance);
+    return FALSE != UnregisterClass(get_name().c_str(), m_wnd_class.hInstance);
 }
 
 //==============================================================================

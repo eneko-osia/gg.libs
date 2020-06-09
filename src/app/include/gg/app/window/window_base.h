@@ -1,27 +1,17 @@
 #ifndef _gg_app_window_base_h_
 #define _gg_app_window_base_h_
 
-// include files
-
 #include "gg/app/window/iwindow_observer.h"
 #include "gg/core/pattern/nameable.h"
 #include "gg/core/pattern/observer/observable.h"
 #include "gg/core/pattern/sizeable.h"
 #include "gg/core/string/type/string_dynamic.h"
 
-// forward declarations
-
 namespace gg { class string_ref; }
-
-// namespace
 
 namespace gg::app
 {
-    // forward declarations
-
     struct window_info;
-
-    // class in charge of define a base window
 
     class window_base
         : public nameable<string_dynamic>

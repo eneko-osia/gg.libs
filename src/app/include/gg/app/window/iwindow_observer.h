@@ -1,12 +1,8 @@
 #ifndef _gg_app_iwindow_observer_h_
 #define _gg_app_iwindow_observer_h_
 
-// namespace
-
 namespace gg::app
 {
-    // interface in charge of define a window observer
-
     class iwindow_observer
     {
     public:

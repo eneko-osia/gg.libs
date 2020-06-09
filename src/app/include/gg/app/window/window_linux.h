@@ -1,21 +1,11 @@
 #ifndef _gg_app_window_linux_h_
 #define _gg_app_window_linux_h_
 
-// include files
-
 #include "gg/app/window/window_base.h"
 #include <X11/Xlib.h>
 
-// namespace
-
 namespace gg::app
 {
-    // type definitions
-
-    typedef class window_linux window_platform;
-
-    // class in charge of define a linux window
-
     class window_linux : public window_base
     {
     public:
@@ -55,6 +45,8 @@ namespace gg::app
         Display * m_display;
         int32 m_screen;
     };
+
+    typedef window_linux window_platform;
 }
 
 #endif // _gg_app_window_linux_h_

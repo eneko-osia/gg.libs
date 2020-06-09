@@ -1,28 +1,18 @@
 #ifndef _gg_app_window_windows_h_
 #define _gg_app_window_windows_h_
 
-// include files
-
 #include "gg/app/window/window_base.h"
 #include <windows.h>
 
-// namespace
-
 namespace gg::app
 {
-    // type definitions
-
-    typedef class window_windows window_platform;
-
-    // class in charge of define a windows window
-
     class window_windows : public window_base
     {
     public:
 
         // methods
 
-        void handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept;
+        bool8 handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept;
 
         HWND get_hwnd(void) const noexcept
         {
@@ -55,6 +45,8 @@ namespace gg::app
         HWND m_hwnd;
         WNDCLASSEX m_wnd_class;
     };
+
+    typedef window_windows window_platform;
 }
 
 #endif // _gg_app_window_windows_h_

@@ -6,7 +6,6 @@
 //==============================================================================
 
 #include "gg/app/window/window_info.h"
-#include "gg/core/macro/macro.h"
 
 //==============================================================================
 namespace gg::app
@@ -69,12 +68,8 @@ bool8 window_linux::on_init(window_info const * GG_UNUSED_ARGUMENT(info)) noexce
     GG_RETURN_FALSE_IF_NOT_NULL(m_display);
     GG_RETURN_FALSE_IF_FALSE(None == m_screen);
 
-    // open display
-
     m_display = XOpenDisplay(0);
     GG_RETURN_FALSE_IF_NULL(m_display);
-
-    // default screen
 
     m_screen = DefaultScreen(m_display);
     return None != m_screen;
