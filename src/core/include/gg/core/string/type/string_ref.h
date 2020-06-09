@@ -123,6 +123,11 @@ namespace gg
             return m_data;
         }
 
+        constexpr char8 const * c_str(void) const noexcept
+        {
+            return begin();
+        }
+
         constexpr void clear(void) noexcept
         {
             m_data = "";
