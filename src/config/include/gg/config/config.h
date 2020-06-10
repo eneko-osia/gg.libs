@@ -1,21 +1,15 @@
 #ifndef _gg_config_h_
 #define _gg_config_h_
 
-// include files
-
 #include "gg/core/container/map/hash_map.h"
 #include "gg/core/string/type/string_dynamic.h"
-
-// namespace
+#include "gg/core/string/type/string_ref.h"
+#include "gg/core/utils/converter.h"
+#include "gg/crypt/hash/hash.h"
 
 namespace gg
 {
-    // forward declarations
-
     class file_istream;
-    class string_ref;
-
-    // class in charge of define a config
 
     class config final
     {
@@ -33,41 +27,38 @@ namespace gg
 
         // accessors
 
-        bool8 get_bool(
-            string_ref const & key,
-            bool8 ret_value = false) const noexcept;
+        template <typename TYPE>
+        TYPE
+        get_value(string_ref const & key, TYPE ret_value) noexcept
+        {
+            auto value = get_value<string_ref>(key, string_ref());
+            return value.is_empty() ? ret_value : convert::to<TYPE>(value.c_str());
+        }
 
-        float32 get_float(
-            string_ref const & key,
-            float32 ret_value = 0.0f) const noexcept;
-
-        int32 get_int(
-            string_ref const & key,
-            int32 ret_value = 0) const noexcept;
-
-        string_ref get_string(
-            string_ref const & key,
-            string_ref ret_value = GG_TEXT("")) const noexcept;
-
-        uint32 get_uint(
-            string_ref const & key,
-            uint32 ret_value = 0) const noexcept;
+        template <>
+        string_ref
+        get_value<string_ref>(string_ref const & key, string_ref ret_value) noexcept
+        {
+            auto cit = m_values.find(hash::fnv1a::generate(key));
+            return cit == m_values.end() ? ret_value : cit->second;
+        }
 
         // inquiries
 
-        bool8 has_value(string_ref const & key) const noexcept;
+        bool8 has_value(string_ref const & key) const noexcept
+        {
+            return m_values.find(hash::fnv1a::generate(key)) != m_values.end();
+        }
 
     private:
 
         // type definitions
 
-        typedef hash_map<uint32, string_dynamic> ret_value_map;
-
-    private:
+        typedef hash_map<uint32, string_dynamic> value_map;
 
         // attributes
 
-        ret_value_map m_values;
+        value_map m_values;
     };
 }
 

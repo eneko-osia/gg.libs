@@ -3,55 +3,12 @@
 //==============================================================================
 
 #include "gg/core/stream/file_istream.h"
-#include "gg/core/string/type/string_ref.h"
 #include "gg/core/string/type/string_static.h"
-#include "gg/core/utils/converter.h"
-#include "gg/crypt/hash/hash.h"
 
 //==============================================================================
 namespace gg
 {
 //==============================================================================
-
-bool8
-config::get_bool(string_ref const & key, bool8 ret_value) const noexcept
-{
-    string_ref value = get_string(key);
-    return value.is_empty() ? ret_value : converter::atob(value.begin());
-}
-
-float32
-config::get_float(string_ref const & key, float32 ret_value) const noexcept
-{
-    string_ref value = get_string(key);
-    return value.is_empty() ? ret_value : converter::atof(value.begin());
-}
-
-int32
-config::get_int(string_ref const & key, int32 ret_value) const noexcept
-{
-    string_ref value = get_string(key);
-    return value.is_empty() ? ret_value : converter::atoi(value.begin());
-}
-
-string_ref
-config::get_string(string_ref const & key, string_ref ret_value) const noexcept
-{
-    auto cit = m_values.find(hash::fnv1a::generate(key));
-    return cit == m_values.end() ? ret_value : string_ref(cit->second);
-}
-
-uint32
-config::get_uint(string_ref const & key, uint32 ret_value) const noexcept
-{
-    string_ref value = get_string(key);
-    return value.is_empty() ? ret_value : converter::atoui(value.begin());
-}
-
-bool8 config::has_value(string_ref const & key) const noexcept
-{
-    return m_values.find(hash::fnv1a::generate(key)) != m_values.end();
-}
 
 bool8 config::load(file_istream & file) noexcept
 {
