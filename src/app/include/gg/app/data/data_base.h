@@ -22,6 +22,8 @@ namespace gg::app
             m_arguments.emplace_back(argument);
         }
 
+        // accessors
+
         argument_container const & get_arguments(void) const noexcept
         {
             return m_arguments;

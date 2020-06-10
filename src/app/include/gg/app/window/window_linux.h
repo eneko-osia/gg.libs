@@ -14,6 +14,8 @@ namespace gg::app
 
         void handle_messages(void) noexcept;
 
+        // accessors
+
         Display * get_display(void) const noexcept
         {
             return m_display;

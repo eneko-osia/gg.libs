@@ -14,6 +14,8 @@ namespace gg::app
 
         bool8 handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept;
 
+        // accessors
+
         HWND get_hwnd(void) const noexcept
         {
             return m_hwnd;

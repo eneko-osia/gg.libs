@@ -10,7 +10,7 @@ namespace gg::app
     {
     public:
 
-        // methods
+        // accessors
 
         HINSTANCE get_hinstance(void) const noexcept
         {

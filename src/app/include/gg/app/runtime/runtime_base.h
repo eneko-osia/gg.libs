@@ -21,8 +21,6 @@ namespace gg::app
         // methods
 
         void destroy_window(id_type id) noexcept;
-        window * get_window(id_type id) noexcept;
-        window const * get_window(id_type id) const noexcept;
 
         template <typename FUNCTION>
         void for_each_window(FUNCTION && function) noexcept
@@ -42,10 +40,15 @@ namespace gg::app
                 type::forward<FUNCTION>(function));
         }
 
+        // accessors
+
         data const & get_data(void) const noexcept
         {
             return m_data;
         }
+
+        window * get_window(id_type id) noexcept;
+        window const * get_window(id_type id) const noexcept;
 
     protected:
 
