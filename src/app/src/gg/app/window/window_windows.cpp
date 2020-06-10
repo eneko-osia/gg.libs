@@ -98,11 +98,11 @@ void window_windows::on_finalize(void) noexcept
     memory::zero(&m_wnd_class);
 }
 
-bool8 window_windows::on_init(window_info const * info) noexcept
+bool8 window_windows::on_init(window_info const & info) noexcept
 {
     GG_RETURN_FALSE_IF_NOT_NULL(m_hwnd);
 
-    GG_RETURN_FALSE_IF_FALSE(register_class(info->m_hinstance));
+    GG_RETURN_FALSE_IF_FALSE(register_class(info.m_hinstance));
 
     DWORD window_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     RECT rect =

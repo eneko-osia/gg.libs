@@ -109,7 +109,7 @@ TEST_CASE("window::init", "[gg.app.window]")
         };
 
         window win;
-        REQUIRE(win.init(&info));
+        REQUIRE(win.init(info));
         win.finalize();
     }
 #endif
@@ -127,7 +127,7 @@ TEST_CASE("window::notify", "[gg.app.window]")
     };
 
     window win;
-    REQUIRE(win.init(&info));
+    REQUIRE(win.init(info));
 
     SECTION("on_close")
     {

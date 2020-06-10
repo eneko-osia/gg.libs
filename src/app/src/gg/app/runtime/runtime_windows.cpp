@@ -33,7 +33,7 @@ id_type runtime_windows::create_window(
     info.m_hinstance = get_data().get_hinstance();
 
     auto it = m_windows.emplace_back();
-    if (!it->init(&info))
+    if (!it->init(info))
     {
         m_windows.pop_back();
         return id_type_invalid;

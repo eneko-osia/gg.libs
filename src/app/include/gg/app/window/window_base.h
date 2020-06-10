@@ -23,7 +23,7 @@ namespace gg::app
         // methods
 
         void finalize(void) noexcept;
-        bool8 init(window_info const * info) noexcept;
+        bool8 init(window_info const & info) noexcept;
 
     protected:
 
@@ -37,7 +37,7 @@ namespace gg::app
         // virtual methods
 
         virtual void on_finalize(void) noexcept = 0;
-        virtual bool8 on_init(window_info const * info) noexcept = 0;
+        virtual bool8 on_init(window_info const & info) noexcept = 0;
     };
 }
 

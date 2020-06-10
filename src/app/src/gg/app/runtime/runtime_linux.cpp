@@ -31,7 +31,7 @@ id_type runtime_linux::create_window(
     info.m_height = height;
 
     auto it = m_windows.emplace_back();
-    if (!it->init(&info))
+    if (!it->init(info))
     {
         m_windows.pop_back();
         return id_type_invalid;

@@ -38,7 +38,7 @@ namespace gg::app
         // window_base override methods
 
         void on_finalize(void) noexcept override final;
-        bool8 on_init(window_info const * info) noexcept override final;
+        bool8 on_init(window_info const & info) noexcept override final;
 
     private:
 
