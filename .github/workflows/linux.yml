@@ -21,10 +21,10 @@ jobs:
         cache-name: cache-apt
       with:
         path: /var/cache/apt
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
+        key: ${{ runner.os }}-${{ env.cache-name }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}
-          ${{ runner.os }}-build-
+          ${{ runner.os }}-${{ env.cache-name }}
+          ${{ runner.os }}-
           ${{ runner.os }}-
 
     - name: Install Open GL
