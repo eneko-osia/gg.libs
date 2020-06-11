@@ -3,7 +3,6 @@
 //==============================================================================
 
 #include "gg/core/string/type/string_static.h"
-#include "gg/core/utils/text_utils.h"
 #include "gg/core/version.h"
 
 //==============================================================================
@@ -16,8 +15,8 @@ TEST_CASE("version", "[gg.version]")
     SECTION("version number")
     {
         string_static<32> version_number;
-        text_utils::format(
-            version_number.begin(),
+        string::format(
+            version_number.c_str(),
             version_number.max_size(),
             "%u.%u.%u",
             version_major, version_minor, version_patch);
