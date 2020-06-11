@@ -4,7 +4,7 @@
 #include "gg/core/container/map/hash_map.h"
 #include "gg/core/string/type/string_dynamic.h"
 #include "gg/core/string/type/string_ref.h"
-#include "gg/core/utils/converter.h"
+#include "gg/core/type/convert.h"
 #include "gg/crypt/hash/hash.h"
 
 namespace gg
@@ -40,7 +40,7 @@ namespace gg
         get_value<string_ref>(string_ref const & key, string_ref ret_value) noexcept
         {
             auto cit = m_values.find(hash::fnv1a::generate(key));
-            return cit == m_values.end() ? ret_value : cit->second;
+            return cit == m_values.end() ? ret_value : string_ref(cit->second);
         }
 
         // inquiries
