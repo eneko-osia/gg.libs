@@ -18,12 +18,12 @@ jobs:
     - name: Cache
       uses: actions/cache@v2
       env:
-        cache-name: cache-apt-test
+        cache-name: cache-apt-test-archives
       with:
         path: |
           /var/cache/apt
-          !/var/cache/apt/lock
-          !/var/cache/apt/partial
+          !/var/cache/apt/archives/lock
+          !/var/cache/apt/archives/partial
         key: ${{ runner.os }}-${{ env.cache-name }}
         restore-keys: |
           ${{ runner.os }}-${{ env.cache-name }}
