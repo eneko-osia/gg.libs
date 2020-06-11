@@ -15,9 +15,6 @@ jobs:
       fail-fast: false
 
     steps:
-    - name: Clean apt
-      run: sudo apt-get clean
-
     - name: Cache
       uses: actions/cache@v2
       env:
