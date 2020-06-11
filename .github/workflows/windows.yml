@@ -16,6 +16,18 @@ jobs:
       fail-fast: false
 
     steps:
+    - name: Cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-chocolatey
+        with:
+          path: ~\AppData\Local\Temp\chocolatey
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
     - name: Install Vulkan
       run: |
           choco install vulkan-sdk
