@@ -3,9 +3,11 @@
 
 // include files
 
-#include "gg/core/constant/constant.h"
 #include "gg/core/debug/assert.h"
 #include "gg/core/string/macro/macro.h"
+#include "gg/core/type/constant.h"
+#include "gg/core/type/type_trait.h"
+#include <cstdio>
 
 // namespace
 
@@ -50,6 +52,51 @@ namespace gg
                 }
             }
             return nullptr;
+        }
+
+        template <typename... ARGS>
+        inline int32
+        format(
+            char8 * buffer,
+            size_type size,
+            char8 const * format,
+            ARGS &&... args)
+        {
+            return
+                snprintf(buffer, size, format, type::forward<ARGS>(args)...);
+        }
+
+        template <typename TYPE>
+        void from(TYPE value, char8 * buffer, size_t size) noexcept;
+
+        template <>
+        inline void from<bool8>(bool8 value, char8 * buffer, size_t size) noexcept
+        {
+            format(buffer, size, "%d", value);
+        }
+
+        template <>
+        inline void from<int32>(int32 value, char8 * buffer, size_t size) noexcept
+        {
+            format(buffer, size, "%d", value);
+        }
+
+        template <>
+        inline void from<uint32>(uint32 value, char8 * buffer, size_t size) noexcept
+        {
+            format(buffer, size, "%u", value);
+        }
+
+        template <>
+        inline void from<int64>(int64 value, char8 * buffer, size_t size) noexcept
+        {
+            format(buffer, size, "%lld", value);
+        }
+
+        template <>
+        inline void from<float32>(float32 value, char8 * buffer, size_t size) noexcept
+        {
+            format(buffer, size, "%f", value);
         }
 
         inline constexpr size_type length(char8 const * str) noexcept

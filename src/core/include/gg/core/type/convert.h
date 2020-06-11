@@ -1,8 +1,7 @@
-#ifndef _gg_converter_h_
-#define	_gg_converter_h_
+#ifndef _gg_convert_h_
+#define	_gg_convert_h_
 
-#include "gg/core/type/type_trait.h"
-#include "gg/core/utils/text_utils.h"
+#include "gg/core/type/type.h"
 #include <cmath>
 
 namespace gg
@@ -13,6 +12,15 @@ namespace gg
 
         template <typename TYPE>
         TYPE to(char8 const * value) noexcept;
+
+        template <typename TYPE>
+        TYPE to(float32 value) noexcept;
+
+        template <typename TYPE>
+        TYPE to(int32 value) noexcept;
+
+        template <typename TYPE>
+        TYPE to(uint32 value) noexcept;
 
         template <>
         inline bool8 to<bool8>(char8 const * value) noexcept
@@ -80,11 +88,8 @@ namespace gg
             return type::cast_static<float64>(::atof(value));
         }
 
-        template <typename TYPE, typename FROM>
-        TYPE to(FROM value) noexcept;
-
         template <>
-        inline int32 to<int32, float32>(float32 value) noexcept
+        inline int32 to<int32>(float32 value) noexcept
         {
             return
                 type::cast_static<int32>(
@@ -92,53 +97,25 @@ namespace gg
         }
 
         template <>
-        inline uint32 to<uint32, float32>(float32 value) noexcept
+        inline uint32 to<uint32>(float32 value) noexcept
         {
             return
                 type::cast_static<uint32>(
                     value + ((fmodf(value, 1.0f) < 0.5f) ? 0 : 1));
         }
-    }
 
-    namespace converter
-    {
-        // methods
-
-        inline void btoa(bool8 b, char8 * buffer, uint32 size) noexcept
+        template <>
+        inline float32 to(int32 value) noexcept
         {
-            text_utils::format(buffer, size, "%d", b);
+            return type::cast_static<float32>(value);
         }
 
-        inline void ftoa(float32 f, char8 * buffer, uint32 size) noexcept
+        template <>
+        inline float32 to(uint32 value) noexcept
         {
-            text_utils::format(buffer, size, "%f", f);
-        }
-
-        inline void itoa(int32 i, char8 * buffer, uint32 size) noexcept
-        {
-            text_utils::format(buffer, size, "%d", i);
-        }
-
-        inline float32 itof(int32 i) noexcept
-        {
-            return type::cast_static<float32>(i);
-        }
-
-        inline void ltoa(int64 l, char8 * buffer, uint32 size) noexcept
-        {
-            text_utils::format(buffer, size, "%lld", l);
-        }
-
-        inline void uitoa(uint32 u, char8 * buffer, uint32 size) noexcept
-        {
-            text_utils::format(buffer, size, "%u", u);
-        }
-
-        inline float32 uitof(uint32 u) noexcept
-        {
-            return type::cast_static<float32>(u);
+            return type::cast_static<float32>(value);
         }
     }
 }
 
-#endif // _gg_converter_h_
+#endif // _gg_convert_h_
