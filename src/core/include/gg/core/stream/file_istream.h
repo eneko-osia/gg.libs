@@ -94,13 +94,12 @@ namespace gg
         {
             if (is_valid())
             {
-                if (fgets(
-                    line.begin(),
-                    type::cast_static<int>(line.max_size()),
-                    m_file))
+                int line_max_size = type::cast_static<int>(line.max_size());
+                if (fgets(line.c_str(), line_max_size, m_file))
                 {
-                    m_position += type::cast_static<uint32>(line.size());
-                    return type::cast_static<uint32>(line.size());
+                    uint32 line_size = type::cast_static<uint32>(line.size());
+                    m_position += line_size;
+                    return line_size;
                 }
             }
 
