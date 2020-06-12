@@ -341,7 +341,7 @@ namespace gg
 
         bool8 is_empty(void) const noexcept
         {
-            return 0 == size();
+            return '\0' == m_data[0];
         }
 
     private:

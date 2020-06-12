@@ -107,6 +107,22 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string.max_size() == 5);
         REQUIRE(string.size() == 4);
     }
+
+    SECTION("string_dynamic(string, num_char)")
+    {
+        string_ref copied_string("this is a test string");
+        string_dynamic string(copied_string, 16);
+        REQUIRE(string == "this is a test s");
+        REQUIRE(string.size() + 1 == string.max_size());
+    }
+
+    SECTION("string_dynamic(string idx_start idx_end)")
+    {
+        string_ref copied_string("this is a test string");
+        string_dynamic string(copied_string, 4, 16);
+        REQUIRE(string == " is a test st");
+        REQUIRE(string.size() + 1 == string.max_size());
+    }
 }
 
 TEST_CASE("string_dynamic.operator-access", "[gg.string_dynamic]")
@@ -382,7 +398,7 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
     SECTION("erase idx num_char - first character")
     {
         string_dynamic string("this is a test string");
-        string.erase(0, 1);
+        string.erase(0);
         REQUIRE(string == "his is a test string");
         REQUIRE(string.max_size() == 22);
         REQUIRE(string.size() == 20);
@@ -391,7 +407,7 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
     SECTION("erase idx num_char - last character")
     {
         string_dynamic string("this is a test string");
-        string.erase(20, 1);
+        string.erase(20);
         REQUIRE(string == "this is a test strin");
         REQUIRE(string.max_size() == 22);
         REQUIRE(string.size() == 20);
@@ -418,6 +434,12 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
 
 TEST_CASE("string_dynamic.find", "[gg.string_dynamic]")
 {
+    SECTION("find empty")
+    {
+        string_dynamic string;
+        REQUIRE(string.find("is") == string::npos);
+    }
+
     SECTION("find char*")
     {
         string_dynamic string("this is a test string");
@@ -652,7 +674,7 @@ TEST_CASE("string_dynamic::compare", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 "Lorem ipsum dolor sit amet, consectetur "
                 "adipiscing elit,\r\n") == 0);
     }
@@ -668,8 +690,8 @@ TEST_CASE("string_dynamic::find", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(
             (string::find(
-                text.begin(), GG_TEXT("consectetur")) -
-            text.begin()) == 28);
+                text.c_str(), GG_TEXT("consectetur")) -
+            text.c_str()) == 28);
     }
 }
 
@@ -681,7 +703,7 @@ TEST_CASE("string_dynamic::length", "[gg.string]")
             GG_TEXT(
                 "Lorem ipsum dolor sit amet, "
                 "consectetur adipiscing elit,\r\n"));
-        REQUIRE(string::length(text.begin()) == 58);
+        REQUIRE(string::length(text.c_str()) == 58);
         REQUIRE(text.size() == 58);
     }
 }
@@ -696,18 +718,18 @@ TEST_CASE("string_dynamic::trim", "[gg.string]")
                 " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
                 " aliqua."));
 
-        REQUIRE(string::length(text.begin()) == 129);
+        REQUIRE(string::length(text.c_str()) == 129);
         REQUIRE(text.size() == 129);
-        string::trim(text.begin(), string::length(text.begin()));
+        string::trim(text.c_str(), string::length(text.c_str()));
 
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 GG_TEXT(
                     "Loremipsumdolorsitamet,consecteturadipiscingelit,"
                     "seddoeiusmodtemporincididuntutlaboreetdoloremagna"
                     "aliqua.")) == 0);
-        REQUIRE(string::length(text.begin()) == 105);
+        REQUIRE(string::length(text.c_str()) == 105);
         REQUIRE(text.size() == 105);
     }
 
@@ -719,18 +741,18 @@ TEST_CASE("string_dynamic::trim", "[gg.string]")
                 " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
                 " aliqua."));
 
-        REQUIRE(string::length(text.begin()) == 129);
+        REQUIRE(string::length(text.c_str()) == 129);
         REQUIRE(text.size() == 129);
-        string::trim(text.begin(), string::length(text.begin()), GG_TEXT("abc"));
+        string::trim(text.c_str(), string::length(text.c_str()), GG_TEXT("abc"));
 
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 GG_TEXT(
                     " Lorem ipsum dolor sit met, onsetetur dipising elit,\r\n"
                     " \tsed do eiusmod tempor inididunt ut lore et dolore mgn \n"
                     " liqu.")) == 0);
-        REQUIRE(string::length(text.begin()) == 117);
+        REQUIRE(string::length(text.c_str()) == 117);
         REQUIRE(text.size() == 117);
     }
 }

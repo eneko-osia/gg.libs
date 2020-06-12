@@ -22,6 +22,19 @@ namespace gg
 
     public:
 
+        // type definitions
+
+        typedef typename data_type::item_type       item_type;
+
+        typedef typename data_type::pointer         pointer;
+        typedef typename data_type::const_pointer   const_pointer;
+
+        typedef typename data_type::reference       reference;
+        typedef typename data_type::const_reference const_reference;
+
+        typedef typename data_type::iterator        iterator;
+        typedef typename data_type::const_iterator  const_iterator;
+
         // constructors
 
         string_dynamic(void) noexcept
@@ -48,21 +61,38 @@ namespace gg
             set(string);
         }
 
+        template <typename STRING_TYPE>
+        string_dynamic(STRING_TYPE const & string, size_type num_char) noexcept
+            : m_data()
+        {
+            set(string, num_char);
+        }
+
+        template <typename STRING_TYPE>
+        string_dynamic(
+            STRING_TYPE const & string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+            : m_data()
+        {
+            set(string, idx_start, idx_end);
+        }
+
         ~string_dynamic(void) noexcept = default;
 
         // operators
 
-        char8 & operator[](size_type idx) noexcept
+        reference operator[](size_type idx) noexcept
         {
             return m_data[idx];
         }
 
-        char8 const & operator[](size_type idx) const noexcept
+        const_reference operator[](size_type idx) const noexcept
         {
             return m_data[idx];
         }
 
-        string_dynamic & operator=(char8 const * string) noexcept
+        string_dynamic & operator=(const_pointer string) noexcept
         {
             return set(string);
         }
@@ -83,18 +113,18 @@ namespace gg
             return set(string);
         }
 
-        bool8 operator==(char8 const * string) const noexcept
+        bool8 operator==(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) == 0;
+            return string::compare(c_str(), string) == 0;
         }
 
         template <typename STRING_TYPE>
         bool8 operator==(STRING_TYPE const & string) const noexcept
         {
-            return *this == string.begin();
+            return *this == string.c_str();
         }
 
-        bool8 operator!=(char8 const * string) const noexcept
+        bool8 operator!=(const_pointer string) const noexcept
         {
             return !(*this == string);
         }
@@ -105,130 +135,146 @@ namespace gg
             return !(*this == string);
         }
 
-        bool8 operator<(char8 const * string) const noexcept
+        bool8 operator<(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) < 0;
+            return string::compare(c_str(), string) < 0;
         }
 
         template <typename STRING_TYPE>
         bool8 operator<(STRING_TYPE const & string) const noexcept
         {
-            return *this < string.begin();
+            return *this < string.c_str();
         }
 
-        bool8 operator>(char8 const * string) const noexcept
+        bool8 operator>(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) > 0;
+            return string::compare(c_str(), string) > 0;
         }
 
         template <typename STRING_TYPE>
         bool8 operator>(STRING_TYPE const & string) const noexcept
         {
-            return *this > string.begin();
+            return *this > string.c_str();
         }
 
         // methods
 
-        string_dynamic & append(char8 const & character) noexcept
+        string_dynamic & append(const_reference character) noexcept
         {
-            return
-                append(type::cast_const<char8 const *>(&character), 1);
+            return insert(size(), character);
         }
 
-        string_dynamic & append(char8 const * string) noexcept
+        string_dynamic & append(const_pointer string) noexcept
         {
-            return append(string, size_type(string::length(string)));
+            return insert(size(), string);
         }
 
         string_dynamic &
-        append(char8 const * string, size_type num_char) noexcept
+        append(const_pointer string, size_type num_char) noexcept
         {
             return insert(size(), string, num_char);
         }
 
+        // string_dynamic &
+        // append(
+        //     const_pointer string,
+        //     size_type idx_start,
+        //     size_type idx_end) noexcept
+        // {
+        //     return insert(size(), string, idx_start, idx_end);
+        // }
+
         template <typename STRING_TYPE>
         string_dynamic & append(STRING_TYPE const & string) noexcept
         {
-            return append(string.begin(), string.size());
+            return insert(size(), string);
         }
 
         template <typename STRING_TYPE>
         string_dynamic &
         append(STRING_TYPE const & string, size_type num_char) noexcept
         {
-            return append(string.begin(), num_char);
+            return insert(size(), string, num_char);
         }
 
-        char8 * begin(void) noexcept
+        // template <typename STRING_TYPE>
+        // string_dynamic &
+        // append(
+        //     STRING_TYPE const & string,
+        //     size_type idx_start,
+        //     size_type idx_end) noexcept
+        // {
+        //     return insert(size(), string, idx_start, idx_end);
+        // }
+
+        iterator begin(void) noexcept
+        {
+            return m_data.begin();
+        }
+
+        const_iterator begin(void) const noexcept
+        {
+            return m_data.begin();
+        }
+
+        pointer c_str(void) noexcept
         {
             return m_data.data();
         }
 
-        char8 const * begin(void) const noexcept
+        const_pointer c_str(void) const noexcept
         {
             return m_data.data();
-        }
-
-        char8 * c_str(void) noexcept
-        {
-            return begin();
-        }
-
-        char8 const * c_str(void) const noexcept
-        {
-            return begin();
         }
 
         void clear(void) noexcept
         {
             m_data.clear();
-            m_data.push_back('\0');
         }
 
-        char8 * end(void) noexcept
+        iterator end(void) noexcept
         {
             return begin() + size();
         }
 
-        char8 const * end(void) const noexcept
+        const_iterator end(void) const noexcept
         {
             return begin() + size();
         }
 
-        string_dynamic & erase(size_type idx, size_type num_char) noexcept
+        string_dynamic & erase(size_type idx, size_type num_char = 1) noexcept
         {
             m_data.erase(idx, limit::min(idx + num_char, size()));
             return *this;
         }
 
-        size_type find(char8 const * string, size_type idx = 0) const noexcept
+        size_type find(const_pointer string, size_type idx = 0) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
-            char8 const * position = string::find(begin() + idx, string);
-            return size_type(
-                nullptr == position ? string::npos : position - begin());
+            GG_RETURN_VALUE_IF_FALSE(idx < size(), string::npos);
+            const_pointer position = string::find(c_str() + idx, string);
+            return size_type(position ? (position - c_str()) : string::npos);
         }
 
         template <typename STRING_TYPE>
         size_type
         find(STRING_TYPE const & string, size_type idx = 0) const noexcept
         {
-            return find(string.begin(), idx);
+            return find(string.c_str(), idx);
         }
 
         string_dynamic &
-        insert(size_type idx, char8 const & character) noexcept
+        insert(size_type idx, const_reference character) noexcept
         {
-            return insert(idx, type::cast_const<char8 const *>(&character), 1);
+            return insert(idx, type::cast_const<const_pointer>(&character), 1);
         }
 
-        string_dynamic & insert(size_type idx, char8 const * string) noexcept
+        string_dynamic & insert(size_type idx, const_pointer string) noexcept
         {
-            return insert(idx, string, size_type(string::length(string)));
+            return insert(idx, string, string::length(string));
         }
 
         string_dynamic &
-        insert(size_type idx, char8 const * string, size_type num_char) noexcept
+        insert(size_type idx, const_pointer string, size_type num_char) noexcept
         {
             if (num_char > 0)
             {
@@ -243,7 +289,7 @@ namespace gg
         string_dynamic &
         insert(size_type idx, STRING_TYPE const & string) noexcept
         {
-            return insert(idx, string.begin(), string.size());
+            return insert(idx, string.c_str(), string.size());
         }
 
         template <typename STRING_TYPE>
@@ -252,39 +298,39 @@ namespace gg
             STRING_TYPE const & string,
             size_type num_char) noexcept
         {
-            return insert(idx, string.begin(), num_char);
+            return insert(idx, string.c_str(), num_char);
         }
 
-        string_dynamic & set(char8 * string) noexcept
+        string_dynamic & set(pointer string) noexcept
         {
-            return set(type::cast_const<char8 const *>(string));
+            return set(type::cast_const<const_pointer>(string));
         }
 
-        string_dynamic & set(char8 const * string) noexcept
+        string_dynamic & set(const_pointer string) noexcept
         {
-            return set(string, size_type(string::length(string)));
+            return set(string, string::length(string));
         }
 
-        string_dynamic & set(char8 * string, size_type num_char) noexcept
+        string_dynamic & set(pointer string, size_type num_char) noexcept
         {
-            return set(type::cast_const<char8 const *>(string), num_char);
+            return set(type::cast_const<const_pointer>(string), num_char);
         }
 
-        string_dynamic & set(char8 const * string, size_type num_char) noexcept
+        string_dynamic & set(const_pointer string, size_type num_char) noexcept
         {
             m_data.clear();
             return insert(0u, string, num_char);
         }
 
         string_dynamic &
-        set(char8 * string, size_type idx_start, size_type idx_end) noexcept
+        set(pointer string, size_type idx_start, size_type idx_end) noexcept
         {
             return
-                set(type::cast_const<char8 const *>(string), idx_start, idx_end);
+                set(type::cast_const<const_pointer>(string), idx_start, idx_end);
         }
 
         string_dynamic & set(
-            char8 const * string,
+            const_pointer string,
             size_type idx_start,
             size_type idx_end) noexcept
         {
@@ -306,14 +352,14 @@ namespace gg
         template <typename STRING_TYPE>
         string_dynamic & set(STRING_TYPE const & string) noexcept
         {
-            return set(string.begin(), string.size());
+            return set(string.c_str(), string.size());
         }
 
         template <typename STRING_TYPE>
         string_dynamic &
         set(STRING_TYPE const & string, size_type num_char) noexcept
         {
-            return set(string.begin(), num_char);
+            return set(string.c_str(), num_char);
         }
 
         template <typename STRING_TYPE>
@@ -322,7 +368,7 @@ namespace gg
             size_type idx_start,
             size_type idx_end) noexcept
         {
-            return set(string.begin(), idx_start, idx_end);
+            return set(string.c_str(), idx_start, idx_end);
         }
 
         void reserve(size_type max_size) noexcept
@@ -343,14 +389,14 @@ namespace gg
 
         size_type size(void) const noexcept
         {
-            return begin() ? size_type(string::length(begin())) : 0;
+            return m_data.is_empty() ? 0 : string::length(c_str());
         }
 
         // inquiries
 
         bool8 is_empty(void) const noexcept
         {
-            return 0 == size();
+            return m_data.is_empty() ? true : ('\0' == m_data[0]);
         }
 
     private:
@@ -363,25 +409,33 @@ namespace gg
     // helpers
 
     inline bool8
-    operator<(char8 const * lstring, string_dynamic const & rstring) noexcept
+    operator<(
+        string_dynamic::const_pointer lstring,
+        string_dynamic const & rstring) noexcept
     {
         return rstring > lstring;
     }
 
     inline bool8
-    operator>(char8 const * lstring, string_dynamic const & rstring) noexcept
+    operator>(
+        string_dynamic::const_pointer lstring,
+        string_dynamic const & rstring) noexcept
     {
         return rstring < lstring;
     }
 
     inline bool8
-    operator==(char8 const * lstring, string_dynamic const & rstring) noexcept
+    operator==(
+        string_dynamic::const_pointer lstring,
+        string_dynamic const & rstring) noexcept
     {
         return rstring == lstring;
     }
 
     inline bool8
-    operator!=(char8 const * lstring, string_dynamic const & rstring) noexcept
+    operator!=(
+        string_dynamic::const_pointer lstring,
+        string_dynamic const & rstring) noexcept
     {
         return rstring != lstring;
     }
