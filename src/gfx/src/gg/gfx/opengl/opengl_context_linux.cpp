@@ -131,8 +131,8 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
     XSetStandardProperties(
         get_window()->get_display(),
         m_window,
-        get_window()->get_name().begin(),
-        get_window()->get_name().begin(),
+        get_window()->get_name().c_str(),
+        get_window()->get_name().c_str(),
         None,
         NULL,
         0,
