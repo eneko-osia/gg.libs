@@ -15,21 +15,6 @@ jobs:
       fail-fast: false
 
     steps:
-    - name: Cache
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-apt-test-archives
-      with:
-        path: |
-          /var/cache/apt
-          !/var/cache/apt/archives/lock
-          !/var/cache/apt/archives/partial
-        key: ${{ runner.os }}-${{ env.cache-name }}
-        restore-keys: |
-          ${{ runner.os }}-${{ env.cache-name }}
-          ${{ runner.os }}-
-          ${{ runner.os }}-
-
     - name: Install Open GL
       run: sudo apt install libgl1-mesa-dev
 
