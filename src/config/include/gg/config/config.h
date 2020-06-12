@@ -29,10 +29,11 @@ namespace gg
 
         template <typename TYPE>
         TYPE
-        get_value(string_ref const & key, TYPE ret_value) noexcept
+        get_value(string_ref const & key, TYPE const & ret_value) noexcept
         {
-            auto value = get_value<string_ref>(key, string_ref());
-            return value.is_empty() ? ret_value : convert::to<TYPE>(value.c_str());
+            string_ref value = get_value<string_ref>(key, string_ref());
+            return
+                value.is_empty() ? ret_value : convert::to<TYPE>(value.c_str());
         }
 
         // inquiries
@@ -55,7 +56,9 @@ namespace gg
 
     template <>
     string_ref
-    config::get_value<string_ref>(string_ref const & key, string_ref ret_value) noexcept
+    config::get_value<string_ref>(
+        string_ref const & key,
+        string_ref const & ret_value) noexcept
     {
         auto cit = m_values.find(hash::fnv1a::generate(key));
         return cit == m_values.end() ? ret_value : string_ref(cit->second);
