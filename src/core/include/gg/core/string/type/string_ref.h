@@ -183,7 +183,7 @@ namespace gg
         template <typename STRING_TYPE>
         constexpr string_ref & set(STRING_TYPE const & string) noexcept
         {
-            return set(string.begin());
+            return set(string.c_str());
         }
 
         constexpr size_type size(void) const noexcept
