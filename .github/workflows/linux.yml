@@ -21,7 +21,8 @@ jobs:
     - name: Install Vulkan
       run: sudo apt install libvulkan1 libvulkan-dev
 
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Create build directory
       run: cmake -E make_directory ${{runner.workspace}}/build

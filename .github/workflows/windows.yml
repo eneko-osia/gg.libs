@@ -36,7 +36,8 @@ jobs:
           refreshenv
           echo "::set-env name=VULKAN_SDK::${env:VULKAN_SDK}"
 
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Create build directory
       run: cmake -E make_directory ${{runner.workspace}}/build
