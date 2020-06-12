@@ -19,9 +19,7 @@ jobs:
       run: sudo apt install libgl1-mesa-dev
 
     - name: Install Vulkan
-      run: |
-          sudo apt install libvulkan1 libvulkan-dev
-          echo "::set-env name=VULKAN_SDK::${env:VULKAN_SDK}"
+      run: sudo apt install libvulkan1 libvulkan-dev
 
     - uses: actions/checkout@v2
 
