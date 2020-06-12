@@ -175,14 +175,14 @@ namespace gg
             return insert(size(), string, num_char);
         }
 
-        // string_dynamic &
-        // append(
-        //     const_pointer string,
-        //     size_type idx_start,
-        //     size_type idx_end) noexcept
-        // {
-        //     return insert(size(), string, idx_start, idx_end);
-        // }
+        string_dynamic &
+        append(
+            const_pointer string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+        {
+            return insert(size(), string, idx_start, idx_end);
+        }
 
         template <typename STRING_TYPE>
         string_dynamic & append(STRING_TYPE const & string) noexcept
@@ -197,15 +197,15 @@ namespace gg
             return insert(size(), string, num_char);
         }
 
-        // template <typename STRING_TYPE>
-        // string_dynamic &
-        // append(
-        //     STRING_TYPE const & string,
-        //     size_type idx_start,
-        //     size_type idx_end) noexcept
-        // {
-        //     return insert(size(), string, idx_start, idx_end);
-        // }
+        template <typename STRING_TYPE>
+        string_dynamic &
+        append(
+            STRING_TYPE const & string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+        {
+            return insert(size(), string, idx_start, idx_end);
+        }
 
         iterator begin(void) noexcept
         {
@@ -250,7 +250,6 @@ namespace gg
 
         size_type find(const_pointer string, size_type idx = 0) const noexcept
         {
-            GG_RETURN_VALUE_IF_FALSE(idx < size(), string::npos);
             const_pointer position = string::find(c_str() + idx, string);
             return size_type(position ? (position - c_str()) : string::npos);
         }
@@ -265,7 +264,7 @@ namespace gg
         string_dynamic &
         insert(size_type idx, const_reference character) noexcept
         {
-            return insert(idx, type::cast_const<const_pointer>(&character), 1);
+            return insert(idx, &character, 1);
         }
 
         string_dynamic & insert(size_type idx, const_pointer string) noexcept
@@ -285,6 +284,16 @@ namespace gg
             return *this;
         }
 
+        string_dynamic &
+        insert(
+            size_type idx,
+            const_pointer string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+        {
+            return insert(idx, string + idx_start, idx_end - idx_start + 1);
+        }
+
         template <typename STRING_TYPE>
         string_dynamic &
         insert(size_type idx, STRING_TYPE const & string) noexcept
@@ -301,33 +310,49 @@ namespace gg
             return insert(idx, string.c_str(), num_char);
         }
 
-        string_dynamic & set(pointer string) noexcept
+        template <typename STRING_TYPE>
+        string_dynamic &
+        insert(
+            size_type idx,
+            STRING_TYPE const & string,
+            size_type idx_start,
+            size_type idx_end) noexcept
         {
-            return set(type::cast_const<const_pointer>(string));
+            return insert(idx, string.c_str(), idx_start, idx_end);
         }
+
+        string_dynamic & set(const_reference character) noexcept
+        {
+            return set(&character, 1);
+        }
+
+        // string_dynamic & set(pointer string) noexcept
+        // {
+        //     return set(type::cast_const<const_pointer>(string));
+        // }
 
         string_dynamic & set(const_pointer string) noexcept
         {
             return set(string, string::length(string));
         }
 
-        string_dynamic & set(pointer string, size_type num_char) noexcept
-        {
-            return set(type::cast_const<const_pointer>(string), num_char);
-        }
+        // string_dynamic & set(pointer string, size_type num_char) noexcept
+        // {
+        //     return set(type::cast_const<const_pointer>(string), num_char);
+        // }
 
         string_dynamic & set(const_pointer string, size_type num_char) noexcept
         {
             m_data.clear();
-            return insert(0u, string, num_char);
+            return insert(size_type(0), string, num_char);
         }
 
-        string_dynamic &
-        set(pointer string, size_type idx_start, size_type idx_end) noexcept
-        {
-            return
-                set(type::cast_const<const_pointer>(string), idx_start, idx_end);
-        }
+        // string_dynamic &
+        // set(pointer string, size_type idx_start, size_type idx_end) noexcept
+        // {
+        //     return
+        //         set(type::cast_const<const_pointer>(string), idx_start, idx_end);
+        // }
 
         string_dynamic & set(
             const_pointer string,
@@ -363,7 +388,8 @@ namespace gg
         }
 
         template <typename STRING_TYPE>
-        string_dynamic & set(
+        string_dynamic &
+        set(
             STRING_TYPE const & string,
             size_type idx_start,
             size_type idx_end) noexcept

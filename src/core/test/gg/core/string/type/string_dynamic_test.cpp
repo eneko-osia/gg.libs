@@ -55,15 +55,22 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
 
 TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
 {
-    SECTION("string_dynamic()")
+    SECTION("string_dynamic")
     {
         string_dynamic string;
-
         REQUIRE(string.begin() == nullptr);
         REQUIRE(string.begin() == string.end());
         REQUIRE(string.max_size() == 0);
         REQUIRE(string.size() == 0);
         REQUIRE(string.is_empty());
+    }
+
+    SECTION("string_dynamic(char)")
+    {
+        string_dynamic string('a');
+        REQUIRE(string == "a");
+        REQUIRE(string.max_size() == 2);
+        REQUIRE(string.size() == 1);
     }
 
     SECTION("string_dynamic(char*)")
@@ -72,6 +79,20 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string == "test");
         REQUIRE(string.max_size() == 5);
         REQUIRE(string.size() == 4);
+    }
+
+    SECTION("string_dynamic(char*, num_char)")
+    {
+        string_dynamic string("this is a test string", 16);
+        REQUIRE(string == "this is a test s");
+        REQUIRE(string.size() + 1 == string.max_size());
+    }
+
+    SECTION("string_dynamic(char*, idx_start, idx_end)")
+    {
+        string_dynamic string("this is a test string", 4, 16);
+        REQUIRE(string == " is a test st");
+        REQUIRE(string.size() + 1 == string.max_size());
     }
 
     SECTION("string_dynamic(string_dynamic)")
@@ -83,20 +104,20 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_dynamic(rvalue_string_dynamic)")
+    SECTION("string_dynamic(string_dynamic, num_char)")
     {
-        string_dynamic moved_string("test");
-        string_dynamic copied_string(moved_string);
-        string_dynamic string(type::move(moved_string));
-        REQUIRE((string == copied_string));
-        REQUIRE(string.max_size() == 5);
-        REQUIRE(string.size() == 4);
+        string_dynamic copied_string("this is a test string");
+        string_dynamic string(copied_string, 16);
+        REQUIRE(string == "this is a test s");
+        REQUIRE(string.size() + 1 == string.max_size());
+    }
 
-        REQUIRE(moved_string.begin() == nullptr);
-        REQUIRE(moved_string.begin() == moved_string.end());
-        REQUIRE(moved_string.max_size() == 0);
-        REQUIRE(moved_string.size() == 0);
-        REQUIRE(moved_string.is_empty());
+    SECTION("string_dynamic(string_dynamic, idx_start, idx_end)")
+    {
+        string_dynamic copied_string("this is a test string");
+        string_dynamic string(copied_string, 4, 16);
+        REQUIRE(string == " is a test st");
+        REQUIRE(string.size() + 1 == string.max_size());
     }
 
     SECTION("string_dynamic(string)")
@@ -116,12 +137,28 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("string_dynamic(string idx_start idx_end)")
+    SECTION("string_dynamic(string, idx_start, idx_end)")
     {
         string_ref copied_string("this is a test string");
         string_dynamic string(copied_string, 4, 16);
         REQUIRE(string == " is a test st");
         REQUIRE(string.size() + 1 == string.max_size());
+    }
+
+    SECTION("string_dynamic(rvalue_string_dynamic)")
+    {
+        string_dynamic moved_string("test");
+        string_dynamic copied_string(moved_string);
+        string_dynamic string(type::move(moved_string));
+        REQUIRE((string == copied_string));
+        REQUIRE(string.max_size() == 5);
+        REQUIRE(string.size() == 4);
+
+        REQUIRE(moved_string.begin() == nullptr);
+        REQUIRE(moved_string.begin() == moved_string.end());
+        REQUIRE(moved_string.max_size() == 0);
+        REQUIRE(moved_string.size() == 0);
+        REQUIRE(moved_string.is_empty());
     }
 }
 
@@ -130,7 +167,6 @@ TEST_CASE("string_dynamic.operator-access", "[gg.string_dynamic]")
     SECTION("operator[idx]")
     {
         string_dynamic string("test");
-
         REQUIRE(string[0] == 't');
         REQUIRE(string[1] == 'e');
         REQUIRE(string[2] == 's');
@@ -140,6 +176,15 @@ TEST_CASE("string_dynamic.operator-access", "[gg.string_dynamic]")
 
 TEST_CASE("string_dynamic.operator=", "[gg.string_dynamic]")
 {
+    SECTION("string_dynamic = char")
+    {
+        string_dynamic string;
+        string = 'a';
+        REQUIRE(string == "a");
+        REQUIRE(string.max_size() == 2);
+        REQUIRE(string.size() == 1);
+    }
+
     SECTION("string_dynamic = char*")
     {
         string_dynamic string;
@@ -434,11 +479,11 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
 
 TEST_CASE("string_dynamic.find", "[gg.string_dynamic]")
 {
-    SECTION("find empty")
-    {
-        string_dynamic string;
-        REQUIRE(string.find("is") == string::npos);
-    }
+    // SECTION("find empty")
+    // {
+    //     string_dynamic string;
+    //     REQUIRE(string.find("is") == string::npos);
+    // }
 
     SECTION("find char*")
     {
