@@ -51,7 +51,7 @@ namespace gg
         memory_buffer_dynamic &
         operator=(memory_buffer_dynamic && buffer) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &buffer);
+            GG_ASSERT(this != &buffer);
             deallocate();
             m_data = type::move(buffer.m_data);
             m_size = type::move(buffer.m_size);
@@ -64,7 +64,7 @@ namespace gg
 
         void allocate(size_type size) noexcept
         {
-            GG_ASSERT_NULL(m_data);
+            GG_ASSERT(!m_data);
             m_data = memory::allocate<byte>(size);
             m_size = size;
         }
@@ -78,10 +78,7 @@ namespace gg
 
         void reallocate(size_type size) noexcept
         {
-            byte * data = memory::allocate<byte>(size);
-            memory::copy(data, m_data, limit::min(m_size, size));
-            deallocate();
-            m_data = data;
+            m_data = memory::reallocate<byte>(m_data, size);
             m_size = size;
         }
 
@@ -104,14 +101,14 @@ namespace gg
         template <typename ITEM_TYPE = byte>
         ITEM_TYPE & get(size_type idx) noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size<ITEM_TYPE>());
+            GG_ASSERT(idx < size<ITEM_TYPE>());
             return data<ITEM_TYPE>()[idx];
         }
 
         template <typename ITEM_TYPE = byte>
         ITEM_TYPE const & get(size_type idx) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size<ITEM_TYPE>());
+            GG_ASSERT(idx < size<ITEM_TYPE>());
             return data<ITEM_TYPE>()[idx];
         }
 
