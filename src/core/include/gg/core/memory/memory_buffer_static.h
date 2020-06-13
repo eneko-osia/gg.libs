@@ -1,18 +1,11 @@
 #ifndef _gg_memory_buffer_static_h_
 #define _gg_memory_buffer_static_h_
 
-// include files
-
-#include "gg/core/macro/macro.h"
 #include "gg/core/pattern/non_copyable.h"
 #include "gg/core/type/type_trait.h"
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a static memory buffer
-
     template <size_type SIZE>
     class memory_buffer_static final : public non_copyable
     {
@@ -37,14 +30,14 @@ namespace gg
         template <typename ITEM_TYPE = byte>
         ITEM_TYPE & get(size_type idx) noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size<ITEM_TYPE>());
+            GG_ASSERT(idx < size<ITEM_TYPE>());
             return data<ITEM_TYPE>()[idx];
         }
 
         template <typename ITEM_TYPE = byte>
         ITEM_TYPE const & get(size_type idx) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size<ITEM_TYPE>());
+            GG_ASSERT(idx < size<ITEM_TYPE>());
             return data<ITEM_TYPE>()[idx];
         }
 

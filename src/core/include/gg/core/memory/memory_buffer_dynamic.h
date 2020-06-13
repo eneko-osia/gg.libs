@@ -1,19 +1,11 @@
 #ifndef _gg_memory_buffer_dynamic_h_
 #define _gg_memory_buffer_dynamic_h_
 
-// include files
-
-#include "gg/core/macro/macro.h"
 #include "gg/core/memory/memory.h"
 #include "gg/core/pattern/non_copyable.h"
-#include "gg/core/type/limit.h"
-
-// namespace
 
 namespace gg
 {
-    // class in charge of define a dynamic memory buffer
-
     class memory_buffer_dynamic final : public non_copyable
     {
     public:
