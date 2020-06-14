@@ -21,7 +21,7 @@ window_linux::window_linux(void) noexcept
 window_linux::~window_linux(void) noexcept
 {
     GG_ASSERT(None == m_screen);
-    GG_ASSERT_NULL(m_display);
+    GG_ASSERT(!m_display);
 }
 
 //==============================================================================

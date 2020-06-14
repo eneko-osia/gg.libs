@@ -61,7 +61,7 @@ namespace gg
         static TYPE & get_instance(void) noexcept
         {
             GG_ASSERT(is_available());
-            GG_ASSERT_NOT_NULL(type::cast_dynamic<TYPE *>(m_instance));
+            GG_ASSERT(type::cast_dynamic<TYPE *>(m_instance));
             return *type::cast_static<TYPE *>(m_instance);
         }
 
@@ -79,7 +79,7 @@ namespace gg
         singleton_manual(void) noexcept = default;
         ~singleton_manual(void) noexcept
         {
-            GG_ASSERT_NULL(m_instance);
+            GG_ASSERT(!m_instance);
         }
 
     private:

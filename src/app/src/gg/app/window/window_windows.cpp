@@ -56,7 +56,7 @@ window_windows::window_windows(void) noexcept
 
 window_windows::~window_windows(void)
 {
-    GG_ASSERT_NULL(m_hwnd);
+    GG_ASSERT(!m_hwnd);
 }
 
 //==============================================================================

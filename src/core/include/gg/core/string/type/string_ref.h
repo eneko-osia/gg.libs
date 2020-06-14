@@ -47,7 +47,7 @@ namespace gg
 
         constexpr char8 const & operator[](size_type idx) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
+            GG_ASSERT(idx < size());
             return begin()[idx];
         }
 
@@ -141,7 +141,7 @@ namespace gg
         constexpr size_type
         find(char8 const * string, size_type idx = 0) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
+            GG_ASSERT(idx < size());
             char8 const * position = string::find(begin() + idx, string);
             return size_type(
                 nullptr == position ? string::npos : position - begin());
@@ -167,14 +167,13 @@ namespace gg
 
         constexpr string_ref & set(string_ref const & string) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &string);
             m_data = string.m_data;
             return *this;
         }
 
         constexpr string_ref & set(string_ref && string) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &string);
+            GG_ASSERT(this != &string);
             m_data = type::move(string.m_data);
             string.m_data = GG_TEXT("");
             return *this;

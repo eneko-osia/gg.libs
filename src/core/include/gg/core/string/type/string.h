@@ -26,8 +26,8 @@ namespace gg
         inline constexpr diff_type
         compare(char8 const * lhs, char8 const * rhs) noexcept
         {
-            GG_ASSERT_NOT_NULL(lhs);
-            GG_ASSERT_NOT_NULL(rhs);
+            GG_ASSERT(lhs);
+            GG_ASSERT(rhs);
 
             for (; (*lhs && *rhs) && (*lhs == *rhs); ++lhs, ++rhs) {}
             return *(uchar8 const *) lhs - *(uchar8 const *) rhs;
@@ -36,8 +36,8 @@ namespace gg
         inline constexpr char8 const *
         find(char8 const * lhs, char8 const * rhs) noexcept
         {
-            GG_ASSERT_NOT_NULL(lhs);
-            GG_ASSERT_NOT_NULL(rhs);
+            GG_ASSERT(lhs);
+            GG_ASSERT(rhs);
 
             for (; *lhs; ++lhs)
             {
@@ -101,7 +101,7 @@ namespace gg
 
         inline constexpr size_type length(char8 const * str) noexcept
         {
-            GG_ASSERT_NOT_NULL(str);
+            GG_ASSERT(str);
 
             size_type size = 0;
             for (; *str; ++str, ++size) {}
@@ -113,8 +113,8 @@ namespace gg
             size_type size,
             char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
         {
-            GG_ASSERT_NOT_NULL(str);
-            GG_ASSERT_NOT_NULL(delims);
+            GG_ASSERT(str);
+            GG_ASSERT(delims);
 
             char8 const * str_end = str + size;
             char8 const * delims_end = delims + length(delims);

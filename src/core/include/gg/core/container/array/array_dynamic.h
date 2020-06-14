@@ -67,19 +67,19 @@ namespace gg
 
         reference operator[](size_type idx) noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
+            GG_ASSERT(idx < size());
             return m_buffer.get<item_type>(idx);
         }
 
         const_reference operator[](size_type idx) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
+            GG_ASSERT(idx < size());
             return m_buffer.get<item_type>(idx);
         }
 
         array_dynamic & operator=(array_dynamic const & array) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &array);
+            GG_ASSERT(this != &array);
             clear_data();
             allocate_if_needed(array.size());
             construct_data(array);
@@ -89,7 +89,7 @@ namespace gg
 
         array_dynamic & operator=(array_dynamic && array) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &array);
+            GG_ASSERT(this != &array);
             clear_data();
             m_buffer = type::move(array.m_buffer);
             m_size = type::move(array.m_size);
@@ -149,7 +149,7 @@ namespace gg
         template <typename... ARGS>
         iterator emplace(size_type idx, ARGS &&... args) noexcept
         {
-            GG_ASSERT_LESS_EQUAL_THAN(idx, size());
+            GG_ASSERT(idx <= size());
             reallocate_if_needed();
             iterator it = (begin() + idx);
             memory::move(&(*(it + 1)), &(*it), (size() - idx));
@@ -191,9 +191,9 @@ namespace gg
 
         iterator erase(size_type idx_start, size_type idx_end) noexcept
         {
-            GG_ASSERT_LESS_THAN(idx_start, size());
-            GG_ASSERT_LESS_EQUAL_THAN(idx_end, size());
-            GG_ASSERT_LESS_THAN(idx_start, idx_end);
+            GG_ASSERT(idx_start < size());
+            GG_ASSERT(idx_end <= size());
+            GG_ASSERT(idx_start < idx_end);
             iterator it_start = (begin() + idx_start);
             iterator it_end = (begin() + idx_end);
             clear_data(it_start, it_end);
@@ -225,7 +225,7 @@ namespace gg
 
         iterator insert(size_type idx, const_reference item) noexcept
         {
-            GG_ASSERT_LESS_EQUAL_THAN(idx, size());
+            GG_ASSERT(idx <= size());
             reallocate_if_needed();
             iterator it = (begin() + idx);
             memory::move(&(*(it + 1)), &(*it), (size() - idx));
@@ -236,7 +236,7 @@ namespace gg
 
         iterator insert(size_type idx, rvalue_reference item) noexcept
         {
-            GG_ASSERT_LESS_EQUAL_THAN(idx, size());
+            GG_ASSERT(idx <= size());
             reallocate_if_needed();
             iterator it = (begin() + idx);
             memory::move(&(*(it + 1)), &(*it), (size() - idx));
@@ -260,7 +260,7 @@ namespace gg
             const_iterator cit_start,
             const_iterator cit_end) noexcept
         {
-            GG_ASSERT_LESS_EQUAL_THAN(idx, size());
+            GG_ASSERT(idx <= size());
 
             diff_type num_items = (cit_end - cit_start);
             GG_RETURN_VALUE_IF_FALSE(num_items > 0, end());
@@ -370,7 +370,7 @@ namespace gg
 
         void reallocate(size_type size) noexcept
         {
-            GG_ASSERT_GREATER_THAN(size, max_size());
+            GG_ASSERT(size > max_size());
             m_buffer.reallocate(sizeof(item_type) * size);
         }
 

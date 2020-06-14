@@ -37,7 +37,7 @@ namespace gg
         memory_buffer_ref &
         operator=(memory_buffer_ref && buffer) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &buffer);
+            GG_ASSERT(this != &buffer);
             m_data = type::move(buffer.m_data);
             m_size = type::move(buffer.m_size);
             buffer.m_data = nullptr;

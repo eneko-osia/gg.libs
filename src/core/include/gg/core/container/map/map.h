@@ -76,16 +76,14 @@ namespace gg
 
         map & operator=(map const & rmap) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &rmap);
-
+            GG_ASSERT(this != &rmap);
             m_data = rmap.m_data;
             return *this;
         }
 
         map & operator=(map && rmap) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &rmap);
-
+            GG_ASSERT(this != &rmap);
             m_data = type::move(rmap.m_data);
             return *this;
         }

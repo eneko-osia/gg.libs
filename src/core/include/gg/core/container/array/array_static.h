@@ -66,7 +66,7 @@ namespace gg
 
         array_static & operator=(array_static const & array) noexcept
         {
-            GG_ASSERT_NOT_EQUALS(this, &array);
+            GG_ASSERT(this != &array);
             clear_data();
             construct_data(array);
             return *this;

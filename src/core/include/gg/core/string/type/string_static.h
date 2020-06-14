@@ -191,8 +191,7 @@ namespace gg
 
         string_static & erase(size_type idx, size_type num_char) noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
-
+            GG_ASSERT(idx < size());
             size_type cur_size = size();
             size_type end_idx =
                 limit::min<size_type>(idx + num_char, cur_size);
@@ -203,7 +202,7 @@ namespace gg
 
         size_type find(char8 const * string, size_type idx = 0) const noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
+            GG_ASSERT(idx < size());
             char8 const * position = string::find(begin() + idx, string);
             return size_type(
                 nullptr == position ? string::npos : position - begin());
@@ -230,7 +229,7 @@ namespace gg
         string_static &
         insert(size_type idx, char8 const * string, size_type num_char) noexcept
         {
-            GG_ASSERT_LESS_THAN(idx, size());
+            GG_ASSERT(idx < size());
 
             size_type cur_size = size();
             size_type new_size =
