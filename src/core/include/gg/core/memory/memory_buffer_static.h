@@ -14,35 +14,35 @@ namespace gg
         // accessors
 
         template <typename ITEM_TYPE = void>
-        ITEM_TYPE * data(void) noexcept
+        constexpr ITEM_TYPE * data(void) noexcept
         {
             void * data = m_data;
             return type::cast_static<ITEM_TYPE *>(data);
         }
 
         template <typename ITEM_TYPE = void>
-        ITEM_TYPE const * data(void) const noexcept
+        constexpr ITEM_TYPE const * data(void) const noexcept
         {
             void const * data = m_data;
             return type::cast_static<ITEM_TYPE const *>(data);
         }
 
         template <typename ITEM_TYPE = byte>
-        ITEM_TYPE & get(size_type idx) noexcept
+        constexpr ITEM_TYPE & get(size_type idx) noexcept
         {
             GG_ASSERT(idx < size<ITEM_TYPE>());
             return data<ITEM_TYPE>()[idx];
         }
 
         template <typename ITEM_TYPE = byte>
-        ITEM_TYPE const & get(size_type idx) const noexcept
+        constexpr ITEM_TYPE const & get(size_type idx) const noexcept
         {
             GG_ASSERT(idx < size<ITEM_TYPE>());
             return data<ITEM_TYPE>()[idx];
         }
 
         template <typename ITEM_TYPE = byte>
-        size_type size(void) const
+        constexpr size_type size(void) const
         {
             return type::cast_static<size_type>(SIZE / sizeof(ITEM_TYPE));
         }

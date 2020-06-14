@@ -1,19 +1,13 @@
 #ifndef _gg_memory_h_
 #define _gg_memory_h_
 
-// include files
-
 #include "gg/core/type/type_trait.h"
 #include <cstdlib>
 #include <cstring>
 #include <new>
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define memory utilities
-
     class memory final
     {
     public:

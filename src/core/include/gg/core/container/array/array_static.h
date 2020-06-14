@@ -134,7 +134,7 @@ namespace gg
             return operator[](0);
         }
 
-        size_type size(void) const noexcept
+        constexpr size_type size(void) const noexcept
         {
             return m_buffer.template size<item_type>();
         }
