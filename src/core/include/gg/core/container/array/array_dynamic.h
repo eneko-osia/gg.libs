@@ -302,14 +302,15 @@ namespace gg
             reallocate_if_needed(size);
         }
 
-        void resize(size_type size) noexcept
+        template <typename... ARGS>
+        void resize(size_type size, ARGS &&... args) noexcept
         {
             if (size > this->size())
             {
                 reallocate_if_needed(size);
                 while (size != this->size())
                 {
-                    emplace_back();
+                    emplace_back(type::forward<ARGS>(args)...);
                 }
             }
             else
