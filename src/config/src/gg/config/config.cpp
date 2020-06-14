@@ -16,19 +16,16 @@ bool8 config::load(file_istream & file) noexcept
     if (success)
     {
         static size_type constexpr k_max_size = 512;
-        string_static<k_max_size> line, section, value;
-        string_static<k_max_size << 1> key;
+        string_static<k_max_size> line, section;
+        string_static<line.max_size() + section.max_size()> key;
         while (file.read_line(line))
         {
-            string::trim(line.begin(), line.size());
+            string::trim(line.c_str(), line.size());
 
             static string_ref constexpr k_chars_to_ignore = GG_TEXT("\0\n\r#/;");
             for (auto char_to_ignore : k_chars_to_ignore)
             {
-                if (char_to_ignore == line[0])
-                {
-                    continue;
-                }
+                GG_CONTINUE_IF(char_to_ignore == line[0]);
             }
 
             // section
@@ -41,7 +38,6 @@ bool8 config::load(file_istream & file) noexcept
                     success = false;
                     break;
                 }
-
                 section.set(line, 1, position);
             }
             else
@@ -55,9 +51,10 @@ bool8 config::load(file_istream & file) noexcept
                     break;
                 }
 
-                key.set(section).append('/').append(line, position);
-                value.set(line, position + 1, line.size());
-                m_values.emplace(hash::fnv1a::generate(key), value);
+                m_values.emplace(
+                    hash::fnv1a::generate(
+                        key.set(section).append('/').append(line, position)),
+                    string_ref(&line[position + 1]));
             }
         }
 
