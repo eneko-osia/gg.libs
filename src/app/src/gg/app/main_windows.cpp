@@ -29,7 +29,7 @@ INT WINAPI WinMain(
 {
     int argc = 0;
     LPWSTR * argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-    GG_RETURN_VALUE_IF_NULL(argv, EXIT_FAILURE);
+    GG_RETURN_VALUE_IF(!argv, EXIT_FAILURE);
 
     gg::app::data data;
 

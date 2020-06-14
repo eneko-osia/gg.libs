@@ -89,7 +89,7 @@ window_windows::handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept
 
 void window_windows::on_finalize(void) noexcept
 {
-    GG_RETURN_IF_NULL(m_hwnd);
+    GG_RETURN_IF(!m_hwnd);
 
     DestroyWindow(m_hwnd);
     m_hwnd = nullptr;
@@ -100,9 +100,8 @@ void window_windows::on_finalize(void) noexcept
 
 bool8 window_windows::on_init(window_info const & info) noexcept
 {
-    GG_RETURN_FALSE_IF_NOT_NULL(m_hwnd);
-
-    GG_RETURN_FALSE_IF_FALSE(register_class(info.m_hinstance));
+    GG_RETURN_FALSE_IF(m_hwnd);
+    GG_RETURN_FALSE_IF(!register_class(info.m_hinstance));
 
     DWORD window_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     RECT rect =
@@ -124,7 +123,7 @@ bool8 window_windows::on_init(window_info const & info) noexcept
             nullptr,
             m_wnd_class.hInstance,
             this);
-    GG_RETURN_FALSE_IF_NULL(m_hwnd);
+    GG_RETURN_FALSE_IF(!m_hwnd);
 
     ShowWindow(m_hwnd, SW_SHOW);
     SetFocus(m_hwnd);

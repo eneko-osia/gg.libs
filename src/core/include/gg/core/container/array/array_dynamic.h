@@ -1,17 +1,11 @@
 #ifndef _gg_array_dynamic_h_
 #define _gg_array_dynamic_h_
 
-// include files
-
 #include "gg/core/container/iterator/contiguous_iterator.h"
 #include "gg/core/memory/memory_buffer_dynamic.h"
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a dynamic array
-
     template <typename ITEM_TYPE>
     class array_dynamic final
     {
@@ -99,7 +93,7 @@ namespace gg
 
         bool operator==(array_dynamic const & array) const noexcept
         {
-            GG_RETURN_FALSE_IF_FALSE(size() == array.size());
+            GG_RETURN_FALSE_IF(size() != array.size());
             return compare_data(array);
         }
 
@@ -191,9 +185,9 @@ namespace gg
 
         iterator erase(size_type idx_start, size_type idx_end) noexcept
         {
+            GG_ASSERT(idx_start < idx_end);
             GG_ASSERT(idx_start < size());
             GG_ASSERT(idx_end <= size());
-            GG_ASSERT(idx_start < idx_end);
             iterator it_start = (begin() + idx_start);
             iterator it_end = (begin() + idx_end);
             clear_data(it_start, it_end);
@@ -263,7 +257,7 @@ namespace gg
             GG_ASSERT(idx <= size());
 
             diff_type num_items = (cit_end - cit_start);
-            GG_RETURN_VALUE_IF_FALSE(num_items > 0, end());
+            GG_RETURN_VALUE_IF(0 >= num_items, end());
             reallocate_if_needed(size() + num_items);
 
             iterator it = (begin() + idx);

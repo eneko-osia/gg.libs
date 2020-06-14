@@ -65,11 +65,11 @@ void window_linux::on_finalize(void) noexcept
 
 bool8 window_linux::on_init(window_info const & GG_UNUSED_ARGUMENT(info)) noexcept
 {
-    GG_RETURN_FALSE_IF_NOT_NULL(m_display);
-    GG_RETURN_FALSE_IF_FALSE(None == m_screen);
+    GG_RETURN_FALSE_IF(m_display);
+    GG_RETURN_FALSE_IF(None != m_screen);
 
     m_display = XOpenDisplay(0);
-    GG_RETURN_FALSE_IF_NULL(m_display);
+    GG_RETURN_FALSE_IF(!m_display);
 
     m_screen = DefaultScreen(m_display);
     return None != m_screen;

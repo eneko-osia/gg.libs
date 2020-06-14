@@ -45,7 +45,7 @@ bool8 opengl_context_linux::on_init(context_info const * info) noexcept
 
 bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
 {
-    GG_RETURN_FALSE_IF_NOT_NULL(m_context);
+    GG_RETURN_FALSE_IF(m_context);
 
     GLint glx_attributes[] =
     {
@@ -72,7 +72,7 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
             get_window()->get_display(),
             get_window()->get_screen(),
             glx_attributes);
-    GG_RETURN_FALSE_IF_NULL(visual_info);
+    GG_RETURN_FALSE_IF(!visual_info);
 
     m_context =
         glXCreateContext(
@@ -80,7 +80,7 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
             visual_info,
             NULL,
             GL_TRUE);
-    GG_RETURN_FALSE_IF_NULL(m_context);
+    GG_RETURN_FALSE_IF(!m_context);
 
     Colormap color_map =
         XCreateColormap(
@@ -118,7 +118,7 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
             CWBorderPixel | CWColormap | CWEventMask,
             &window_attributes);
 
-    GG_RETURN_FALSE_IF_TRUE(
+    GG_RETURN_FALSE_IF(
         None == m_window ||
         BadAlloc == m_window ||
         BadColor == m_window ||
@@ -139,12 +139,12 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
         NULL);
     XMapRaised(get_window()->get_display(), m_window);
 
-    GG_RETURN_FALSE_IF_FALSE(
-       glXMakeCurrent(
+    GG_RETURN_FALSE_IF(
+       !glXMakeCurrent(
            get_window()->get_display(),
            m_window,
            m_context));
-    GG_RETURN_FALSE_IF_FALSE(GLEW_OK == glewInit());
+    GG_RETURN_FALSE_IF(GLEW_OK != glewInit());
 
     // int32 major_version(0);
     // int32 minor_version(0);

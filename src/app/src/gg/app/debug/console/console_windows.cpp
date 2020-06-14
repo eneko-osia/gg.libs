@@ -17,8 +17,7 @@ namespace gg::app
 
 void console::finalize(void) noexcept
 {
-    GG_RETURN_IF_NULL(GetConsoleWindow());
-
+    GG_RETURN_IF(!GetConsoleWindow());
     freopen("NUL:", "w", stderr);
     freopen("NUL:", "w", stdout);
     freopen("NUL:", "r", stdin);
@@ -27,14 +26,13 @@ void console::finalize(void) noexcept
 
 bool8 console::init(string_ref const & name) noexcept
 {
-    GG_RETURN_TRUE_IF_NOT_NULL(GetConsoleWindow());
-
-    GG_RETURN_FALSE_IF_TRUE(FALSE == AllocConsole());
-    GG_RETURN_FALSE_IF_TRUE(FALSE == SetConsoleTitle(name.c_str()));
-    GG_RETURN_FALSE_IF_NULL(freopen("CONIN$", "r", stdin));
-    GG_RETURN_FALSE_IF_NULL(freopen("CONOUT$", "w", stdout));
-    GG_RETURN_FALSE_IF_NULL(freopen("CONOUT$", "w", stderr));
-    GG_RETURN_FALSE_IF_FALSE(std::ios::sync_with_stdio());
+    GG_RETURN_TRUE_IF(GetConsoleWindow());
+    GG_RETURN_FALSE_IF(FALSE == AllocConsole());
+    GG_RETURN_FALSE_IF(FALSE == SetConsoleTitle(name.c_str()));
+    GG_RETURN_FALSE_IF(!freopen("CONIN$", "r", stdin));
+    GG_RETURN_FALSE_IF(!freopen("CONOUT$", "w", stdout));
+    GG_RETURN_FALSE_IF(!freopen("CONOUT$", "w", stderr));
+    GG_RETURN_FALSE_IF(!std::ios::sync_with_stdio());
     return true;
 }
 

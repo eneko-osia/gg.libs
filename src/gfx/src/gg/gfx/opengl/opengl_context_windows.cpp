@@ -49,11 +49,11 @@ bool8 opengl_context_windows::on_init(context_info const * info) noexcept
 
 bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
 {
-    GG_RETURN_FALSE_IF_NOT_NULL(m_context);
-    GG_RETURN_FALSE_IF_NOT_NULL(m_render_context);
+    GG_RETURN_FALSE_IF(m_context);
+    GG_RETURN_FALSE_IF(m_render_context);
 
     m_context = GetDC(get_window()->get_hwnd());
-    GG_RETURN_FALSE_IF_NULL(m_context);
+    GG_RETURN_FALSE_IF(!m_context);
 
     PIXELFORMATDESCRIPTOR descriptor;
     memory::zero(&descriptor);
@@ -70,17 +70,15 @@ bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
     descriptor.iLayerType = PFD_MAIN_PLANE;
 
     int32 pixel_format = ChoosePixelFormat(m_context, &descriptor);
-    GG_RETURN_FALSE_IF_TRUE(0 == pixel_format);
-
-    GG_RETURN_FALSE_IF_FALSE(
-        SetPixelFormat(m_context, pixel_format, &descriptor));
+    GG_RETURN_FALSE_IF(0 == pixel_format);
+    GG_RETURN_FALSE_IF(!SetPixelFormat(m_context, pixel_format, &descriptor));
 
     m_render_context = wglCreateContext(m_context);
-    GG_RETURN_FALSE_IF_NULL(m_render_context);
-    GG_RETURN_FALSE_IF_FALSE(wglMakeCurrent(m_context, m_render_context));
+    GG_RETURN_FALSE_IF(!m_render_context);
+    GG_RETURN_FALSE_IF(!wglMakeCurrent(m_context, m_render_context));
 
-    GG_RETURN_FALSE_IF_FALSE(GLEW_OK == glewInit());
-    GG_RETURN_FALSE_IF_FALSE(wglewIsSupported("WGL_ARB_create_context"));
+    GG_RETURN_FALSE_IF(GLEW_OK != glewInit());
+    GG_RETURN_FALSE_IF(!wglewIsSupported("WGL_ARB_create_context"));
 
     int32 const render_attr[] =
     {
@@ -93,13 +91,13 @@ bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
 
     HGLRC render_context =
         wglCreateContextAttribsARB(m_context, nullptr, render_attr);
-    GG_RETURN_FALSE_IF_NULL(render_context);
+    GG_RETURN_FALSE_IF(!render_context);
 
     wglMakeCurrent(nullptr, nullptr);
     wglDeleteContext(m_render_context);
 
     m_render_context = render_context;
-    GG_RETURN_FALSE_IF_FALSE(wglMakeCurrent(m_context, m_render_context));
+    GG_RETURN_FALSE_IF(!wglMakeCurrent(m_context, m_render_context));
 
     // int32 major_version = 0;
     // int32 minor_version = 0;

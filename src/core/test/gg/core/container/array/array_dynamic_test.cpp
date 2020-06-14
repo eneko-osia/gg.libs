@@ -1196,20 +1196,29 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
         array.emplace_back(2);
         array.emplace_back(3);
 
-        REQUIRE(array.front().value == 1);
-        array.insert(0, simple_mock_item(0));
-        REQUIRE(array.size() == 4);
-        REQUIRE(array.front().value == 0);
+        {
+            REQUIRE(array.front().value == 1);
+            simple_mock_item mock_item(0);
+            array.insert(0, mock_item);
+            REQUIRE(array.size() == 4);
+            REQUIRE(array.front().value == 0);
+        }
 
-        REQUIRE(array.back().value == 3);
-        array.insert(array.size(), simple_mock_item(4));
-        REQUIRE(array.size() == 5);
-        REQUIRE(array.back().value == 4);
+        {
+            REQUIRE(array.back().value == 3);
+            simple_mock_item mock_item(4);
+            array.insert(array.size(), mock_item);
+            REQUIRE(array.size() == 5);
+            REQUIRE(array.back().value == 4);
+        }
 
-        REQUIRE(array[3].value == 3);
-        array.insert(3, simple_mock_item(123));
-        REQUIRE(array.size() == 6);
-        REQUIRE(array[3].value == 123);
+        {
+            REQUIRE(array[3].value == 3);
+            simple_mock_item mock_item(123);
+            array.insert(3, mock_item);
+            REQUIRE(array.size() == 6);
+            REQUIRE(array[3].value == 123);
+        }
 
         REQUIRE(array.max_size() == 16);
     }
@@ -1221,11 +1230,12 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
         array.emplace_back(2);
         array.emplace_back(3);
 
-        REQUIRE(array.front().value == 1);
-        array.insert(0, complex_mock_item(0));
-        REQUIRE(array.size() == 4);
-
         {
+            REQUIRE(array.front().value == 1);
+            complex_mock_item mock_item(0);
+            array.insert(0, mock_item);
+            REQUIRE(array.size() == 4);
+
             complex_mock_item const & item = array.front();
             REQUIRE(item.value == 0);
             REQUIRE(!item.constructor_called);
@@ -1235,11 +1245,12 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(!item.equality_called);
         }
 
-        REQUIRE(array.back().value == 3);
-        array.insert(array.size(), complex_mock_item(4));
-        REQUIRE(array.size() == 5);
-
         {
+            REQUIRE(array.back().value == 3);
+            complex_mock_item mock_item(4);
+            array.insert(array.size(), mock_item);
+            REQUIRE(array.size() == 5);
+
             complex_mock_item const & item = array.back();
             REQUIRE(item.value == 4);
             REQUIRE(!item.constructor_called);
@@ -1249,11 +1260,12 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(!item.equality_called);
         }
 
-        REQUIRE(array[3].value == 3);
-        array.insert(3, complex_mock_item(123));
-        REQUIRE(array.size() == 6);
-
         {
+            REQUIRE(array[3].value == 3);
+            complex_mock_item mock_item(123);
+            array.insert(3, mock_item);
+            REQUIRE(array.size() == 6);
+
             complex_mock_item const & item = array[3];
             REQUIRE(item.value == 123);
             REQUIRE(!item.constructor_called);

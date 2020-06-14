@@ -36,7 +36,7 @@ static bool has_validation_support(array_dynamic<char8 const *> const & validati
 
     uint32 num_layers = 0;
     vkEnumerateInstanceLayerProperties(&num_layers, nullptr);
-    GG_RETURN_FALSE_IF_TRUE(num_layers > k_max_layers);
+    GG_RETURN_FALSE_IF(num_layers > k_max_layers);
 
     array_static<VkLayerProperties, k_max_layers> layers;
     vkEnumerateInstanceLayerProperties(&num_layers, layers.data());
@@ -96,7 +96,7 @@ void vulkan_context::on_finalize(void) noexcept
 
 #if GG_VULKAN_VALIDATION_ENABLED
     auto vkDestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(m_instance, "vkDestroyDebugUtilsMessengerEXT");
-    GG_RETURN_IF_NULL(vkDestroyDebugUtilsMessengerEXT);
+    GG_RETURN_IF(!vkDestroyDebugUtilsMessengerEXT);
     vkDestroyDebugUtilsMessengerEXT(m_instance, m_messenger, nullptr);
 #endif
 
@@ -113,7 +113,7 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
     validation.emplace_back("VK_LAYER_LUNARG_device_simulation");
     validation.emplace_back("VK_LAYER_LUNARG_monitor");
     validation.emplace_back("VK_LAYER_LUNARG_screenshot");
-    GG_RETURN_FALSE_IF_TRUE(!has_validation_support(validation));
+    GG_RETURN_FALSE_IF(!has_validation_support(validation));
 #endif
 
     VkApplicationInfo app_info;
@@ -166,11 +166,11 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
 #endif
 
     VkResult result = vkCreateInstance(&create_info, nullptr, &m_instance);
-    GG_RETURN_FALSE_IF_TRUE(VK_SUCCESS != result);
+    GG_RETURN_FALSE_IF(VK_SUCCESS != result);
 
 #if GG_VULKAN_VALIDATION_ENABLED
     auto vkCreateDebugUtilsMessengerEXT = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(m_instance, "vkCreateDebugUtilsMessengerEXT");
-    GG_RETURN_FALSE_IF_NULL(vkCreateDebugUtilsMessengerEXT);
+    GG_RETURN_FALSE_IF(!vkCreateDebugUtilsMessengerEXT);
     vkCreateDebugUtilsMessengerEXT(m_instance, &debug_info, nullptr, &m_messenger);
 #endif
 
@@ -179,7 +179,7 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
     static constexpr uint32 k_max_devices = 64;
     uint32 num_physical_devices = 0;
     vkEnumeratePhysicalDevices(m_instance, &num_physical_devices, nullptr);
-    GG_RETURN_FALSE_IF_TRUE(num_physical_devices > k_max_devices);
+    GG_RETURN_FALSE_IF(num_physical_devices > k_max_devices);
     array_static<VkPhysicalDevice, k_max_devices> physical_devices;
     vkEnumeratePhysicalDevices(m_instance, &num_physical_devices, physical_devices.data());
 
@@ -207,7 +207,7 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
         static constexpr uint32 k_max_queue_families = 64;
         uint32 num_queue_families = 0;
         vkGetPhysicalDeviceQueueFamilyProperties(device, &num_queue_families, nullptr);
-        GG_RETURN_FALSE_IF_TRUE(num_queue_families > k_max_queue_families);
+        GG_RETURN_FALSE_IF(num_queue_families > k_max_queue_families);
         array_static<VkQueueFamilyProperties, k_max_queue_families> queue_families;
         vkGetPhysicalDeviceQueueFamilyProperties(device, &num_queue_families, queue_families.data());
 
@@ -222,7 +222,7 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
         }
     }
 
-    GG_RETURN_FALSE_IF_TRUE(VK_NULL_HANDLE == physical_device);
+    GG_RETURN_FALSE_IF(VK_NULL_HANDLE == physical_device);
 
     float queue_priority = 1.0f;
     VkDeviceQueueCreateInfo queue_create_info;
@@ -249,7 +249,7 @@ bool8 vulkan_context::on_init(context_info const * info) noexcept
 #endif
 
     VkResult device_result = vkCreateDevice(physical_device, &device_create_info, nullptr, &m_device);
-    GG_RETURN_FALSE_IF_TRUE(VK_SUCCESS != device_result);
+    GG_RETURN_FALSE_IF(VK_SUCCESS != device_result);
 
     VkQueue graphics_queue;
     vkGetDeviceQueue(m_device, queue_family_index, 0, &graphics_queue);
