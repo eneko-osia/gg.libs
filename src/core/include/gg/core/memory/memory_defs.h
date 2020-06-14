@@ -31,7 +31,7 @@ namespace gg
 
     // static assert
 
-    GG_STATIC_ASSERT(
+    GG_ASSERT_STATIC(
         enums::cast(memory_owner_mode::max) ==
             sizeof(memory_owner_mode_descriptors) /
                 sizeof(memory_owner_mode_descriptors[0]),

@@ -31,7 +31,7 @@ namespace gg
 
     // static assert
 
-    GG_STATIC_ASSERT(
+    GG_ASSERT_STATIC(
         enums::cast(endian_mode::max) ==
             sizeof(endian_mode_descriptors) /
                 sizeof(endian_mode_descriptors[0]),

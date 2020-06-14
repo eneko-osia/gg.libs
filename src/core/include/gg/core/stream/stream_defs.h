@@ -31,7 +31,7 @@ namespace gg
 
     // static assert
 
-    GG_STATIC_ASSERT(
+    GG_ASSERT_STATIC(
         enums::cast(stream_mode::max) ==
             sizeof(stream_mode_descriptors) /
                 sizeof(stream_mode_descriptors[0]),

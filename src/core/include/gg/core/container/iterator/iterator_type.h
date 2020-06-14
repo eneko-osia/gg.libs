@@ -31,7 +31,7 @@ namespace gg
 
     // static assert
 
-    GG_STATIC_ASSERT(
+    GG_ASSERT_STATIC(
         enums::cast(iterator_type::max) ==
             sizeof(iterator_type_descriptors) /
                 sizeof(iterator_type_descriptors[0]),

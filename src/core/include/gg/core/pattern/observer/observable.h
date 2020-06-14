@@ -23,7 +23,7 @@ namespace gg
 
         // static asserts
 
-        GG_STATIC_ASSERT(
+        GG_ASSERT_STATIC(
             !type::is_pointer<observer_type>::value,
             "pointer observer_type is not allowed");
 
