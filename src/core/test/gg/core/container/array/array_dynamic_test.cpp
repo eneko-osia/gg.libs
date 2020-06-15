@@ -178,7 +178,7 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
         simple_mock_item_array copied_array(moved_array);
         simple_mock_item_array array(type::move(moved_array));
         REQUIRE((array == copied_array));
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
         REQUIRE(array.size() == 3);
 
         REQUIRE(moved_array.begin() == nullptr);
@@ -198,7 +198,7 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
         complex_mock_item_array copied_array(moved_array);
         complex_mock_item_array array(type::move(moved_array));
         REQUIRE((array == copied_array));
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
         REQUIRE(array.size() == 3);
 
         container::for_each(
@@ -218,6 +218,41 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
         REQUIRE(moved_array.max_size() == 0);
         REQUIRE(moved_array.size() == 0);
         REQUIRE(moved_array.is_empty());
+    }
+
+    SECTION("array_dynamic(item, num_items) - simple")
+    {
+        simple_mock_item_array array(1, 10);
+        REQUIRE(array.max_size() == 10);
+        REQUIRE(array.size() == 10);
+
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (simple_mock_item_array::const_reference item)
+            {
+                REQUIRE(item.value == 1);
+            });
+    }
+
+    SECTION("array_dynamic(item, num_items) - complex")
+    {
+        complex_mock_item_array array(1, 10);
+        REQUIRE(array.max_size() == 10);
+        REQUIRE(array.size() == 10);
+
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (complex_mock_item_array::const_reference item)
+            {
+                REQUIRE(!item.constructor_called);
+                REQUIRE(item.copy_constructor_called);
+                REQUIRE(!item.destructor_called);
+                REQUIRE(!item.assign_called);
+                REQUIRE(!item.equality_called);
+                REQUIRE(item.value == 1);
+            });
     }
 }
 
@@ -294,7 +329,7 @@ TEST_CASE("array_dynamic.operator=", "[gg.array_dynamic]")
         simple_mock_item_array array;
         array = type::move(moved_array);
         REQUIRE((array == copied_array));
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
         REQUIRE(array.size() == 3);
 
         REQUIRE(moved_array.begin() == nullptr);
@@ -315,7 +350,7 @@ TEST_CASE("array_dynamic.operator=", "[gg.array_dynamic]")
         complex_mock_item_array array;
         array = type::move(moved_array);
         REQUIRE((array == copied_array));
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
         REQUIRE(array.size() == 3);
 
         container::for_each(
@@ -732,7 +767,7 @@ TEST_CASE("array_dynamic.emplace", "[gg.array_dynamic]")
         REQUIRE(array.size() == 6);
         REQUIRE(array[3].value == 123);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("emplace idx arguments - complex")
@@ -769,7 +804,7 @@ TEST_CASE("array_dynamic.emplace", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("emplace it arguments - simple")
@@ -794,7 +829,7 @@ TEST_CASE("array_dynamic.emplace", "[gg.array_dynamic]")
         REQUIRE(array.size() == 6);
         REQUIRE(array[3].value == 123);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("emplace it arguments - complex")
@@ -831,7 +866,7 @@ TEST_CASE("array_dynamic.emplace", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 }
 
@@ -849,7 +884,7 @@ TEST_CASE("array_dynamic.emplace_back", "[gg.array_dynamic]")
         REQUIRE(array.size() == 4);
         REQUIRE(array.back().value == 4);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("emplace_back arguments - complex")
@@ -876,7 +911,7 @@ TEST_CASE("array_dynamic.emplace_back", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 }
 
@@ -918,7 +953,7 @@ TEST_CASE("array_dynamic.erase", "[gg.array_dynamic]")
         REQUIRE(array.size() == 2);
         REQUIRE(array[1].value == 4);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("erase idx - complex")
@@ -957,7 +992,7 @@ TEST_CASE("array_dynamic.erase", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("erase idx_start idx_end - simple")
@@ -1058,7 +1093,7 @@ TEST_CASE("array_dynamic.erase", "[gg.array_dynamic]")
         REQUIRE(array.size() == 2);
         REQUIRE(array[1].value == 4);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("erase it - complex")
@@ -1097,7 +1132,7 @@ TEST_CASE("array_dynamic.erase", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("erase it_start it_end - simple")
@@ -1220,7 +1255,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(array[3].value == 123);
         }
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert idx item - complex")
@@ -1275,7 +1310,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(!item.equality_called);
         }
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert idx rvalue_item - simple")
@@ -1300,7 +1335,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
         REQUIRE(array.size() == 6);
         REQUIRE(array[3].value == 123);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert idx rvalue_item - complex")
@@ -1352,7 +1387,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(!item.equality_called);
         }
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert it item - simple")
@@ -1386,7 +1421,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(array[3].value == 123);
         }
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert it item - complex")
@@ -1441,7 +1476,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(!item.equality_called);
         }
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert it rvalue_item - simple")
@@ -1466,7 +1501,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
         REQUIRE(array.size() == 6);
         REQUIRE(array[3].value == 123);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert it rvalue_item - complex")
@@ -1518,7 +1553,7 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
             REQUIRE(!item.equality_called);
         }
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("insert idx it_start it_end - simple")
@@ -1551,8 +1586,8 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
         REQUIRE(array_1.size() == 11);
         REQUIRE(array_1[3].value == 4);
 
-        REQUIRE(array_1.max_size() == 16);
-        REQUIRE(array_2.max_size() == 16);
+        REQUIRE(array_1.max_size() == 11);
+        REQUIRE(array_2.max_size() == 8);
     }
 
     SECTION("insert idx it_start it_end - complex")
@@ -1705,8 +1740,8 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array_1.max_size() == 16);
-        REQUIRE(array_2.max_size() == 16);
+        REQUIRE(array_1.max_size() == 11);
+        REQUIRE(array_2.max_size() == 8);
     }
 
     SECTION("insert it it_start it_end - simple")
@@ -1739,8 +1774,8 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
         REQUIRE(array_1.size() == 11);
         REQUIRE(array_1[3].value == 4);
 
-        REQUIRE(array_1.max_size() == 16);
-        REQUIRE(array_2.max_size() == 16);
+        REQUIRE(array_1.max_size() == 11);
+        REQUIRE(array_2.max_size() == 8);
     }
 
     SECTION("insert it it_start it_end - complex")
@@ -1893,8 +1928,8 @@ TEST_CASE("array_dynamic.insert", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array_1.max_size() == 16);
-        REQUIRE(array_2.max_size() == 16);
+        REQUIRE(array_1.max_size() == 11);
+        REQUIRE(array_2.max_size() == 8);
     }
 }
 
@@ -1912,7 +1947,7 @@ TEST_CASE("array_dynamic.pop_back", "[gg.array_dynamic]")
         REQUIRE(array.size() == 2);
         REQUIRE(array.back().value == 3);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 }
 
@@ -1931,7 +1966,7 @@ TEST_CASE("array_dynamic.push_back", "[gg.array_dynamic]")
         REQUIRE(array.size() == 4);
         REQUIRE(array.back().value == 5);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("push_back item - complex")
@@ -1959,7 +1994,7 @@ TEST_CASE("array_dynamic.push_back", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("push_back rvalue_item - simple")
@@ -1974,7 +2009,7 @@ TEST_CASE("array_dynamic.push_back", "[gg.array_dynamic]")
         REQUIRE(array.size() == 4);
         REQUIRE(array.back().value == 5);
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 
     SECTION("push_back rvalue_item - complex")
@@ -2001,7 +2036,7 @@ TEST_CASE("array_dynamic.push_back", "[gg.array_dynamic]")
                 REQUIRE(!item.equality_called);
             });
 
-        REQUIRE(array.max_size() == 16);
+        REQUIRE(array.max_size() == 8);
     }
 }
 
@@ -2036,7 +2071,7 @@ TEST_CASE("array_dynamic.reserve", "[gg.array_dynamic]")
 
 TEST_CASE("array_dynamic.resize", "[gg.array_dynamic]")
 {
-    SECTION("resize increase")
+    SECTION("resize increase - simple")
     {
         simple_mock_item_array array;
         REQUIRE(array.max_size() == 0);
@@ -2047,7 +2082,31 @@ TEST_CASE("array_dynamic.resize", "[gg.array_dynamic]")
         REQUIRE(array.size() == 250);
     }
 
-    SECTION("resize increase with arguments")
+    SECTION("resize increase - complex")
+    {
+        complex_mock_item_array array;
+        REQUIRE(array.max_size() == 0);
+        REQUIRE(array.size() == 0);
+
+        array.resize(250);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 250);
+
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (complex_mock_item_array::const_reference item)
+            {
+                REQUIRE(!item.constructor_called);
+                REQUIRE(item.copy_constructor_called);
+                REQUIRE(!item.destructor_called);
+                REQUIRE(!item.assign_called);
+                REQUIRE(!item.equality_called);
+                REQUIRE(item.value == 0);
+            });
+    }
+
+    SECTION("resize increase with arguments - simple")
     {
         simple_mock_item_array array;
         REQUIRE(array.max_size() == 0);
@@ -2066,7 +2125,31 @@ TEST_CASE("array_dynamic.resize", "[gg.array_dynamic]")
             });
     }
 
-    SECTION("resize decrease")
+    SECTION("resize increase with arguments - complex")
+    {
+        complex_mock_item_array array;
+        REQUIRE(array.max_size() == 0);
+        REQUIRE(array.size() == 0);
+
+        array.resize(250, 6);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 250);
+
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (complex_mock_item_array::const_reference item)
+            {
+                REQUIRE(!item.constructor_called);
+                REQUIRE(item.copy_constructor_called);
+                REQUIRE(!item.destructor_called);
+                REQUIRE(!item.assign_called);
+                REQUIRE(!item.equality_called);
+                REQUIRE(item.value == 6);
+            });
+    }
+
+    SECTION("resize decrease - simple")
     {
         simple_mock_item_array array;
         REQUIRE(array.max_size() == 0);
@@ -2079,6 +2162,34 @@ TEST_CASE("array_dynamic.resize", "[gg.array_dynamic]")
         array.resize(20);
         REQUIRE(array.max_size() == 250);
         REQUIRE(array.size() == 20);
+    }
+
+    SECTION("resize decrease - complex")
+    {
+        complex_mock_item_array array;
+        REQUIRE(array.max_size() == 0);
+        REQUIRE(array.size() == 0);
+
+        array.resize(250);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 250);
+
+        array.resize(20);
+        REQUIRE(array.max_size() == 250);
+        REQUIRE(array.size() == 20);
+
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (complex_mock_item_array::const_reference item)
+            {
+                REQUIRE(!item.constructor_called);
+                REQUIRE(item.copy_constructor_called);
+                REQUIRE(!item.destructor_called);
+                REQUIRE(!item.assign_called);
+                REQUIRE(!item.equality_called);
+                REQUIRE(item.value == 0);
+            });
     }
 }
 

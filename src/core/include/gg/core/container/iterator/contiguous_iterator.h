@@ -1,18 +1,12 @@
 #ifndef _gg_contiguous_iterator_h_
 #define _gg_contiguous_iterator_h_
 
-// include files
-
 #include "gg/core/container/iterator/iterator_type.h"
 #include "gg/core/type/type_trait.h"
 #include <iterator>
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a contiguous memory iterator
-
     template <typename ITEM_TYPE, iterator_type IT_TYPE>
     class contiguous_iterator final
     {
@@ -54,7 +48,7 @@ namespace gg
         {
         }
 
-        ~contiguous_iterator(void) = default;
+        ~contiguous_iterator(void) noexcept = default;
 
         // operators
 

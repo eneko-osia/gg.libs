@@ -52,6 +52,15 @@ namespace gg
             array.m_size = 0;
         }
 
+        array_dynamic(const_reference item, size_type num_items = 1) noexcept
+            : m_buffer()
+            , m_size(0)
+        {
+            allocate(num_items);
+            construct_data(end(), item, num_items);
+            m_size = num_items;
+        }
+
         ~array_dynamic(void) noexcept
         {
             clear_data();
@@ -255,11 +264,9 @@ namespace gg
             const_iterator cit_end) noexcept
         {
             GG_ASSERT(idx <= size());
-
             diff_type num_items = (cit_end - cit_start);
             GG_RETURN_VALUE_IF(0 >= num_items, end());
             reallocate_if_needed(size() + num_items);
-
             iterator it = (begin() + idx);
             memory::move(&(*(it + num_items)), &(*it), (size() - idx));
             construct_data(it, cit_start, cit_end);
@@ -305,18 +312,14 @@ namespace gg
         template <typename... ARGS>
         void resize(size_type size, ARGS &&... args) noexcept
         {
-            if (size > this->size())
-            {
-                reallocate_if_needed(size);
-                while (size != this->size())
-                {
-                    emplace_back(type::forward<ARGS>(args)...);
-                }
-            }
-            else
-            {
-                erase(end() - (this->size() - size), end());
-            }
+            reallocate_if_needed(size);
+            (size > this->size()) ?
+                construct_data(
+                    end(),
+                    item_type(type::forward<ARGS>(args)...),
+                    size - this->size()) :
+                clear_data(end() - (this->size() - size), end());
+            m_size = size;
         }
 
         size_type max_size(void) const noexcept
@@ -373,7 +376,7 @@ namespace gg
         {
             if (size() == max_size())
             {
-                static constexpr size_type k_min_allocation = 16;
+                static constexpr size_type k_min_allocation = 8;
                 reallocate(
                     limit::max<size_type>(k_min_allocation, max_size() << 1));
             }
@@ -388,13 +391,15 @@ namespace gg
         }
 
         template<typename T = array_dynamic>
-        type::enable_if_t<type::has_trivial_destructor<typename T::item_type>::value>
+        type::enable_if_t<
+            type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(void) noexcept
         {
         }
 
         template<typename T = array_dynamic>
-        type::enable_if_t<!type::has_trivial_destructor<typename T::item_type>::value>
+        type::enable_if_t<
+            !type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(void) noexcept
         {
             for (size_type i = 0; i < size(); ++i)
@@ -403,19 +408,19 @@ namespace gg
             }
         }
 
-        template<typename T = array_dynamic>
+        template<typename T>
         type::enable_if_t<
             type::has_trivial_destructor<typename T::item_type>::value>
         clear_data(
-            T & GG_UNUSED_ARGUMENT(it_start),
-            T & GG_UNUSED_ARGUMENT(it_end)) noexcept
+            T GG_UNUSED_ARGUMENT(it_start),
+            T GG_UNUSED_ARGUMENT(it_end)) noexcept
         {
         }
 
-        template<typename T = array_dynamic>
+        template<typename T>
         type::enable_if_t<
             !type::has_trivial_destructor<typename T::item_type>::value>
-        clear_data(T & it_start, T & it_end) noexcept
+        clear_data(T it_start, T it_end) noexcept
         {
             for (auto it = it_start; it != it_end; ++it)
             {
@@ -423,7 +428,7 @@ namespace gg
             }
         }
 
-        template<typename T = array_dynamic>
+        template<typename T>
         type::enable_if_t<
             type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T const & array) noexcept
@@ -431,7 +436,7 @@ namespace gg
             memory::copy(data(), array.data(), array.size());
         }
 
-        template<typename T = array_dynamic>
+        template<typename T>
         type::enable_if_t<
             !type::has_trivial_copy<typename T::item_type>::value>
         construct_data(T const & array) noexcept
@@ -442,10 +447,38 @@ namespace gg
             }
         }
 
+        template<typename T>
+        type::enable_if_t<
+            type::has_trivial_copy<typename T::item_type>::value>
+        construct_data(
+            T it,
+            typename T::item_type const & item,
+            size_type num_items) noexcept
+        {
+            for (size_type i = 0; i < num_items; ++i, ++it)
+            {
+                memory::copy(&(*it), &item);
+            }
+        }
+
+        template<typename T>
+        type::enable_if_t<
+            !type::has_trivial_copy<typename T::item_type>::value>
+        construct_data(
+            T it,
+            typename T::item_type const & item,
+            size_type num_items) noexcept
+        {
+            for (size_type i = 0; i < num_items; ++i, ++it)
+            {
+                memory::construct_object(&(*it), item);
+            }
+        }
+
         template<typename T, typename U>
         type::enable_if_t<
             type::has_trivial_copy<typename T::item_type>::value>
-        construct_data(T & it, U const & cit_start, U const & cit_end) noexcept
+        construct_data(T it, U const & cit_start, U const & cit_end) noexcept
         {
             memory::copy(&(*it), &(*cit_start), (cit_end - cit_start));
         }
@@ -453,7 +486,7 @@ namespace gg
         template<typename T, typename U>
         type::enable_if_t<
             !type::has_trivial_copy<typename T::item_type>::value>
-        construct_data(T & it, U const & cit_start, U const & cit_end) noexcept
+        construct_data(T it, U const & cit_start, U const & cit_end) noexcept
         {
             for (auto cit = cit_start; cit != cit_end; ++cit, ++it)
             {
@@ -461,7 +494,7 @@ namespace gg
             }
         }
 
-        template<typename T = array_dynamic>
+        template<typename T>
         type::enable_if_t<
             type::has_equality<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
@@ -474,7 +507,7 @@ namespace gg
             return equals;
         }
 
-        template<typename T = array_dynamic>
+        template<typename T>
         type::enable_if_t<
             !type::has_equality<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept

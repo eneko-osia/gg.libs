@@ -1,16 +1,10 @@
 #ifndef _gg_back_insert_iterator_h_
 #define _gg_back_insert_iterator_h_
 
-// include files
-
 #include "gg/core/type/type_trait.h"
-
-// namespace
 
 namespace gg
 {
-    // class in charge of define a back insert iterator
-
     template <typename CONTAINER_TYPE>
     class back_insert_iterator final
     {
@@ -26,6 +20,8 @@ namespace gg
             : m_container(container)
         {
         }
+
+        ~back_insert_iterator(void) noexcept = default;
 
         // operators
 
@@ -64,8 +60,6 @@ namespace gg
 
         container_type & m_container;
     };
-
-    // helper functions
 
     template <typename CONTAINER_TYPE>
     back_insert_iterator<CONTAINER_TYPE>
