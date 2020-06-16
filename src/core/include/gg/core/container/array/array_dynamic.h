@@ -52,13 +52,13 @@ namespace gg
             array.m_size = 0;
         }
 
-        array_dynamic(const_reference item, size_type num_items = 1) noexcept
+        array_dynamic(const_reference item, size_type size) noexcept
             : m_buffer()
             , m_size(0)
         {
-            allocate(num_items);
-            construct_data(end(), item, num_items);
-            m_size = num_items;
+            allocate(size);
+            construct_data(end(), item, size);
+            m_size = size;
         }
 
         ~array_dynamic(void) noexcept
@@ -84,7 +84,7 @@ namespace gg
         {
             GG_ASSERT(this != &array);
             clear_data();
-            allocate_if_needed(array.size());
+            reallocate_if_needed(array.size());
             construct_data(array);
             m_size = array.size();
             return *this;
@@ -264,13 +264,13 @@ namespace gg
             const_iterator cit_end) noexcept
         {
             GG_ASSERT(idx <= size());
-            diff_type num_items = (cit_end - cit_start);
-            GG_RETURN_VALUE_IF(0 >= num_items, end());
-            reallocate_if_needed(size() + num_items);
+            GG_ASSERT(cit_start < cit_end);
+            diff_type size = (cit_end - cit_start);
+            reallocate_if_needed(this->size() + size);
             iterator it = (begin() + idx);
-            memory::move(&(*(it + num_items)), &(*it), (size() - idx));
+            memory::move(&(*(it + size)), &(*it), (this->size() - idx));
             construct_data(it, cit_start, cit_end);
-            m_size += num_items;
+            m_size += size;
             return it;
         }
 
@@ -350,15 +350,6 @@ namespace gg
         void allocate(size_type size) noexcept
         {
             m_buffer.allocate(sizeof(item_type) * size);
-        }
-
-        void allocate_if_needed(size_type size) noexcept
-        {
-            if (size > max_size())
-            {
-                deallocate();
-                allocate(size);
-            }
         }
 
         void deallocate(void) noexcept
@@ -453,9 +444,9 @@ namespace gg
         construct_data(
             T it,
             typename T::item_type const & item,
-            size_type num_items) noexcept
+            size_type size) noexcept
         {
-            for (size_type i = 0; i < num_items; ++i, ++it)
+            for (size_type i = 0; i < size; ++i, ++it)
             {
                 memory::copy(&(*it), &item);
             }
@@ -467,9 +458,9 @@ namespace gg
         construct_data(
             T it,
             typename T::item_type const & item,
-            size_type num_items) noexcept
+            size_type size) noexcept
         {
-            for (size_type i = 0; i < num_items; ++i, ++it)
+            for (size_type i = 0; i < size; ++i, ++it)
             {
                 memory::construct_object(&(*it), item);
             }
