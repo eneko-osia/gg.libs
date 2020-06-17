@@ -1,17 +1,11 @@
 #ifndef _gg_container_h_
 #define _gg_container_h_
 
-// include files
-
 #include "gg/core/type/type_trait.h"
 #include <algorithm>
 
-// namespace
-
 namespace gg
 {
-    // namespace in charge of define container utilities
-
     namespace container
     {
         // methods
