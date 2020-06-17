@@ -2,7 +2,7 @@
 
 //==============================================================================
 
-#include "gg/core/container/iterator/iterator_type.h"
+#include "gg/core/container/iterator/iterator_defs.h"
 
 //==============================================================================
 namespace gg::iterator_test

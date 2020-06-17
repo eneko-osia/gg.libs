@@ -1,7 +1,7 @@
 #ifndef _gg_contiguous_iterator_h_
 #define _gg_contiguous_iterator_h_
 
-#include "gg/core/container/iterator/iterator_type.h"
+#include "gg/core/container/iterator/iterator_defs.h"
 #include "gg/core/type/type_trait.h"
 #include <iterator>
 
