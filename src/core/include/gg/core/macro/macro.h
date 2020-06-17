@@ -5,6 +5,10 @@
     #undef GG_DO_IF
 #endif
 
+#ifdef GG_BREAK_IF
+    #undef GG_BREAK_IF
+#endif
+
 #ifdef GG_CONTINUE_IF
     #undef GG_CONTINUE_IF
 #endif
@@ -54,6 +58,7 @@
 #endif
 
 #define GG_DO_IF(test, execute)         { if (test) { execute; } }
+#define GG_BREAK_IF(test)               GG_DO_IF(test, break)
 #define GG_CONTINUE_IF(test)            GG_DO_IF(test, continue)
 #define GG_RETURN_FALSE_IF(test)        GG_DO_IF(test, return false)
 #define GG_RETURN_IF(test)              GG_DO_IF(test, return)
