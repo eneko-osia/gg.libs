@@ -1,16 +1,10 @@
 #ifndef _gg_endian_h_
 #define _gg_endian_h_
 
-// include files
-
 #include "gg/core/endian/endian_defs.h"
-
-// namespace
 
 namespace gg
 {
-    // namespace in charge of define endian utilities
-
     namespace endian
     {
 #if defined(GG_MAC)
