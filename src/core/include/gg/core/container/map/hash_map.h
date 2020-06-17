@@ -1,18 +1,12 @@
 #ifndef _gg_hash_map_h_
 #define _gg_hash_map_h_
 
-// include files
-
 #include "gg/core/container/container.h"
 #include "gg/core/macro/macro.h"
 #include <unordered_map>
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a hash_map
-
     template <typename KEY_TYPE, typename ITEM_TYPE>
     class hash_map final
     {
@@ -121,15 +115,13 @@ namespace gg
             m_data.emplace(key, type::forward<ARGS>(args)...);
         }
 
-        iterator end(size_type idx = 0) noexcept
+        iterator end(void) noexcept
         {
-            GG_UNUSED(idx);
             return m_data.end();
         }
 
-        const_iterator end(size_type idx = 0) const noexcept
+        const_iterator end(void) const noexcept
         {
-            GG_UNUSED(idx);
             return m_data.end();
         }
 

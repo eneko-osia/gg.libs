@@ -1,18 +1,12 @@
 #ifndef _gg_map_h_
 #define _gg_map_h_
 
-// include files
-
 #include "gg/core/container/container.h"
 #include "gg/core/macro/macro.h"
 #include <map>
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a map
-
     template <typename KEY_TYPE, typename ITEM_TYPE>
     class map final
     {
