@@ -114,7 +114,7 @@ TEST_CASE("string.trim", "[gg.string]")
                 " aliqua.");
 
         REQUIRE(string::length(text) == 129);
-        string::trim(text, string::length(text));
+        size_type size = string::trim(text, string::length(text));
 
         REQUIRE(
             string::compare(
@@ -124,6 +124,7 @@ TEST_CASE("string.trim", "[gg.string]")
                     "seddoeiusmodtemporincididuntutlaboreetdoloremagna"
                     "aliqua.")) == 0);
         REQUIRE(string::length(text) == 105);
+        REQUIRE(string::length(text) == size);
     }
 
     SECTION("trim custom delims")
@@ -135,7 +136,8 @@ TEST_CASE("string.trim", "[gg.string]")
                 " aliqua.");
 
         REQUIRE(string::length(text) == 129);
-        string::trim(text, string::length(text), GG_TEXT("abc"));
+        size_type size =
+            string::trim(text, string::length(text), GG_TEXT("abc"));
 
         REQUIRE(
             string::compare(
@@ -145,6 +147,7 @@ TEST_CASE("string.trim", "[gg.string]")
                     " \tsed do eiusmod tempor inididunt ut lore et dolore mgn \n"
                     " liqu.")) == 0);
         REQUIRE(string::length(text) == 117);
+        REQUIRE(string::length(text) == size);
     }
 }
 

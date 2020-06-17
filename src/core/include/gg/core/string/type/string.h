@@ -1,20 +1,14 @@
 #ifndef _gg_string_h_
 #define _gg_string_h_
 
-// include files
-
 #include "gg/core/debug/assert.h"
 #include "gg/core/string/macro/macro.h"
 #include "gg/core/type/constant.h"
 #include "gg/core/type/type_trait.h"
 #include <cstdio>
 
-// namespace
-
 namespace gg
 {
-    // namespace in charge of define string utilities
-
     namespace string
     {
         // constants
@@ -108,7 +102,8 @@ namespace gg
             return size;
         }
 
-        inline constexpr void trim(
+        inline constexpr size_type
+        trim(
             char8 * str,
             size_type size,
             char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
@@ -116,11 +111,11 @@ namespace gg
             GG_ASSERT(str);
             GG_ASSERT(delims);
 
-            char8 const * str_end = str + size;
             char8 const * delims_end = delims + length(delims);
             for(char8 const * i = delims; i != delims_end; ++i)
             {
                 size_type index = 0;
+                char8 const * str_end = str + size;
                 for(char8 const * j = str; j != str_end; ++j)
                 {
                     if (*i != *j)
@@ -129,7 +124,10 @@ namespace gg
                     }
                 }
                 str[index] = '\0';
+                size = index;
             }
+
+            return size;
         }
     }
 }
