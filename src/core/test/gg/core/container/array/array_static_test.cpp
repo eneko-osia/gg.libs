@@ -168,8 +168,6 @@ TEST_CASE("array_static.constructor", "[gg.array_static]")
         copied_array[2].value = 1;
 
         complex_mock_item_array array(copied_array);
-        REQUIRE((array == copied_array));
-
         container::for_each(
             array.begin(),
             array.end(),
@@ -179,7 +177,37 @@ TEST_CASE("array_static.constructor", "[gg.array_static]")
                 REQUIRE(item.copy_constructor_called);
                 REQUIRE(!item.destructor_called);
                 REQUIRE(!item.assign_called);
-                REQUIRE(item.equality_called);
+                REQUIRE(!item.equality_called);
+            });
+        REQUIRE((array == copied_array));
+    }
+
+    SECTION("array_static(item) - simple")
+    {
+        simple_mock_item_array array(1);
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (simple_mock_item_array::const_reference item)
+            {
+                REQUIRE(item.value == 1);
+            });
+    }
+
+    SECTION("array_static(item) - complex")
+    {
+        complex_mock_item_array array(1);
+        container::for_each(
+            array.begin(),
+            array.end(),
+            [] (complex_mock_item_array::const_reference item)
+            {
+                REQUIRE(!item.constructor_called);
+                REQUIRE(item.copy_constructor_called);
+                REQUIRE(!item.destructor_called);
+                REQUIRE(!item.assign_called);
+                REQUIRE(!item.equality_called);
+                REQUIRE(item.value == 1);
             });
     }
 }

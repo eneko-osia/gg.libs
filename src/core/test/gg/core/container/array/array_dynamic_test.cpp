@@ -151,7 +151,6 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
         copied_array.emplace_back(3);
 
         complex_mock_item_array array(copied_array);
-        REQUIRE((array == copied_array));
         REQUIRE(array.max_size() == copied_array.size());
         REQUIRE(array.size() == 3);
 
@@ -164,8 +163,9 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
                 REQUIRE(item.copy_constructor_called);
                 REQUIRE(!item.destructor_called);
                 REQUIRE(!item.assign_called);
-                REQUIRE(item.equality_called);
+                REQUIRE(!item.equality_called);
             });
+        REQUIRE((array == copied_array));
     }
 
     SECTION("array_dynamic(rvalue_array_dynamic) - simple")
@@ -197,7 +197,6 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
 
         complex_mock_item_array copied_array(moved_array);
         complex_mock_item_array array(type::move(moved_array));
-        REQUIRE((array == copied_array));
         REQUIRE(array.max_size() == 8);
         REQUIRE(array.size() == 3);
 
@@ -210,8 +209,9 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
                 REQUIRE(!item.copy_constructor_called);
                 REQUIRE(!item.destructor_called);
                 REQUIRE(!item.assign_called);
-                REQUIRE(item.equality_called);
+                REQUIRE(!item.equality_called);
             });
+        REQUIRE((array == copied_array));
 
         REQUIRE(moved_array.begin() == nullptr);
         REQUIRE(moved_array.begin() == moved_array.end());
@@ -220,7 +220,7 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
         REQUIRE(moved_array.is_empty());
     }
 
-    SECTION("array_dynamic(item, num_items) - simple")
+    SECTION("array_dynamic(item, size) - simple")
     {
         simple_mock_item_array array(1, 10);
         REQUIRE(array.max_size() == 10);
@@ -235,7 +235,7 @@ TEST_CASE("array_dynamic.constructor", "[gg.array_dynamic]")
             });
     }
 
-    SECTION("array_dynamic(item, num_items) - complex")
+    SECTION("array_dynamic(item, size) - complex")
     {
         complex_mock_item_array array(1, 10);
         REQUIRE(array.max_size() == 10);
