@@ -154,7 +154,7 @@ TEST_CASE("nameable.constructor", "[gg.nameable]")
     SECTION("nameable")
     {
         mock_nameable nameable;
-        REQUIRE(nameable.is_named(""));
+        REQUIRE(nameable.is_named(string::empty));
     }
 
     SECTION("nameable(name_type)")
@@ -207,7 +207,7 @@ TEST_CASE("nameable.set_name", "[gg.nameable]")
     SECTION("set_name(name_type)")
     {
         string_ref name("123");
-        mock_nameable nameable("");
+        mock_nameable nameable;
         nameable.set_name(name);
         REQUIRE(nameable.is_named(name));
         REQUIRE(name == "123");
@@ -217,7 +217,7 @@ TEST_CASE("nameable.set_name", "[gg.nameable]")
     {
         string_ref name("123");
         string_ref moved_name(name);
-        mock_nameable nameable("");
+        mock_nameable nameable;
         nameable.set_name(type::move(moved_name));
         REQUIRE(nameable.is_named(name));
         REQUIRE(moved_name.is_empty());
@@ -227,7 +227,7 @@ TEST_CASE("nameable.set_name", "[gg.nameable]")
     SECTION("set_name<TYPE>(name_type)")
     {
         string_static<> referenced_string("123");
-        mock_nameable nameable("");
+        mock_nameable nameable;
         nameable.set_name(referenced_string);
         REQUIRE(nameable.is_named("123"));
     }
@@ -237,14 +237,14 @@ TEST_CASE("nameable.is_named", "[gg.nameable]")
 {
     SECTION("is_named")
     {
-        mock_nameable nameable("");
+        mock_nameable nameable;
         nameable.set_name("123");
         REQUIRE(nameable.is_named("123"));
     }
 
     SECTION("!is_named")
     {
-        mock_nameable nameable("");
+        mock_nameable nameable;
         nameable.set_name("123");
         REQUIRE(!nameable.is_named("321"));
     }

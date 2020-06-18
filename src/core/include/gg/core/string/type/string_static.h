@@ -28,7 +28,7 @@ namespace gg
         string_static(void) noexcept
             : m_data()
         {
-            set(GG_TEXT(""));
+            set(string::empty);
         }
 
         string_static(string_static const & string) noexcept
