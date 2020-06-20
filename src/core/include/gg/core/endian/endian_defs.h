@@ -1,8 +1,12 @@
 #ifndef _gg_endian_defs_h_
 #define _gg_endian_defs_h_
 
-#include "gg/core/string/type/string_ref.h"
 #include "gg/core/type/enum.h"
+
+#if defined(GG_DEBUG)
+#include "gg/core/debug/assert.h"
+#include "gg/core/string/macro/macro.h"
+#endif
 
 namespace gg
 {
@@ -16,7 +20,7 @@ namespace gg
     GG_ENUM(endian_mode);
 
 #if defined(GG_DEBUG)
-    static constexpr string_ref endian_mode_descriptors[] = {
+    static constexpr char8 const * endian_mode_descriptors[] = {
         GG_TEXT("big_endian"),
         GG_TEXT("little_endian")
     };

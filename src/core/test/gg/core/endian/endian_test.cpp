@@ -3,6 +3,7 @@
 //==============================================================================
 
 #include "gg/core/endian/endian.h"
+#include "gg/core/string/type/string_ref.h"
 
 //==============================================================================
 namespace gg::endian_test
@@ -30,11 +31,11 @@ TEST_CASE("endian", "[gg.endian]")
     SECTION("endian mode descriptors")
     {
         REQUIRE(
-            GG_TEXT("big_endian") ==
+            string_ref(GG_TEXT("big_endian")) ==
             endian_mode_descriptors[enums::cast(endian_mode::big_endian)]);
 
         REQUIRE(
-            GG_TEXT("little_endian") ==
+            string_ref(GG_TEXT("little_endian")) ==
             endian_mode_descriptors[enums::cast(endian_mode::little_endian)]);
     }
 #endif

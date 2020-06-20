@@ -3,6 +3,7 @@
 //==============================================================================
 
 #include "gg/core/stream/file_istream.h"
+#include "gg/core/string/type/string_ref.h"
 
 //==============================================================================
 namespace gg::file_istream_test
@@ -63,7 +64,7 @@ TEST_CASE("file_istream.constructor", "[gg.file_istream]")
 
     SECTION("file_istream(invalid filename)")
     {
-        file_istream file("invalid_file.txt", stream_mode::text);
+        file_istream file(GG_TEXT("invalid_file.txt"), stream_mode::text);
         REQUIRE(!file.is_valid());
         REQUIRE(file.get_position() == 0);
         REQUIRE(file.size() == 0);

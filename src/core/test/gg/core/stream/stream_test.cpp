@@ -3,6 +3,7 @@
 //==============================================================================
 
 #include "gg/core/stream/stream_defs.h"
+#include "gg/core/string/type/string_ref.h"
 
 //==============================================================================
 namespace gg::stream_test
@@ -15,11 +16,11 @@ TEST_CASE("stream", "[gg.stream]")
     SECTION("stream mode descriptors")
     {
         REQUIRE(
-            GG_TEXT("binary") ==
+            string_ref(GG_TEXT("binary")) ==
             stream_mode_descriptors[enums::cast(stream_mode::binary)]);
 
         REQUIRE(
-            GG_TEXT("text") ==
+            string_ref(GG_TEXT("text")) ==
             stream_mode_descriptors[enums::cast(stream_mode::text)]);
     }
 #endif

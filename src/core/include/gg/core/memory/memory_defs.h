@@ -1,8 +1,12 @@
 #ifndef _gg_memory_defs_h_
 #define _gg_memory_defs_h_
 
-#include "gg/core/string/type/string_ref.h"
 #include "gg/core/type/enum.h"
+
+#if defined(GG_DEBUG)
+#include "gg/core/debug/assert.h"
+#include "gg/core/string/macro/macro.h"
+#endif
 
 namespace gg
 {
@@ -16,7 +20,7 @@ namespace gg
     GG_ENUM(memory_owner_mode);
 
 #if defined(GG_DEBUG)
-    static constexpr string_ref memory_owner_mode_descriptors[] = {
+    static constexpr char8 const * memory_owner_mode_descriptors[] = {
         GG_TEXT("is_not_owner"),
         GG_TEXT("is_owner")
     };

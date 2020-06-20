@@ -1,8 +1,12 @@
 #ifndef _gg_iterator_defs_h_
 #define _gg_iterator_defs_h_
 
-#include "gg/core/string/type/string_ref.h"
 #include "gg/core/type/enum.h"
+
+#if defined(GG_DEBUG)
+#include "gg/core/debug/assert.h"
+#include "gg/core/string/macro/macro.h"
+#endif
 
 namespace gg
 {
@@ -16,7 +20,7 @@ namespace gg
     GG_ENUM(iterator_type);
 
 #if defined(GG_DEBUG)
-    static constexpr string_ref iterator_type_descriptors[] = {
+    static constexpr char8 const * iterator_type_descriptors[] = {
         GG_TEXT("no_const"),
         GG_TEXT("is_const")
     };

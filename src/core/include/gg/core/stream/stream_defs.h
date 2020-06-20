@@ -1,17 +1,15 @@
 #ifndef _gg_stream_defs_h_
 #define _gg_stream_defs_h_
 
-// include files
-
-#include "gg/core/string/type/string_ref.h"
 #include "gg/core/type/enum.h"
 
-// namespace
+#if defined(GG_DEBUG)
+#include "gg/core/debug/assert.h"
+#include "gg/core/string/macro/macro.h"
+#endif
 
 namespace gg
 {
-    // enumeration
-
     enum class stream_mode : uint8
     {
         binary,
@@ -22,14 +20,10 @@ namespace gg
     GG_ENUM(stream_mode);
 
 #if defined(GG_DEBUG)
-    // enumeration descriptors
-
-    static constexpr string_ref stream_mode_descriptors[] = {
+    static constexpr char8 const * stream_mode_descriptors[] = {
         GG_TEXT("binary"),
         GG_TEXT("text")
     };
-
-    // static assert
 
     GG_ASSERT_STATIC(
         enums::cast(stream_mode::max) ==
