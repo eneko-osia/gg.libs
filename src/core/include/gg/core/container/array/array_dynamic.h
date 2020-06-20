@@ -2,7 +2,9 @@
 #define _gg_array_dynamic_h_
 
 #include "gg/core/container/iterator/contiguous_iterator.h"
+#include "gg/core/macro/macro.h"
 #include "gg/core/memory/memory_buffer_dynamic.h"
+#include "gg/core/type/limit.h"
 
 namespace gg
 {
