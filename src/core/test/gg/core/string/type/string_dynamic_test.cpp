@@ -58,9 +58,8 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
     SECTION("string_dynamic")
     {
         string_dynamic string;
-        REQUIRE(string.begin() == nullptr);
         REQUIRE(string.begin() == string.end());
-        REQUIRE(string.max_size() == 0);
+        REQUIRE(string.max_size() == 1);
         REQUIRE(string.size() == 0);
         REQUIRE(string.is_empty());
     }
@@ -679,7 +678,7 @@ TEST_CASE("string_dynamic.max_size", "[gg.string_dynamic]")
     SECTION("max_size")
     {
         string_dynamic string;
-        REQUIRE(string.max_size() == 0);
+        REQUIRE(string.max_size() == 1);
     }
 }
 

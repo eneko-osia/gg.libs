@@ -194,7 +194,6 @@ namespace gg
 
         iterator erase(size_type idx_start, size_type idx_end) noexcept
         {
-            GG_ASSERT(idx_start < idx_end);
             GG_ASSERT(idx_start < size());
             GG_ASSERT(idx_end <= size());
             iterator it_start = (begin() + idx_start);
@@ -264,7 +263,6 @@ namespace gg
             const_iterator cit_end) noexcept
         {
             GG_ASSERT(idx <= size());
-            GG_ASSERT(cit_start < cit_end);
             diff_type size = (cit_end - cit_start);
             reallocate_if_needed(this->size() + size);
             iterator it = (begin() + idx);
