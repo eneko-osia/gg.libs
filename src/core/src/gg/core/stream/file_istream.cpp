@@ -19,7 +19,9 @@ file_istream::file_istream(
     , m_endian_mode(endian_mode)
 {
     m_file =
-        fopen(filename.begin(), stream_mode::binary == stream_mode ? "rb" : "r");
+        fopen(
+            filename.c_str(),
+            stream_mode::binary == stream_mode ? "rb" : "r");
 
     if (is_valid())
     {
