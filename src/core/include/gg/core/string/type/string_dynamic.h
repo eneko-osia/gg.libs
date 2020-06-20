@@ -412,34 +412,34 @@ namespace gg
 
     inline bool8
     operator<(
-        string_dynamic::const_pointer lstring,
-        string_dynamic const & rstring) noexcept
+        string_dynamic::const_pointer lhs,
+        string_dynamic const & rhs) noexcept
     {
-        return rstring > lstring;
+        return rhs > lhs;
     }
 
     inline bool8
     operator>(
-        string_dynamic::const_pointer lstring,
-        string_dynamic const & rstring) noexcept
+        string_dynamic::const_pointer lhs,
+        string_dynamic const & rhs) noexcept
     {
-        return rstring < lstring;
+        return rhs < lhs;
     }
 
     inline bool8
     operator==(
-        string_dynamic::const_pointer lstring,
-        string_dynamic const & rstring) noexcept
+        string_dynamic::const_pointer lhs,
+        string_dynamic const & rhs) noexcept
     {
-        return rstring == lstring;
+        return rhs == lhs;
     }
 
     inline bool8
     operator!=(
-        string_dynamic::const_pointer lstring,
-        string_dynamic const & rstring) noexcept
+        string_dynamic::const_pointer lhs,
+        string_dynamic const & rhs) noexcept
     {
-        return rstring != lstring;
+        return rhs != lhs;
     }
 }
 

@@ -210,30 +210,28 @@ namespace gg
         const_pointer m_data;
     };
 
-    // helpers
-
     inline constexpr bool8
-    operator<(string_ref::const_pointer lstring, string_ref const & rstring)
+    operator<(string_ref::const_pointer lhs, string_ref const & rhs)
     {
-        return rstring > lstring;
+        return rhs > lhs;
     }
 
     inline constexpr bool8
-    operator>(string_ref::const_pointer lstring, string_ref const & rstring)
+    operator>(string_ref::const_pointer lhs, string_ref const & rhs)
     {
-        return rstring < lstring;
+        return rhs < lhs;
     }
 
     inline constexpr bool8
-    operator==(string_ref::const_pointer lstring, string_ref const & rstring)
+    operator==(string_ref::const_pointer lhs, string_ref const & rhs)
     {
-        return rstring == lstring;
+        return rhs == lhs;
     }
 
     inline constexpr bool8
-    operator!=(string_ref::const_pointer lstring, string_ref const & rstring)
+    operator!=(string_ref::const_pointer lhs, string_ref const & rhs)
     {
-        return rstring != lstring;
+        return rhs != lhs;
     }
 }
 
