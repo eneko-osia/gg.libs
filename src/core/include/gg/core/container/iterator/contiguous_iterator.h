@@ -30,17 +30,17 @@ namespace gg
 
         // constructors
 
-        contiguous_iterator(void) noexcept
+        constexpr contiguous_iterator(void) noexcept
             : m_ptr(nullptr)
         {
         }
 
-        contiguous_iterator(pointer ptr) noexcept
+        constexpr contiguous_iterator(pointer ptr) noexcept
             : m_ptr(ptr)
         {
         }
 
-        contiguous_iterator(
+        constexpr contiguous_iterator(
             contiguous_iterator<
                 ITEM_TYPE,
                 iterator_type::no_const> const & it) noexcept
@@ -52,96 +52,103 @@ namespace gg
 
         // operators
 
-        reference operator[](size_type idx) const noexcept
+        constexpr reference operator[](size_type idx) const noexcept
         {
             return m_ptr[idx];
         }
 
-        reference operator*(void) const noexcept
+        constexpr reference operator*(void) const noexcept
         {
             return *m_ptr;
         }
 
-        pointer operator->(void) const noexcept
+        constexpr pointer operator->(void) const noexcept
         {
             return m_ptr;
         }
 
-        contiguous_iterator & operator++(void) noexcept
+        constexpr contiguous_iterator & operator++(void) noexcept
         {
             ++m_ptr;
             return *this;
         }
 
-        contiguous_iterator operator++(int32) noexcept
+        constexpr contiguous_iterator operator++(int32) noexcept
         {
             return contiguous_iterator(m_ptr++);
         }
 
-        contiguous_iterator & operator--(void) noexcept
+        constexpr contiguous_iterator & operator--(void) noexcept
         {
             --m_ptr;
             return *this;
         }
 
-        contiguous_iterator operator--(int32) noexcept
+        constexpr contiguous_iterator operator--(int32) noexcept
         {
             return contiguous_iterator(m_ptr--);
         }
 
-        contiguous_iterator operator+(size_type offset) const noexcept
+        constexpr contiguous_iterator operator+(size_type offset) const noexcept
         {
             return contiguous_iterator(m_ptr + offset);
         }
 
-        contiguous_iterator & operator+=(size_type offset) noexcept
+        constexpr contiguous_iterator & operator+=(size_type offset) noexcept
         {
             m_ptr += offset;
             return *this;
         }
 
-        contiguous_iterator operator-(size_type offset) const noexcept
+        constexpr contiguous_iterator operator-(size_type offset) const noexcept
         {
             return contiguous_iterator(m_ptr - offset);
         }
 
-        contiguous_iterator & operator-=(size_type offset) noexcept
+        constexpr contiguous_iterator & operator-=(size_type offset) noexcept
         {
             m_ptr -= offset;
             return *this;
         }
 
-        diff_type operator-(contiguous_iterator const & it) const noexcept
+        constexpr diff_type
+        operator-(contiguous_iterator const & it) const noexcept
         {
             return diff_type(m_ptr - it.m_ptr);
         }
 
-        bool8 operator==(contiguous_iterator const & it) const noexcept
+        constexpr bool8
+        operator==(contiguous_iterator const & it) const noexcept
         {
            return m_ptr == it.m_ptr;
         }
 
-        bool8 operator!=(contiguous_iterator const & it) const noexcept
+        constexpr bool8
+        operator!=(contiguous_iterator const & it) const noexcept
         {
             return !(*this == it);
         }
 
-        bool8 operator<(contiguous_iterator const & it) const noexcept
+        constexpr bool8
+        operator<(contiguous_iterator const & it) const noexcept
         {
             return m_ptr < it.m_ptr;
         }
 
-        bool8 operator<=(contiguous_iterator const & it) const noexcept
+        constexpr bool8
+        operator<=(contiguous_iterator const & it) const noexcept
         {
             return m_ptr <= it.m_ptr;
         }
 
-        bool8 operator>(contiguous_iterator const & it) const noexcept
+        constexpr bool8
+        operator>(contiguous_iterator const & it) const noexcept
         {
             return m_ptr > it.m_ptr;
         }
 
-        bool8 operator>=(contiguous_iterator const & it) const noexcept
+        constexpr bool8
+        operator>=(contiguous_iterator const & it) const noexcept
         {
             return m_ptr >= it.m_ptr;
         }
