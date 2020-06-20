@@ -1,57 +1,62 @@
 #ifndef _gg_string_ref_h_
 #define _gg_string_ref_h_
 
-// include files
-
+#include "gg/core/container/iterator/contiguous_iterator.h"
 #include "gg/core/macro/macro.h"
 #include "gg/core/string/type/string.h"
-#include "gg/core/type/type_trait.h"
-
-// namespace
 
 namespace gg
 {
-    // class in charge of define a reference string
-
     class string_ref final
     {
     public:
 
+        // type definitions
+
+        typedef char8                               item_type;
+        typedef item_type const *                   const_pointer;
+        typedef item_type const &                   const_reference;
+        typedef contiguous_iterator<
+            item_type, iterator_type::is_const>     const_iterator;
+
         // constructors
 
         constexpr string_ref(void) noexcept
-            : m_data(string::empty)
+            : m_data()
         {
+            set(string::empty);
         }
 
         constexpr string_ref(string_ref const & string) noexcept
-            : m_data(string::empty)
+            : m_data()
         {
             set(string);
         }
 
         constexpr string_ref(string_ref && string) noexcept
-            : m_data(string::empty)
+            : m_data()
         {
             set(type::move(string));
         }
 
         template <typename STRING_TYPE>
         constexpr string_ref(STRING_TYPE const & string) noexcept
-            : m_data(string::empty)
+            : m_data()
         {
             set(string);
         }
 
+        ~string_ref(void) noexcept = default;
+
         // operators
 
-        constexpr char8 const & operator[](size_type idx) const noexcept
+        constexpr const_reference operator[](size_type idx) const noexcept
         {
             GG_ASSERT(idx < size());
-            return begin()[idx];
+            return m_data[idx];
         }
 
-        constexpr string_ref & operator=(char8 const * string) noexcept
+        constexpr string_ref & operator=(const_pointer string) noexcept
         {
             return set(string);
         }
@@ -72,18 +77,18 @@ namespace gg
             return set(string);
         }
 
-        constexpr bool8 operator==(char8 const * string) const noexcept
+        constexpr bool8 operator==(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) == 0;
+            return string::compare(c_str(), string) == 0;
         }
 
         template <typename STRING_TYPE>
         constexpr bool8 operator==(STRING_TYPE const & string) const noexcept
         {
-            return *this == string.begin();
+            return *this == string.c_str();
         }
 
-        constexpr bool8 operator!=(char8 const * string) const noexcept
+        constexpr bool8 operator!=(const_pointer string) const noexcept
         {
             return !(*this == string);
         }
@@ -94,38 +99,38 @@ namespace gg
             return !(*this == string);
         }
 
-        constexpr bool8 operator<(char8 const * string) const noexcept
+        constexpr bool8 operator<(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) < 0;
+            return string::compare(c_str(), string) < 0;
         }
 
         template <typename STRING_TYPE>
         constexpr bool8 operator<(STRING_TYPE const & string) const noexcept
         {
-            return *this < string.begin();
+            return *this < string.c_str();
         }
 
-        constexpr bool8 operator>(char8 const * string) const noexcept
+        constexpr bool8 operator>(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) > 0;
+            return string::compare(c_str(), string) > 0;
         }
 
         template <typename STRING_TYPE>
         constexpr bool8 operator>(STRING_TYPE const & string) const noexcept
         {
-            return *this > string.begin();
+            return *this > string.c_str();
         }
 
         // methods
 
-        constexpr char8 const * begin(void) const noexcept
+        constexpr const_iterator begin(void) const noexcept
         {
-            return m_data;
+            return const_iterator(c_str());
         }
 
-        constexpr char8 const * c_str(void) const noexcept
+        constexpr const_pointer c_str(void) const noexcept
         {
-            return begin();
+            return m_data;
         }
 
         constexpr void clear(void) noexcept
@@ -133,33 +138,33 @@ namespace gg
             m_data = string::empty;
         }
 
-        constexpr char8 const * end(void) const noexcept
+        constexpr const_iterator end(void) const noexcept
         {
             return begin() + size();
         }
 
         constexpr size_type
-        find(char8 const * string, size_type idx = 0) const noexcept
+        find(const_pointer string, size_type idx = 0) const noexcept
         {
             GG_ASSERT(idx < size());
-            char8 const * position = string::find(begin() + idx, string);
+            const_pointer position = string::find(c_str() + idx, string);
             return size_type(
-                nullptr == position ? string::npos : position - begin());
+                nullptr == position ? string::npos : position - c_str());
         }
 
         template <typename STRING_TYPE>
         constexpr size_type
         find(STRING_TYPE const & string, size_type idx = 0) const noexcept
         {
-            return find(string.begin(), idx);
+            return find(string.c_str(), idx);
         }
 
         constexpr string_ref & set(char8 * string) noexcept
         {
-            return set(type::cast_const<char8 const *>(string));
+            return set(type::cast_const<const_pointer>(string));
         }
 
-        constexpr string_ref & set(char8 const * string) noexcept
+        constexpr string_ref & set(const_pointer string) noexcept
         {
             m_data = string;
             return *this;
@@ -167,6 +172,7 @@ namespace gg
 
         constexpr string_ref & set(string_ref const & string) noexcept
         {
+            GG_ASSERT(this != &string);
             m_data = string.m_data;
             return *this;
         }
@@ -187,45 +193,45 @@ namespace gg
 
         constexpr size_type size(void) const noexcept
         {
-            return begin() ? size_type(string::length(begin())) : 0;
+            return size_type(string::length(c_str()));
         }
 
         // inquiries
 
         constexpr bool8 is_empty(void) const noexcept
         {
-            return 0 == size();
+            return ('\0' == *c_str());
         }
 
     private:
 
         // attributes
 
-        char8 const * m_data;
+        const_pointer m_data;
     };
 
     // helpers
 
     inline constexpr bool8
-    operator<(char8 const * lstring, string_ref const & rstring)
+    operator<(string_ref::const_pointer lstring, string_ref const & rstring)
     {
         return rstring > lstring;
     }
 
     inline constexpr bool8
-    operator>(char8 const * lstring, string_ref const & rstring)
+    operator>(string_ref::const_pointer lstring, string_ref const & rstring)
     {
         return rstring < lstring;
     }
 
     inline constexpr bool8
-    operator==(char8 const * lstring, string_ref const & rstring)
+    operator==(string_ref::const_pointer lstring, string_ref const & rstring)
     {
         return rstring == lstring;
     }
 
     inline constexpr bool8
-    operator!=(char8 const * lstring, string_ref const & rstring)
+    operator!=(string_ref::const_pointer lstring, string_ref const & rstring)
     {
         return rstring != lstring;
     }

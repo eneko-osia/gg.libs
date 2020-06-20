@@ -58,7 +58,6 @@ TEST_CASE("string_ref.constructor", "[gg.string_ref]")
     SECTION("string_ref()")
     {
         string_ref string;
-
         REQUIRE(string.begin() == string.end());
         REQUIRE(string.size() == 0);
         REQUIRE(string.is_empty());
@@ -424,7 +423,7 @@ TEST_CASE("string_ref::compare", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 "Lorem ipsum dolor sit amet, consectetur "
                 "adipiscing elit,\r\n") == 0);
     }
@@ -440,8 +439,8 @@ TEST_CASE("string_ref::find", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(
             (string::find(
-                text.begin(), GG_TEXT("consectetur")) -
-            text.begin()) == 28);
+                text.c_str(), GG_TEXT("consectetur")) -
+            text.c_str()) == 28);
     }
 }
 
@@ -453,7 +452,7 @@ TEST_CASE("string_ref::length", "[gg.string]")
             GG_TEXT(
                 "Lorem ipsum dolor sit amet, "
                 "consectetur adipiscing elit,\r\n"));
-        REQUIRE(string::length(text.begin()) == 58);
+        REQUIRE(string::length(text.c_str()) == 58);
         REQUIRE(text.size() == 58);
     }
 }
