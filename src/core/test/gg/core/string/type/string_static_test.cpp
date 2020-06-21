@@ -54,7 +54,8 @@ TEST_CASE("string_static", "[gg.string_static]")
 
     SECTION("sizeof")
     {
-        REQUIRE(sizeof(string_static<>) == 16);
+        REQUIRE(sizeof(string_static<>) == 8);
+        REQUIRE(sizeof(string_static<16>) == 16);
         REQUIRE(sizeof(string_static<32>) == 32);
         REQUIRE(sizeof(string_static<128>) == 128);
         REQUIRE(sizeof(string_static<256>) == 256);
@@ -63,54 +64,91 @@ TEST_CASE("string_static", "[gg.string_static]")
 
 TEST_CASE("string_static.constructor", "[gg.string_static]")
 {
-    SECTION("string_static<>")
+    SECTION("string_static")
     {
         string_static<> string;
-
         REQUIRE(string.begin() == string.end());
-        REQUIRE(string.max_size() == 16);
+        REQUIRE(string.max_size() == 8);
         REQUIRE(string.size() == 0);
         REQUIRE(string.is_empty());
     }
 
-    SECTION("string_static<>(char*)")
+    SECTION("string_static(char)")
+    {
+        string_static<> string('a');
+        REQUIRE(string == "a");
+        REQUIRE(string.max_size() == 8);
+        REQUIRE(string.size() == 1);
+        REQUIRE(!string.is_empty());
+    }
+
+    SECTION("string_static(char*)")
     {
         string_static<> string("test");
         REQUIRE(string == "test");
+        REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_static<>(char*) - overflow")
+    SECTION("string_static(char*, size)")
     {
-        string_static<2> string("test");
-        REQUIRE(string == "t");
+        string_static<32> string("this is a test string", 16);
+        REQUIRE(string == "this is a test s");
+        REQUIRE(string.size() == 16);
     }
 
-    SECTION("string_static<>(string_static)")
+    SECTION("string_static(char*, idx_start, idx_end)")
+    {
+        string_static<32> string("this is a test string", 4, 16);
+        REQUIRE(string == " is a test st");
+        REQUIRE(string.size() == 13);
+    }
+
+    SECTION("string_static(string_static)")
     {
         string_static<> copied_string("test");
         string_static<> string(copied_string);
         REQUIRE(string == copied_string);
+        REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_static<>(string_static) - overflow")
+    SECTION("string_static(string_static, size)")
     {
-        string_static<> copied_string("test");
-        string_static<2> string(copied_string);
-        REQUIRE(string == "t");
+        string_static<32> copied_string("this is a test string");
+        string_static<32> string(copied_string, 16);
+        REQUIRE(string == "this is a test s");
+        REQUIRE(string.size() == 16);
     }
 
-    SECTION("string_static<>(string)")
+    SECTION("string_static(string_static, idx_start, idx_end)")
+    {
+        string_static<32> copied_string("this is a test string");
+        string_static<32> string(copied_string, 4, 16);
+        REQUIRE(string == " is a test st");
+        REQUIRE(string.size() == 13);
+    }
+
+    SECTION("string_static(string)")
     {
         string_ref copied_string("test");
         string_static<> string(copied_string);
         REQUIRE(string == copied_string);
+        REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_static<>(string) - overflow")
+    SECTION("string_static(string, size)")
     {
-        string_ref copied_string("test");
-        string_static<2> string(copied_string);
-        REQUIRE(string == "t");
+        string_ref copied_string("this is a test string");
+        string_static<32> string(copied_string, 16);
+        REQUIRE(string == "this is a test s");
+        REQUIRE(string.size() == 16);
+    }
+
+    SECTION("string_static(string, idx_start, idx_end)")
+    {
+        string_ref copied_string("this is a test string");
+        string_static<32> string(copied_string, 4, 16);
+        REQUIRE(string == " is a test st");
+        REQUIRE(string.size() == 13);
     }
 }
 
@@ -327,28 +365,42 @@ TEST_CASE("string_static.append", "[gg.string_static]")
         REQUIRE(string == "this is a test string w");
     }
 
-    SECTION("append char* num_char")
+    SECTION("append char* size")
     {
         string_static<64> string("this is a test string");
         string.append(" with an appended string", 16);
         REQUIRE(string == "this is a test string with an appende");
     }
 
-    SECTION("append char* num_char - overflow")
+    SECTION("append char* size - overflow")
     {
         string_static<32> string("this is a test string");
         string.append(" with an appended string", 16);
         REQUIRE(string == "this is a test string with an a");
     }
 
-    SECTION("append string num_char")
+    SECTION("append char* idx_start idx_end")
+    {
+        string_static<64> string("this is a test string");
+        string.append(" with an appended string", 8, 20);
+        REQUIRE(string == "this is a test string appended str");
+    }
+
+    SECTION("append char* idx_start idx_end - overflow")
+    {
+        string_static<32> string("this is a test string");
+        string.append(" with an appended string", 8, 20);
+        REQUIRE(string == "this is a test string appended ");
+    }
+
+    SECTION("append string size")
     {
         string_static<64> string("this is a test string");
         string.append(string_static<32>(" with an appended string"), 16);
         REQUIRE(string == "this is a test string with an appende");
     }
 
-    SECTION("append string num_char - overflow")
+    SECTION("append string size - overflow")
     {
         string_static<24> string("this is a test string");
         string.append(string_static<32>(" with an appended string"), 16);
@@ -388,28 +440,28 @@ TEST_CASE("string_static.end", "[gg.string_static]")
 
 TEST_CASE("string_static.erase", "[gg.string_static]")
 {
-    SECTION("erase idx num_char - first character")
+    SECTION("erase idx size - first character")
     {
         string_static<32> string("this is a test string");
         string.erase(0, 1);
         REQUIRE(string == "his is a test string");
     }
 
-    SECTION("erase idx num_char - last character")
+    SECTION("erase idx size - last character")
     {
         string_static<32> string("this is a test string");
         string.erase(20, 1);
         REQUIRE(string == "this is a test strin");
     }
 
-    SECTION("erase idx num_char - string in the middle")
+    SECTION("erase idx size - string in the middle")
     {
         string_static<32> string("this is a test string");
         string.erase(4, 3);
         REQUIRE(string == "this a test string");
     }
 
-    SECTION("erase idx num_char - overflow")
+    SECTION("erase idx size - overflow")
     {
         string_static<32> string("this is a test string");
         string.erase(7, 128);
@@ -446,14 +498,14 @@ TEST_CASE("string_static.find", "[gg.string_static]")
 
     SECTION("!(find string)")
     {
-        string_static<> string("this is a test string");
+        string_static<16> string("this is a test string");
         string_static<> pattern("b");
         REQUIRE(string.find(pattern) == string::npos);
     }
 
     SECTION("find string idx")
     {
-        string_static<> string("this is a test string");
+        string_static<16> string("this is a test string");
         string_static<> pattern("t");
         REQUIRE(string.find(pattern, 10) == 10);
     }
@@ -510,28 +562,28 @@ TEST_CASE("string_static.insert", "[gg.string_static]")
         REQUIRE(string == "this is a  with an appended str");
     }
 
-    SECTION("insert idx char* num_char")
+    SECTION("insert idx char* size")
     {
         string_static<64> string("this is a test string");
         string.insert(10, " with an appended string ", 16);
         REQUIRE(string == "this is a  with an appendetest string");
     }
 
-    SECTION("insert idx char* num_char - overflow")
+    SECTION("insert idx char* size - overflow")
     {
         string_static<32> string("this is a test string");
         string.insert(10, " with an appended string ", 16);
         REQUIRE(string == "this is a  with an appendetest ");
     }
 
-    SECTION("insert idx string num_char")
+    SECTION("insert idx string size")
     {
         string_static<64> string("this is a test string");
         string.insert(10, string_static<32>(" with an appended string "), 16);
         REQUIRE(string == "this is a  with an appendetest string");
     }
 
-    SECTION("insert idx string num_char - overflow")
+    SECTION("insert idx string size - overflow")
     {
         string_static<32> string("this is a test string");
         string.insert(10, string_static<32>(" with an appended string "), 16);
@@ -550,19 +602,19 @@ TEST_CASE("string_static.set", "[gg.string_static]")
 
     SECTION("set char* - overflow")
     {
-        string_static<> string;
+        string_static<16> string;
         string.set("this is a test string");
         REQUIRE(string == "this is a test ");
     }
 
-    SECTION("set char* num_char")
+    SECTION("set char* size")
     {
         string_static<32> string;
         string.set("this is a test string", 16);
         REQUIRE(string == "this is a test s");
     }
 
-    SECTION("set char* num_char - overflow")
+    SECTION("set char* size - overflow")
     {
         string_static<12> string;
         string.set("this is a test string", 16);
@@ -604,14 +656,14 @@ TEST_CASE("string_static.set", "[gg.string_static]")
         REQUIRE(string == "this is a test ");
     }
 
-    SECTION("set string num_char")
+    SECTION("set string size")
     {
         string_static<32> string;
         string.set(string_ref("this is a test string"), 16);
         REQUIRE(string == "this is a test s");
     }
 
-    SECTION("set string num_char - overflow")
+    SECTION("set string size - overflow")
     {
         string_static<12> string;
         string.set(string_ref("this is a test string"), 16);
@@ -678,7 +730,7 @@ TEST_CASE("string_static::compare", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 "Lorem ipsum dolor sit amet, consectetur "
                 "adipiscing elit,\r\n") == 0);
     }
@@ -694,8 +746,8 @@ TEST_CASE("string_static::find", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(
             (string::find(
-                text.begin(), GG_TEXT("consectetur")) -
-            text.begin()) == 28);
+                text.c_str(), GG_TEXT("consectetur")) -
+            text.c_str()) == 28);
     }
 }
 
@@ -707,7 +759,7 @@ TEST_CASE("string_static::length", "[gg.string]")
             GG_TEXT(
                 "Lorem ipsum dolor sit amet, "
                 "consectetur adipiscing elit,\r\n"));
-        REQUIRE(string::length(text.begin()) == 58);
+        REQUIRE(string::length(text.c_str()) == 58);
         REQUIRE(text.size() == 58);
     }
 }
@@ -722,18 +774,18 @@ TEST_CASE("string_static::trim", "[gg.string]")
                 " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
                 " aliqua."));
 
-        REQUIRE(string::length(text.begin()) == 129);
+        REQUIRE(string::length(text.c_str()) == 129);
         REQUIRE(text.size() == 129);
-        string::trim(text.begin(), string::length(text.begin()));
+        string::trim(text.c_str(), string::length(text.c_str()));
 
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 GG_TEXT(
                     "Loremipsumdolorsitamet,consecteturadipiscingelit,"
                     "seddoeiusmodtemporincididuntutlaboreetdoloremagna"
                     "aliqua.")) == 0);
-        REQUIRE(string::length(text.begin()) == 105);
+        REQUIRE(string::length(text.c_str()) == 105);
         REQUIRE(text.size() == 105);
     }
 
@@ -745,18 +797,18 @@ TEST_CASE("string_static::trim", "[gg.string]")
                 " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
                 " aliqua."));
 
-        REQUIRE(string::length(text.begin()) == 129);
+        REQUIRE(string::length(text.c_str()) == 129);
         REQUIRE(text.size() == 129);
-        string::trim(text.begin(), string::length(text.begin()), GG_TEXT("abc"));
+        string::trim(text.c_str(), string::length(text.c_str()), GG_TEXT("abc"));
 
         REQUIRE(
             string::compare(
-                text.begin(),
+                text.c_str(),
                 GG_TEXT(
                     " Lorem ipsum dolor sit met, onsetetur dipising elit,\r\n"
                     " \tsed do eiusmod tempor inididunt ut lore et dolore mgn \n"
                     " liqu.")) == 0);
-        REQUIRE(string::length(text.begin()) == 117);
+        REQUIRE(string::length(text.c_str()) == 117);
         REQUIRE(text.size() == 117);
     }
 }

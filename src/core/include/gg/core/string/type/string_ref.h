@@ -148,8 +148,7 @@ namespace gg
         {
             GG_ASSERT(idx < size());
             const_pointer position = string::find(c_str() + idx, string);
-            return size_type(
-                nullptr == position ? string::npos : position - c_str());
+            return size_type(position ? (position - c_str()) : string::npos);
         }
 
         template <typename STRING_TYPE>

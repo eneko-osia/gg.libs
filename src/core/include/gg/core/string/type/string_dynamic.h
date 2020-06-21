@@ -247,6 +247,7 @@ namespace gg
 
         size_type find(const_pointer string, size_type idx = 0) const noexcept
         {
+            GG_ASSERT(idx < size());
             const_pointer position = string::find(c_str() + idx, string);
             return size_type(position ? (position - c_str()) : string::npos);
         }

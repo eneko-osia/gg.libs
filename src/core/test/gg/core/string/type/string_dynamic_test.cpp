@@ -80,7 +80,7 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_dynamic(char*, num_char)")
+    SECTION("string_dynamic(char*, size)")
     {
         string_dynamic string("this is a test string", 16);
         REQUIRE(string == "this is a test s");
@@ -103,7 +103,7 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_dynamic(string_dynamic, num_char)")
+    SECTION("string_dynamic(string_dynamic, size)")
     {
         string_dynamic copied_string("this is a test string");
         string_dynamic string(copied_string, 16);
@@ -128,7 +128,7 @@ TEST_CASE("string_dynamic.constructor", "[gg.string_dynamic]")
         REQUIRE(string.size() == 4);
     }
 
-    SECTION("string_dynamic(string, num_char)")
+    SECTION("string_dynamic(string, size)")
     {
         string_ref copied_string("this is a test string");
         string_dynamic string(copied_string, 16);
@@ -386,7 +386,7 @@ TEST_CASE("string_dynamic.append", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("append char* num_char")
+    SECTION("append char* size")
     {
         string_dynamic string("this is a test string");
         string.append(" with an appended string", 16);
@@ -394,7 +394,15 @@ TEST_CASE("string_dynamic.append", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("append string num_char")
+    SECTION("append char* idx_start idx_end")
+    {
+        string_dynamic string("this is a test string");
+        string.append(" with an appended string", 8, 20);
+        REQUIRE(string == "this is a test string appended str");
+        REQUIRE(string.size() + 1 == string.max_size());
+    }
+
+    SECTION("append string size")
     {
         string_dynamic string("this is a test string");
         string.append(string_dynamic(" with an appended string"), 16);
@@ -439,7 +447,7 @@ TEST_CASE("string_dynamic.end", "[gg.string_dynamic]")
 
 TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
 {
-    SECTION("erase idx num_char - first character")
+    SECTION("erase idx size - first character")
     {
         string_dynamic string("this is a test string");
         string.erase(0);
@@ -448,7 +456,7 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
         REQUIRE(string.size() == 20);
     }
 
-    SECTION("erase idx num_char - last character")
+    SECTION("erase idx size - last character")
     {
         string_dynamic string("this is a test string");
         string.erase(20);
@@ -457,7 +465,7 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
         REQUIRE(string.size() == 20);
     }
 
-    SECTION("erase idx num_char - string in the middle")
+    SECTION("erase idx size - string in the middle")
     {
         string_dynamic string("this is a test string");
         string.erase(4, 3);
@@ -466,7 +474,7 @@ TEST_CASE("string_dynamic.erase", "[gg.string_dynamic]")
         REQUIRE(string.size() == 18);
     }
 
-    SECTION("erase idx num_char - overflow")
+    SECTION("erase idx size - overflow")
     {
         string_dynamic string("this is a test string");
         string.erase(7, 128);
@@ -558,7 +566,7 @@ TEST_CASE("string_dynamic.insert", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("insert idx char* num_char")
+    SECTION("insert idx char* size")
     {
         string_dynamic string("this is a test string");
         string.insert(10, " with an appended string ", 16);
@@ -566,7 +574,7 @@ TEST_CASE("string_dynamic.insert", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("insert idx string num_char")
+    SECTION("insert idx string size")
     {
         string_dynamic string("this is a test string");
         string.insert(10, string_dynamic(" with an appended string "), 16);
@@ -585,7 +593,7 @@ TEST_CASE("string_dynamic.set", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("set char* num_char")
+    SECTION("set char* size")
     {
         string_dynamic string;
         string.set("this is a test string", 16);
@@ -632,7 +640,7 @@ TEST_CASE("string_dynamic.set", "[gg.string_dynamic]")
         REQUIRE(string.size() + 1 == string.max_size());
     }
 
-    SECTION("set string num_char")
+    SECTION("set string size")
     {
         string_dynamic string;
         string.set(string_ref("this is a test string"), 16);

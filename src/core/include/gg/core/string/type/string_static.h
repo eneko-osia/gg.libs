@@ -1,18 +1,12 @@
 #ifndef _gg_string_static_h_
 #define _gg_string_static_h_
 
-// include files
-
 #include "gg/core/container/array/array_static.h"
 #include "gg/core/string/type/string.h"
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a static string
-
-    template <size_type MAX_SIZE = 16>
+    template <size_type MAX_SIZE = 8>
     class string_static final
     {
     private:
@@ -22,6 +16,19 @@ namespace gg
         typedef array_static<char8, MAX_SIZE> data_type;
 
     public:
+
+        // type definitions
+
+        typedef typename data_type::item_type       item_type;
+
+        typedef typename data_type::pointer         pointer;
+        typedef typename data_type::const_pointer   const_pointer;
+
+        typedef typename data_type::reference       reference;
+        typedef typename data_type::const_reference const_reference;
+
+        typedef typename data_type::iterator        iterator;
+        typedef typename data_type::const_iterator  const_iterator;
 
         // constructors
 
@@ -38,27 +45,46 @@ namespace gg
         }
 
         template <typename STRING_TYPE>
-        string_static(const STRING_TYPE & string) noexcept
+        string_static(STRING_TYPE const & string) noexcept
             : m_data()
         {
             set(string);
         }
 
-        ~string_static(void) = default;
+        template <typename STRING_TYPE>
+        string_static(STRING_TYPE const & string, size_type size) noexcept
+            : m_data()
+        {
+            set(string, size);
+        }
+
+        template <typename STRING_TYPE>
+        string_static(
+            STRING_TYPE const & string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+            : m_data()
+        {
+            set(string, idx_start, idx_end);
+        }
+
+        ~string_static(void) noexcept = default;
 
         // operators
 
-        char8 & operator[](size_type idx) noexcept
+        reference operator[](size_type idx) noexcept
         {
+            GG_ASSERT(idx < size());
             return m_data[idx];
         }
 
-        char8 const & operator[](size_type idx) const noexcept
+        const_reference operator[](size_type idx) const noexcept
         {
+            GG_ASSERT(idx < size());
             return m_data[idx];
         }
 
-        string_static & operator=(char8 const * string) noexcept
+        string_static & operator=(const_pointer string) noexcept
         {
             return set(string);
         }
@@ -74,18 +100,18 @@ namespace gg
             return set(string);
         }
 
-        bool8 operator==(char8 const * string) const noexcept
+        bool8 operator==(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) == 0;
+            return string::compare(c_str(), string) == 0;
         }
 
         template <typename STRING_TYPE>
         bool8 operator==(STRING_TYPE const & string) const noexcept
         {
-            return *this == string.begin();
+            return *this == string.c_str();
         }
 
-        bool8 operator!=(char8 const * string) const noexcept
+        bool8 operator!=(const_pointer string) const noexcept
         {
             return !(*this == string);
         }
@@ -96,202 +122,218 @@ namespace gg
             return !(*this == string);
         }
 
-        bool8 operator<(char8 const * string) const noexcept
+        bool8 operator<(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) < 0;
+            return string::compare(c_str(), string) < 0;
         }
 
         template <typename STRING_TYPE>
         bool8 operator<(STRING_TYPE const & string) const noexcept
         {
-            return *this < string.begin();
+            return *this < string.c_str();
         }
 
-        bool8 operator>(char8 const * string) const noexcept
+        bool8 operator>(const_pointer string) const noexcept
         {
-            return string::compare(begin(), string) > 0;
+            return string::compare(c_str(), string) > 0;
         }
 
         template <typename STRING_TYPE>
         bool8 operator>(STRING_TYPE const & string) const noexcept
         {
-            return *this > string.begin();
+            return *this > string.c_str();
         }
 
         // methods
 
-        string_static & append(char8 const & character) noexcept
+        string_static & append(const_reference character) noexcept
         {
-            return append(type::cast_const<char8 const *>(&character), 1);
+            return insert(size(), character);
         }
 
-        string_static & append(char8 const * string) noexcept
+        string_static & append(const_pointer string) noexcept
         {
-            return append(string, size_type(string::length(string)));
+            return insert(size(), string);
         }
 
         string_static &
-        append(char8 const * string, size_type num_char) noexcept
+        append(const_pointer string, size_type size) noexcept
         {
-            size_type cur_size = size();
-            size_type new_size = limit::min<size_type>(
-                cur_size + num_char, max_size() - 1);
-            memory::copy(begin() + cur_size, string, new_size - cur_size);
-            begin()[new_size] = '\0';
-            return *this;
+            return insert(this->size(), string, size);
+        }
+
+        string_static &
+        append(
+            const_pointer string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+        {
+            return insert(size(), string, idx_start, idx_end);
         }
 
         template <typename STRING_TYPE>
         string_static & append(STRING_TYPE const & string) noexcept
         {
-            return append(string.begin(), string.size());
+            return insert(size(), string);
         }
 
         template <typename STRING_TYPE>
         string_static &
-        append(STRING_TYPE const & string, size_type num_char) noexcept
+        append(STRING_TYPE const & string, size_type size) noexcept
         {
-            return append(string.begin(), num_char);
+            return insert(this->size(), string, size);
         }
 
-        char8 * begin(void) noexcept
+        template <typename STRING_TYPE>
+        string_static &
+        append(
+            STRING_TYPE const & string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+        {
+            return insert(size(), string, idx_start, idx_end);
+        }
+
+        iterator begin(void) noexcept
+        {
+            return m_data.begin();
+        }
+
+        const_iterator begin(void) const noexcept
+        {
+            return m_data.begin();
+        }
+
+        pointer c_str(void) noexcept
         {
             return m_data.data();
         }
 
-        char8 const * begin(void) const noexcept
+        const_pointer c_str(void) const noexcept
         {
             return m_data.data();
-        }
-
-        char8 * c_str(void) noexcept
-        {
-            return begin();
-        }
-
-        char8 const * c_str(void) const noexcept
-        {
-            return begin();
         }
 
         void clear(void) noexcept
         {
-            memory::zero(begin(), size());
+            memory::zero(c_str(), size());
         }
 
-        char8 * end(void) noexcept
+        iterator end(void) noexcept
         {
             return begin() + size();
         }
 
-        char8 const * end(void) const noexcept
+        const_iterator end(void) const noexcept
         {
             return begin() + size();
         }
 
-        string_static & erase(size_type idx, size_type num_char) noexcept
+        string_static & erase(size_type idx, size_type size = 1) noexcept
         {
-            GG_ASSERT(idx < size());
-            size_type cur_size = size();
-            size_type end_idx =
-                limit::min<size_type>(idx + num_char, cur_size);
-            memory::move(begin() + idx, begin() + end_idx, cur_size - end_idx);
-            begin()[cur_size - (end_idx - idx)] = '\0';
+            GG_ASSERT(idx < this->size());
+            size_type cur_size = this->size();
+            size_type end_idx = limit::min<size_type>(idx + size, cur_size);
+            memory::move(&m_data[idx], &m_data[end_idx], cur_size - end_idx);
+            m_data[cur_size - (end_idx - idx)] = '\0';
             return *this;
         }
 
-        size_type find(char8 const * string, size_type idx = 0) const noexcept
+        size_type find(const_pointer string, size_type idx = 0) const noexcept
         {
             GG_ASSERT(idx < size());
-            char8 const * position = string::find(begin() + idx, string);
-            return size_type(
-                nullptr == position ? string::npos : position - begin());
+            const_pointer position = string::find(c_str() + idx, string);
+            return size_type(position ? (position - c_str()) : string::npos);
         }
 
         template <typename STRING_TYPE>
         size_type
         find(STRING_TYPE const & string, size_type idx = 0) const noexcept
         {
-            return find(string.begin(), idx);
+            return find(string.c_str(), idx);
         }
 
         string_static &
-        insert(size_type idx, char8 const & character) noexcept
+        insert(size_type idx, const_reference character) noexcept
         {
-            return insert(idx, type::cast_const<char8 const *>(&character), 1);
+            return insert(idx, &character, 1);
         }
 
-        string_static & insert(size_type idx, char8 const * string) noexcept
+        string_static & insert(size_type idx, const_pointer string) noexcept
         {
-            return insert(idx, string, size_type(string::length(string)));
+            return insert(idx, string, string::length(string));
         }
 
         string_static &
-        insert(size_type idx, char8 const * string, size_type num_char) noexcept
+        insert(size_type idx, const_pointer string, size_type size) noexcept
         {
-            GG_ASSERT(idx < size());
-
-            size_type cur_size = size();
-            size_type new_size =
-                limit::min<size_type>(cur_size + num_char, max_size() - 1);
-            size_type end_idx =
-                limit::min<size_type>(idx + num_char, new_size);
-
-            memory::move(begin() + end_idx, begin() + idx, new_size - end_idx);
-            memory::copy(begin() + idx, string, end_idx - idx);
-            begin()[new_size] = '\0';
+            GG_ASSERT(idx <= this->size());
+            size_type cur_size = this->size();
+            size_type new_size = limit::min<size_type>(cur_size + size, max_size() - 1);
+            size_type end_idx = limit::min<size_type>(idx + size, new_size);
+            memory::move(&m_data[end_idx], &m_data[idx], new_size - end_idx);
+            memory::copy(&m_data[idx], string, end_idx - idx);
+            m_data[new_size] = '\0';
             return *this;
+        }
+
+        string_static &
+        insert(
+            size_type idx,
+            const_pointer string,
+            size_type idx_start,
+            size_type idx_end) noexcept
+        {
+            return insert(idx, string + idx_start, idx_end - idx_start + 1);
         }
 
         template <typename STRING_TYPE>
         string_static &
         insert(size_type idx, STRING_TYPE const & string) noexcept
         {
-            return insert(idx, string.begin(), string.size());
+            return insert(idx, string.c_str(), string.size());
         }
 
         template <typename STRING_TYPE>
         string_static & insert(
             size_type idx,
             STRING_TYPE const & string,
-            size_type num_char) noexcept
+            size_type size) noexcept
         {
-            return insert(idx, string.begin(), num_char);
+            return insert(idx, string.c_str(), size);
         }
 
-        string_static & set(char8 * string) noexcept
+        template <typename STRING_TYPE>
+        string_static &
+        insert(
+            size_type idx,
+            STRING_TYPE const & string,
+            size_type idx_start,
+            size_type idx_end) noexcept
         {
-            return set(type::cast_const<char8 const *>(string));
+            return insert(idx, string.c_str(), idx_start, idx_end);
         }
 
-        string_static & set(char8 const * string) noexcept
+        string_static & set(const_reference character) noexcept
         {
-            return set(string, size_type(string::length(string)));
+            return set(&character, 1);
         }
 
-        string_static & set(char8 * string, size_type num_char) noexcept
+        string_static & set(const_pointer string) noexcept
         {
-            return set(type::cast_const<char8 const *>(string), num_char);
+            return set(string, string::length(string));
         }
 
-        string_static & set(char8 const * string, size_type num_char) noexcept
+        string_static & set(const_pointer string, size_type size) noexcept
         {
-            size_type new_size =
-                limit::min<size_type>(num_char, max_size() - 1);
-            memory::copy(begin(), string, new_size);
-            begin()[new_size] = '\0';
+            size_type new_size = limit::min<size_type>(size, max_size() - 1);
+            memory::copy(c_str(), string, new_size);
+            m_data[new_size] = '\0';
             return *this;
         }
 
-        string_static &
-        set(char8 * string, size_type idx_start, size_type idx_end) noexcept
-        {
-            return
-                set(type::cast_const<char8 const *>(string), idx_start, idx_end);
-        }
-
         string_static & set(
-            char8 const * string,
+            const_pointer string,
             size_type idx_start,
             size_type idx_end) noexcept
         {
@@ -307,23 +349,24 @@ namespace gg
         template <typename STRING_TYPE>
         string_static & set(STRING_TYPE const & string) noexcept
         {
-            return set(string.begin(), string.size());
+            return set(string.c_str(), string.size());
         }
 
         template <typename STRING_TYPE>
         string_static &
-        set(STRING_TYPE const & string, size_type num_char) noexcept
+        set(STRING_TYPE const & string, size_type size) noexcept
         {
-            return set(string.begin(), num_char);
+            return set(string.c_str(), size);
         }
 
         template <typename STRING_TYPE>
-        string_static & set(
+        string_static &
+        set(
             STRING_TYPE const & string,
             size_type idx_start,
             size_type idx_end) noexcept
         {
-            return set(string.begin(), idx_start, idx_end);
+            return set(string.c_str(), idx_start, idx_end);
         }
 
         constexpr size_type max_size(void) const noexcept
@@ -333,14 +376,14 @@ namespace gg
 
         size_type size(void) const noexcept
         {
-            return size_type(string::length(begin()));
+            return size_type(string::length(c_str()));
         }
 
         // inquiries
 
         bool8 is_empty(void) const noexcept
         {
-            return '\0' == m_data[0];
+            return '\0' == m_data.front();
         }
 
     private:
@@ -350,38 +393,40 @@ namespace gg
         data_type m_data;
     };
 
-    // helpers
-
     template <size_type MAX_SIZE>
-    inline bool8 operator<(
-        char8 const * lstring,
-        string_static<MAX_SIZE> const & rstring) noexcept
+    inline bool8
+    operator<(
+        typename string_static<MAX_SIZE>::const_pointer lhs,
+        string_static<MAX_SIZE> const & rhs) noexcept
     {
-        return rstring > lstring;
+        return rhs > lhs;
     }
 
     template <size_type MAX_SIZE>
-    inline bool8 operator>(
-        char8 const * lstring,
-        string_static<MAX_SIZE> const & rstring) noexcept
+    inline bool8
+    operator>(
+        typename string_static<MAX_SIZE>::const_pointer lhs,
+        string_static<MAX_SIZE> const & rhs) noexcept
     {
-        return rstring < lstring;
+        return rhs < lhs;
     }
 
     template <size_type MAX_SIZE>
-    inline bool8 operator==(
-        char8 const * lstring,
-        string_static<MAX_SIZE> const & rstring) noexcept
+    inline bool8
+    operator==(
+        typename string_static<MAX_SIZE>::const_pointer lhs,
+        string_static<MAX_SIZE> const & rhs) noexcept
     {
-        return rstring == lstring;
+        return rhs == lhs;
     }
 
     template <size_type MAX_SIZE>
-    inline bool8 operator!=(
-        char8 const * lstring,
-        string_static<MAX_SIZE> const & rstring) noexcept
+    inline bool8
+    operator!=(
+        typename string_static<MAX_SIZE>::const_pointer lhs,
+        string_static<MAX_SIZE> const & rhs) noexcept
     {
-        return rstring != lstring;
+        return rhs != lhs;
     }
 }
 

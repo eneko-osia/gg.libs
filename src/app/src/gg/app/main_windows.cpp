@@ -39,7 +39,7 @@ INT WINAPI WinMain(
         gg::string_static<512> buffer;
         wcstombs_s(
             &counter,
-            buffer.begin(),
+            buffer.c_str(),
             buffer.max_size(),
             argv[i],
             buffer.max_size());
