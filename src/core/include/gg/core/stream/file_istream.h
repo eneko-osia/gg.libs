@@ -5,6 +5,7 @@
 
 #include "gg/core/endian/endian.h"
 #include "gg/core/stream/stream_defs.h"
+#include "gg/core/type/type_trait.h"
 #include "gg/core/utils/byte_swap.h"
 #include <cstdio>
 
