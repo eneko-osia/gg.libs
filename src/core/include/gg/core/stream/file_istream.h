@@ -1,23 +1,15 @@
 #ifndef _gg_file_istream_h_
 #define _gg_file_istream_h_
 
-// include files
-
 #include "gg/core/endian/endian.h"
 #include "gg/core/stream/stream_defs.h"
 #include "gg/core/type/type_trait.h"
 #include "gg/core/utils/byte_swap.h"
 #include <cstdio>
 
-// namespace
-
 namespace gg
 {
-    // forward declarations
-
     class string_ref;
-
-    // class in charge of define a file input stream
 
     class file_istream final
     {
@@ -93,15 +85,12 @@ namespace gg
         template <typename STRING_TYPE>
         uint32 read_line(STRING_TYPE & line) noexcept
         {
-            if (is_valid())
+            int line_max_size = type::cast_static<int>(line.max_size());
+            if (fgets(line.c_str(), line_max_size, m_file))
             {
-                int line_max_size = type::cast_static<int>(line.max_size());
-                if (fgets(line.c_str(), line_max_size, m_file))
-                {
-                    uint32 line_size = type::cast_static<uint32>(line.size());
-                    m_position += line_size;
-                    return line_size;
-                }
+                uint32 line_size = type::cast_static<uint32>(line.size());
+                m_position += line_size;
+                return line_size;
             }
 
             return 0;
@@ -139,12 +128,10 @@ namespace gg
         uint32 read_internal(TYPE & value) noexcept
         {
             uint32 read_size = read(&value, sizeof(TYPE));
-
             if ((read_size > 0) && !is_endian_mode(endian::system_mode))
             {
                 value = byte_swap::swap(value);
             }
-
             return read_size;
         }
 

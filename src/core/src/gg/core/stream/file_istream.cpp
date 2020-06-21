@@ -26,7 +26,7 @@ file_istream::file_istream(
     if (is_valid())
     {
         fseek(m_file, 0, SEEK_END);
-        m_size = type::cast_static<uint32>(ftell(m_file));
+        m_size = (uint32) ftell(m_file);
         rewind(m_file);
     }
 }
@@ -40,7 +40,7 @@ file_istream::file_istream(FILE * file, endian_mode endian_mode) noexcept
     if (is_valid())
     {
         fseek(m_file, 0, SEEK_END);
-        m_size = type::cast_static<uint32>(ftell(m_file));
+        m_size = (uint32) ftell(m_file);
         rewind(m_file);
     }
 }
@@ -63,8 +63,7 @@ void file_istream::close(void) noexcept
 
 bool8 file_istream::move(uint32 position) noexcept
 {
-    if ((position <= m_size) &&
-        (0 == fseek(m_file, type::cast_static<long>(position), SEEK_SET)))
+    if ((position <= m_size) && (0 == fseek(m_file, (long) position, SEEK_SET)))
     {
         m_position = position;
         return true;
@@ -75,27 +74,16 @@ bool8 file_istream::move(uint32 position) noexcept
 
 uint32 file_istream::read(void * buffer, uint32 size) noexcept
 {
-    if (buffer && (size > 0) && is_valid())
-    {
-        uint32 read_size =
-            type::cast_static<uint32>(
-                fread(
-                    buffer,
-                    1,
-                    ((m_position + size) > m_size) ? m_size - m_position : size,
-                     m_file));
-
-        m_position += read_size;
-        return read_size;
-    }
-
-    return 0;
+    size_t element_size =
+        ((m_position + size) > m_size) ? m_size - m_position : size;
+    uint32 read_size = (uint32) fread(buffer, element_size, 1, m_file);
+    m_position += read_size;
+    return read_size;
 }
 
 uint32 file_istream::read(float32 & value) noexcept
 {
     uint32 read_size = read(&value, sizeof(float32));
-
     if (read_size > 0 && !is_endian_mode(endian::system_mode))
     {
         union
@@ -115,7 +103,6 @@ uint32 file_istream::read(float32 & value) noexcept
 uint32 file_istream::read(float64 & value) noexcept
 {
     uint32 read_size = read(&value, sizeof(float64));
-
     if (read_size > 0 && !is_endian_mode(endian::system_mode))
     {
         union
