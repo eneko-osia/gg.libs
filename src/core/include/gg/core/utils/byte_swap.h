@@ -57,6 +57,14 @@ namespace gg
                    ((value >> 24) & 0x000000FF);
         }
 
+        inline float32 swap(float32 value) noexcept
+        {
+            union { float32 as_float; uint32  as_unsigned; } temp;
+            temp.as_float = value;
+            temp.as_unsigned = swap(temp.as_unsigned);
+            return temp.as_float;
+        }
+
         inline int64 swap(int64 value) noexcept
         {
             return ((value << 56) & 0xFF00000000000000LL) |
@@ -79,6 +87,14 @@ namespace gg
                    ((value >> 24) & 0x0000000000FF0000LL) |
                    ((value >> 40) & 0x000000000000FF00LL) |
                    ((value >> 56) & 0x00000000000000FFLL);
+        }
+
+        inline float64 swap(float64 value) noexcept
+        {
+            union { float64 as_float; uint64  as_unsigned; } temp;
+            temp.as_float = value;
+            temp.as_unsigned = swap(temp.as_unsigned);
+            return temp.as_float;
         }
     }
 }

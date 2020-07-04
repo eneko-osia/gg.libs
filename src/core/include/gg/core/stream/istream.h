@@ -22,7 +22,7 @@ namespace gg
             uint32 size = stream->read(&value, sizeof(TYPE));
             if ((size > 0) && !is_endian_mode(endian::system_mode))
             {
-                value = swap(value);
+                value = byte_swap::swap(value);
             }
             return size;
         }
@@ -43,34 +43,6 @@ namespace gg
         {
         }
         ~istream(void) noexcept = default;
-
-    private:
-
-        // methods
-
-        template <typename TYPE>
-        TYPE swap(TYPE value) noexcept
-        {
-            return byte_swap::swap(value);
-        }
-
-        template <>
-        float32 swap<float32>(float32 value) noexcept
-        {
-            union { float32 as_float; uint32  as_unsigned; } temp;
-            temp.as_float = value;
-            temp.as_unsigned = byte_swap::swap(temp.as_unsigned);
-            return temp.as_float;
-        }
-
-        template <>
-        float64 swap<float64>(float64 value) noexcept
-        {
-            union { float64 as_float; uint64  as_unsigned; } temp;
-            temp.as_float = value;
-            temp.as_unsigned = byte_swap::swap(temp.as_unsigned);
-            return temp.as_float;
-        }
 
     private:
 
