@@ -15,16 +15,16 @@ namespace gg
         // methods
 
         template <typename TYPE>
-        uint32 read(TYPE & value) noexcept
+        size_type read(TYPE & value) noexcept
         {
             GG_ASSERT(type::cast_dynamic<STREAM_TYPE *>(this));
             STREAM_TYPE * stream = type::cast_static<STREAM_TYPE *>(this);
-            uint32 size = stream->read(&value, sizeof(TYPE));
-            if ((size > 0) && !is_endian_mode(endian::system_mode))
+            size_type read_size = stream->read(&value, sizeof(TYPE));
+            if ((read_size > 0) && !is_endian_mode(endian::system_mode))
             {
                 value = byte_swap::swap(value);
             }
-            return size;
+            return read_size;
         }
 
         // inquiries
