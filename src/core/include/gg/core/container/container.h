@@ -41,16 +41,14 @@ namespace gg
         inline void
         sort(ITERATOR begin, ITERATOR end) noexcept
         {
-            return std::sort(begin, end);
+            std::sort(begin, end);
         }
 
         template <typename ITERATOR, typename FUNCTION>
         inline void
         sort(ITERATOR begin, ITERATOR end, FUNCTION && function) noexcept
         {
-            return
-                std::sort(
-                    begin, end, type::forward<FUNCTION>(function));
+            std::sort(begin, end, type::forward<FUNCTION>(function));
         }
     }
 }
