@@ -62,34 +62,34 @@ namespace gg
         }
 
         template <typename TYPE>
-        void from(TYPE value, char8 * buffer, size_t size) noexcept;
+        void from(TYPE value, char8 * buffer, size_type size) noexcept;
 
         template <>
-        inline void from<bool8>(bool8 value, char8 * buffer, size_t size) noexcept
+        inline void from<bool8>(bool8 value, char8 * buffer, size_type size) noexcept
         {
             format(buffer, size, "%d", value);
         }
 
         template <>
-        inline void from<int32>(int32 value, char8 * buffer, size_t size) noexcept
+        inline void from<int32>(int32 value, char8 * buffer, size_type size) noexcept
         {
             format(buffer, size, "%d", value);
         }
 
         template <>
-        inline void from<uint32>(uint32 value, char8 * buffer, size_t size) noexcept
+        inline void from<uint32>(uint32 value, char8 * buffer, size_type size) noexcept
         {
             format(buffer, size, "%u", value);
         }
 
         template <>
-        inline void from<int64>(int64 value, char8 * buffer, size_t size) noexcept
+        inline void from<int64>(int64 value, char8 * buffer, size_type size) noexcept
         {
             format(buffer, size, "%lld", value);
         }
 
         template <>
-        inline void from<float32>(float32 value, char8 * buffer, size_t size) noexcept
+        inline void from<float32>(float32 value, char8 * buffer, size_type size) noexcept
         {
             format(buffer, size, "%f", value);
         }
