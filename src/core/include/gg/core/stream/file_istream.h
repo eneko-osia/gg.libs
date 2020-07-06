@@ -24,30 +24,18 @@ namespace gg
         // methods
 
         void close(void) noexcept;
-        bool8 move(uint32 position) noexcept;
-        uint32 read(void * buffer, uint32 bytes) noexcept;
-
-        template <typename STRING_TYPE>
-        uint32 read_line(STRING_TYPE & line) noexcept
-        {
-            int line_max_size = type::cast_static<int>(line.max_size());
-            if (fgets(line.c_str(), line_max_size, m_file))
-            {
-                uint32 line_size = type::cast_static<uint32>(line.size());
-                m_position += line_size;
-                return line_size;
-            }
-            return 0;
-        }
+        bool8 move(size_type position) noexcept;
+        size_type read(void * buffer, size_type bytes) noexcept;
+        size_type read_line(char8 * buffer, size_type max_size) noexcept;
 
         // accessors
 
-        uint32 get_position(void) const noexcept
+        size_type get_position(void) const noexcept
         {
             return m_position;
         }
 
-        uint32 size(void) const noexcept
+        size_type size(void) const noexcept
         {
             return m_size;
         }
@@ -64,8 +52,8 @@ namespace gg
         // attributes
 
         FILE * m_file;
-        uint32 m_position;
-        uint32 m_size;
+        size_type m_position;
+        size_type m_size;
     };
 }
 

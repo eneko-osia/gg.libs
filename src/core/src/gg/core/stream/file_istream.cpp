@@ -26,7 +26,7 @@ file_istream::file_istream(
     if (is_valid())
     {
         fseek(m_file, 0, SEEK_END);
-        m_size = (uint32) ftell(m_file);
+        m_size = type::cast_static<size_type>(ftell(m_file));
         rewind(m_file);
     }
 }
@@ -47,25 +47,39 @@ void file_istream::close(void) noexcept
     m_file = nullptr;
 }
 
-bool8 file_istream::move(uint32 position) noexcept
+bool8 file_istream::move(size_type position) noexcept
 {
     GG_ASSERT(position <= m_size);
-    if (0 == fseek(m_file, (long) position, SEEK_SET))
+    if (0 == fseek(m_file, type::cast_static<long>(position), SEEK_SET))
     {
         m_position = position;
         return true;
     }
-
     return false;
 }
 
-uint32 file_istream::read(void * buffer, uint32 size) noexcept
+size_type file_istream::read(void * buffer, size_type size) noexcept
 {
-    size_t element_size =
-        ((m_position + size) > m_size) ? m_size - m_position : size;
-    uint32 read_size = (uint32) fread(buffer, element_size, 1, m_file);
+    size_type read_size =
+        type::cast_static<size_type>(
+            fread(
+                buffer,
+                ((m_position + size) > m_size) ? m_size - m_position : size,
+                1,
+                m_file));
     m_position += read_size;
     return read_size;
+}
+
+size_type file_istream::read_line(char8 * buffer, size_type max_size) noexcept
+{
+    if (fgets(buffer, type::cast_static<int>(max_size), m_file))
+    {
+        size_type size = string::length(buffer);
+        m_position += size;
+        return size;
+    }
+    return 0;
 }
 
 //==============================================================================
