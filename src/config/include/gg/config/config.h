@@ -9,8 +9,6 @@
 
 namespace gg
 {
-    class file_istream;
-
     class config final
     {
     public:
