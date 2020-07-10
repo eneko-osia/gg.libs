@@ -22,7 +22,30 @@ namespace gg
 
         // methods
 
-        bool8 load(file_istream & file) noexcept;
+        template <typename STREAM_TYPE>
+        bool8 load(STREAM_TYPE & stream) noexcept
+        {
+            bool8 success = stream.is_valid();
+            if (success)
+            {
+                static size_type constexpr k_initial_size = 512;
+                string_dynamic key, line;
+                key.reserve(k_initial_size);
+                line.reserve(k_initial_size);
+
+                while (stream.read_line(line.c_str(), line.max_size()))
+                {
+                    string::trim(line.c_str(), line.size());
+                    success = load(line, key);
+                }
+
+                if (!success)
+                {
+                    unload();
+                }
+            }
+            return success;
+        }
         void unload(void) noexcept;
 
         // accessors
@@ -48,6 +71,13 @@ namespace gg
         // type definitions
 
         typedef hash_map<uint32, string_dynamic> value_map;
+
+        // methods
+
+        bool8
+        load(string_dynamic const & line, string_dynamic & key) noexcept;
+
+    private:
 
         // attributes
 
