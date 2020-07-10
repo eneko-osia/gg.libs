@@ -12,15 +12,20 @@ namespace gg
     {
     public:
 
+        // type definitions
+
+        typedef STREAM_TYPE stream_type;
+
         // methods
 
         template <typename TYPE>
         size_type read(TYPE & value) noexcept
         {
-            GG_ASSERT(type::cast_dynamic<STREAM_TYPE *>(this));
-            STREAM_TYPE * stream = type::cast_static<STREAM_TYPE *>(this);
+            GG_ASSERT(type::cast_dynamic<stream_type *>(this));
+            stream_type * stream = type::cast_static<stream_type *>(this);
             size_type read_size = stream->read(&value, sizeof(TYPE));
-            if ((read_size > 0) && !is_endian_mode(endian::system_mode))
+            GG_RETURN_VALUE_IF(0 == read_size, 0);
+            if (!is_endian_mode(endian::system_mode))
             {
                 value = byte_swap::swap(value);
             }

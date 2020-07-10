@@ -26,6 +26,13 @@ namespace gg
         size_type read(void * buffer, size_type bytes) noexcept;
         size_type read_line(char8 * buffer, size_type max_size) noexcept;
 
+        // inquiries
+
+        bool8 is_valid(void) const noexcept
+        {
+            return true;
+        }
+
     private:
 
         // attributes
