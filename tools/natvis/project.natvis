@@ -40,6 +40,18 @@
     </Expand>
     </Type>
 
+    <Type Name="gg::memory_buffer_ref">
+    <DisplayString>{{size = {m_size}}}</DisplayString>
+    <Expand>
+        <Item Name="[data]">m_data</Item>
+        <Item Name="[size]">m_size</Item>
+        <ArrayItems>
+            <Size>m_size</Size>
+            <ValuePointer>m_data</ValuePointer>
+        </ArrayItems>
+    </Expand>
+    </Type>
+
     <Type Name="gg::memory_buffer_static&lt;*&gt;">
     <DisplayString>{{size = {$T1}}}</DisplayString>
     <Expand>
