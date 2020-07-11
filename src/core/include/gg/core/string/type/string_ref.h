@@ -14,6 +14,7 @@ namespace gg
         // type definitions
 
         typedef char8                               item_type;
+        typedef item_type *                         pointer;
         typedef item_type const *                   const_pointer;
         typedef item_type const &                   const_reference;
         typedef contiguous_iterator<
@@ -75,6 +76,11 @@ namespace gg
         constexpr string_ref & operator=(STRING_TYPE const & string) noexcept
         {
             return set(string);
+        }
+
+        constexpr bool8 operator==(pointer string) const noexcept
+        {
+            return *this == type::cast_const<const_pointer>(string);
         }
 
         constexpr bool8 operator==(const_pointer string) const noexcept
