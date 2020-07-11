@@ -21,6 +21,10 @@ namespace gg
             endian_mode endian_mode = endian::system_mode) noexcept;
         ~file_istream(void) noexcept;
 
+        // using
+
+        using istream<file_istream>::read;
+
         // methods
 
         void close(void) noexcept;

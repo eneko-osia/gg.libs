@@ -30,6 +30,7 @@ bool8 memory_istream::move(size_type position) noexcept
 
 size_type memory_istream::read(void * buffer, size_type size) noexcept
 {
+    GG_RETURN_VALUE_IF(m_position >= m_buffer.size(), 0);
     size_type read_size =
         ((m_position + size) > m_buffer.size()) ?
             m_buffer.size() - m_position : size;
@@ -40,15 +41,17 @@ size_type memory_istream::read(void * buffer, size_type size) noexcept
 
 size_type memory_istream::read_line(char8 * buffer, size_type max_size) noexcept
 {
+    size_type read_size = 0;
     for (size_type i = m_position; i < m_buffer.size(); ++i)
     {
         if ('\n' == m_buffer.get<char8>(i))
         {
-            size_type read_size = i - m_position;
-            return read(buffer, (read_size > max_size) ? max_size : read_size);
+            read_size = (i - m_position + 1);
+            break;
         }
     }
-    return 0;
+    read_size = read_size ? read_size : (m_buffer.size() - m_position);
+    return read(buffer, (read_size > max_size) ? max_size : read_size);
 }
 
 //==============================================================================

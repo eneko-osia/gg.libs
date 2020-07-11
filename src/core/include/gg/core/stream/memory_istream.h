@@ -3,6 +3,7 @@
 
 // include files
 
+#include "gg/core/memory/memory_buffer_ref.h"
 #include "gg/core/stream/istream.h"
 
 namespace gg
@@ -20,17 +21,33 @@ namespace gg
             endian_mode endian_mode = endian::system_mode) noexcept;
         ~memory_istream(void) noexcept = default;
 
+        // using
+
+        using istream<memory_istream>::read;
+
         // methods
 
         bool8 move(size_type position) noexcept;
         size_type read(void * buffer, size_type bytes) noexcept;
         size_type read_line(char8 * buffer, size_type max_size) noexcept;
 
+        // accessors
+
+        size_type get_position(void) const noexcept
+        {
+            return m_position;
+        }
+
+        size_type size(void) const noexcept
+        {
+            return m_buffer.size();
+        }
+
         // inquiries
 
         bool8 is_valid(void) const noexcept
         {
-            return true;
+            return nullptr != m_buffer.data();
         }
 
     private:
