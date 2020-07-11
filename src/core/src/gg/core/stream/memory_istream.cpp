@@ -41,16 +41,16 @@ size_type memory_istream::read(void * buffer, size_type size) noexcept
 
 size_type memory_istream::read_line(char8 * buffer, size_type max_size) noexcept
 {
-    size_type read_size = 0;
-    for (size_type i = m_position; i < m_buffer.size(); ++i)
+    size_type position = m_position;
+    for (; position < m_buffer.size(); ++position)
     {
-        if ('\n' == m_buffer.get<char8>(i))
+        if ('\n' == m_buffer.get<char8>(position))
         {
-            read_size = (i - m_position + 1);
+            ++position;
             break;
         }
     }
-    read_size = read_size ? read_size : (m_buffer.size() - m_position);
+    size_type read_size = (position - m_position);
     return read(buffer, (read_size > max_size) ? max_size : read_size);
 }
 
