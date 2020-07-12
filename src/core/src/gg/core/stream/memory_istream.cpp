@@ -51,7 +51,9 @@ size_type memory_istream::read_line(char8 * buffer, size_type max_size) noexcept
         }
     }
     size_type read_size = (position - m_position);
-    return read(buffer, (read_size > max_size) ? max_size : read_size);
+    read_size = read(buffer, (read_size < max_size) ? read_size : max_size - 1);
+    buffer[read_size] = '\0';
+    return read_size;
 }
 
 //==============================================================================
