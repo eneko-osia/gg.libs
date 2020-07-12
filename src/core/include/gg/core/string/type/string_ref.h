@@ -198,7 +198,7 @@ namespace gg
 
         constexpr size_type size(void) const noexcept
         {
-            return size_type(string::length(c_str()));
+            return string::length(c_str());
         }
 
         // inquiries

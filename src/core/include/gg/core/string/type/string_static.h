@@ -381,7 +381,12 @@ namespace gg
 
         size_type size(void) const noexcept
         {
-            return size_type(string::length(c_str()));
+            return string::length(c_str());
+        }
+
+        size_type trim(char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
+        {
+            return string::trim(c_str(), size(), delims);
         }
 
         // inquiries

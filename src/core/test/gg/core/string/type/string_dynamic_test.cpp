@@ -699,6 +699,56 @@ TEST_CASE("string_dynamic.size", "[gg.string_dynamic]")
     }
 }
 
+TEST_CASE("string_dynamic.trim", "[gg.string]")
+{
+    SECTION("trim")
+    {
+        string_dynamic text(
+            GG_TEXT(
+                " Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
+                " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
+                " aliqua."));
+
+        REQUIRE(string::length(text.c_str()) == 129);
+        REQUIRE(text.size() == 129);
+        REQUIRE(text.trim() == 105);
+
+        REQUIRE(
+            string::compare(
+                text.c_str(),
+                GG_TEXT(
+                    "Loremipsumdolorsitamet,consecteturadipiscingelit,"
+                    "seddoeiusmodtemporincididuntutlaboreetdoloremagna"
+                    "aliqua.")) == 0);
+        REQUIRE(string::length(text.c_str()) == 105);
+        REQUIRE(text.size() == 105);
+    }
+
+    SECTION("trim custom delims")
+    {
+        string_dynamic text(
+            GG_TEXT(
+                " Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
+                " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
+                " aliqua."));
+
+        REQUIRE(string::length(text.c_str()) == 129);
+        REQUIRE(text.size() == 129);
+        REQUIRE(text.trim(GG_TEXT("abc")) == 117);
+
+        REQUIRE(
+            string::compare(
+                text.c_str(),
+                GG_TEXT(
+                    " Lorem ipsum dolor sit met, onsetetur dipising elit,\r\n"
+                    " \tsed do eiusmod tempor inididunt ut lore et dolore mgn \n"
+                    " liqu.")) == 0);
+        REQUIRE(string::length(text.c_str()) == 117);
+        REQUIRE(text.size() == 117);
+    }
+}
+
+
 TEST_CASE("string_dynamic.is_empty", "[gg.string_dynamic]")
 {
     SECTION("is_empty")
@@ -757,55 +807,6 @@ TEST_CASE("string_dynamic::length", "[gg.string]")
                 "consectetur adipiscing elit,\r\n"));
         REQUIRE(string::length(text.c_str()) == 58);
         REQUIRE(text.size() == 58);
-    }
-}
-
-TEST_CASE("string_dynamic::trim", "[gg.string]")
-{
-    SECTION("trim")
-    {
-        string_dynamic text(
-            GG_TEXT(
-                " Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
-                " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
-                " aliqua."));
-
-        REQUIRE(string::length(text.c_str()) == 129);
-        REQUIRE(text.size() == 129);
-        string::trim(text.c_str(), string::length(text.c_str()));
-
-        REQUIRE(
-            string::compare(
-                text.c_str(),
-                GG_TEXT(
-                    "Loremipsumdolorsitamet,consecteturadipiscingelit,"
-                    "seddoeiusmodtemporincididuntutlaboreetdoloremagna"
-                    "aliqua.")) == 0);
-        REQUIRE(string::length(text.c_str()) == 105);
-        REQUIRE(text.size() == 105);
-    }
-
-    SECTION("trim custom delims")
-    {
-        string_dynamic text(
-            GG_TEXT(
-                " Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
-                " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
-                " aliqua."));
-
-        REQUIRE(string::length(text.c_str()) == 129);
-        REQUIRE(text.size() == 129);
-        string::trim(text.c_str(), string::length(text.c_str()), GG_TEXT("abc"));
-
-        REQUIRE(
-            string::compare(
-                text.c_str(),
-                GG_TEXT(
-                    " Lorem ipsum dolor sit met, onsetetur dipising elit,\r\n"
-                    " \tsed do eiusmod tempor inididunt ut lore et dolore mgn \n"
-                    " liqu.")) == 0);
-        REQUIRE(string::length(text.c_str()) == 117);
-        REQUIRE(text.size() == 117);
     }
 }
 

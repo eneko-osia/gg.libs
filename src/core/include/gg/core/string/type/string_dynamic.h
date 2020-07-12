@@ -399,7 +399,13 @@ namespace gg
 
         size_type size(void) const noexcept
         {
-            return m_data.is_empty() ? 0 : string::length(c_str());
+            return m_data.is_empty() ? 0 : m_data.size() - 1;
+        }
+
+        size_type trim(char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
+        {
+            resize(string::trim(c_str(), size(), delims));
+            return size();
         }
 
         // inquiries
