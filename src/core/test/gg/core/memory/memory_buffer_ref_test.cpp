@@ -15,7 +15,7 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<memory_buffer_ref>::value);
+        REQUIRE(type::is_assignable<memory_buffer_ref>::value);
         REQUIRE(!type::has_trivial_assign<memory_buffer_ref>::value);
     }
 
@@ -27,7 +27,7 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<memory_buffer_ref>::value);
+        REQUIRE(type::is_copyable<memory_buffer_ref>::value);
         REQUIRE(!type::has_trivial_copy<memory_buffer_ref>::value);
     }
 

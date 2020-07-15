@@ -1,12 +1,11 @@
 #ifndef _gg_memory_buffer_ref_h_
 #define _gg_memory_buffer_ref_h_
 
-#include "gg/core/pattern/non_copyable.h"
 #include "gg/core/type/type_trait.h"
 
 namespace gg
 {
-    class memory_buffer_ref final : public non_copyable
+    class memory_buffer_ref final
     {
     public:
 
@@ -24,6 +23,12 @@ namespace gg
         {
         }
 
+        memory_buffer_ref(memory_buffer_ref const & buffer) noexcept
+            : m_data(buffer.m_data)
+            , m_size(buffer.m_size)
+        {
+        }
+
         memory_buffer_ref(memory_buffer_ref && buffer) noexcept
             : m_data(type::move(buffer.m_data))
             , m_size(type::move(buffer.m_size))
@@ -33,6 +38,15 @@ namespace gg
         }
 
         // operators
+
+        memory_buffer_ref &
+        operator=(memory_buffer_ref const & buffer) noexcept
+        {
+            GG_ASSERT(this != &buffer);
+            m_data = buffer.m_data;
+            m_size = buffer.m_size;
+            return *this;
+        }
 
         memory_buffer_ref &
         operator=(memory_buffer_ref && buffer) noexcept

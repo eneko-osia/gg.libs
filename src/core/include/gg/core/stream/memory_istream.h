@@ -54,7 +54,7 @@ namespace gg
 
         // attributes
 
-        memory_buffer_ref const & m_buffer;
+        memory_buffer_ref m_buffer;
         size_type m_position;
     };
 }
