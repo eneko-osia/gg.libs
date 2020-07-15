@@ -15,11 +15,14 @@ jobs:
       fail-fast: false
 
     steps:
+    - name: Update dependencies
+      run: sudo apt update
+
     - name: Install Open GL
-      run: sudo apt-get install libgl1-mesa-dev
+      run: sudo apt install libgl1-mesa-dev
 
     - name: Install Vulkan
-      run: sudo apt-get install libvulkan1 libvulkan-dev
+      run: sudo apt install libvulkan1 libvulkan-dev
 
     - name: Checkout repository
       uses: actions/checkout@v2
