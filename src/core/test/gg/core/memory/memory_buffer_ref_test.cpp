@@ -71,6 +71,19 @@ TEST_CASE("memory_buffer_ref.constructor", "[gg.memory_buffer_ref]")
         REQUIRE(memory::compare(data, buffer.data(), buffer.size()) == 0);
     }
 
+    SECTION("memory_buffer_ref(memory_buffer_ref)")
+    {
+        uint8 data[32];
+        memory_buffer_ref copied_buffer(data, 16);
+        memory_buffer_ref buffer(copied_buffer);
+        REQUIRE(buffer.data() == data);
+        REQUIRE(buffer.size() == 16);
+        REQUIRE(memory::compare(data, buffer.data(), buffer.size()) == 0);
+        REQUIRE(copied_buffer.data() == data);
+        REQUIRE(copied_buffer.size() == 16);
+        REQUIRE(memory::compare(data, copied_buffer.data(), copied_buffer.size()) == 0);
+    }
+
     SECTION("memory_buffer_ref(rvalue_memory_buffer_ref)")
     {
         uint8 data[32];
@@ -86,6 +99,22 @@ TEST_CASE("memory_buffer_ref.constructor", "[gg.memory_buffer_ref]")
 
 TEST_CASE("memory_buffer_ref.operator=", "[gg.memory_buffer_ref]")
 {
+    SECTION("memory_buffer_ref = memory_buffer_ref")
+    {
+        uint8 data[32];
+        memory_buffer_ref copied_buffer(data, 16);
+        memory_buffer_ref buffer;
+        buffer = copied_buffer;
+
+        REQUIRE(buffer.data() == data);
+        REQUIRE(buffer.size() == 16);
+        REQUIRE(memory::compare(data, buffer.data(), buffer.size()) == 0);
+
+        REQUIRE(copied_buffer.data() == data);
+        REQUIRE(copied_buffer.size() == 16);
+        REQUIRE(memory::compare(data, copied_buffer.data(), copied_buffer.size()) == 0);
+    }
+
     SECTION("memory_buffer_ref = rvalue_memory_buffer_ref")
     {
         uint8 data[32];
