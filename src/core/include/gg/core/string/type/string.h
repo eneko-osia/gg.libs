@@ -2,6 +2,7 @@
 #define _gg_string_h_
 
 #include "gg/core/debug/assert.h"
+#include "gg/core/macro/macro.h"
 #include "gg/core/string/macro/macro.h"
 #include "gg/core/type/constant.h"
 #include "gg/core/type/type_trait.h"
@@ -104,31 +105,65 @@ namespace gg
         }
 
         inline constexpr size_type
+        ltrim(
+            char8 * str,
+            size_type size,
+            char8 const * delimiters = GG_TEXT(" \f\n\r\t\v")) noexcept
+        {
+            GG_ASSERT(str);
+            GG_ASSERT(delimiters);
+
+            char8 const * delimiters_end = delimiters + length(delimiters);
+            char8 const * str_start = str;
+            char8 const * str_end = str + size;
+            char8 const * str_it = str;
+
+            for(; str_it != str_end; ++str_it)
+            {
+                char8 const * delimiter = delimiters;
+                for(; delimiter != delimiters_end; ++delimiter)
+                {
+                    GG_BREAK_IF(*str_it == *delimiter)
+                }
+                GG_BREAK_IF(delimiter == delimiters_end);
+            }
+            for(; str_it != str_end; ++str_it) { *str++ = *str_it; }
+            *str = '\0';
+            return str - str_start;
+        }
+
+        inline constexpr size_type
+        rtrim(
+            char8 * str,
+            size_type size,
+            char8 const * delimiters = GG_TEXT(" \f\n\r\t\v")) noexcept
+        {
+            GG_ASSERT(str);
+            GG_ASSERT(delimiters);
+
+            char8 const * delimiters_end = delimiters + length(delimiters);
+            char8 const * str_start = str;
+
+            for(str = str + size - 1; str != str_start; --str)
+            {
+                char8 const * delimiter = delimiters;
+                for(; delimiter != delimiters_end; ++delimiter)
+                {
+                    GG_BREAK_IF(*str == *delimiter)
+                }
+                GG_BREAK_IF(delimiter == delimiters_end);
+            }
+            *++str = '\0';
+            return str - str_start;
+        }
+
+        inline constexpr size_type
         trim(
             char8 * str,
             size_type size,
-            char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
+            char8 const * delimiters = GG_TEXT(" \f\n\r\t\v")) noexcept
         {
-            GG_ASSERT(str);
-            GG_ASSERT(delims);
-
-            char8 const * delims_end = delims + length(delims);
-            for(char8 const * i = delims; i != delims_end; ++i)
-            {
-                size_type index = 0;
-                char8 const * str_end = str + size;
-                for(char8 const * j = str; j != str_end; ++j)
-                {
-                    if (*i != *j)
-                    {
-                        str[index++] = (*j);
-                    }
-                }
-                str[index] = '\0';
-                size = index;
-            }
-
-            return size;
+            return ltrim(str, rtrim(str, size, delimiters), delimiters);
         }
     }
 }

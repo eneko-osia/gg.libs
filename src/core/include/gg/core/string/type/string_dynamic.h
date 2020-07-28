@@ -402,9 +402,10 @@ namespace gg
             return m_data.is_empty() ? 0 : m_data.size() - 1;
         }
 
-        size_type trim(char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
+        size_type
+        trim(char8 const * delimiters = GG_TEXT(" \f\n\r\t\v")) noexcept
         {
-            resize(string::trim(c_str(), size(), delims));
+            resize(string::trim(c_str(), size(), delimiters));
             return size();
         }
 

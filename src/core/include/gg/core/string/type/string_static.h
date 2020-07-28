@@ -384,9 +384,10 @@ namespace gg
             return string::length(c_str());
         }
 
-        size_type trim(char8 const * delims = GG_TEXT(" \t\r\n")) noexcept
+        size_type
+        trim(char8 const * delimiters = GG_TEXT(" \f\n\r\t\v")) noexcept
         {
-            return string::trim(c_str(), size(), delims);
+            return string::trim(c_str(), size(), delimiters);
         }
 
         // inquiries

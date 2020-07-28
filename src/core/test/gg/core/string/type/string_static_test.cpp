@@ -709,46 +709,37 @@ TEST_CASE("string_static.trim", "[gg.string]")
     {
         string_static<256> text(
             GG_TEXT(
-                " Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
+                "\r Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
+                " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
+                " aliqua. \t\n\r"));
+        REQUIRE(text.size() == 134);
+        REQUIRE(text.trim() == 128);
+        REQUIRE(text.size() == 128);
+        REQUIRE(
+            text ==
+            GG_TEXT(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
                 " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
                 " aliqua."));
-
-        REQUIRE(string::length(text.c_str()) == 129);
-        REQUIRE(text.size() == 129);
-        REQUIRE(text.trim() == 105);
-
-        REQUIRE(
-            string::compare(
-                text.c_str(),
-                GG_TEXT(
-                    "Loremipsumdolorsitamet,consecteturadipiscingelit,"
-                    "seddoeiusmodtemporincididuntutlaboreetdoloremagna"
-                    "aliqua.")) == 0);
-        REQUIRE(string::length(text.c_str()) == 105);
-        REQUIRE(text.size() == 105);
     }
 
     SECTION("trim custom delims")
     {
         string_static<256> text(
             GG_TEXT(
-                " Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
+                "a b c Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
                 " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
-                " aliqua."));
+                " aliqua. \t\n\r a c b"));
 
-        REQUIRE(string::length(text.c_str()) == 129);
-        REQUIRE(text.size() == 129);
-        REQUIRE(text.trim(GG_TEXT("abc")) == 117);
-
+        REQUIRE(text.size() == 144);
+        REQUIRE(text.trim(GG_TEXT(" abc")) == 132);
+        REQUIRE(text.size() == 132);
         REQUIRE(
-            string::compare(
-                text.c_str(),
-                GG_TEXT(
-                    " Lorem ipsum dolor sit met, onsetetur dipising elit,\r\n"
-                    " \tsed do eiusmod tempor inididunt ut lore et dolore mgn \n"
-                    " liqu.")) == 0);
-        REQUIRE(string::length(text.c_str()) == 117);
-        REQUIRE(text.size() == 117);
+            text ==
+            GG_TEXT(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\r\n"
+                " \tsed do eiusmod tempor incididunt ut labore et dolore magna \n"
+                " aliqua. \t\n\r"));
     }
 }
 
