@@ -123,14 +123,8 @@ TEST_CASE("configuration.get_value", "[gg.configuration]")
         "uint32 = 32\n"
         "int64 = -64\n"
         "uint64 = 64\n"
-        "float32 = 32.1\n"
-        "float64 = 64.1\n"
-        "char8 = a\n"
-        "uchar8 = b\n"
-        "char16 = c\n"
-        "uchar16 = d\n"
-        "char32 = e\n"
-        "uchar32 = f\n"
+        "float32 = 32.23\n"
+        "float64 = 64.46\n"
         "string = this is a string\n";
     memory_istream stream(memory_buffer_ref((byte *) data.c_str(), data.size()));
     configuration config;
@@ -224,6 +218,36 @@ TEST_CASE("configuration.get_value", "[gg.configuration]")
     SECTION("get_value<uint64> - invalid")
     {
         REQUIRE(0 == config.get_value<uint64>(GG_TEXT("section/uint64_invalid")));
+    }
+
+    SECTION("get_value<float32>")
+    {
+        REQUIRE(32.23f == config.get_value<float32>(GG_TEXT("section/float32")));
+    }
+
+    SECTION("get_value<float32> - invalid")
+    {
+        REQUIRE(0.0f == config.get_value<float32>(GG_TEXT("section/float32_invalid")));
+    }
+
+    SECTION("get_value<float64>")
+    {
+        REQUIRE(64.46 == config.get_value<float64>(GG_TEXT("section/float64")));
+    }
+
+    SECTION("get_value<float64> - invalid")
+    {
+        REQUIRE(0.0 == config.get_value<float64>(GG_TEXT("section/float64_invalid")));
+    }
+
+    SECTION("get_value<string>")
+    {
+        REQUIRE("this is a string" == config.get_value<string_ref>(GG_TEXT("section/string"), GG_TEXT("")));
+    }
+
+    SECTION("get_value<string> - invalid")
+    {
+        REQUIRE("" == config.get_value<string_ref>(GG_TEXT("section/string_invalid"), GG_TEXT("")));
     }
 }
 
