@@ -168,7 +168,6 @@ namespace gg
         inline
         constexpr TO cast_static(FROM const & value) noexcept
         {
-            GG_ASSERT(value == static_cast<FROM>(static_cast<TO>(value)));
             return static_cast<TO>(value);
         }
 
