@@ -29,7 +29,6 @@ namespace gg
             bool8 success = stream.is_valid();
             while (success && stream.read_line(line.c_str(), line.max_size()))
             {
-                line.trim();
                 success = load(line, section);
             }
 

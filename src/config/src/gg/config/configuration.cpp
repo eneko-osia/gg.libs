@@ -16,24 +16,17 @@ configuration::load(string_ref const & line, string & section) noexcept
 
     // section
 
-    if ('[' == line[0])
+    size_type equal_position = line.find("=");
+    if (gg::string::npos != equal_position)
     {
-        size_type position = line.find("]");
-        GG_RETURN_FALSE_IF(gg::string::npos == position);
-        section.set(line, 1, position - 1);
-        section.trim();
-    }
-    else if (!section.is_empty())
-    {
+        GG_RETURN_FALSE_IF(section.is_empty());
+
         // name = value
 
-        size_type position = line.find("=");
-        GG_RETURN_FALSE_IF(gg::string::npos == position);
-
-        string name(line, position);
+        string name(line, equal_position);
         name.trim();
 
-        string value(&line[position + 1]);
+        string value(&line[equal_position + 1]);
         value.trim();
 
         string_static<1024> key;
@@ -43,7 +36,15 @@ configuration::load(string_ref const & line, string & section) noexcept
     }
     else
     {
-        return false;
+        size_type section_start = line.find("[");
+        size_type section_end = line.find("]");
+
+        GG_RETURN_FALSE_IF(
+            gg::string::npos == section_start ||
+            gg::string::npos == section_end);
+
+        section.set(line, section_start + 1, section_end - 1);
+        section.trim();
     }
 
     return true;
