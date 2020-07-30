@@ -11,12 +11,15 @@ namespace gg::app
     {
     public:
 
+#if defined(GG_APP_WINDOW_SUPPORT)
+
         // methods
 
         id_type create_window(
             string_ref const & name,
             uint16 width,
             uint16 height) noexcept;
+#endif
 
     protected:
 

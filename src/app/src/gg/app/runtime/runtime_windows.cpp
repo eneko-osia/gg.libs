@@ -6,8 +6,11 @@
 //==============================================================================
 
 #include "gg/app/data/data.h"
+
+#if defined(GG_APP_WINDOW_SUPPORT)
 #include "gg/app/window/window_info.h"
 #include "gg/app/window/window.h"
+#endif
 
 //==============================================================================
 namespace gg::app
@@ -19,6 +22,8 @@ runtime_windows::runtime_windows(data const & data) noexcept
 {
 }
 
+//==============================================================================
+#if defined(GG_APP_WINDOW_SUPPORT)
 //==============================================================================
 
 id_type runtime_windows::create_window(
@@ -39,8 +44,12 @@ id_type runtime_windows::create_window(
         return id_type_invalid;
     }
 
-    return id_type(m_windows.size() - 1);
+    return type::cast_static<id_type>(m_windows.size() - 1);
 }
+
+//==============================================================================
+#endif
+//==============================================================================
 
 void runtime_windows::handle_messages(void) noexcept
 {

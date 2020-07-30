@@ -1,8 +1,18 @@
 # generate src files
 generate_src_files(${CMAKE_CURRENT_SOURCE_DIR})
 
+# options
+option(
+    GG_APP_WINDOW_SUPPORT
+    "app window support"
+    ON
+)
+
 # includes
-include(GGX11)
+if(GG_APP_WINDOW_SUPPORT)
+    include(GGX11)
+endif()
+
 include(GGSrcFiles.cmake)
 
 # library
@@ -32,6 +42,14 @@ target_compile_definitions(
         $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
 )
 
+if(GG_APP_WINDOW_SUPPORT)
+    target_compile_definitions(
+        gg.app
+        PUBLIC
+            GG_APP_WINDOW_SUPPORT
+    )
+endif()
+
 # compile options
 target_compile_options(
     gg.app
@@ -47,7 +65,11 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.app ${X11_LIBRARIES} gg.core)
+target_link_libraries(gg.app gg.core)
+
+if(GG_APP_WINDOW_SUPPORT)
+    target_link_libraries(gg.app ${X11_LIBRARIES})
+endif()
 
 # group folder
 set_target_properties(gg.app PROPERTIES FOLDER gg.libs)

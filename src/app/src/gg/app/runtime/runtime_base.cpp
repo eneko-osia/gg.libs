@@ -2,7 +2,9 @@
 
 //==============================================================================
 
+#if defined(GG_APP_WINDOW_SUPPORT)
 #include "gg/app/window/window.h"
+#endif
 
 //==============================================================================
 namespace gg::app
@@ -11,16 +13,20 @@ namespace gg::app
 
 runtime_base::runtime_base(data const & data) noexcept
     : m_data(data)
+#if defined(GG_APP_WINDOW_SUPPORT)
     , m_windows()
+#endif
 {
 }
 
 runtime_base::~runtime_base(void) noexcept
 {
-    for (id_type id = 0; id < id_type(m_windows.size()); ++id)
+#if defined(GG_APP_WINDOW_SUPPORT)
+    for (id_type id = 0; id < type::cast_static<id_type>(m_windows.size()); ++id)
     {
         destroy_window(id);
     }
+#endif
 }
 
 //==============================================================================
@@ -33,6 +39,8 @@ int32 runtime_base::main(data const & data) noexcept
     return result;
 }
 
+//==============================================================================
+#if defined(GG_APP_WINDOW_SUPPORT)
 //==============================================================================
 
 void runtime_base::destroy_window(id_type id) noexcept
@@ -55,6 +63,8 @@ window const * runtime_base::get_window(id_type id) const noexcept
     return (id < m_windows.size()) ? &m_windows[id] : nullptr;
 }
 
+//==============================================================================
+#endif
 //==============================================================================
 }
 //==============================================================================

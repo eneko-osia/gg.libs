@@ -1,4 +1,4 @@
-#if defined(GG_LINUX)
+#if defined(GG_APP_WINDOW_SUPPORT) && defined(GG_LINUX)
 //==============================================================================
 
 #include "gg/app/window/window_linux.h"

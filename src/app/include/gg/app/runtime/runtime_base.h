@@ -1,9 +1,12 @@
 #ifndef _gg_app_runtime_base_h_
 #define _gg_app_runtime_base_h_
 
+#include "gg/core/pattern/singleton/singleton_manual.h"
+
+#if defined(GG_APP_WINDOW_SUPPORT)
 #include "gg/core/container/array/array_dynamic.h"
 #include "gg/core/container/container.h"
-#include "gg/core/pattern/singleton/singleton_manual.h"
+#endif
 
 namespace gg::app
 {
@@ -17,6 +20,15 @@ namespace gg::app
         // static methods
 
         static int32 main(data const & data) noexcept;
+
+        // accessors
+
+        data const & get_data(void) const noexcept
+        {
+            return m_data;
+        }
+
+#if defined(GG_APP_WINDOW_SUPPORT)
 
         // methods
 
@@ -42,13 +54,9 @@ namespace gg::app
 
         // accessors
 
-        data const & get_data(void) const noexcept
-        {
-            return m_data;
-        }
-
         window * get_window(id_type id) noexcept;
         window const * get_window(id_type id) const noexcept;
+#endif
 
     protected:
 
@@ -63,10 +71,6 @@ namespace gg::app
 
         friend class gg::memory;
 
-        // type definitions
-
-        typedef array_dynamic<window> window_container;
-
         // static methods
 
         static void create(data const & data) noexcept;
@@ -80,7 +84,17 @@ namespace gg::app
         // attributes
 
         data const & m_data;
+
+#if defined(GG_APP_WINDOW_SUPPORT)
+
+        // type definitions
+
+        typedef array_dynamic<window> window_container;
+
+        // attributes
+
         window_container m_windows;
+#endif
     };
 }
 
