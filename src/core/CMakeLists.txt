@@ -61,6 +61,7 @@ target_compile_options(
         $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:release>:-O3>>
         $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:distribution>:-s>>
         $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:distribution>:-O3>>
+        $<$<STREQUAL:${compiler},gnu>:-Wno-format-security>
         $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:debug>:/MDd>>
         $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:debug>:/Ob0>>
         $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:debug>:/Od>>
