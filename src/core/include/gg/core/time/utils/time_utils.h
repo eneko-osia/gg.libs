@@ -4,7 +4,9 @@
 // include files
 
 #include "gg/core/time/type/nanosecond.h"
+#include "gg/core/time/type/second.h"
 #include <chrono>
+#include <ctime>
 
 // namespace
 
@@ -17,6 +19,17 @@ namespace gg
     public:
 
         // methods
+
+        template <typename TIME_TYPE>
+        static void format(
+            char8 * buffer,
+            size_type size,
+            char8 const * message,
+            TIME_TYPE time)
+        {
+            std::time_t time_to_format = second(time).get();
+            std::strftime(buffer, size, message, std::localtime(&time_to_format));
+        }
 
         template <typename TIME_TYPE>
         static TIME_TYPE clock_now(void)
