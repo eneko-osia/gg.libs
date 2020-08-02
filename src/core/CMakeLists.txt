@@ -38,6 +38,7 @@ target_compile_definitions(
         $<$<CONFIG:release>:GG_DEBUG>
         $<$<STREQUAL:${compiler},gnu>:GG_GNU>
         $<$<STREQUAL:${compiler},msvc>:GG_MSVC>
+        $<$<STREQUAL:${compiler},msvc>:_CRT_SECURE_NO_WARNINGS>
         $<$<STREQUAL:${platform},android>:GG_ANDROID>
         $<$<STREQUAL:${platform},mac>:GG_MAC>
         $<$<STREQUAL:${platform},linux>:GG_LINUX>
@@ -47,7 +48,6 @@ target_compile_definitions(
         $<$<STREQUAL:${platform_architecture},x86>:GG_X86>
         $<$<STREQUAL:${platform_architecture},x86_64>:GG_X86_64>
     PRIVATE
-        $<$<STREQUAL:${compiler},msvc>:_CRT_SECURE_NO_WARNINGS>
         $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
 )
 

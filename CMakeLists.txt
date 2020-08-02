@@ -36,6 +36,7 @@ set(gg_tools_directory
 set(gg_libraries
     "core"
     "test"
+    "log"
     "app"
     "crypt"
     "config"
@@ -72,6 +73,14 @@ option(
 )
 
 # dependent options
+CMAKE_DEPENDENT_OPTION(
+    GG_LOG
+    "log library"
+    ON
+    GG_CORE
+    OFF
+)
+
 CMAKE_DEPENDENT_OPTION(
     GG_APP
     "app library"

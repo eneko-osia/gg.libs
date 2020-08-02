@@ -38,7 +38,6 @@ target_compile_definitions(
     PUBLIC
         GG_APP
     PRIVATE
-        $<$<STREQUAL:${compiler},msvc>:_CRT_SECURE_NO_WARNINGS>
         $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
 )
 
