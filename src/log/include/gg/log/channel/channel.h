@@ -83,10 +83,10 @@ namespace gg::log
             friend class gg::memory;                                        \
             CHANNEL(void) noexcept = default;                               \
             ~CHANNEL(void) noexcept = default;                              \
-        };
+        }
 
     #define GG_LOG_CHANNEL_CREATE(CHANNEL, LEVEL, FLAGS, ENABLED)           \
-        channel_helper<CHANNEL> CHANNEL##_helper(LEVEL, FLAGS, ENABLED);
+        channel_helper<CHANNEL> CHANNEL##_helper(LEVEL, FLAGS, ENABLED)
 }
 
 #endif // _gg_log_channel_h_
