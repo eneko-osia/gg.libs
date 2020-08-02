@@ -46,11 +46,7 @@ TEST_CASE("channel", "[gg.log]")
 
     SECTION("pod")
     {
-#if defined(GG_LINUX)
-        REQUIRE(type::is_pod<mock_channel>::value);
-#elif defined(GG_WINDOWS)
         REQUIRE(!type::is_pod<mock_channel>::value);
-#endif
     }
 
     SECTION("polymorphic")

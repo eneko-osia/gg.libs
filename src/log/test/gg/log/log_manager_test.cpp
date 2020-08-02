@@ -60,11 +60,7 @@ TEST_CASE("log_manager", "[gg.log]")
 
     SECTION("pod")
     {
-#if defined(GG_LINUX)
-        REQUIRE(type::is_pod<log_manager>::value);
-#elif defined(GG_WINDOWS)
         REQUIRE(!type::is_pod<log_manager>::value);
-#endif
     }
 
     SECTION("polymorphic")
