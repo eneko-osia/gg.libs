@@ -1,19 +1,32 @@
 # generate src files
 generate_src_files(${CMAKE_CURRENT_SOURCE_DIR})
 
+# options
+option(
+    GG_GFX_OPENGL_SUPPORT
+    "gfx opengl support"
+    ON
+)
+
+option(
+    GG_GFX_VULKAN_SUPPORT
+    "gfx vulkan support"
+    ON
+)
+
 # includes
-if(GG_OPENGL)
+if(GG_GFX_OPENGL_SUPPORT)
     include(GGOpenGL)
 endif()
 
-if(GG_VULKAN)
+if(GG_GFX_VULKAN_SUPPORT)
     include(GGVulkan)
 endif()
 
 include(GGSrcFiles.cmake)
 
 # add dependencies
-if(GG_OPENGL)
+if(GG_GFX_OPENGL_SUPPORT)
     add_subdirectory("deps/glew")
 endif()
 
@@ -34,7 +47,7 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-if(GG_OPENGL)
+if(GG_GFX_OPENGL_SUPPORT)
     target_include_directories(
         gg.gfx
         PUBLIC
@@ -42,7 +55,7 @@ if(GG_OPENGL)
     )
 endif()
 
-if(GG_VULKAN)
+if(GG_GFX_VULKAN_SUPPORT)
     target_include_directories(
         gg.gfx
         PUBLIC
@@ -59,19 +72,19 @@ target_compile_definitions(
         $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
 )
 
-if(GG_OPENGL)
+if(GG_GFX_OPENGL_SUPPORT)
     target_compile_definitions(
         gg.gfx
         PUBLIC
-            GG_OPENGL
+            GG_GFX_OPENGL_SUPPORT
     )
 endif()
 
-if(GG_VULKAN)
+if(GG_GFX_VULKAN_SUPPORT)
     target_compile_definitions(
         gg.gfx
         PUBLIC
-            GG_VULKAN
+            GG_GFX_VULKAN_SUPPORT
     )
 endif()
 
@@ -96,7 +109,7 @@ target_link_libraries(
         gg.app
 )
 
-if(GG_OPENGL)
+if(GG_GFX_OPENGL_SUPPORT)
     target_link_libraries(
         gg.gfx
         PRIVATE
@@ -105,7 +118,7 @@ if(GG_OPENGL)
     )
 endif()
 
-if(GG_VULKAN)
+if(GG_GFX_VULKAN_SUPPORT)
     target_link_libraries(
         gg.gfx
         PRIVATE

@@ -1,4 +1,4 @@
-#if defined(GG_LINUX) && defined(GG_OPENGL)
+#if defined(GG_GFX_OPENGL_SUPPORT) && defined(GG_LINUX)
 //==============================================================================
 
 #include "gg/gfx/opengl/opengl_context_linux.h"

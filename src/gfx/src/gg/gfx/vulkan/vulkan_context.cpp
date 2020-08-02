@@ -1,4 +1,4 @@
-#if defined(GG_VULKAN)
+#if defined(GG_GFX_VULKAN_SUPPORT)
 //==============================================================================
 
 #include "gg/gfx/vulkan/vulkan_context.h"

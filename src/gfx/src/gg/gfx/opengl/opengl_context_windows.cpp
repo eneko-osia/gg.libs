@@ -1,4 +1,4 @@
-#if defined(GG_WINDOWS) && defined(GG_OPENGL)
+#if defined(GG_GFX_OPENGL_SUPPORT) && defined(GG_WINDOWS)
 //==============================================================================
 
 #include "gg/gfx/opengl/opengl_context_windows.h"
