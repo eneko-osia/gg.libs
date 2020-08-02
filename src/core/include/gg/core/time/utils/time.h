@@ -1,20 +1,14 @@
-#ifndef _gg_time_utils_h_
-#define _gg_time_utils_h_
-
-// include files
+#ifndef _gg_time_h_
+#define _gg_time_h_
 
 #include "gg/core/time/type/nanosecond.h"
 #include "gg/core/time/type/second.h"
 #include <chrono>
 #include <ctime>
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define an time utilities
-
-    class time_utils final
+    class time final
     {
     public:
 
@@ -59,4 +53,4 @@ namespace gg
     };
 }
 
-#endif // _gg_time_utils_h_
+#endif // _gg_time_h_

@@ -4,7 +4,7 @@
 #include "gg/core/string/type/string_ref.h"
 #include "gg/core/string/type/string_static.h"
 #include "gg/core/time/type/millisecond.h"
-#include "gg/core/time/utils/time_utils.h"
+#include "gg/core/time/utils/time.h"
 #include "gg/log/channel/channel_defs.h"
 #include "gg/log/log_manager.h"
 
@@ -79,13 +79,13 @@ namespace gg::log
 
                 if (channel.has_flag(channel_flags::time))
                 {
-                    millisecond current_time =
-                        time_utils::system_now<millisecond>();
+                    millisecond current_time = time::system_now<millisecond>();
+
                     {
                         size_type buffer_size = buffer.size();
                         size_type buffer_max_size = buffer.max_size() - buffer_size - 1;
 
-                        time_utils::format(
+                        time::format(
                             buffer.c_str() + buffer_size,
                             buffer_max_size,
                             "[%d/%m/%Y %H:%M:%S",

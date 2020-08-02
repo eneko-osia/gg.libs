@@ -3,8 +3,7 @@
 //==============================================================================
 
 #include "gg/core/thread/thread.h"
-#include "gg/core/time/type/second.h"
-#include "gg/core/time/utils/time_utils.h"
+#include "gg/core/time/utils/time.h"
 #include "gg/core/type/type_trait.h"
 
 //==============================================================================
@@ -138,9 +137,9 @@ TEST_CASE("thread.current.sleep", "[gg.thread]")
 {
     SECTION("sleep")
     {
-        second start = time_utils::clock_now<second>();
+        second start = time::clock_now<second>();
         thread::current::sleep(second(1));
-        second end = time_utils::clock_now<second>();
+        second end = time::clock_now<second>();
         REQUIRE((end - start).get() >= 1);
     }
 }
