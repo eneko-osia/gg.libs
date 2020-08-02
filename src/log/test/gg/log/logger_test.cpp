@@ -69,8 +69,8 @@ TEST_CASE("logger.error", "[gg.log]")
             level::error,
             bit_field::add(channel_flags::channel, channel_flags::level),
             true);
-
         logger::error<mock_channel>(GG_TEXT("message"));
+
         REQUIRE(handler.m_level == level::error);
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [error] message"));
     }
@@ -91,8 +91,8 @@ TEST_CASE("logger.warning", "[gg.log]")
             level::warning,
             bit_field::add(channel_flags::channel, channel_flags::level),
             true);
-
         logger::warning<mock_channel>(GG_TEXT("message"));
+
         REQUIRE(handler.m_level == level::warning);
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [warning] message"));
     }
@@ -113,8 +113,8 @@ TEST_CASE("logger.normal", "[gg.log]")
             level::normal,
             bit_field::add(channel_flags::channel, channel_flags::level),
             true);
-
         logger::normal<mock_channel>(GG_TEXT("message"));
+
         REQUIRE(handler.m_level == level::normal);
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [normal] message"));
     }
@@ -135,10 +135,15 @@ TEST_CASE("logger.debug", "[gg.log]")
             level::debug,
             bit_field::add(channel_flags::channel, channel_flags::level),
             true);
-
         logger::debug<mock_channel>(GG_TEXT("message"));
+
+#if defined(GG_DEBUG)
         REQUIRE(handler.m_level == level::debug);
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [debug] message"));
+#else
+        REQUIRE(handler.m_level == level::max);
+        REQUIRE(handler.m_message == GG_TEXT(""));
+#endif
     }
 
     log_manager::destroy();
@@ -157,10 +162,15 @@ TEST_CASE("logger.verbose", "[gg.log]")
             level::verbose,
             bit_field::add(channel_flags::channel, channel_flags::level),
             true);
-
         logger::verbose<mock_channel>(GG_TEXT("message"));
+
+#if defined(GG_DEBUG)
         REQUIRE(handler.m_level == level::verbose);
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [verbose] message"));
+#else
+        REQUIRE(handler.m_level == level::max);
+        REQUIRE(handler.m_message == GG_TEXT(""));
+#endif
     }
 
     log_manager::destroy();
