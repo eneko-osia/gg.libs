@@ -1,5 +1,5 @@
 #ifndef _gg_log_channel_h_
-#define    _gg_log_channel_h_
+#define _gg_log_channel_h_
 
 #include "gg/core/pattern/singleton/singleton_manual.h"
 #include "gg/core/string/macro/macro.h"
@@ -72,10 +72,10 @@ namespace gg::log
     // macros
 
     #define GG_LOG_CHANNEL_DEFINE(CHANNEL)                                  \
-        class CHANNEL final : public channel<CHANNEL>                       \
+        class CHANNEL final : public gg::log::channel<CHANNEL>              \
         {                                                                   \
         public:                                                             \
-            string_ref get_name(void) const noexcept                        \
+            gg::string_ref get_name(void) const noexcept                    \
             {                                                               \
                 return GG_TEXT(#CHANNEL);                                   \
             }                                                               \
@@ -86,7 +86,8 @@ namespace gg::log
         }
 
     #define GG_LOG_CHANNEL_CREATE(CHANNEL, LEVEL, FLAGS, ENABLED)           \
-        channel_helper<CHANNEL> CHANNEL##_helper(LEVEL, FLAGS, ENABLED)
+        gg::log::channel_helper<CHANNEL>                                    \
+        __FILE__##__LINE__##_helper(LEVEL, FLAGS, ENABLED)
 }
 
 #endif // _gg_log_channel_h_
