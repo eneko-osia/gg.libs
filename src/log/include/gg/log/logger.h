@@ -33,15 +33,19 @@ namespace gg::log
 #else
 
         template <typename CHANNEL, typename... ARGS>
-        static void debug(string_ref const & message, ARGS &&... args) noexcept
+        static void
+        debug(
+            string_ref const & GG_UNUSED_ARGUMENT(message),
+            ARGS &&... GG_UNUSED_ARGUMENT(args)) noexcept
         {
-            GG_UNUSED(message);
         }
 
         template <typename CHANNEL, typename... ARGS>
-        static void verbose(string_ref const & message, ARGS &&... args) noexcept
+        static void
+        verbose(
+            string_ref const & GG_UNUSED_ARGUMENT(message),
+            ARGS &&... GG_UNUSED_ARGUMENT(args)) noexcept
         {
-            GG_UNUSED(message);
         }
 
 #endif
