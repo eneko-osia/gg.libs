@@ -33,7 +33,7 @@ configuration::load(string_ref const & line, string & section) noexcept
         string_static<1024> key;
         key.set(section).append('/').append(name);
 
-        m_values[hash::fnv1a::generate(key)] = type::move(value);
+        set_value<string_ref>(key, value);
     }
     else
     {

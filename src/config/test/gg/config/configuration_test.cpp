@@ -132,112 +132,112 @@ TEST_CASE("configuration.get_value", "[gg.configuration]")
 
     SECTION("get_value<bool8>")
     {
-        REQUIRE(config.get_value<bool8>(GG_TEXT("section/bool8")));
+        REQUIRE(config.get_value<bool8>(GG_TEXT("section/bool8"), false));
     }
 
     SECTION("get_value<bool8> - invalid")
     {
-        REQUIRE(!config.get_value<bool8>(GG_TEXT("section/bool8_invalid")));
+        REQUIRE(!config.get_value<bool8>(GG_TEXT("section/bool8_invalid"), false));
     }
 
     SECTION("get_value<int8>")
     {
-        REQUIRE(-8 == config.get_value<int8>(GG_TEXT("section/int8")));
+        REQUIRE(-8 == config.get_value<int8>(GG_TEXT("section/int8"), 0));
     }
 
     SECTION("get_value<int8> - invalid")
     {
-        REQUIRE(0 == config.get_value<int8>(GG_TEXT("section/int8_invalid")));
+        REQUIRE(0 == config.get_value<int8>(GG_TEXT("section/int8_invalid"), 0));
     }
 
     SECTION("get_value<uint8>")
     {
-        REQUIRE(8 == config.get_value<uint8>(GG_TEXT("section/uint8")));
+        REQUIRE(8 == config.get_value<uint8>(GG_TEXT("section/uint8"), 0));
     }
 
     SECTION("get_value<uint8> - invalid")
     {
-        REQUIRE(0 == config.get_value<uint8>(GG_TEXT("section/uint8_invalid")));
+        REQUIRE(0 == config.get_value<uint8>(GG_TEXT("section/uint8_invalid"), 0));
     }
 
     SECTION("get_value<int16>")
     {
-        REQUIRE(-16 == config.get_value<int16>(GG_TEXT("section/int16")));
+        REQUIRE(-16 == config.get_value<int16>(GG_TEXT("section/int16"), 0));
     }
 
     SECTION("get_value<int16> - invalid")
     {
-        REQUIRE(0 == config.get_value<int16>(GG_TEXT("section/int16_invalid")));
+        REQUIRE(0 == config.get_value<int16>(GG_TEXT("section/int16_invalid"), 0));
     }
 
     SECTION("get_value<uint16>")
     {
-        REQUIRE(16 == config.get_value<uint16>(GG_TEXT("section/uint16")));
+        REQUIRE(16 == config.get_value<uint16>(GG_TEXT("section/uint16"), 0));
     }
 
     SECTION("get_value<uint16> - invalid")
     {
-        REQUIRE(0 == config.get_value<uint16>(GG_TEXT("section/uint16_invalid")));
+        REQUIRE(0 == config.get_value<uint16>(GG_TEXT("section/uint16_invalid"), 0));
     }
 
     SECTION("get_value<int32>")
     {
-        REQUIRE(-32 == config.get_value<int32>(GG_TEXT("section/int32")));
+        REQUIRE(-32 == config.get_value<int32>(GG_TEXT("section/int32"), 0));
     }
 
     SECTION("get_value<int32> - invalid")
     {
-        REQUIRE(0 == config.get_value<int32>(GG_TEXT("section/int32_invalid")));
+        REQUIRE(0 == config.get_value<int32>(GG_TEXT("section/int32_invalid"), 0));
     }
 
     SECTION("get_value<uint32>")
     {
-        REQUIRE(32 == config.get_value<uint32>(GG_TEXT("section/uint32")));
+        REQUIRE(32 == config.get_value<uint32>(GG_TEXT("section/uint32"), 0));
     }
 
     SECTION("get_value<uint32> - invalid")
     {
-        REQUIRE(0 == config.get_value<uint32>(GG_TEXT("section/uint32_invalid")));
+        REQUIRE(0 == config.get_value<uint32>(GG_TEXT("section/uint32_invalid"), 0));
     }
 
     SECTION("get_value<int64>")
     {
-        REQUIRE(-64 == config.get_value<int64>(GG_TEXT("section/int64")));
+        REQUIRE(-64 == config.get_value<int64>(GG_TEXT("section/int64"), 0));
     }
 
     SECTION("get_value<int64> - invalid")
     {
-        REQUIRE(0 == config.get_value<int64>(GG_TEXT("section/int64_invalid")));
+        REQUIRE(0 == config.get_value<int64>(GG_TEXT("section/int64_invalid"), 0));
     }
 
     SECTION("get_value<uint64>")
     {
-        REQUIRE(64 == config.get_value<uint64>(GG_TEXT("section/uint64")));
+        REQUIRE(64 == config.get_value<uint64>(GG_TEXT("section/uint64"), 0));
     }
 
     SECTION("get_value<uint64> - invalid")
     {
-        REQUIRE(0 == config.get_value<uint64>(GG_TEXT("section/uint64_invalid")));
+        REQUIRE(0 == config.get_value<uint64>(GG_TEXT("section/uint64_invalid"), 0));
     }
 
     SECTION("get_value<float32>")
     {
-        REQUIRE(32.23f == config.get_value<float32>(GG_TEXT("section/float32")));
+        REQUIRE(32.23f == config.get_value<float32>(GG_TEXT("section/float32"), 0.0f));
     }
 
     SECTION("get_value<float32> - invalid")
     {
-        REQUIRE(0.0f == config.get_value<float32>(GG_TEXT("section/float32_invalid")));
+        REQUIRE(0.0f == config.get_value<float32>(GG_TEXT("section/float32_invalid"), 0.0f));
     }
 
     SECTION("get_value<float64>")
     {
-        REQUIRE(64.46 == config.get_value<float64>(GG_TEXT("section/float64")));
+        REQUIRE(64.46 == config.get_value<float64>(GG_TEXT("section/float64"), 0.0f));
     }
 
     SECTION("get_value<float64> - invalid")
     {
-        REQUIRE(0.0 == config.get_value<float64>(GG_TEXT("section/float64_invalid")));
+        REQUIRE(0.0 == config.get_value<float64>(GG_TEXT("section/float64_invalid"), 0.0f));
     }
 
     SECTION("get_value<string>")
@@ -248,6 +248,83 @@ TEST_CASE("configuration.get_value", "[gg.configuration]")
     SECTION("get_value<string> - invalid")
     {
         REQUIRE("" == config.get_value<string_ref>(GG_TEXT("section/string_invalid"), GG_TEXT("")));
+    }
+}
+
+TEST_CASE("configuration.set_value", "[gg.configuration]")
+{
+    configuration config;
+
+    SECTION("set_value<bool8>")
+    {
+        config.set_value<bool8>(GG_TEXT("section/bool8"), true);
+        REQUIRE(config.get_value<bool8>(GG_TEXT("section/bool8"), false));
+    }
+
+    SECTION("set_value<int8>")
+    {
+        config.set_value<int8>(GG_TEXT("section/int8"), -8);
+        REQUIRE(-8 == config.get_value<int8>(GG_TEXT("section/int8"), 0));
+    }
+
+    SECTION("set_value<uint8>")
+    {
+        config.set_value<uint8>(GG_TEXT("section/uint8"), 8);
+        REQUIRE(8 == config.get_value<uint8>(GG_TEXT("section/uint8"), 0));
+    }
+
+    SECTION("set_value<int16>")
+    {
+        config.set_value<int16>(GG_TEXT("section/int16"), -16);
+        REQUIRE(-16 == config.get_value<int16>(GG_TEXT("section/int16"), 0));
+    }
+
+    SECTION("set_value<uint16>")
+    {
+        config.set_value<uint16>(GG_TEXT("section/uint16"), 16);
+        REQUIRE(16 == config.get_value<uint16>(GG_TEXT("section/uint16"), 0));
+    }
+
+    SECTION("set_value<int32>")
+    {
+        config.set_value<int32>(GG_TEXT("section/int32"), -32);
+        REQUIRE(-32 == config.get_value<int32>(GG_TEXT("section/int32"), 0));
+    }
+
+    SECTION("set_value<uint32>")
+    {
+        config.set_value<uint32>(GG_TEXT("section/uint32"), 32);
+        REQUIRE(32 == config.get_value<uint32>(GG_TEXT("section/uint32"), 0));
+    }
+
+    SECTION("set_value<int64>")
+    {
+        config.set_value<int64>(GG_TEXT("section/int64"), -64);
+        REQUIRE(-64 == config.get_value<int64>(GG_TEXT("section/int64"), 0));
+    }
+
+    SECTION("set_value<uint64>")
+    {
+        config.set_value<uint64>(GG_TEXT("section/uint64"), 64);
+        REQUIRE(64 == config.get_value<uint64>(GG_TEXT("section/uint64"), 0));
+    }
+
+    SECTION("set_value<float32>")
+    {
+        config.set_value<float32>(GG_TEXT("section/float32"), 32.23f);
+        REQUIRE(32.23f == config.get_value<float32>(GG_TEXT("section/float32"), 0.0f));
+    }
+
+    SECTION("set_value<float64>")
+    {
+        config.set_value<float64>(GG_TEXT("section/float64"), 64.46);
+        REQUIRE(64.46 == config.get_value<float64>(GG_TEXT("section/float64"), 0.0f));
+    }
+
+    SECTION("set_value<string>")
+    {
+        config.set_value<string_ref>(GG_TEXT("section/string"), GG_TEXT("this is a string"));
+        REQUIRE("this is a string" == config.get_value<string_ref>(GG_TEXT("section/string"), GG_TEXT("")));
     }
 }
 

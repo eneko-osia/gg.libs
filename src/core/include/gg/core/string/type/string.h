@@ -68,7 +68,31 @@ namespace gg
         template <>
         inline void from<bool8>(bool8 value, char8 * buffer, size_type size) noexcept
         {
-            format(buffer, size, "%d", value);
+            format(buffer, size, "%hhd", value);
+        }
+
+        template <>
+        inline void from<int8>(int8 value, char8 * buffer, size_type size) noexcept
+        {
+            format(buffer, size, "%hhd", value);
+        }
+
+        template <>
+        inline void from<uint8>(uint8 value, char8 * buffer, size_type size) noexcept
+        {
+            format(buffer, size, "%hhu", value);
+        }
+
+        template <>
+        inline void from<int16>(int16 value, char8 * buffer, size_type size) noexcept
+        {
+            format(buffer, size, "%hd", value);
+        }
+
+        template <>
+        inline void from<uint16>(uint16 value, char8 * buffer, size_type size) noexcept
+        {
+            format(buffer, size, "%hu", value);
         }
 
         template <>
@@ -90,9 +114,21 @@ namespace gg
         }
 
         template <>
+        inline void from<uint64>(uint64 value, char8 * buffer, size_type size) noexcept
+        {
+            format(buffer, size, "%llu", value);
+        }
+
+        template <>
         inline void from<float32>(float32 value, char8 * buffer, size_type size) noexcept
         {
             format(buffer, size, "%f", value);
+        }
+
+        template <>
+        inline void from<float64>(float64 value, char8 * buffer, size_type size) noexcept
+        {
+            format(buffer, size, "%Lf", value);
         }
 
         inline constexpr size_type length(char8 const * str) noexcept

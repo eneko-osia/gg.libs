@@ -45,11 +45,18 @@ namespace gg
 
         template <typename TYPE>
         TYPE
-        get_value(string_ref const & key, TYPE const & ret_value = TYPE(0)) noexcept
+        get_value(string_ref const & key, TYPE const & ret_value) const noexcept
         {
             string_ref value = get_value<string_ref>(key, string_ref());
-            return
-                value.is_empty() ? ret_value : convert::to<TYPE>(value.c_str());
+            return value.is_empty() ? ret_value : convert::to<TYPE>(value.c_str());
+        }
+
+        template <typename TYPE>
+        void set_value(string_ref const & key, TYPE const & value) noexcept
+        {
+            string buffer;
+            gg::string::from(value, buffer.c_str(), buffer.max_size());
+            m_values[hash::fnv1a::generate(key)] = type::move(buffer);
         }
 
         // inquiries
@@ -86,10 +93,19 @@ namespace gg
     inline string_ref
     configuration::get_value<string_ref>(
         string_ref const & key,
-        string_ref const & ret_value) noexcept
+        string_ref const & ret_value) const noexcept
     {
         auto cit = m_values.find(hash::fnv1a::generate(key));
         return cit == m_values.end() ? ret_value : string_ref(cit->second);
+    }
+
+    template <>
+    inline void
+    configuration::set_value<string_ref>(
+        string_ref const & key,
+        string_ref const & value) noexcept
+    {
+        m_values[hash::fnv1a::generate(key)] = value;
     }
 }
 
