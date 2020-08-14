@@ -128,7 +128,7 @@ namespace gg
         template <>
         inline void from<float64>(float64 value, char8 * buffer, size_type size) noexcept
         {
-            format(buffer, size, "%Lf", value);
+            format(buffer, size, "%f", value);
         }
 
         inline constexpr size_type length(char8 const * str) noexcept
