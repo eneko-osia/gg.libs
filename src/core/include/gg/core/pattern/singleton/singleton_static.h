@@ -1,17 +1,11 @@
-#ifndef _gg_static_sigleton_h_
-#define _gg_static_sigleton_h_
-
-// include files
+#ifndef _gg_singleton_static_h_
+#define _gg_singleton_static_h_
 
 #include "gg/core/pattern/non_copyable.h"
 #include "gg/core/type/type_trait.h"
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a static singleton object
-
     template <typename SINGLETON_TYPE>
     class singleton_static : public non_copyable
     {
@@ -44,4 +38,4 @@ namespace gg
     };
 }
 
-#endif // _gg_static_sigleton_h_
+#endif // _gg_singleton_static_h_

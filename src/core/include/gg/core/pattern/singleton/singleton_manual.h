@@ -1,17 +1,11 @@
-#ifndef _gg_manual_sigleton_h_
-#define _gg_manual_sigleton_h_
-
-// include files
+#ifndef _gg_singleton_manual_h_
+#define _gg_singleton_manual_h_
 
 #include "gg/core/memory/memory.h"
 #include "gg/core/pattern/non_copyable.h"
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a manual singleton object
-
     template <typename SINGLETON_TYPE>
     class singleton_manual : public non_copyable
     {
@@ -95,5 +89,5 @@ namespace gg
     SINGLETON_TYPE * singleton_manual<SINGLETON_TYPE>::m_instance = nullptr;
 }
 
-#endif // _gg_manual_sigleton_h_
+#endif // _gg_singleton_manual_h_
 
