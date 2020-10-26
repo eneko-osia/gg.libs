@@ -1,24 +1,14 @@
 #ifndef _gg_hash_h_
 #define _gg_hash_h_
 
-// include files
-
 #include "gg/core/string/type/string_ref.h"
-
-// namespace
 
 namespace gg
 {
-    // forward declarations
-
     class string_ref;
-
-    // namespace in charge of define hash utilities
 
     namespace hash
     {
-        // namespace in charge of define fnv1 hash utilities
-
         namespace fnv1
         {
             // methods
@@ -37,8 +27,6 @@ namespace gg
                 return hash;
             }
         }
-
-        // namespace in charge of define fnv1a hash utilities
 
         namespace fnv1a
         {

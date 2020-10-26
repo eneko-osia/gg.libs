@@ -2,11 +2,11 @@
 #define _gg_configuration_h_
 
 #include "gg/core/container/map/hash_map.h"
+#include "gg/core/hash/hash.h"
 #include "gg/core/string/type/string_dynamic.h"
 #include "gg/core/string/type/string_ref.h"
 #include "gg/core/string/type/string_static.h"
 #include "gg/core/type/convert.h"
-#include "gg/crypt/hash/hash.h"
 
 namespace gg
 {

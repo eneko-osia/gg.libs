@@ -45,7 +45,7 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.config gg.crypt)
+target_link_libraries(gg.config gg.core)
 
 # group folder
 set_target_properties(gg.config PROPERTIES FOLDER gg.libs)

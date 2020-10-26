@@ -2,8 +2,8 @@
 
 //==============================================================================
 
+#include "gg/core/hash/hash.h"
 #include "gg/core/string/type/string_ref.h"
-#include "gg/crypt/hash/hash.h"
 
 //==============================================================================
 namespace gg::hash_test

@@ -38,7 +38,6 @@ set(gg_libraries
     "test"
     "log"
     "app"
-    "crypt"
     "config"
     "gfx"
 )
@@ -90,18 +89,10 @@ CMAKE_DEPENDENT_OPTION(
 )
 
 CMAKE_DEPENDENT_OPTION(
-    GG_CRYPT
-    "crypt library"
-    ON
-    GG_CORE
-    OFF
-)
-
-CMAKE_DEPENDENT_OPTION(
     GG_CONFIG
     "config library"
     ON
-    GG_CRYPT
+    GG_CORE
     OFF
 )
 
