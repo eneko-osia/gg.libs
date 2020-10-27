@@ -49,7 +49,7 @@ namespace gg
         void remove_observer(observer_type const * const observer) noexcept
         {
             m_observers.erase(
-                container::remove_if(
+                container::find_if(
                     m_observers.begin(),
                     m_observers.end(),
                     [&] (typename observer_array::const_reference obs)
