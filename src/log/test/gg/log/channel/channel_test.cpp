@@ -7,7 +7,7 @@
 
 //==============================================================================
 
-GG_LOG_CHANNEL_DEFINE(mock_channel);
+GG_LOG_CHANNEL_DEFINE(mock_channel)
 
 //==============================================================================
 namespace gg::log::channel_test
