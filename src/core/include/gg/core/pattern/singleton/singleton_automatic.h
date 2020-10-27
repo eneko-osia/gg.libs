@@ -10,9 +10,9 @@ namespace gg
     {
     public:
 
-        // type definitions
+        // using
 
-        using singleton_manual<SINGLETON_TYPE>::singleton_type;
+        using typename singleton_manual<SINGLETON_TYPE>::singleton_type;
 
         // static accessors
 
@@ -24,8 +24,9 @@ namespace gg
         template <typename TYPE>
         static TYPE & get_instance(void) noexcept
         {
-            if (!is_available()) { create(); }
-            return singleton_manual<SINGLETON_TYPE>::get_instance<TYPE>();
+            typedef singleton_manual<singleton_type> base;
+            if (!base::is_available()) { base::create(); }
+            return base::template get_instance<TYPE>();
         }
 
     protected:
@@ -33,10 +34,7 @@ namespace gg
         // constructors
 
         singleton_automatic(void) noexcept = default;
-        ~singleton_automatic(void) noexcept
-        {
-            destroy();
-        }
+        ~singleton_automatic(void) noexcept = default;
     };
 }
 
