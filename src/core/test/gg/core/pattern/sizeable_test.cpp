@@ -161,13 +161,8 @@ TEST_CASE("sizeable", "[gg.sizeable]")
     {
         REQUIRE(!type::is_pod<sizeable<mock_size>>::value);
         REQUIRE(!type::is_pod<mock_sizeable>::value);
-#if defined(GG_LINUX)
         REQUIRE(type::is_pod<sizeable<uint32>>::value);
         REQUIRE(type::is_pod<trivial_mock_sizeable>::value);
-#elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<sizeable<uint32>>::value);
-        REQUIRE(!type::is_pod<trivial_mock_sizeable>::value);
-#endif
     }
 
     SECTION("polymorphic")

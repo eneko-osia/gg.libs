@@ -115,13 +115,8 @@ TEST_CASE("nameable", "[gg.nameable]")
     {
         REQUIRE(!type::is_pod<nameable<string_ref>>::value);
         REQUIRE(!type::is_pod<mock_nameable>::value);
-#if defined(GG_LINUX)
         REQUIRE(type::is_pod<nameable<char8 const *>>::value);
         REQUIRE(type::is_pod<trivial_mock_nameable>::value);
-#elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<nameable<char8 const *>>::value);
-        REQUIRE(!type::is_pod<trivial_mock_nameable>::value);
-#endif
     }
 
     SECTION("polymorphic")
