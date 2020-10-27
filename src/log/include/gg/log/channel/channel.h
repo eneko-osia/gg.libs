@@ -1,22 +1,32 @@
 #ifndef _gg_log_channel_h_
 #define _gg_log_channel_h_
 
-#include "gg/core/pattern/singleton/singleton_manual.h"
-#include "gg/core/string/macro/macro.h"
+#include "gg/core/hash/hash.h"
+#include "gg/core/pattern/identifiable.h"
 #include "gg/core/string/type/string_ref.h"
 #include "gg/core/utils/bit_field.h"
-#include "gg/log/channel/channel_helper.h"
+#include "gg/log/logger_defs.h"
 
 namespace gg::log
 {
-    template <typename CHANNEL>
-    class channel : public singleton_manual<CHANNEL>
+    class channel : public identifiable<uint32>
     {
     public:
 
-        // methods
+        // constructors
 
-        void set_flags(channel_flags flags) noexcept
+        channel(uint32 id, flags flags, level level, bool8 enabled) noexcept
+            : identifiable<uint32>(id)
+            , m_flags(flags)
+            , m_level(level)
+            , m_enabled(enabled)
+        {
+        }
+        ~channel(void) noexcept = default;
+
+        // accessors
+
+        void set_flags(flags flags) noexcept
         {
             m_flags = flags;
         }
@@ -28,7 +38,7 @@ namespace gg::log
 
         // inquiry
 
-        bool8 has_flag(channel_flags flags) const noexcept
+        bool8 has_flag(flags flags) const noexcept
         {
             return bit_field::is_set(m_flags, flags);
         }
@@ -48,46 +58,38 @@ namespace gg::log
             m_enabled = enabled;
         }
 
-    protected:
-
-        // constructors
-
-        channel(void) noexcept :
-            m_flags(channel_flags::full),
-            m_level(level::verbose),
-            m_enabled(true)
-        {
-        }
-        ~channel(void) noexcept = default;
-
     private:
 
         // attributes
 
-        channel_flags m_flags;
+        flags m_flags;
         level m_level;
         bool8 m_enabled;
     };
 
     // macros
 
-    #define GG_LOG_CHANNEL_DEFINE(CHANNEL)                                  \
-        class CHANNEL final : public gg::log::channel<CHANNEL>              \
-        {                                                                   \
-        public:                                                             \
-            gg::string_ref get_name(void) const noexcept                    \
-            {                                                               \
-                return GG_TEXT(#CHANNEL);                                   \
-            }                                                               \
-        protected:                                                          \
-            friend class gg::memory;                                        \
-            CHANNEL(void) noexcept = default;                               \
-            ~CHANNEL(void) noexcept = default;                              \
+    #define GG_LOG_CHANNEL_DEFINE(CHANNEL)                      \
+        namespace gg::log                                       \
+        {                                                       \
+            class CHANNEL final                                 \
+            {                                                   \
+            public:                                             \
+                static uint32 get_id(void) noexcept             \
+                {                                               \
+                    static uint32 const channel_id =            \
+                        gg::hash::fnv1::generate(get_name());   \
+                    return channel_id;                          \
+                }                                               \
+                static gg::string_ref get_name(void) noexcept   \
+                {                                               \
+                    return GG_TEXT(#CHANNEL);                   \
+                }                                               \
+            private:                                            \
+                CHANNEL(void) noexcept = default;               \
+                ~CHANNEL(void) noexcept = default;              \
+            };                                                  \
         }
-
-    #define GG_LOG_CHANNEL_CREATE(CHANNEL, LEVEL, FLAGS, ENABLED)           \
-        gg::log::channel_helper<CHANNEL>                                    \
-        __FILE__##__LINE__##_helper(LEVEL, FLAGS, ENABLED)
 }
 
 #endif // _gg_log_channel_h_

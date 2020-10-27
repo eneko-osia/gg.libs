@@ -2,23 +2,24 @@
 
 //==============================================================================
 
+#include "gg/log/channel/channel_helper.h"
 #include "gg/log/channel/channel.h"
+
+//==============================================================================
+
+GG_LOG_CHANNEL_DEFINE(mock_channel);
 
 //==============================================================================
 namespace gg::log::channel_test
 {
 //==============================================================================
 
-GG_LOG_CHANNEL_DEFINE(mock_channel);
-
-//==============================================================================
-
 TEST_CASE("channel", "[gg.log]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<mock_channel>::value);
-        REQUIRE(!type::has_trivial_assign<mock_channel>::value);
+        REQUIRE(type::is_assignable<mock_channel>::value);
+        REQUIRE(type::has_trivial_assign<mock_channel>::value);
     }
 
     SECTION("construct")
@@ -46,7 +47,7 @@ TEST_CASE("channel", "[gg.log]")
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<mock_channel>::value);
+        REQUIRE(type::is_pod<mock_channel>::value);
     }
 
     SECTION("polymorphic")
@@ -57,30 +58,21 @@ TEST_CASE("channel", "[gg.log]")
 
 TEST_CASE("channel.create", "[gg.log]")
 {
-    REQUIRE(!mock_channel::is_available());
-
     SECTION("create")
     {
+        log_manager const & manager = log_manager::get_instance();
+        REQUIRE(!manager.has_channel<mock_channel>());
+
         GG_LOG_CHANNEL_CREATE(
             mock_channel,
+            flags::channel,
             level::normal,
-            channel_flags::channel,
             false);
+        REQUIRE(manager.has_channel<mock_channel>());
 
-        REQUIRE(mock_channel::get_instance().has_level(level::error));
-        REQUIRE(mock_channel::get_instance().has_level(level::warning));
-        REQUIRE(mock_channel::get_instance().has_level(level::normal));
-        REQUIRE(!mock_channel::get_instance().has_level(level::debug));
-        REQUIRE(!mock_channel::get_instance().has_level(level::verbose));
-
-        REQUIRE(mock_channel::get_instance().has_flag(channel_flags::channel));
-        REQUIRE(!mock_channel::get_instance().has_flag(channel_flags::level));
-        REQUIRE(!mock_channel::get_instance().has_flag(channel_flags::time));
-
-        REQUIRE(!mock_channel::get_instance().is_enabled());
+        GG_LOG_CHANNEL_DESTROY(mock_channel);
+        REQUIRE(!manager.has_channel<mock_channel>());
     }
-
-    REQUIRE(!mock_channel::is_available());
 }
 
 //==============================================================================

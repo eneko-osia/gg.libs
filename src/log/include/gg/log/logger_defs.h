@@ -7,6 +7,16 @@
 
 namespace gg::log
 {
+    enum class flags : uint8
+    {
+        channel =   1 << 0,
+        level =     1 << 1,
+        time =      1 << 2,
+        full =      channel | level | time
+    };
+
+    GG_ENUM(flags);
+
     enum class level : uint8
     {
         error,

@@ -1,5 +1,5 @@
-#ifndef _gg_log_ilog_handler_h_
-#define	_gg_log_ilog_handler_h_
+#ifndef _gg_log_handler_h_
+#define	_gg_log_handler_h_
 
 #include "gg/log/logger_defs.h"
 
@@ -7,7 +7,7 @@ namespace gg { class string_ref; }
 
 namespace gg::log
 {
-    class ilog_handler
+    class handler
     {
     public:
 
@@ -17,4 +17,4 @@ namespace gg::log
     };
 }
 
-#endif // _gg_log_ilog_handler_h_
+#endif // _gg_log_handler_h_

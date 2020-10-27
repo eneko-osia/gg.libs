@@ -3,16 +3,20 @@
 //==============================================================================
 
 #include "gg/core/string/type/string_dynamic.h"
-#include "gg/core/string/type/string_ref.h"
-#include "gg/log/channel/channel.h"
+#include "gg/log/channel/channel_helper.h"
+#include "gg/log/handler.h"
 #include "gg/log/logger.h"
+
+//==============================================================================
+
+GG_LOG_CHANNEL_DEFINE(mock_channel);
 
 //==============================================================================
 namespace gg::log::logger_test
 {
 //==============================================================================
 
-class mock_handler : public ilog_handler
+class mock_handler : public handler
 {
 public:
 
@@ -25,8 +29,6 @@ public:
     level m_level = level::max;
     string_dynamic m_message;
 };
-
-GG_LOG_CHANNEL_DEFINE(mock_channel);
 
 //==============================================================================
 
@@ -59,15 +61,14 @@ TEST_CASE("logger.level", "[gg.log]")
 TEST_CASE("logger.error", "[gg.log]")
 {
     mock_handler handler;
-    log_manager::create();
     log_manager::get_instance().add_handler(&handler);
 
     SECTION("error")
     {
         GG_LOG_CHANNEL_CREATE(
             mock_channel,
+            bit_field::add(flags::channel, flags::level),
             level::error,
-            bit_field::add(channel_flags::channel, channel_flags::level),
             true);
         logger::error<mock_channel>(GG_TEXT("message"));
 
@@ -75,21 +76,20 @@ TEST_CASE("logger.error", "[gg.log]")
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [error] message"));
     }
 
-    log_manager::destroy();
+    log_manager::get_instance().remove_handler(&handler);
 }
 
 TEST_CASE("logger.warning", "[gg.log]")
 {
     mock_handler handler;
-    log_manager::create();
     log_manager::get_instance().add_handler(&handler);
 
     SECTION("warning")
     {
         GG_LOG_CHANNEL_CREATE(
             mock_channel,
+            bit_field::add(flags::channel, flags::level),
             level::warning,
-            bit_field::add(channel_flags::channel, channel_flags::level),
             true);
         logger::warning<mock_channel>(GG_TEXT("message"));
 
@@ -97,21 +97,20 @@ TEST_CASE("logger.warning", "[gg.log]")
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [warning] message"));
     }
 
-    log_manager::destroy();
+    log_manager::get_instance().remove_handler(&handler);
 }
 
 TEST_CASE("logger.normal", "[gg.log]")
 {
     mock_handler handler;
-    log_manager::create();
     log_manager::get_instance().add_handler(&handler);
 
     SECTION("normal")
     {
         GG_LOG_CHANNEL_CREATE(
             mock_channel,
+            bit_field::add(flags::channel, flags::level),
             level::normal,
-            bit_field::add(channel_flags::channel, channel_flags::level),
             true);
         logger::normal<mock_channel>(GG_TEXT("message"));
 
@@ -119,21 +118,20 @@ TEST_CASE("logger.normal", "[gg.log]")
         REQUIRE(handler.m_message == GG_TEXT("[mock_channel] [normal] message"));
     }
 
-    log_manager::destroy();
+    log_manager::get_instance().remove_handler(&handler);
 }
 
 TEST_CASE("logger.debug", "[gg.log]")
 {
     mock_handler handler;
-    log_manager::create();
     log_manager::get_instance().add_handler(&handler);
 
     SECTION("debug")
     {
         GG_LOG_CHANNEL_CREATE(
             mock_channel,
+            bit_field::add(flags::channel, flags::level),
             level::debug,
-            bit_field::add(channel_flags::channel, channel_flags::level),
             true);
         logger::debug<mock_channel>(GG_TEXT("message"));
 
@@ -146,21 +144,20 @@ TEST_CASE("logger.debug", "[gg.log]")
 #endif
     }
 
-    log_manager::destroy();
+    log_manager::get_instance().remove_handler(&handler);
 }
 
 TEST_CASE("logger.verbose", "[gg.log]")
 {
     mock_handler handler;
-    log_manager::create();
     log_manager::get_instance().add_handler(&handler);
 
     SECTION("verbose")
     {
         GG_LOG_CHANNEL_CREATE(
             mock_channel,
+            bit_field::add(flags::channel, flags::level),
             level::verbose,
-            bit_field::add(channel_flags::channel, channel_flags::level),
             true);
         logger::verbose<mock_channel>(GG_TEXT("message"));
 
@@ -173,7 +170,7 @@ TEST_CASE("logger.verbose", "[gg.log]")
 #endif
     }
 
-    log_manager::destroy();
+    log_manager::get_instance().remove_handler(&handler);
 }
 
 //==============================================================================
