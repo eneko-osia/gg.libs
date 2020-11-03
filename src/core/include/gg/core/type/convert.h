@@ -1,7 +1,7 @@
 #ifndef _gg_convert_h_
 #define	_gg_convert_h_
 
-#include "gg/core/type/type.h"
+#include "gg/core/type/type_trait.h"
 #include <cmath>
 
 namespace gg
