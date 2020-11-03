@@ -1,27 +1,23 @@
 #ifndef _gg_gfx_opengl_context_windows_h_
 #define _gg_gfx_opengl_context_windows_h_
 
-// include files
-
-#include "gg/gfx/opengl/opengl_context_base.h"
+#include "gg/gfx/opengl/context/opengl_context_base.h"
 #include <windows.h>
-
-// namespace
 
 namespace gg::gfx
 {
-    // forward declarations
-
     struct opengl_context_info;
-
-    // type definitions
-
-    typedef class opengl_context_windows opengl_context_platform;
-
-    // class in charge of define a windows opengl context
 
     class opengl_context_windows : public opengl_context_base
     {
+    public:
+
+        // methods
+
+        bool8 disable(void) noexcept;
+        bool8 enable(void) noexcept;
+        void swap_buffer(void) noexcept;
+
     protected:
 
         // constructors
@@ -47,6 +43,8 @@ namespace gg::gfx
         HDC m_context;
         HGLRC m_render_context;
     };
+
+    typedef opengl_context_windows opengl_context_platform;
 }
 
 #endif // _gg_gfx_opengl_context_windows_h_

@@ -1,13 +1,24 @@
 #if defined(GG_GFX_OPENGL_SUPPORT) && defined(GG_WINDOWS)
 //==============================================================================
 
-#include "gg/gfx/opengl/opengl_context_windows.h"
+#include "gg/gfx/opengl/context/opengl_context_windows.h"
 
 //==============================================================================
 
 #include "gg/app/window/window.h"
-#include "gg/gfx/opengl/opengl_context_info.h"
+#include "gg/gfx/gfx_log.h"
+#include "gg/gfx/opengl/context/opengl_context_info.h"
 #include "gg/gfx/opengl/opengl_includes.h"
+#include "gg/log/channel/channel_helper.h"
+#include "gg/log/logger.h"
+
+//==============================================================================
+
+GG_LOG_CHANNEL_CREATE(
+    gfx,
+    gg::log::flags::full,
+    gg::log::level::verbose,
+    true);
 
 //==============================================================================
 namespace gg::gfx
@@ -22,12 +33,20 @@ opengl_context_windows::opengl_context_windows(void) noexcept
 
 //==============================================================================
 
+bool8 opengl_context_windows::disable(void) noexcept
+{
+    return wglMakeCurrent(nullptr, nullptr);
+}
+
+bool8 opengl_context_windows::enable(void) noexcept
+{
+    GG_RETURN_FALSE_IF(!m_context || !m_render_context);
+    return wglMakeCurrent(m_context, m_render_context);
+}
+
 void opengl_context_windows::on_finalize(void) noexcept
 {
-    if (m_context && m_render_context)
-    {
-        wglMakeCurrent(nullptr, nullptr);
-    }
+    disable();
 
     if (m_render_context)
     {
@@ -49,9 +68,7 @@ bool8 opengl_context_windows::on_init(context_info const * info) noexcept
 
 bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
 {
-    GG_RETURN_FALSE_IF(m_context);
-    GG_RETURN_FALSE_IF(m_render_context);
-
+    GG_RETURN_FALSE_IF(m_context || m_render_context);
     m_context = GetDC(get_window()->get_hwnd());
     GG_RETURN_FALSE_IF(!m_context);
 
@@ -75,11 +92,14 @@ bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
 
     m_render_context = wglCreateContext(m_context);
     GG_RETURN_FALSE_IF(!m_render_context);
-    GG_RETURN_FALSE_IF(!wglMakeCurrent(m_context, m_render_context));
 
+    GG_RETURN_FALSE_IF(!enable());
     GG_RETURN_FALSE_IF(GLEW_OK != glewInit());
-    GG_RETURN_FALSE_IF(!wglewIsSupported("WGL_ARB_create_context"));
+    GG_RETURN_FALSE_IF(!disable());
 
+    wglDeleteContext(m_render_context);
+
+    GG_RETURN_FALSE_IF(!wglewIsSupported("WGL_ARB_create_context"));
     int32 const render_attr[] =
     {
         WGL_CONTEXT_MAJOR_VERSION_ARB,
@@ -88,30 +108,29 @@ bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
         info->m_version_minor,
         0
     };
+    m_render_context = wglCreateContextAttribsARB(m_context, nullptr, render_attr);
+    GG_RETURN_FALSE_IF(!m_render_context);
 
-    HGLRC render_context =
-        wglCreateContextAttribsARB(m_context, nullptr, render_attr);
-    GG_RETURN_FALSE_IF(!render_context);
-
-    wglMakeCurrent(nullptr, nullptr);
-    wglDeleteContext(m_render_context);
-
-    m_render_context = render_context;
-    GG_RETURN_FALSE_IF(!wglMakeCurrent(m_context, m_render_context));
-
-    // int32 major_version = 0;
-    // int32 minor_version = 0;
-    // string_ref gl_version = (char8 const *) glGetString(GL_VERSION);
+    GG_RETURN_FALSE_IF(!enable());
+    int32 major_version = 0;
+    int32 minor_version = 0;
+    string_ref opengl_version = (char8 const *) glGetString(GL_VERSION);
     // ASSERT_GL_ERROR();
-    // glGetIntegerv(GL_MAJOR_VERSION, &major_version);
+    glGetIntegerv(GL_MAJOR_VERSION, &major_version);
     // ASSERT_GL_ERROR();
-    // glGetIntegerv(GL_MINOR_VERSION, &minor_version);
+    glGetIntegerv(GL_MINOR_VERSION, &minor_version);
     // ASSERT_GL_ERROR();
-    // gglog::logger::verbose<gglog::gfx>(
-    //     "Using OpenGL %s [%d.%d]\n",
-    //     gl_version.get(), major_version, minor_version);
+    log::logger::verbose<log::gfx>(
+        "Using OpenGL %s [%d.%d]",
+        opengl_version.c_str(), major_version, minor_version);
+    GG_RETURN_FALSE_IF(!disable());
 
     return true;
+}
+
+void opengl_context_windows::swap_buffer(void) noexcept
+{
+    SwapBuffers(m_context);
 }
 
 //==============================================================================

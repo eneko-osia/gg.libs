@@ -1,15 +1,9 @@
 #ifndef _gg_gfx_opengl_context_linux_h_
 #define _gg_gfx_opengl_context_linux_h_
 
-// include files
-
-#include "gg/gfx/opengl/opengl_context_base.h"
-
-// forward declarations
+#include "gg/gfx/opengl/context/opengl_context_base.h"
 
 typedef struct __GLXcontextRec * GLXContext;
-
-// namespace
 
 namespace gg::gfx
 {

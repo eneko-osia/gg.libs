@@ -1,12 +1,12 @@
 #if defined(GG_GFX_OPENGL_SUPPORT) && defined(GG_LINUX)
 //==============================================================================
 
-#include "gg/gfx/opengl/opengl_context_linux.h"
+#include "gg/gfx/opengl/context/opengl_context_linux.h"
 
 //==============================================================================
 
 #include "gg/app/window/window.h"
-#include "gg/gfx/opengl/opengl_context_info.h"
+#include "gg/gfx/opengl/context/opengl_context_info.h"
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================

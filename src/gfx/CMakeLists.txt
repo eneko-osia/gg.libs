@@ -107,6 +107,7 @@ target_link_libraries(
     gg.gfx
     PUBLIC
         gg.app
+        gg.log
 )
 
 if(GG_GFX_OPENGL_SUPPORT)

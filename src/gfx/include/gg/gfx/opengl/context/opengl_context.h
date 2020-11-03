@@ -1,16 +1,10 @@
 #ifndef _gg_gfx_opengl_context_h_
 #define _gg_gfx_opengl_context_h_
 
-// include files
-
-#include "gg/gfx/opengl/opengl_context_platform.h"
-
-// namespace
+#include "gg/gfx/opengl/context/opengl_context_platform.h"
 
 namespace gg::gfx
 {
-    // class in charge of define open gl context
-
     class opengl_context final : public opengl_context_platform
     {
     public:
