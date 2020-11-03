@@ -100,7 +100,7 @@ CMAKE_DEPENDENT_OPTION(
     GG_GFX
     "gfx library"
     ON
-    GG_APP
+    GG_LOG;GG_APP
     OFF
 )
 
