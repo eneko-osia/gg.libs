@@ -12,7 +12,8 @@ namespace gg::log
         channel =   1 << 0,
         level =     1 << 1,
         time =      1 << 2,
-        full =      channel | level | time
+        thread =    1 << 3,
+        full =      channel | level | time | thread
     };
 
     GG_ENUM(flags);

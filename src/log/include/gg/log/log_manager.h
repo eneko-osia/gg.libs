@@ -5,6 +5,7 @@
 #include "gg/core/container/container.h"
 #include "gg/core/pattern/singleton/singleton_automatic.h"
 #include "gg/core/string/type/string_static.h"
+#include "gg/core/thread/thread.h"
 #include "gg/core/time/type/millisecond.h"
 #include "gg/core/time/utils/time.h"
 #include "gg/log/channel/channel.h"
@@ -22,6 +23,7 @@ namespace gg::log
         template <typename CHANNEL, typename... ARGS>
         void add_channel(ARGS &&... args) noexcept
         {
+            GG_ASSERT(!has_channel<CHANNEL>());
             m_channels.emplace_back(CHANNEL::get_id(), type::forward<ARGS>(args)...);
         }
 
@@ -86,6 +88,18 @@ namespace gg::log
                         ".%03d] ",
                         (time - second(time)).get());
                 }
+            }
+
+            if (channel->has_flag(flags::thread))
+            {
+                size_type const size = buffer.size();
+                size_type const max_size = buffer.max_size() - size - 1;
+
+                string::format(
+                    buffer.c_str() + size,
+                    max_size,
+                    "[%llu] ",
+                    thread::current::get_id());
             }
 
             if (channel->has_flag(flags::channel))

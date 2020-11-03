@@ -11,6 +11,7 @@ namespace gg::log
 
 void log_manager::add_handler(handler * handler) noexcept
 {
+    GG_ASSERT(!has_handler(handler));
     m_handlers.emplace_back(handler);
 }
 
