@@ -1,17 +1,11 @@
 #ifndef _gg_gfx_opengl_context_base_h_
 #define _gg_gfx_opengl_context_base_h_
 
-// include files
-
 #include "gg/gfx/context.h"
 #include "gg/gfx/opengl/context/opengl_context_defs.h"
 
-// namespace
-
 namespace gg::gfx
 {
-    // class in charge of define a base opengl context
-
     class opengl_context_base : public context
     {
     public:

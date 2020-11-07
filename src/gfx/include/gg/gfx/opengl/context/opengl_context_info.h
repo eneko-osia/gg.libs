@@ -1,16 +1,10 @@
 #ifndef _gg_gfx_opengl_context_info_h_
 #define _gg_gfx_opengl_context_info_h_
 
-// includes
-
 #include "gg/gfx/context_info.h"
-
-// namespace
 
 namespace gg::gfx
 {
-    // struct in charge of define an opengl graphics context information
-
     struct opengl_context_info : public context_info
     {
         uint8 m_red_size;

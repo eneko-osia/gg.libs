@@ -7,15 +7,7 @@ typedef struct __GLXcontextRec * GLXContext;
 
 namespace gg::gfx
 {
-    // forward declarations
-
     struct opengl_context_info;
-
-    // type definitions
-
-    typedef class opengl_context_linux opengl_context_platform;
-
-    // class in charge of define a linux opengl context
 
     class opengl_context_linux : public opengl_context_base
     {
@@ -44,7 +36,8 @@ namespace gg::gfx
         GLXContext m_context;
         uint32 m_window;
     };
+
+    typedef opengl_context_linux opengl_context_platform;
 }
 
 #endif // _gg_gfx_opengl_context_linux_h_
-

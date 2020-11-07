@@ -9,16 +9,7 @@
 #include "gg/gfx/gfx_log.h"
 #include "gg/gfx/opengl/context/opengl_context_info.h"
 #include "gg/gfx/opengl/opengl_includes.h"
-#include "gg/log/channel/channel_helper.h"
 #include "gg/log/logger.h"
-
-//==============================================================================
-
-GG_LOG_CHANNEL_CREATE(
-    gfx,
-    gg::log::flags::full,
-    gg::log::level::verbose,
-    true);
 
 //==============================================================================
 namespace gg::gfx
