@@ -11,6 +11,14 @@ namespace gg::gfx
 
     class opengl_context_linux : public opengl_context_base
     {
+    public:
+
+        // methods
+
+        bool8 disable(void) noexcept;
+        bool8 enable(void) noexcept;
+        void swap_buffer(void) noexcept;
+
     protected:
 
         // constructors

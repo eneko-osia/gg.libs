@@ -22,11 +22,23 @@ opengl_context_linux::opengl_context_linux(void) noexcept
 
 //==============================================================================
 
+bool8 opengl_context_linux::disable(void) noexcept
+{
+    return glXMakeCurrent(get_window()->get_display(), None, nullptr);
+}
+
+bool8 opengl_context_linux::enable(void) noexcept
+{
+    GG_RETURN_FALSE_IF(!m_context || (None == m_window));
+    return glXMakeCurrent(get_window()->get_display(), m_window, m_context);
+}
+
 void opengl_context_linux::on_finalize(void) noexcept
 {
+    disable();
+
     if (m_context)
     {
-        glXMakeCurrent(get_window()->get_display(), None, nullptr);
         glXDestroyContext(get_window()->get_display(), m_context);
         m_context = nullptr;
     }
@@ -139,27 +151,28 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
         NULL);
     XMapRaised(get_window()->get_display(), m_window);
 
-    GG_RETURN_FALSE_IF(
-       !glXMakeCurrent(
-           get_window()->get_display(),
-           m_window,
-           m_context));
+    GG_RETURN_FALSE_IF(!enable());
     GG_RETURN_FALSE_IF(GLEW_OK != glewInit());
 
-    // int32 major_version(0);
-    // int32 minor_version(0);
-    // ggcore::ref_string gl_version =
-    //                 (char8 const *) glGetString(GL_VERSION);
+    int32 major_version = 0;
+    int32 minor_version = 0;
+    string_ref opengl_version = (char8 const *) glGetString(GL_VERSION);
     // ASSERT_GL_ERROR();
-    // glGetIntegerv(GL_MAJOR_VERSION, &major_version);
+    glGetIntegerv(GL_MAJOR_VERSION, &major_version);
     // ASSERT_GL_ERROR();
-    // glGetIntegerv(GL_MINOR_VERSION, &minor_version);
+    glGetIntegerv(GL_MINOR_VERSION, &minor_version);
     // ASSERT_GL_ERROR();
-    // gglog::logger::verbose<gglog::gfx>(
-    //     "Using OpenGL %s [%d.%d]\n",
-    //     gl_version.get(), major_version, minor_version);
+    log::logger::verbose<log::gfx>(
+        "Using OpenGL %s [%d.%d]",
+        opengl_version.c_str(), major_version, minor_version);
+    GG_RETURN_FALSE_IF(!disable());
 
     return true;
+}
+
+void opengl_context_linux::swap_buffer(void) const
+{
+	glXSwapBuffers(get_window()->get_display(), m_window);
 }
 
 //==============================================================================
