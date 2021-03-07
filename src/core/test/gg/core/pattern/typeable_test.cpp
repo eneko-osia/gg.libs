@@ -264,6 +264,13 @@ TEST_CASE("typeable.set_type", "[gg.typeable]")
         REQUIRE(moved_type == 0);
         REQUIRE(type == 123);
     }
+
+    SECTION("set_type<TYPE>(type)")
+    {
+        mock_typeable typeable(0);
+        typeable.set_type(123);
+        REQUIRE(typeable.is_type(123));
+    }
 }
 
 TEST_CASE("typeable.is_type", "[gg.typeable]")

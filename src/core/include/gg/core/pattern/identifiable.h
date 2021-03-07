@@ -1,16 +1,10 @@
 #ifndef _gg_identifiable_h_
 #define _gg_identifiable_h_
 
-// include files
-
 #include "gg/core/type/type_trait.h"
-
-// namespace
 
 namespace gg
 {
-    // class in charge of define an identifiable object
-
     template <typename ID_TYPE>
     class identifiable
     {
@@ -33,6 +27,12 @@ namespace gg
 
         identifiable(id_type && id) noexcept
             : m_id(type::move(id))
+        {
+        }
+
+        template <typename TYPE>
+        identifiable(TYPE && id) noexcept
+            : m_id(type::forward<TYPE>(id))
         {
         }
 

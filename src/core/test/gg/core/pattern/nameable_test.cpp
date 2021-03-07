@@ -3,6 +3,7 @@
 //==============================================================================
 
 #include "gg/core/pattern/nameable.h"
+#include "gg/core/string/type/string_dynamic.h"
 #include "gg/core/string/type/string_ref.h"
 #include "gg/core/string/type/string_static.h"
 
@@ -11,7 +12,7 @@ namespace gg::nameable_test
 {
 //==============================================================================
 
-class mock_nameable : public nameable<string_ref>
+class mock_nameable : public nameable<string_dynamic>
 {
 public:
 
@@ -19,13 +20,13 @@ public:
     mock_nameable(mock_nameable const & obj) noexcept = default;
     mock_nameable(mock_nameable && obj) noexcept = default;
 
-    mock_nameable(string_ref const & name) noexcept
-        : nameable<string_ref>(name)
+    mock_nameable(string_dynamic const & name) noexcept
+        : nameable<string_dynamic>(name)
     {
     }
 
-    mock_nameable(string_ref && name) noexcept
-        : nameable<string_ref>(type::move(name))
+    mock_nameable(string_dynamic && name) noexcept
+        : nameable<string_dynamic>(type::move(name))
     {
     }
 };
@@ -45,8 +46,8 @@ TEST_CASE("nameable", "[gg.nameable]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<nameable<string_ref>>::value);
-        REQUIRE(!type::has_trivial_assign<nameable<string_ref>>::value);
+        REQUIRE(!type::is_assignable<nameable<string_dynamic>>::value);
+        REQUIRE(!type::has_trivial_assign<nameable<string_dynamic>>::value);
 
         REQUIRE(!type::is_assignable<mock_nameable>::value);
         REQUIRE(!type::has_trivial_assign<mock_nameable>::value);
@@ -60,8 +61,8 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("construct")
     {
-        REQUIRE(!type::is_constructible<nameable<string_ref>>::value);
-        REQUIRE(!type::has_trivial_constructor<nameable<string_ref>>::value);
+        REQUIRE(!type::is_constructible<nameable<string_dynamic>>::value);
+        REQUIRE(!type::has_trivial_constructor<nameable<string_dynamic>>::value);
 
         REQUIRE(type::is_constructible<mock_nameable>::value);
         REQUIRE(!type::has_trivial_constructor<mock_nameable>::value);
@@ -75,8 +76,8 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<nameable<string_ref>>::value);
-        REQUIRE(!type::has_trivial_copy<nameable<string_ref>>::value);
+        REQUIRE(!type::is_copyable<nameable<string_dynamic>>::value);
+        REQUIRE(!type::has_trivial_copy<nameable<string_dynamic>>::value);
 
         REQUIRE(type::is_copyable<mock_nameable>::value);
         REQUIRE(!type::has_trivial_copy<mock_nameable>::value);
@@ -90,11 +91,11 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("destroy")
     {
-        REQUIRE(!type::is_destructible<nameable<string_ref>>::value);
-        REQUIRE(!type::has_trivial_destructor<nameable<string_ref>>::value);
+        REQUIRE(!type::is_destructible<nameable<string_dynamic>>::value);
+        REQUIRE(!type::has_trivial_destructor<nameable<string_dynamic>>::value);
 
         REQUIRE(type::is_destructible<mock_nameable>::value);
-        REQUIRE(type::has_trivial_destructor<mock_nameable>::value);
+        REQUIRE(!type::has_trivial_destructor<mock_nameable>::value);
 
         REQUIRE(!type::is_destructible<nameable<char8 const *>>::value);
         REQUIRE(!type::has_trivial_destructor<nameable<char8 const *>>::value);
@@ -105,7 +106,7 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality<nameable<string_ref>>::value);
+        REQUIRE(!type::has_equality<nameable<string_dynamic>>::value);
         REQUIRE(!type::has_equality<mock_nameable>::value);
         REQUIRE(!type::has_equality<nameable<char8 const *>>::value);
         REQUIRE(!type::has_equality<trivial_mock_nameable>::value);
@@ -113,7 +114,7 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<nameable<string_ref>>::value);
+        REQUIRE(!type::is_pod<nameable<string_dynamic>>::value);
         REQUIRE(!type::is_pod<mock_nameable>::value);
         REQUIRE(type::is_pod<nameable<char8 const *>>::value);
         REQUIRE(type::is_pod<trivial_mock_nameable>::value);
@@ -121,7 +122,7 @@ TEST_CASE("nameable", "[gg.nameable]")
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<nameable<string_ref>>::value);
+        REQUIRE(!type::is_polymorphic<nameable<string_dynamic>>::value);
         REQUIRE(!type::is_polymorphic<mock_nameable>::value);
         REQUIRE(!type::is_polymorphic<nameable<char8 const *>>::value);
         REQUIRE(!type::is_polymorphic<trivial_mock_nameable>::value);
@@ -130,8 +131,8 @@ TEST_CASE("nameable", "[gg.nameable]")
     SECTION("sizeof")
     {
         REQUIRE(
-            sizeof(nameable<string_ref>) ==
-            sizeof(nameable<string_ref>::name_type));
+            sizeof(nameable<string_dynamic>) ==
+            sizeof(nameable<string_dynamic>::name_type));
         REQUIRE(
             sizeof(mock_nameable) ==
             sizeof(mock_nameable::name_type));
@@ -154,7 +155,7 @@ TEST_CASE("nameable.constructor", "[gg.nameable]")
 
     SECTION("nameable(name_type)")
     {
-        string_ref name("123");
+        string_dynamic name("123");
         mock_nameable nameable(name);
         REQUIRE(nameable.is_named(name));
         REQUIRE(name == "123");
@@ -162,8 +163,8 @@ TEST_CASE("nameable.constructor", "[gg.nameable]")
 
     SECTION("nameable(rvalue_name_type)")
     {
-        string_ref name("123");
-        string_ref moved_name(name);
+        string_dynamic name("123");
+        string_dynamic moved_name(name);
         mock_nameable nameable(type::move(moved_name));
         REQUIRE(nameable.is_named(name));
         REQUIRE(moved_name.is_empty());
@@ -172,7 +173,7 @@ TEST_CASE("nameable.constructor", "[gg.nameable]")
 
     SECTION("nameable(nameable)")
     {
-        string_ref name("123");
+        string_dynamic name("123");
         mock_nameable copied_nameable(name);
         mock_nameable nameable(copied_nameable);
         REQUIRE(nameable.is_named(copied_nameable.get_name()));
@@ -201,7 +202,7 @@ TEST_CASE("nameable.set_name", "[gg.nameable]")
 {
     SECTION("set_name(name_type)")
     {
-        string_ref name("123");
+        string_dynamic name("123");
         mock_nameable nameable;
         nameable.set_name(name);
         REQUIRE(nameable.is_named(name));
@@ -210,8 +211,8 @@ TEST_CASE("nameable.set_name", "[gg.nameable]")
 
     SECTION("set_name(rvalue_name_type)")
     {
-        string_ref name("123");
-        string_ref moved_name(name);
+        string_dynamic name("123");
+        string_dynamic moved_name(name);
         mock_nameable nameable;
         nameable.set_name(type::move(moved_name));
         REQUIRE(nameable.is_named(name));
@@ -221,7 +222,7 @@ TEST_CASE("nameable.set_name", "[gg.nameable]")
 
     SECTION("set_name<TYPE>(name_type)")
     {
-        string_static<> referenced_string("123");
+        string_ref referenced_string("123");
         mock_nameable nameable;
         nameable.set_name(referenced_string);
         REQUIRE(nameable.is_named("123"));

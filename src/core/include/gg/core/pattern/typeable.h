@@ -30,6 +30,12 @@ namespace gg
         {
         }
 
+        template <typename TYPE>
+        typeable(item_type && type) noexcept
+            : m_type(type::forward<TYPE>(type))
+        {
+        }
+
         // accessors
 
         item_type const & get_type(void) const noexcept
@@ -47,9 +53,21 @@ namespace gg
             m_type = type::move(type);
         }
 
+        template <typename TYPE>
+        void set_type(TYPE && type) noexcept
+        {
+            m_type = type::forward<TYPE>(type);
+        }
+
         // inquiries
 
         bool8 is_type(item_type const & type) const noexcept
+        {
+            return m_type == type;
+        }
+
+        template <typename TYPE>
+        bool8 is_type(TYPE const & type) const noexcept
         {
             return m_type == type;
         }

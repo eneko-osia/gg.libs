@@ -1,16 +1,10 @@
 #ifndef _gg_nameable_h_
 #define _gg_nameable_h_
 
-// include files
-
 #include "gg/core/type/type_trait.h"
-
-// namespace
 
 namespace gg
 {
-    // class in charge of define a nameable object
-
     template <typename NAME_TYPE>
     class nameable
     {
@@ -33,6 +27,12 @@ namespace gg
 
         nameable(name_type && name) noexcept
             : m_name(type::move(name))
+        {
+        }
+
+        template <typename TYPE>
+        nameable(TYPE && name) noexcept
+            : m_name(type::forward<TYPE>(name))
         {
         }
 
