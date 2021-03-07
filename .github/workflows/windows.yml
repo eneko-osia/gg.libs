@@ -34,7 +34,7 @@ jobs:
           $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
           refreshenv
-          echo "VULKAN_SDK=${{ env.VULKAN_SDK }}" >> $GITHUB_ENV
+          echo "VULKAN_SDK=$VULKAN_SDK" >> $GITHUB_ENV
 
     - name: Checkout repository
       uses: actions/checkout@v2
