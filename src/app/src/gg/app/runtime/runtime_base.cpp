@@ -22,10 +22,7 @@ runtime_base::runtime_base(data const & data) noexcept
 runtime_base::~runtime_base(void) noexcept
 {
 #if defined(GG_APP_WINDOW_SUPPORT)
-    for (id_type id = 0; id < type::cast_static<id_type>(m_windows.size()); ++id)
-    {
-        destroy_window(id);
-    }
+    GG_ASSERT(m_windows.is_empty());
 #endif
 }
 
