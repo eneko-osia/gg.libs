@@ -174,7 +174,7 @@ if(GGLIBS_ENABLE_TESTING)
     enable_testing()
 
     # include catch test parser
-    include(catch/ParseAndAddCatchTests)
+    include(catch/Catch)
 endif()
 
 # subdirectories

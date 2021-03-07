@@ -83,7 +83,7 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.core Threads::Threads)
+target_link_libraries(gg.core Threads::Threads ${CMAKE_DL_LIBS})
 
 # group folder
 set_target_properties(gg.core PROPERTIES FOLDER gg.libs)
@@ -121,5 +121,5 @@ if(GGLIBS_ENABLE_TESTING)
     set_target_properties(gg.core.test PROPERTIES FOLDER gg.libs.test)
 
     # parse tests
-    ParseAndAddCatchTests(gg.core.test)
+    catch_discover_tests(gg.core.test)
 endif()

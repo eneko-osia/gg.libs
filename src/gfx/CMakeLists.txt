@@ -163,5 +163,5 @@ if(GGLIBS_ENABLE_TESTING)
     set_target_properties(gg.gfx.test PROPERTIES FOLDER gg.libs.test)
 
     # parse tests
-    ParseAndAddCatchTests(gg.gfx.test)
+    catch_discover_tests(gg.gfx.test)
 endif()

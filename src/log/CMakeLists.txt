@@ -87,5 +87,5 @@ if(GGLIBS_ENABLE_TESTING)
     set_target_properties(gg.log.test PROPERTIES FOLDER gg.libs.test)
 
     # parse tests
-    ParseAndAddCatchTests(gg.log.test)
+    catch_discover_tests(gg.log.test)
 endif()

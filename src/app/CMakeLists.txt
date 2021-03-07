@@ -106,5 +106,5 @@ if(GGLIBS_ENABLE_TESTING)
     set_target_properties(gg.app.test PROPERTIES FOLDER gg.libs.test)
 
     # parse tests
-    ParseAndAddCatchTests(gg.app.test)
+    catch_discover_tests(gg.app.test)
 endif()
