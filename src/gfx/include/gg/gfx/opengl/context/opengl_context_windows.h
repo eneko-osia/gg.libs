@@ -23,7 +23,7 @@ namespace gg::gfx
         // constructors
 
         opengl_context_windows(void) noexcept;
-        virtual ~opengl_context_windows(void) noexcept = default;
+        virtual ~opengl_context_windows(void) noexcept;
 
     private:
 

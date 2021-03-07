@@ -22,6 +22,12 @@ opengl_context_windows::opengl_context_windows(void) noexcept
 {
 }
 
+opengl_context_windows::~opengl_context_windows(void) noexcept
+{
+    GG_ASSERT(!m_render_context);
+    GG_ASSERT(!m_context);
+}
+
 //==============================================================================
 
 bool8 opengl_context_windows::disable(void) noexcept

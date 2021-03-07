@@ -24,7 +24,7 @@ namespace gg::gfx
         // constructors
 
         opengl_context_linux(void) noexcept;
-        virtual ~opengl_context_linux(void) noexcept = default;
+        virtual ~opengl_context_linux(void) noexcept;
 
     private:
 

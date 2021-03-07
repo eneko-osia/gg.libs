@@ -6,8 +6,10 @@
 //==============================================================================
 
 #include "gg/app/window/window.h"
+#include "gg/gfx/gfx_log.h"
 #include "gg/gfx/opengl/context/opengl_context_info.h"
 #include "gg/gfx/opengl/opengl_includes.h"
+#include "gg/log/logger.h"
 
 //==============================================================================
 namespace gg::gfx
@@ -18,6 +20,12 @@ opengl_context_linux::opengl_context_linux(void) noexcept
     : m_context(nullptr)
     , m_window(None)
 {
+}
+
+opengl_context_linux::~opengl_context_linux(void) noexcept
+{
+    GG_ASSERT(None == m_window);
+    GG_ASSERT(!m_context);
 }
 
 //==============================================================================
@@ -170,7 +178,7 @@ bool8 opengl_context_linux::on_init(opengl_context_info const * info) noexcept
     return true;
 }
 
-void opengl_context_linux::swap_buffer(void) const
+void opengl_context_linux::swap_buffer(void) noexcept
 {
 	glXSwapBuffers(get_window()->get_display(), m_window);
 }

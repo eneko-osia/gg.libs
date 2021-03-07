@@ -18,7 +18,7 @@ context::context(void) noexcept
 
 context::~context(void) noexcept
 {
-    finalize();
+    GG_ASSERT(!m_window);
 }
 
 //==============================================================================
