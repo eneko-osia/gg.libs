@@ -2,7 +2,7 @@
 #define _gg_app_data_windows_h_
 
 #include "gg/app/data/data_base.h"
-#include <windows.h>
+#include "gg/core/pattern/handle.h"
 
 namespace gg::app
 {
@@ -12,31 +12,30 @@ namespace gg::app
 
         // accessors
 
-        HINSTANCE get_hinstance(void) const noexcept
+        template <typename HANDLE_TYPE>
+        HANDLE_TYPE get_hinstance(void) const noexcept
         {
-            return m_hinstance;
+            return m_hinstance.get<HANDLE_TYPE>();
         }
 
-        void set_hinstance(HINSTANCE hinstance) noexcept
+        template <typename HANDLE_TYPE>
+        void set_hinstance(HANDLE_TYPE hinstance) noexcept
         {
-            m_hinstance = hinstance;
+            m_hinstance.set(hinstance);
         }
 
     protected:
 
         // constructors
 
-        data_windows(void) noexcept
-            : m_hinstance(nullptr)
-        {
-        }
+        data_windows(void) noexcept = default;
         ~data_windows(void) noexcept = default;
 
     private:
 
         // attributes
 
-        HINSTANCE m_hinstance;
+        handle m_hinstance;
     };
 
     typedef data_windows data_platform;

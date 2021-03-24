@@ -35,7 +35,7 @@ id_type runtime_windows::create_window(
     info.m_name = name;
     info.m_width = width;
     info.m_height = height;
-    info.m_hinstance = get_data().get_hinstance();
+    info.m_hinstance = get_data().get_hinstance<HINSTANCE>();
 
     auto it = m_windows.emplace_back();
     if (!it->init(info))

@@ -11,7 +11,10 @@
 namespace gg::app
 {
     class data;
+
+#if defined(GG_APP_WINDOW_SUPPORT)
     class window;
+#endif
 
     class runtime_base : public singleton_manual<runtime_base>
     {
@@ -29,7 +32,6 @@ namespace gg::app
         }
 
 #if defined(GG_APP_WINDOW_SUPPORT)
-
         // methods
 
         void destroy_window(id_type id) noexcept;
@@ -65,6 +67,16 @@ namespace gg::app
         runtime_base(data const & data) noexcept;
         virtual ~runtime_base(void) noexcept;
 
+#if defined(GG_APP_WINDOW_SUPPORT)
+        // type definitions
+
+        typedef array_dynamic<window> window_container;
+
+        // attributes
+
+        window_container m_windows;
+#endif
+
     private:
 
         // friendships
@@ -79,28 +91,11 @@ namespace gg::app
 
         virtual int32 main(void) noexcept = 0;
 
-    protected:
-
         // attributes
 
         data const & m_data;
-
-#if defined(GG_APP_WINDOW_SUPPORT)
-
-        // type definitions
-
-        typedef array_dynamic<window> window_container;
-
-        // attributes
-
-        window_container m_windows;
-#endif
     };
 }
-
-#ifdef GG_APPLICATION
-    #undef GG_APPLICATION
-#endif
 
 #define GG_APPLICATION(RUNTIME_TYPE)                                \
     void gg::app::runtime_base::create(data const & data) noexcept  \

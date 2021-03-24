@@ -1,8 +1,11 @@
+//==============================================================================
+
 #include "gg/test/catch.h"
 
 //==============================================================================
 
 #include "gg/app/data/data.h"
+#include <windows.h>
 
 //==============================================================================
 namespace gg::app::data_test
@@ -72,7 +75,7 @@ TEST_CASE("data::set_hinstance", "[gg.app.data]")
 
         HINSTANCE hinstance = (HINSTANCE) GetModuleHandle(NULL);
         app_data.set_hinstance(hinstance);
-        REQUIRE(app_data.get_hinstance() == hinstance);
+        REQUIRE(app_data.get_hinstance<HINSTANCE>() == hinstance);
     }
 #endif
 }
