@@ -152,7 +152,7 @@ namespace gg
         }
 
         template <typename... ARGS>
-        iterator emplace(size_type idx, ARGS &&... args) noexcept
+        reference emplace(size_type idx, ARGS &&... args) noexcept
         {
             GG_ASSERT(idx <= size());
             reallocate_if_needed();
@@ -160,23 +160,23 @@ namespace gg
             memory::move(&(*(it + 1)), &(*it), (size() - idx));
             memory::construct_object(&(*it), type::forward<ARGS>(args)...);
             ++m_size;
-            return it;
+            return *it;
         }
 
         template <typename... ARGS>
-        iterator emplace(const_iterator cit, ARGS &&... args) noexcept
+        reference emplace(const_iterator cit, ARGS &&... args) noexcept
         {
             return emplace(cit - begin(), type::forward<ARGS>(args)...);
         }
 
         template <typename... ARGS>
-        iterator emplace_back(ARGS &&... args) noexcept
+        reference emplace_back(ARGS &&... args) noexcept
         {
             reallocate_if_needed();
             iterator it = end();
             memory::construct_object(&(*it), type::forward<ARGS>(args)...);
             ++m_size;
-            return it;
+            return *it;
         }
 
         iterator end(void) noexcept
