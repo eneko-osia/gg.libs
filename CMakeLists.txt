@@ -56,7 +56,6 @@ include(GGPlatform)
 include(GGCompiler)
 include(GGConfiguration)
 include(GGFunctions)
-include(GGPython)
 
 # options
 option(
