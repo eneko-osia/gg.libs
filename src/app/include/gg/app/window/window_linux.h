@@ -31,7 +31,7 @@ namespace gg::app
         // constructors
 
         window_linux(void) noexcept;
-        virtual ~window_linux(void) noexcept;
+        ~window_linux(void) noexcept;
 
     private:
 

@@ -38,6 +38,13 @@ namespace gg
             m_handle = type::cast_static<void *>(_handle);
         }
 
+        // inquiries
+
+        bool8 is_null(void) const noexcept
+        {
+            return nullptr == m_handle;
+        }
+
     private:
 
         // attributes

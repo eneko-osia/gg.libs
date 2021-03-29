@@ -2,7 +2,7 @@
 #define _gg_app_window_windows_h_
 
 #include "gg/app/window/window_base.h"
-#include <windows.h>
+#include "gg/core/pattern/handle.h"
 
 namespace gg::app
 {
@@ -12,13 +12,14 @@ namespace gg::app
 
         // methods
 
-        bool8 handle_messages(UINT msg, WPARAM wparam, LPARAM lparam) noexcept;
+        bool8 handle_messages(uint32 msg, int64 wparam, int64 lparam) noexcept;
 
         // accessors
 
-        HWND get_hwnd(void) const noexcept
+        template <typename HANDLE_TYPE>
+        HANDLE_TYPE get_hwnd(void) const noexcept
         {
-            return m_hwnd;
+            return m_hwnd.get<HANDLE_TYPE>();
         }
 
     protected:
@@ -26,7 +27,7 @@ namespace gg::app
         // constructors
 
         window_windows(void) noexcept;
-        virtual ~window_windows(void) noexcept;
+        ~window_windows(void) noexcept;
 
     private:
 
@@ -37,15 +38,15 @@ namespace gg::app
 
         // methods
 
-        bool8 register_class(HINSTANCE hinstance) noexcept;
+        bool8 register_class(window_info const & info) noexcept;
         bool8 unregister_class(void) noexcept;
 
     private:
 
         // attributes
 
-        HWND m_hwnd;
-        WNDCLASSEX m_wnd_class;
+        handle m_hwnd;
+        handle m_wnd_class;
     };
 
     typedef window_windows window_platform;

@@ -13,6 +13,8 @@
 #include "gg/app/window/window.h"
 #endif
 
+#include <windows.h>
+
 //==============================================================================
 namespace gg::app
 {

@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_APP_WINDOW_SUPPORT)
 //==============================================================================
 
@@ -7,6 +8,10 @@
 
 #include "gg/app/window/window_info.h"
 #include "gg/app/window/window.h"
+
+#if defined(GG_WINDOWS)
+#include <windows.h>
+#endif
 
 //==============================================================================
 namespace gg::app::window_test
@@ -100,7 +105,7 @@ TEST_CASE("window", "[gg.app.window]")
 
 TEST_CASE("window::init", "[gg.app.window]")
 {
-#if defined(GG_WINDOWS)
+    #if defined(GG_WINDOWS)
     SECTION("init")
     {
         window_info info =
@@ -115,12 +120,12 @@ TEST_CASE("window::init", "[gg.app.window]")
         REQUIRE(win.init(info));
         win.finalize();
     }
-#endif
+    #endif
 }
 
 TEST_CASE("window::notify", "[gg.app.window]")
 {
-#if defined(GG_WINDOWS)
+    #if defined(GG_WINDOWS)
     window_info info =
     {
         GG_TEXT("Test"),
@@ -137,10 +142,10 @@ TEST_CASE("window::notify", "[gg.app.window]")
         mock_observer observer;
         win.add_observer(&observer);
         REQUIRE(0 == observer.m_on_close);
-        SendMessage(win.get_hwnd(), WM_CLOSE, NULL, NULL);
+        SendMessage(win.get_hwnd<HWND>(), WM_CLOSE, NULL, NULL);
         REQUIRE(1 == observer.m_on_close);
 
-        SendMessage(win.get_hwnd(), WM_QUIT, NULL, NULL);
+        SendMessage(win.get_hwnd<HWND>(), WM_QUIT, NULL, NULL);
         REQUIRE(2 == observer.m_on_close);
     }
 
@@ -149,7 +154,7 @@ TEST_CASE("window::notify", "[gg.app.window]")
         mock_observer observer;
         win.add_observer(&observer);
         REQUIRE(0 == observer.m_on_gain_focus);
-        SendMessage(win.get_hwnd(), WM_ACTIVATEAPP, true, NULL);
+        SendMessage(win.get_hwnd<HWND>(), WM_ACTIVATEAPP, true, NULL);
         REQUIRE(1 == observer.m_on_gain_focus);
     }
 
@@ -158,12 +163,12 @@ TEST_CASE("window::notify", "[gg.app.window]")
         mock_observer observer;
         win.add_observer(&observer);
         REQUIRE(0 == observer.m_on_lost_focus);
-        SendMessage(win.get_hwnd(), WM_ACTIVATEAPP, false, NULL);
+        SendMessage(win.get_hwnd<HWND>(), WM_ACTIVATEAPP, false, NULL);
         REQUIRE(1 == observer.m_on_lost_focus);
     }
 
     win.finalize();
-#endif
+    #endif
 }
 
 //==============================================================================

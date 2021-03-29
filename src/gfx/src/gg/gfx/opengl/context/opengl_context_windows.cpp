@@ -53,7 +53,7 @@ void opengl_context_windows::on_finalize(void) noexcept
 
     if (m_context)
     {
-        ReleaseDC(get_window()->get_hwnd(), m_context);
+        ReleaseDC(get_window()->get_hwnd<HWND>(), m_context);
         m_context = nullptr;
     }
 }
@@ -66,7 +66,7 @@ bool8 opengl_context_windows::on_init(context_info const * info) noexcept
 bool8 opengl_context_windows::on_init(opengl_context_info const * info) noexcept
 {
     GG_RETURN_FALSE_IF(m_context || m_render_context);
-    m_context = GetDC(get_window()->get_hwnd());
+    m_context = GetDC(get_window()->get_hwnd<HWND>());
     GG_RETURN_FALSE_IF(!m_context);
 
     PIXELFORMATDESCRIPTOR descriptor;
