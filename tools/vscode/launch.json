@@ -29,7 +29,6 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
             "MIMode": "gdb",
             "visualizerFile": "${workspaceFolder}/tools/natvis/project.natvis",
             "showDisplayString": false,
@@ -79,7 +78,6 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
             "visualizerFile": "${workspaceFolder}/tools/natvis/project.natvis",
             "showDisplayString": false
         }
