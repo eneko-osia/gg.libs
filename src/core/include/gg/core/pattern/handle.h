@@ -15,6 +15,13 @@ namespace gg
             : m_handle(nullptr)
         {
         }
+
+        template <typename HANDLE_TYPE>
+        handle(HANDLE_TYPE _handle) noexcept
+            : m_handle(type::cast_static<void *>(_handle))
+        {
+        }
+
         ~handle(void) noexcept = default;
 
         // methods
