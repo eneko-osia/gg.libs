@@ -36,5 +36,6 @@
     "editor.tabSize": 4,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": false,
-    "git.enabled": true
+    "git.enabled": true,
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
 }
