@@ -99,7 +99,7 @@ TEST_CASE("window", "[gg.app.window]")
 
     SECTION("polymorphic")
     {
-        REQUIRE(type::is_polymorphic<window>::value);
+        REQUIRE(!type::is_polymorphic<window>::value);
     }
 }
 

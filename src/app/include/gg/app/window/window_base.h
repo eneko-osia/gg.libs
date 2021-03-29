@@ -31,13 +31,6 @@ namespace gg::app
 
         window_base(void) noexcept = default;
         ~window_base(void) noexcept = default;
-
-    private:
-
-        // virtual methods
-
-        virtual void on_finalize(void) noexcept = 0;
-        virtual bool8 on_init(window_info const & info) noexcept = 0;
     };
 }
 

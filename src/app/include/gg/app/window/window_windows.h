@@ -31,17 +31,16 @@ namespace gg::app
 
     private:
 
-        // window_base override methods
+        // friendships
 
-        void on_finalize(void) noexcept override final;
-        bool8 on_init(window_info const & info) noexcept override final;
+        friend class window_base;
 
         // methods
 
+        void on_finalize(void) noexcept;
+        bool8 on_init(window_info const & info) noexcept;
         bool8 register_class(window_info const & info) noexcept;
         bool8 unregister_class(void) noexcept;
-
-    private:
 
         // attributes
 
