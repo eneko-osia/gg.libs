@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_LINUX)
 //==============================================================================
 
@@ -21,9 +22,8 @@ runtime_linux::runtime_linux(data const & data) noexcept
 }
 
 //==============================================================================
-#if defined(GG_APP_WINDOW_SUPPORT)
-//==============================================================================
 
+#if defined(GG_APP_WINDOW_SUPPORT)
 id_type runtime_linux::create_window(
     string_ref const & name,
     uint16 width,
@@ -34,8 +34,8 @@ id_type runtime_linux::create_window(
     info.m_width = width;
     info.m_height = height;
 
-    auto it = m_windows.emplace_back();
-    if (!it->init(info))
+    window& window = m_windows.emplace_back();
+    if (!window.init(info))
     {
         m_windows.pop_back();
         return id_type_invalid;
@@ -43,9 +43,8 @@ id_type runtime_linux::create_window(
 
     return id_type(m_windows.size() - 1);
 }
-
-//==============================================================================
 #endif
+
 //==============================================================================
 
 void runtime_linux::handle_messages(void) noexcept

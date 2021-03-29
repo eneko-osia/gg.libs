@@ -12,10 +12,20 @@ namespace gg::app
 
         // accessors
 
+        handle get_hinstance(void) const noexcept
+        {
+            return m_hinstance;
+        }
+
         template <typename HANDLE_TYPE>
         HANDLE_TYPE get_hinstance(void) const noexcept
         {
             return m_hinstance.get<HANDLE_TYPE>();
+        }
+
+        void set_hinstance(handle hinstance) noexcept
+        {
+            m_hinstance = hinstance;
         }
 
         template <typename HANDLE_TYPE>

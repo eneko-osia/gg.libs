@@ -11,22 +11,21 @@ namespace gg::app
     {
     public:
 
-#if defined(GG_APP_WINDOW_SUPPORT)
-
         // methods
 
+        #if defined(GG_APP_WINDOW_SUPPORT)
         id_type create_window(
             string_ref const & name,
             uint16 width,
             uint16 height) noexcept;
-#endif
+        #endif
 
     protected:
 
         // constructors
 
         runtime_windows(data const & data) noexcept;
-        virtual ~runtime_windows(void) noexcept= default;
+        virtual ~runtime_windows(void) noexcept = default;
 
         // methods
 

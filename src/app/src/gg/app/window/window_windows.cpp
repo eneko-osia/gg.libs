@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_APP_WINDOW_SUPPORT) && defined(GG_WINDOWS)
 //==============================================================================
 
@@ -101,7 +102,7 @@ void window_windows::on_finalize(void) noexcept
 bool8 window_windows::on_init(window_info const & info) noexcept
 {
     GG_RETURN_FALSE_IF(m_hwnd);
-    GG_RETURN_FALSE_IF(!register_class(info.m_hinstance));
+    GG_RETURN_FALSE_IF(!register_class(info.m_hinstance.get<HINSTANCE>()));
 
     DWORD window_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     RECT rect =

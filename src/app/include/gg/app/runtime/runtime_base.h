@@ -12,9 +12,9 @@ namespace gg::app
 {
     class data;
 
-#if defined(GG_APP_WINDOW_SUPPORT)
+    #if defined(GG_APP_WINDOW_SUPPORT)
     class window;
-#endif
+    #endif
 
     class runtime_base : public singleton_manual<runtime_base>
     {
@@ -24,18 +24,13 @@ namespace gg::app
 
         static int32 main(data const & data) noexcept;
 
-        // accessors
-
-        data const & get_data(void) const noexcept
-        {
-            return m_data;
-        }
-
-#if defined(GG_APP_WINDOW_SUPPORT)
         // methods
 
+        #if defined(GG_APP_WINDOW_SUPPORT)
         void destroy_window(id_type id) noexcept;
+        #endif
 
+        #if defined(GG_APP_WINDOW_SUPPORT)
         template <typename FUNCTION>
         void for_each_window(FUNCTION && function) noexcept
         {
@@ -44,7 +39,9 @@ namespace gg::app
                 m_windows.end(),
                 type::forward<FUNCTION>(function));
         }
+        #endif
 
+        #if defined(GG_APP_WINDOW_SUPPORT)
         template <typename FUNCTION>
         void for_each_window(FUNCTION && function) const noexcept
         {
@@ -53,29 +50,41 @@ namespace gg::app
                 m_windows.end(),
                 type::forward<FUNCTION>(function));
         }
+        #endif
 
         // accessors
 
+        data const & get_data(void) const noexcept
+        {
+            return m_data;
+        }
+
+        #if defined(GG_APP_WINDOW_SUPPORT)
         window * get_window(id_type id) noexcept;
+        #endif
+
+        #if defined(GG_APP_WINDOW_SUPPORT)
         window const * get_window(id_type id) const noexcept;
-#endif
+        #endif
 
     protected:
+
+        // type definitions
+
+        #if defined(GG_APP_WINDOW_SUPPORT)
+        typedef array_dynamic<window> window_container;
+        #endif
 
         // constructors
 
         runtime_base(data const & data) noexcept;
         virtual ~runtime_base(void) noexcept;
 
-#if defined(GG_APP_WINDOW_SUPPORT)
-        // type definitions
-
-        typedef array_dynamic<window> window_container;
-
         // attributes
 
+        #if defined(GG_APP_WINDOW_SUPPORT)
         window_container m_windows;
-#endif
+        #endif
 
     private:
 
