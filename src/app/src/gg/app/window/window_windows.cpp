@@ -109,15 +109,15 @@ bool8 window_windows::on_init(window_info const & info) noexcept
     RECT rect =
     {
         0, 0,
-        type::cast_static<LONG>(get_width()),
-        type::cast_static<LONG>(get_height())
+        type::cast_static<LONG>(info.m_width),
+        type::cast_static<LONG>(info.m_height)
     };
     AdjustWindowRect(&rect, window_style, FALSE);
 
     m_hwnd =
         CreateWindow(
-            get_name().c_str(),
-            get_name().c_str(),
+            info.m_name.c_str(),
+            info.m_name.c_str(),
             window_style,
             0, 0,
             rect.right - rect.left, rect.bottom - rect.top,
@@ -155,7 +155,7 @@ bool8 window_windows::register_class(window_info const & info) noexcept
     wnd_class->hCursor = LoadCursor(0, IDC_ARROW);
     wnd_class->hbrBackground = (HBRUSH) GetStockObject(BLACK_BRUSH);
     wnd_class->lpszMenuName = 0;
-    wnd_class->lpszClassName = get_name().c_str();
+    wnd_class->lpszClassName = info.m_name.c_str();
     return FALSE != RegisterClassEx(wnd_class);
 }
 

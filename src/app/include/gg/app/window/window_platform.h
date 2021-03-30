@@ -2,13 +2,13 @@
 #define _gg_app_window_platform_h_
 
 #if defined(GG_MAC)
-    #error "Can't include window platform for mac osx"
+#error "Can't include window platform for mac osx"
 #elif defined(GG_LINUX)
-    #include "gg/app/window/window_linux.h"
+#include "gg/app/window/window_linux.h"
 #elif defined(GG_WINDOWS)
-    #include "gg/app/window/window_windows.h"
+#include "gg/app/window/window_windows.h"
 #else
-    #error "Can't include window platform for unsupported platform"
+#error "Can't include window platform for unsupported platform"
 #endif
 
 #endif // _gg_app_window_platform_h_

@@ -2,13 +2,13 @@
 #define _gg_app_runtime_platform_h_
 
 #if defined(GG_MAC)
-    #error "Can't include runtime platform for mac osx"
+#error "Can't include runtime platform for mac osx"
 #elif defined(GG_LINUX)
-    #include "gg/app/runtime/runtime_linux.h"
+#include "gg/app/runtime/runtime_linux.h"
 #elif defined(GG_WINDOWS)
-    #include "gg/app/runtime/runtime_windows.h"
+#include "gg/app/runtime/runtime_windows.h"
 #else
-    #error "Can't include runtime platform for unsupported platform"
+#error "Can't include runtime platform for unsupported platform"
 #endif
 
 #endif // _gg_app_runtime_platform_h_

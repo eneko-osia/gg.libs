@@ -16,7 +16,7 @@ namespace gg::app
 runtime_base::runtime_base(data const & data) noexcept
     :
     #if defined(GG_APP_WINDOW_SUPPORT)
-     m_windows(),
+    m_windows(),
     #endif
     m_data(data)
 {

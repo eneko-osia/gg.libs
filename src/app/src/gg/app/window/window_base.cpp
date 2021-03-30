@@ -21,16 +21,16 @@ void window_base::finalize(void) noexcept
 
 bool8 window_base::init(window_info const & info) noexcept
 {
-    set_name(info.m_name);
-    set_width(info.m_width);
-    set_height(info.m_height);
-
-    bool8 initialized = type::cast_static<window *>(this)->on_init(info);
-    if (!initialized)
+    if (type::cast_static<window *>(this)->on_init(info))
     {
-        finalize();
+        set_name(info.m_name);
+        set_width(info.m_width);
+        set_height(info.m_height);
+        return true;
     }
-    return initialized;
+
+    finalize();
+    return false;
 }
 
 //==============================================================================
