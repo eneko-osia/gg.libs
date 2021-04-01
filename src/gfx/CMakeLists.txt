@@ -50,7 +50,7 @@ target_include_directories(
 if(GG_GFX_OPENGL_SUPPORT)
     target_include_directories(
         gg.gfx
-        PUBLIC
+        PRIVATE
             ${OPENGL_INCLUDE_DIR}
     )
 endif()
@@ -58,7 +58,7 @@ endif()
 if(GG_GFX_VULKAN_SUPPORT)
     target_include_directories(
         gg.gfx
-        PUBLIC
+        PRIVATE
             ${Vulkan_INCLUDE_DIRS}
     )
 endif()

@@ -47,9 +47,9 @@ target_compile_options(
 )
 
 # link libraries
-# target_link_libraries(
-#     gg.glew
-# )
+target_link_libraries(
+    gg.glew
+)
 
 # group folder
-set_target_properties(gg.glew PROPERTIES FOLDER gg.libs.deps)
+set_target_properties(gg.glew PROPERTIES FOLDER gg.gfx.deps)
