@@ -1,3 +1,6 @@
 [submodule "vendor/catch"]
 	path = vendor/catch
 	url = https://github.com/catchorg/Catch2
+[submodule "vendor/imgui"]
+	path = vendor/imgui
+	url = https://github.com/ocornut/imgui
