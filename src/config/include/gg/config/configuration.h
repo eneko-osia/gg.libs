@@ -82,8 +82,6 @@ namespace gg
 
         bool8 load(string_ref const & line, string & section) noexcept;
 
-    private:
-
         // attributes
 
         value_map m_values;

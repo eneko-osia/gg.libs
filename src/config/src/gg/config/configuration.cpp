@@ -1,3 +1,5 @@
+//==============================================================================
+
 #include "gg/config/configuration.h"
 
 //==============================================================================
@@ -31,7 +33,7 @@ configuration::load(string_ref const & line, string & section) noexcept
         value.trim();
 
         string_static<1024> key;
-        key.set(section).append('/').append(name);
+        key.set(section).append("/").append(name);
 
         set_value<string_ref>(key, value);
     }
