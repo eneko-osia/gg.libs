@@ -40,6 +40,7 @@ set(gg_libraries
     "app"
     "config"
     "gfx"
+    "gui"
 )
 
 # modules path
@@ -100,6 +101,14 @@ CMAKE_DEPENDENT_OPTION(
     "gfx library"
     ON
     GG_LOG;GG_APP
+    OFF
+)
+
+CMAKE_DEPENDENT_OPTION(
+    GG_GUI
+    "gui library"
+    ON
+    GG_GFX
     OFF
 )
 
