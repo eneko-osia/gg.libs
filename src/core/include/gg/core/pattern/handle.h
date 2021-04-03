@@ -24,6 +24,10 @@ namespace gg
 
         ~handle(void) noexcept = default;
 
+        // operators
+
+        operator bool8() const noexcept{ return !is_null(); }
+
         // methods
 
         template <typename HANDLE_TYPE>
