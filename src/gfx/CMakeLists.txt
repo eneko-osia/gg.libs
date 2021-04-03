@@ -58,7 +58,7 @@ endif()
 if(GG_GFX_VULKAN_SUPPORT)
     target_include_directories(
         gg.gfx
-        PRIVATE
+        PUBLIC
             ${Vulkan_INCLUDE_DIRS}
     )
 endif()
