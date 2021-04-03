@@ -4,13 +4,17 @@ set(build_configuration_types "debug;release;distribution")
 set(CMAKE_CONFIGURATION_TYPES ${build_configuration_types}
     CACHE STRING "Build configuration types" FORCE)
 
+set(CMAKE_C_FLAGS_DISTRIBUTION
+    ${CMAKE_CXX_FLAGS_RELEASE}
+    CACHE STRING "c distribution compiler flags" FORCE)
+
 set(CMAKE_CXX_FLAGS_DISTRIBUTION
     ${CMAKE_CXX_FLAGS_RELEASE}
-    CACHE INTERNAL "cxx distribution compiler flags" FORCE)
+    CACHE STRING "cxx distribution compiler flags" FORCE)
 
 set(CMAKE_EXE_LINKER_FLAGS_DISTRIBUTION
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE}
-    CACHE INTERNAL "cxx distribution linker flags" FORCE)
+    CACHE STRING "cxx distribution linker flags" FORCE)
 
 #===============================================================================
 
