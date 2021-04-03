@@ -16,6 +16,11 @@ namespace gg::app
 
         // accessors
 
+        handle get_hwnd(void) const noexcept
+        {
+            return m_hwnd;
+        }
+
         template <typename HANDLE_TYPE>
         HANDLE_TYPE get_hwnd(void) const noexcept
         {
