@@ -131,7 +131,7 @@ void vulkan_context::on_finalize(void) noexcept
     vkDestroyInstance(m_instance, nullptr);
 }
 
-bool8 vulkan_context::on_init(context_info const * info) noexcept
+bool8 vulkan_context::on_init(context_info_base const * info) noexcept
 {
     (void) info;
 #if GG_VULKAN_VALIDATION_ENABLED

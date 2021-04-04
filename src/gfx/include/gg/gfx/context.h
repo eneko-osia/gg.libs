@@ -16,7 +16,7 @@ namespace gg::gfx
 {
     // forward declarations
 
-    struct context_info;
+    struct context_info_base;
 
     // class in charge of define an abstract graphics context
 
@@ -33,7 +33,7 @@ namespace gg::gfx
         void finalize(void) noexcept;
         bool8 init(
             app::window const * window,
-            context_info const * info) noexcept;
+            context_info_base const * info) noexcept;
 
     protected:
 
@@ -53,7 +53,7 @@ namespace gg::gfx
         // virtual methods
 
         virtual void on_finalize(void) noexcept = 0;
-        virtual bool8 on_init(context_info const * info) noexcept = 0;
+        virtual bool8 on_init(context_info_base const * info) noexcept = 0;
 
     private:
 

@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_GFX_OPENGL_SUPPORT)
 //==============================================================================
 
@@ -7,6 +8,7 @@
 
 #include "gg/core/type/convert.h"
 #include "gg/core/utils/bit_field.h"
+#include "gg/gfx/opengl/context/opengl_context.h"
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
@@ -49,6 +51,22 @@ opengl_context_base::clear(
                  (convert::to<float32>(alpha) / max_uint8_float));
 
     glClear(clear_mask);
+}
+
+void opengl_context_base::finalize(void) noexcept
+{
+    type::cast_static<opengl_context *>(this)->on_finalize();
+}
+
+bool8 opengl_context_base::init(opengl_context_info const & info) noexcept
+{
+    if (type::cast_static<opengl_context *>(this)->on_init(info))
+    {
+        return true;
+    }
+
+    finalize();
+    return false;
 }
 
 //==============================================================================

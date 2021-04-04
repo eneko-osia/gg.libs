@@ -1,14 +1,11 @@
 #ifndef _gg_gfx_opengl_context_linux_h_
 #define _gg_gfx_opengl_context_linux_h_
 
+#include "gg/core/pattern/handle.h"
 #include "gg/gfx/opengl/context/opengl_context_base.h"
-
-typedef struct __GLXcontextRec * GLXContext;
 
 namespace gg::gfx
 {
-    struct opengl_context_info;
-
     class opengl_context_linux : public opengl_context_base
     {
     public:
@@ -24,24 +21,23 @@ namespace gg::gfx
         // constructors
 
         opengl_context_linux(void) noexcept;
-        virtual ~opengl_context_linux(void) noexcept;
+        ~opengl_context_linux(void) noexcept;
 
     private:
 
-        // context override methods
+        // friendships
 
-        void on_finalize(void) noexcept override final;
-        bool8 on_init(context_info const * info) noexcept override final;
+        friend class opengl_context_base;
 
         // methods
 
-        bool8 on_init(opengl_context_info const * info) noexcept;
-
-    private:
+        void on_finalize(void) noexcept;
+        bool8 on_init(opengl_context_info const & info) noexcept;
 
         // attributes
 
-        GLXContext m_context;
+        handle m_context;
+        handle m_display;
         uint32 m_window;
     };
 

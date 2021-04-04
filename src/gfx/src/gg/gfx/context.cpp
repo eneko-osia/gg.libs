@@ -4,7 +4,7 @@
 
 #include "gg/core/debug/assert.h"
 #include "gg/core/macro/macro.h"
-#include "gg/gfx/context_info.h"
+#include "gg/gfx/context_info_base.h"
 
 //==============================================================================
 namespace gg::gfx
@@ -31,7 +31,7 @@ void context::finalize(void) noexcept
 }
 
 bool8
-context::init(app::window const * window, context_info const * info) noexcept
+context::init(app::window const * window, context_info_base const * info) noexcept
 {
     GG_RETURN_FALSE_IF(m_window);
     GG_ASSERT(window);

@@ -39,7 +39,7 @@ namespace gg::gfx
         // context override methods
 
         void on_finalize(void) noexcept override;
-        bool8 on_init(context_info const * info) noexcept override;
+        bool8 on_init(context_info_base const * info) noexcept override;
 
     private:
 
