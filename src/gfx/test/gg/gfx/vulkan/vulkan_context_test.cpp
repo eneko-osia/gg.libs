@@ -6,7 +6,8 @@
 
 //==============================================================================
 
-#include "gg/gfx/vulkan/context/vulkan_context.h"
+#include "gg/core/type/type_trait.h"
+#include "gg/gfx/vulkan/vulkan_context.h"
 
 //==============================================================================
 namespace gg::gfx::vulkan_context_test
