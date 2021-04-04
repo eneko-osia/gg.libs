@@ -50,15 +50,15 @@ static LRESULT WINAPI wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 //==============================================================================
 
 window_windows::window_windows(void) noexcept
-    : m_hwnd(nullptr)
-    , m_wnd_class(nullptr)
+    : m_hwnd()
+    , m_wnd_class()
 {
 }
 
 window_windows::~window_windows(void)
 {
-    GG_ASSERT(m_hwnd.is_null());
-    GG_ASSERT(m_wnd_class.is_null());
+    GG_ASSERT(!m_hwnd);
+    GG_ASSERT(!m_wnd_class);
 }
 
 //==============================================================================
@@ -91,7 +91,7 @@ window_windows::handle_messages(uint32 msg, int64 wparam, int64 lparam) noexcept
 
 void window_windows::on_finalize(void) noexcept
 {
-    if (!m_hwnd.is_null())
+    if (m_hwnd)
     {
         DestroyWindow(m_hwnd.get<HWND>());
         m_hwnd = nullptr;
@@ -103,7 +103,7 @@ void window_windows::on_finalize(void) noexcept
 bool8 window_windows::on_init(window_info const & info) noexcept
 {
     GG_RETURN_FALSE_IF(!register_class(info));
-    GG_RETURN_FALSE_IF(!m_hwnd.is_null());
+    GG_RETURN_FALSE_IF(m_hwnd);
 
     DWORD window_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     RECT rect =
@@ -125,23 +125,22 @@ bool8 window_windows::on_init(window_info const & info) noexcept
             nullptr,
             m_wnd_class.get<PWNDCLASSEX>()->hInstance,
             this);
-    GG_RETURN_FALSE_IF(m_hwnd.is_null());
+    GG_RETURN_FALSE_IF(!m_hwnd);
 
-    HWND const hwnd = m_hwnd.get<HWND>();
-    ShowWindow(hwnd, SW_SHOW);
-    SetFocus(hwnd);
-    UpdateWindow(hwnd);
+    ShowWindow(m_hwnd.get<HWND>(), SW_SHOW);
+    SetFocus(m_hwnd.get<HWND>());
+    UpdateWindow(m_hwnd.get<HWND>());
 
     return true;
 }
 
 bool8 window_windows::register_class(window_info const & info) noexcept
 {
-    GG_RETURN_FALSE_IF(!m_wnd_class.is_null());
-    GG_RETURN_FALSE_IF(info.m_hinstance.is_null());
+    GG_RETURN_FALSE_IF(m_wnd_class);
+    GG_RETURN_FALSE_IF(!info.m_hinstance);
 
     m_wnd_class = memory::new_object<WNDCLASSEX>();
-    GG_RETURN_FALSE_IF(m_wnd_class.is_null());
+    GG_RETURN_FALSE_IF(!m_wnd_class);
 
     PWNDCLASSEX const wnd_class = m_wnd_class.get<PWNDCLASSEX>();
     wnd_class->cbSize = sizeof(WNDCLASSEX);
@@ -161,7 +160,7 @@ bool8 window_windows::register_class(window_info const & info) noexcept
 
 bool8 window_windows::unregister_class(void) noexcept
 {
-    GG_RETURN_FALSE_IF(m_wnd_class.is_null());
+    GG_RETURN_FALSE_IF(!m_wnd_class);
 
     PWNDCLASSEX wnd_class = m_wnd_class.get<PWNDCLASSEX>();
     bool8 unregistered =
