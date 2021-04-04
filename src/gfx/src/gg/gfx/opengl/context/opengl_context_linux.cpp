@@ -113,8 +113,8 @@ bool8 opengl_context_linux::on_init(opengl_context_info const & info) noexcept
             m_display.get<Display*>(),
             RootWindow(
                 m_display.get<Display*>(),
-                visual_info.screen),
-            visual_info.visual,
+                visual_info->screen),
+            visual_info->visual,
             AllocNone);
 
     XSetWindowAttributes window_attributes;
@@ -134,13 +134,13 @@ bool8 opengl_context_linux::on_init(opengl_context_info const & info) noexcept
             m_display.get<Display*>(),
             RootWindow(
                 m_display.get<Display*>(),
-                visual_info.screen),
+                visual_info->screen),
             0, 0,
             info.m_window->get_width(),
             info.m_window->get_height(),
-            0, visual_info.depth,
+            0, visual_info->depth,
             InputOutput,
-            visual_info.visual,
+            visual_info->visual,
             CWBorderPixel | CWColormap | CWEventMask,
             &window_attributes);
 
