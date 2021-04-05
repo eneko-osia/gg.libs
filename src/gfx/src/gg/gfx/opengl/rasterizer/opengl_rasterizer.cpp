@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_GFX_OPENGL_SUPPORT)
 //==============================================================================
 
@@ -5,7 +6,7 @@
 
 //==============================================================================
 
-#include "gg/core/debug/assert.h"
+#include "gg/gfx/opengl/debug/opengl_assert.h"
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
@@ -81,7 +82,7 @@ void opengl_rasterizer::activate(void) const noexcept
 void opengl_rasterizer::define_front_face(front_face_mode mode) noexcept
 {
     glFrontFace(get_gl_front_face_mode(mode));
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 void
@@ -89,12 +90,12 @@ opengl_rasterizer::define_polygon(
     polygon_face_mode face,
     polygon_fill_mode fill) noexcept
 {
-#if !defined(GG_ANDROID)
+    #if !defined(GG_ANDROID)
     glPolygonMode(
         get_gl_polygon_face_mode(face),
         get_gl_polygon_fill_mode(fill));
-    // ASSERT_GL_ERROR();
-#endif
+    GG_ASSERT_GL_ERROR();
+    #endif
 }
 
 void
@@ -104,68 +105,68 @@ opengl_rasterizer::enable_alpha_blend(
     blend_function_mode destination) noexcept
 {
     glEnable(GL_BLEND);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glBlendEquation(get_gl_blend_mode(mode));
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glBlendFunc(get_gl_blend_function_mode(source),
                 get_gl_blend_function_mode(destination));
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 void opengl_rasterizer::enable_alpha_test(function_mode mode, float32 value) noexcept
 {
-#if !defined(GG_ANDROID)
+    #if !defined(GG_ANDROID)
     glEnable(GL_ALPHA_TEST);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glAlphaFunc(get_gl_function_mode(mode), value);
-    // ASSERT_GL_ERROR();
-#endif
+    GG_ASSERT_GL_ERROR();
+    #endif
 }
 
 void opengl_rasterizer::enable_culling(culling_mode mode) noexcept
 {
     glEnable(GL_CULL_FACE);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glCullFace(get_gl_culling_mode(mode));
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 void opengl_rasterizer::enable_depth(function_mode mode) noexcept
 {
     glEnable(GL_DEPTH_TEST);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glDepthMask(GL_TRUE);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glDepthFunc(get_gl_function_mode(mode));
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 void opengl_rasterizer::disable_alpha_blend(void) noexcept
 {
     glDisable(GL_BLEND);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 void opengl_rasterizer::disable_alpha_test(void) noexcept
 {
-#if !defined(GG_ANDROID)
+    #if !defined(GG_ANDROID)
     glDisable(GL_ALPHA_TEST);
-    // ASSERT_GL_ERROR();
-#endif
+    GG_ASSERT_GL_ERROR();
+    #endif
 }
 
 void opengl_rasterizer::disable_culling(void) noexcept
 {
     glDisable(GL_CULL_FACE);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 void opengl_rasterizer::disable_depth(void) noexcept
 {
     glDisable(GL_DEPTH_TEST);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
     glDepthMask(GL_FALSE);
-    // ASSERT_GL_ERROR();
+    GG_ASSERT_GL_ERROR();
 }
 
 uint32 opengl_rasterizer::get_gl_blend_function_mode(blend_function_mode mode) noexcept
@@ -429,8 +430,7 @@ uint32 opengl_rasterizer::get_gl_polygon_face_mode(polygon_face_mode mode) noexc
 
 uint32 opengl_rasterizer::get_gl_polygon_fill_mode(polygon_fill_mode mode) noexcept
 {
-#if !defined(GG_ANDROID)
-
+    #if !defined(GG_ANDROID)
     switch (mode)
     {
         case polygon_fill_mode::fill:
@@ -454,12 +454,9 @@ uint32 opengl_rasterizer::get_gl_polygon_fill_mode(polygon_fill_mode mode) noexc
             return 0;
         }
     }
-
-#else
-
+    #else
     return 0;
-
-#endif
+    #endif
 }
 
 //==============================================================================

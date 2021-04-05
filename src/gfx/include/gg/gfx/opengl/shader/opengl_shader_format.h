@@ -7,8 +7,6 @@
 
 namespace gg::gfx
 {
-    // struct
-
     struct opengl_attribute
     {
         opengl_attribute(uint32 location, string_ref const & name)
@@ -63,8 +61,6 @@ namespace gg::gfx
 
         typedef array_dynamic<attribute_type> attribute_container;
         typedef array_dynamic<uniform_type> uniform_container;
-
-    private:
 
         // attributes
 

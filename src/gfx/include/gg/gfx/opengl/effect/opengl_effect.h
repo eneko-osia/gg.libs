@@ -1,12 +1,11 @@
 #ifndef _gg_gfx_opengl_effect_h_
 #define _gg_gfx_opengl_effect_h_
 
-#include "gg/core/pattern/non_copyable.h"
 #include "gg/gfx/opengl/rasterizer/rasterizer.h"
 
 namespace gg::gfx
 {
-    class opengl_effect : public non_copyable
+    class opengl_effect
     {
     public:
 

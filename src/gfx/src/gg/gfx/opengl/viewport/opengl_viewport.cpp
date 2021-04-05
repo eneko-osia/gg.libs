@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_GFX_OPENGL_SUPPORT)
 //==============================================================================
 
@@ -5,6 +6,7 @@
 
 //==============================================================================
 
+#include "gg/gfx/opengl/debug/opengl_assert.h"
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
@@ -14,14 +16,17 @@ namespace gg::gfx
 
 //==============================================================================
 
-void opengl_viewport::finalize(void) noexcept
+bool8 opengl_viewport::disable(void) noexcept
 {
+	glViewport(0, 0, 0, 0);
+	GG_ASSERT_GL_ERROR();
+	return true;
 }
 
-bool8 opengl_viewport::init(uint16 width, uint16 height) noexcept
+bool8 opengl_viewport::enable(uint16 width, uint16 height) noexcept
 {
 	glViewport(0, 0, width, height);
-	// ASSERT_GL_ERROR();
+	GG_ASSERT_GL_ERROR();
 	return true;
 }
 

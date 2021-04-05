@@ -1,3 +1,4 @@
+//==============================================================================
 #if defined(GG_GFX_OPENGL_SUPPORT)
 //==============================================================================
 
@@ -7,6 +8,7 @@
 
 #include "gg/core/string/type/string_static.h"
 #include "gg/gfx/gfx_log.h"
+#include "gg/gfx/opengl/debug/opengl_assert.h"
 #include "gg/gfx/opengl/opengl_includes.h"
 #include "gg/log/logger.h"
 
@@ -94,6 +96,7 @@ bool8 opengl_shader::init(void const * shader[], uint32 size[], uint32 count) no
 
     int32 has_compiler = 0;
     glGetIntegerv(GL_SHADER_COMPILER, &has_compiler);
+    GG_ASSERT_GL_ERROR();
 
     if (0 == has_compiler)
     {

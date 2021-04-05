@@ -16,11 +16,9 @@ namespace gg::gfx
 
         // methods
 
-        void finalize(void) noexcept;
-        bool8 init(uint16 width, uint16 height) noexcept;
+        bool8 disable(void) noexcept;
+        bool8 enable(uint16 width, uint16 height) noexcept;
     };
-
-    typedef opengl_viewport viewport;
 }
 
 #endif // _gg_gfx_opengl_viewport_h_

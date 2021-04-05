@@ -14,19 +14,6 @@ namespace gg::gfx
         opengl_rasterizer(void) noexcept;
         ~opengl_rasterizer(void) noexcept = default;
 
-        // static methods
-
-        static void define_front_face(front_face_mode mode) noexcept;
-        static void define_polygon(polygon_face_mode face, polygon_fill_mode fill) noexcept;
-        static void enable_alpha_blend(blend_mode mode, blend_function_mode source, blend_function_mode destination) noexcept;
-        static void enable_alpha_test(function_mode mode, float32 value) noexcept;
-        static void enable_culling(culling_mode mode) noexcept;
-        static void enable_depth(function_mode mode) noexcept;
-        static void disable_alpha_blend(void) noexcept;
-        static void disable_alpha_test(void) noexcept;
-        static void disable_culling(void) noexcept;
-        static void disable_depth(void) noexcept;
-
         // methods
 
         void activate(void) const noexcept;
@@ -158,6 +145,19 @@ namespace gg::gfx
 
         // static methods
 
+        static void define_front_face(front_face_mode mode) noexcept;
+        static void define_polygon(polygon_face_mode face, polygon_fill_mode fill) noexcept;
+
+        static void enable_alpha_blend(blend_mode mode, blend_function_mode source, blend_function_mode destination) noexcept;
+        static void enable_alpha_test(function_mode mode, float32 value) noexcept;
+        static void enable_culling(culling_mode mode) noexcept;
+        static void enable_depth(function_mode mode) noexcept;
+
+        static void disable_alpha_blend(void) noexcept;
+        static void disable_alpha_test(void) noexcept;
+        static void disable_culling(void) noexcept;
+        static void disable_depth(void) noexcept;
+
         static uint32 get_gl_blend_function_mode(blend_function_mode mode) noexcept;
         static uint32 get_gl_blend_mode(blend_mode mode) noexcept;
         static uint32 get_gl_culling_mode(culling_mode mode) noexcept;
@@ -166,8 +166,6 @@ namespace gg::gfx
         static uint32 get_gl_function_mode(function_mode mode) noexcept;
         static uint32 get_gl_polygon_face_mode(polygon_face_mode mode) noexcept;
         static uint32 get_gl_polygon_fill_mode(polygon_fill_mode mode) noexcept;
-
-    private:
 
         // attributes
 
