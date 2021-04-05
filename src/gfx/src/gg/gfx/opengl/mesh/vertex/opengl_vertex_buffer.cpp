@@ -2,7 +2,7 @@
 #if defined(GG_GFX_OPENGL_SUPPORT)
 //==============================================================================
 
-#include "gg/gfx/opengl/mesh/index/opengl_index_buffer.h"
+#include "gg/gfx/opengl/mesh/vertex/opengl_vertex_buffer.h"
 
 //==============================================================================
 
@@ -15,22 +15,22 @@ namespace gg::gfx
 {
 //==============================================================================
 
-opengl_index_buffer::opengl_index_buffer(void) noexcept
+opengl_vertex_buffer::opengl_vertex_buffer(void) noexcept
     : m_handle(0)
-    , m_bytes_per_index(0)
-    , m_num_index(0)
+    , m_bytes_per_vertex(0)
+    , m_num_vertex(0)
 
 {
 }
 
-opengl_index_buffer::~opengl_index_buffer(void) noexcept
+opengl_vertex_buffer::~opengl_vertex_buffer(void) noexcept
 {
     GG_ASSERT(0 == m_handle);
 }
 
 //==============================================================================
 
-void opengl_index_buffer::finalize(void) noexcept
+void opengl_vertex_buffer::finalize(void) noexcept
 {
     GG_RETURN_IF(0 == m_handle);
     glDeleteBuffers(1, &m_handle);
@@ -38,48 +38,48 @@ void opengl_index_buffer::finalize(void) noexcept
 }
 
 bool8
-opengl_index_buffer::init(
-    void const * indexes,
-    uint32 bytes_per_index,
-    uint32 num_index) noexcept
+opengl_vertex_buffer::init(
+    void const * vertexes,
+    uint32 bytes_per_vertex,
+    uint32 num_vertex) noexcept
 {
     GG_RETURN_FALSE_IF(0 != m_handle);
-    GG_RETURN_FALSE_IF(!indexes);
-    GG_RETURN_FALSE_IF(0 == bytes_per_index);
-    GG_RETURN_FALSE_IF(0 == num_index);
+    GG_RETURN_FALSE_IF(!vertexes);
+    GG_RETURN_FALSE_IF(0 == bytes_per_vertex);
+    GG_RETURN_FALSE_IF(0 == num_vertex);
 
     glGenBuffers(1, &m_handle);
     GG_ASSERT_GL_ERROR();
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
+    glBindBuffer(GL_ARRAY_BUFFER, m_handle);
     GG_ASSERT_GL_ERROR();
 
     glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
-        bytes_per_index * num_index,
-        indexes,
+        GL_ARRAY_BUFFER,
+        bytes_per_vertex * num_vertex,
+        vertexes,
         GL_STATIC_DRAW);
     GG_ASSERT_GL_ERROR();
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     GG_ASSERT_GL_ERROR();
 
-    m_bytes_per_index = bytes_per_index;
-    m_num_index = num_index;
+    m_bytes_per_vertex = bytes_per_vertex;
+    m_num_vertex = num_vertex;
     return true;
 }
 
-void opengl_index_buffer::reset(void) noexcept
+void opengl_vertex_buffer::reset(void) noexcept
 {
     GG_ASSERT(0 != m_handle);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     GG_ASSERT_GL_ERROR();
 }
 
-void opengl_index_buffer::upload(void) noexcept
+void opengl_vertex_buffer::upload(void) noexcept
 {
     GG_ASSERT(0 != m_handle);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
+    glBindBuffer(GL_ARRAY_BUFFER, m_handle);
     GG_ASSERT_GL_ERROR();
 }
 

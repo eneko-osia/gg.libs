@@ -12,7 +12,7 @@ namespace gg::gfx
         // constructors
 
         opengl_index_buffer(void) noexcept;
-        ~opengl_index_buffer(void) noexcept = default;
+        ~opengl_index_buffer(void) noexcept;
 
         // methods
 
