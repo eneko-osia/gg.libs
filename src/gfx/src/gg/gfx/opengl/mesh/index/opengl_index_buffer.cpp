@@ -34,6 +34,7 @@ void opengl_index_buffer::finalize(void) noexcept
 {
     GG_RETURN_IF(0 == m_handle);
     glDeleteBuffers(1, &m_handle);
+    GG_ASSERT_GL_ERROR();
     m_handle = 0;
 }
 
@@ -51,18 +52,14 @@ opengl_index_buffer::init(
     glGenBuffers(1, &m_handle);
     GG_ASSERT_GL_ERROR();
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
-    GG_ASSERT_GL_ERROR();
-
+    upload();
     glBufferData(
         GL_ELEMENT_ARRAY_BUFFER,
         bytes_per_index * num_index,
         indexes,
         GL_STATIC_DRAW);
     GG_ASSERT_GL_ERROR();
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    GG_ASSERT_GL_ERROR();
+    reset();
 
     m_bytes_per_index = bytes_per_index;
     m_num_index = num_index;
