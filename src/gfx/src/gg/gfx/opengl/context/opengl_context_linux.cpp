@@ -16,18 +16,18 @@
 #include <X11/Xlib.h>
 
 //==============================================================================
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
 //==============================================================================
 
-opengl_context_linux::opengl_context_linux(void) noexcept
+context_linux::context_linux(void) noexcept
     : m_context()
     , m_display()
     , m_window(None)
 {
 }
 
-opengl_context_linux::~opengl_context_linux(void) noexcept
+context_linux::~context_linux(void) noexcept
 {
     GG_ASSERT(None == m_window);
     GG_ASSERT(!m_display)
@@ -36,19 +36,19 @@ opengl_context_linux::~opengl_context_linux(void) noexcept
 
 //==============================================================================
 
-bool8 opengl_context_linux::disable(void) noexcept
+bool8 context_linux::disable(void) noexcept
 {
     GG_RETURN_FALSE_IF(!m_display);
     return glXMakeCurrent(m_display.get<Display*>(), None, nullptr);
 }
 
-bool8 opengl_context_linux::enable(void) noexcept
+bool8 context_linux::enable(void) noexcept
 {
     GG_RETURN_FALSE_IF(!m_context || !m_display || (None == m_window));
     return glXMakeCurrent(m_display.get<Display*>(), m_window, m_context.get<GLXContext>());
 }
 
-void opengl_context_linux::on_finalize(void) noexcept
+void context_linux::on_finalize(void) noexcept
 {
     disable();
 
@@ -67,7 +67,7 @@ void opengl_context_linux::on_finalize(void) noexcept
     m_display = nullptr;
 }
 
-bool8 opengl_context_linux::on_init(opengl_context_info const & info) noexcept
+bool8 context_linux::on_init(context_info const & info) noexcept
 {
     GG_RETURN_FALSE_IF(m_context || (None != m_window));
 
@@ -184,7 +184,7 @@ bool8 opengl_context_linux::on_init(opengl_context_info const & info) noexcept
     return true;
 }
 
-void opengl_context_linux::swap_buffer(void) noexcept
+void context_linux::swap_buffer(void) noexcept
 {
     GG_ASSERT(m_display && (None != m_window));
 	glXSwapBuffers(m_display.get<Display*>(), m_window);

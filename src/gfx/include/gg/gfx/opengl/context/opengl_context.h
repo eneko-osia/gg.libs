@@ -3,16 +3,16 @@
 
 #include "gg/gfx/opengl/context/opengl_context_platform.h"
 
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
-    class opengl_context final : public opengl_context_platform
+    class context final : public context_platform
     {
     public:
 
         // constructors
 
-        opengl_context(void) noexcept = default;
-        ~opengl_context(void) noexcept = default;
+        context(void) noexcept = default;
+        ~context(void) noexcept = default;
     };
 }
 

@@ -16,18 +16,18 @@
 #include <windows.h>
 
 //==============================================================================
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
 //==============================================================================
 
-opengl_context_windows::opengl_context_windows(void) noexcept
+context_windows::context_windows(void) noexcept
     : m_context()
     , m_hwnd()
     , m_render_context()
 {
 }
 
-opengl_context_windows::~opengl_context_windows(void) noexcept
+context_windows::~context_windows(void) noexcept
 {
     GG_ASSERT(!m_render_context);
     GG_ASSERT(!m_hwnd);
@@ -36,18 +36,18 @@ opengl_context_windows::~opengl_context_windows(void) noexcept
 
 //==============================================================================
 
-bool8 opengl_context_windows::disable(void) noexcept
+bool8 context_windows::disable(void) noexcept
 {
     return wglMakeCurrent(nullptr, nullptr);
 }
 
-bool8 opengl_context_windows::enable(void) noexcept
+bool8 context_windows::enable(void) noexcept
 {
     GG_RETURN_FALSE_IF(!m_context || !m_render_context);
     return wglMakeCurrent(m_context.get<HDC>(), m_render_context.get<HGLRC>());
 }
 
-void opengl_context_windows::on_finalize(void) noexcept
+void context_windows::on_finalize(void) noexcept
 {
     disable();
 
@@ -66,7 +66,7 @@ void opengl_context_windows::on_finalize(void) noexcept
     m_hwnd = nullptr;
 }
 
-bool8 opengl_context_windows::on_init(opengl_context_info const & info) noexcept
+bool8 context_windows::on_init(context_info const & info) noexcept
 {
     GG_RETURN_FALSE_IF(m_context || m_render_context);
 
@@ -132,7 +132,7 @@ bool8 opengl_context_windows::on_init(opengl_context_info const & info) noexcept
     return true;
 }
 
-void opengl_context_windows::swap_buffer(void) noexcept
+void context_windows::swap_buffer(void) noexcept
 {
     GG_ASSERT(m_context);
     SwapBuffers(m_context.get<HDC>());

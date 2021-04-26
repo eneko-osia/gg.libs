@@ -12,34 +12,34 @@
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
 //==============================================================================
 
 void
-opengl_context_base::clear(
+context_base::clear(
     uint8 red,
     uint8 green,
     uint8 blue,
     uint8 alpha,
-    opengl_clear_mode mode) const noexcept
+    clear_mode mode) const noexcept
 {
     static float32 const max_uint8_float = 255.0f;
     uint32 clear_mask = 0;
 
-    if (bit_field::is_set(mode, opengl_clear_mode::color))
+    if (bit_field::is_set(mode, clear_mode::color))
     {
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
         clear_mask |= GL_COLOR_BUFFER_BIT;
     }
 
-    if (bit_field::is_set(mode, opengl_clear_mode::depth))
+    if (bit_field::is_set(mode, clear_mode::depth))
     {
         glDepthMask(GL_TRUE);
         clear_mask |= GL_DEPTH_BUFFER_BIT;
     }
 
-    if (bit_field::is_set(mode, opengl_clear_mode::stencil))
+    if (bit_field::is_set(mode, clear_mode::stencil))
     {
         glStencilMask(GL_TRUE);
         clear_mask |= GL_STENCIL_BUFFER_BIT;
@@ -53,14 +53,14 @@ opengl_context_base::clear(
     glClear(clear_mask);
 }
 
-void opengl_context_base::finalize(void) noexcept
+void context_base::finalize(void) noexcept
 {
-    type::cast_static<opengl_context *>(this)->on_finalize();
+    type::cast_static<context *>(this)->on_finalize();
 }
 
-bool8 opengl_context_base::init(opengl_context_info const & info) noexcept
+bool8 context_base::init(context_info const & info) noexcept
 {
-    if (type::cast_static<opengl_context *>(this)->on_init(info))
+    if (type::cast_static<context *>(this)->on_init(info))
     {
         return true;
     }

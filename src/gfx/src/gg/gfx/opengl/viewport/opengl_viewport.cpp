@@ -10,20 +10,20 @@
 #include "gg/gfx/opengl/opengl_includes.h"
 
 //==============================================================================
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
 //==============================================================================
 
 //==============================================================================
 
-bool8 opengl_viewport::disable(void) noexcept
+bool8 viewport::disable(void) noexcept
 {
 	glViewport(0, 0, 0, 0);
 	GG_ASSERT_GL_ERROR();
 	return true;
 }
 
-bool8 opengl_viewport::enable(uint16 width, uint16 height) noexcept
+bool8 viewport::enable(uint16 width, uint16 height) noexcept
 {
 	glViewport(0, 0, width, height);
 	GG_ASSERT_GL_ERROR();

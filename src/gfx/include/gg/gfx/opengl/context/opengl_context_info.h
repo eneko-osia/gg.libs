@@ -4,9 +4,9 @@
 #include "gg/core/type/type.h"
 #include "gg/gfx/context_info_base.h"
 
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
-    struct opengl_context_info : public context_info_base
+    struct context_info : public context_info_base
     {
         uint8 m_red_size;
         uint8 m_green_size;

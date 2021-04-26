@@ -3,16 +3,16 @@
 
 #include "gg/core/type/enum.h"
 
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
-    enum class opengl_clear_mode : uint8
+    enum class clear_mode : uint8
     {
         color =     1 << 0,
         depth =     1 << 1,
         stencil =   1 << 2
     };
 
-    GG_ENUM(opengl_clear_mode);
+    GG_ENUM(clear_mode);
 }
 
 #endif // _gg_gfx_opengl_context_defs_h_

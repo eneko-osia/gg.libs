@@ -9,7 +9,7 @@
 #include "gg/gfx/opengl/context/opengl_context.h"
 
 //==============================================================================
-namespace gg::gfx::opengl_context_test
+namespace gg::gfx::opengl::context_test
 {
 //==============================================================================
 
@@ -17,41 +17,41 @@ TEST_CASE("opengl_context_test", "[gg.gfx.opengl_context]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<opengl_context>::value);
-        REQUIRE(type::has_trivial_assign<opengl_context>::value);
+        REQUIRE(type::is_assignable<context>::value);
+        REQUIRE(type::has_trivial_assign<context>::value);
     }
 
     SECTION("construct")
     {
-        REQUIRE(type::is_constructible<opengl_context>::value);
-        REQUIRE(!type::has_trivial_constructor<opengl_context>::value);
+        REQUIRE(type::is_constructible<context>::value);
+        REQUIRE(!type::has_trivial_constructor<context>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<opengl_context>::value);
-        REQUIRE(!type::has_trivial_copy<opengl_context>::value);
+        REQUIRE(type::is_copyable<context>::value);
+        REQUIRE(!type::has_trivial_copy<context>::value);
     }
 
     SECTION("destroy")
     {
-        REQUIRE(type::is_destructible<opengl_context>::value);
-        REQUIRE(!type::has_trivial_destructor<opengl_context>::value);
+        REQUIRE(type::is_destructible<context>::value);
+        REQUIRE(!type::has_trivial_destructor<context>::value);
     }
 
     SECTION("equality")
     {
-        REQUIRE(!type::has_equality<opengl_context>::value);
+        REQUIRE(!type::has_equality<context>::value);
     }
 
     SECTION("pod")
     {
-        REQUIRE(!type::is_pod<opengl_context>::value);
+        REQUIRE(!type::is_pod<context>::value);
     }
 
     SECTION("polymorphic")
     {
-        REQUIRE(!type::is_polymorphic<opengl_context>::value);
+        REQUIRE(!type::is_polymorphic<context>::value);
     }
 }
 

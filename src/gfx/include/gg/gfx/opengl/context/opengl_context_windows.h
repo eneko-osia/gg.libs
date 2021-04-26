@@ -4,9 +4,9 @@
 #include "gg/core/pattern/handle.h"
 #include "gg/gfx/opengl/context/opengl_context_base.h"
 
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
-    class opengl_context_windows : public opengl_context_base
+    class context_windows : public context_base
     {
     public:
 
@@ -20,19 +20,19 @@ namespace gg::gfx
 
         // constructors
 
-        opengl_context_windows(void) noexcept;
-        ~opengl_context_windows(void) noexcept;
+        context_windows(void) noexcept;
+        ~context_windows(void) noexcept;
 
     private:
 
         // friendships
 
-        friend class opengl_context_base;
+        friend class context_base;
 
         // methods
 
         void on_finalize(void) noexcept;
-        bool8 on_init(opengl_context_info const & info) noexcept;
+        bool8 on_init(context_info const & info) noexcept;
 
         // attributes
 
@@ -41,7 +41,7 @@ namespace gg::gfx
         handle m_render_context;
     };
 
-    typedef opengl_context_windows opengl_context_platform;
+    typedef context_windows context_platform;
 }
 
 #endif // _gg_gfx_opengl_context_windows_h_

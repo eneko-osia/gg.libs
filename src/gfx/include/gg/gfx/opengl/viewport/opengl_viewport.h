@@ -3,16 +3,16 @@
 
 #include "gg/core/type/type.h"
 
-namespace gg::gfx
+namespace gg::gfx::opengl
 {
-    class opengl_viewport final
+    class viewport final
     {
     public:
 
         // constructors
 
-        opengl_viewport(void) noexcept = default;
-        ~opengl_viewport(void) noexcept = default;
+        viewport(void) noexcept = default;
+        ~viewport(void) noexcept = default;
 
         // methods
 
