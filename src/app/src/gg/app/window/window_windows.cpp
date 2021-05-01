@@ -75,12 +75,14 @@ window_windows::handle_messages(uint32 msg, int64 wparam, int64 lparam) noexcept
             notify_observers((TRUE == wparam) ?
                 &iwindow_observer::on_gain_focus :
                 &iwindow_observer::on_lost_focus);
+            break;
         }
 
         case WM_CLOSE:
         case WM_QUIT:
         {
             notify_observers(&iwindow_observer::on_close);
+            break;
         }
     }
 
