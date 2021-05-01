@@ -1,6 +1,7 @@
 #ifndef _gg_memory_buffer_ref_h_
 #define _gg_memory_buffer_ref_h_
 
+#include "gg/core/debug/assert.h"
 #include "gg/core/type/type_trait.h"
 
 namespace gg

@@ -2,7 +2,8 @@
 #define _gg_hash_map_h_
 
 #include "gg/core/container/container.h"
-#include "gg/core/macro/macro.h"
+#include "gg/core/debug/assert.h"
+
 #include <unordered_map>
 
 namespace gg

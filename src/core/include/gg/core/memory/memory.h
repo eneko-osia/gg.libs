@@ -1,7 +1,9 @@
 #ifndef _gg_memory_h_
 #define _gg_memory_h_
 
+#include "gg/core/debug/assert.h"
 #include "gg/core/type/type_trait.h"
+
 #include <cstdlib>
 #include <cstring>
 #include <new>

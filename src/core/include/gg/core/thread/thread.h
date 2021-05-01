@@ -1,29 +1,18 @@
 #ifndef _gg_thread_h_
 #define _gg_thread_h_
 
-// include files
-
 #include "gg/core/pattern/non_copyable.h"
 #include "gg/core/time/type/nanosecond.h"
-#include <thread>
 
-// namespace
+#include <thread>
 
 namespace gg
 {
-    // class in charge of define a thread
-
     class thread final : public non_copyable
     {
-    private:
-
-        // type definitions
-
-        typedef std::thread thread_type;
-
     public:
 
-        // class in charge of define current thread utilities
+        // class
 
         class current
         {
@@ -62,8 +51,6 @@ namespace gg
         {
         }
 
-        ~thread(void) noexcept = default;
-
         // static methods
 
         static uint32 max_threads(void) noexcept
@@ -100,6 +87,10 @@ namespace gg
         }
 
     private:
+
+        // type definitions
+
+        typedef std::thread thread_type;
 
         // attributes
 

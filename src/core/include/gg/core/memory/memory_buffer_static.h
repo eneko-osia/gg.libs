@@ -1,6 +1,7 @@
 #ifndef _gg_memory_buffer_static_h_
 #define _gg_memory_buffer_static_h_
 
+#include "gg/core/debug/assert.h"
 #include "gg/core/pattern/non_copyable.h"
 #include "gg/core/type/type_trait.h"
 

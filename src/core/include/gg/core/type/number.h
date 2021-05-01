@@ -1,16 +1,11 @@
 #ifndef _gg_number_h_
 #define _gg_number_h_
 
-// include files
-
+#include "gg/core/debug/assert.h"
 #include "gg/core/type/type_trait.h"
-
-// namespace
 
 namespace gg
 {
-    // class in charge of define a number
-
     template <typename ACTUAL_TYPE, typename STORAGE_TYPE>
     class number
     {
