@@ -38,9 +38,10 @@ target_compile_options(
     PRIVATE
         $<$<STREQUAL:${compiler},gnu>:-fno-exceptions>
         $<$<STREQUAL:${compiler},gnu>:-Wall>
-        $<$<STREQUAL:${compiler},gnu>:-Wextra>
-        $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
         $<$<STREQUAL:${compiler},gnu>:-Werror>
+        $<$<STREQUAL:${compiler},gnu>:-Wextra>
+        $<$<STREQUAL:${compiler},gnu>:-Wno-address>
+        $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
         $<$<STREQUAL:${compiler},msvc>:/EHs-c->
         $<$<STREQUAL:${compiler},msvc>:/W4>
         $<$<STREQUAL:${compiler},msvc>:/WX>
