@@ -73,7 +73,7 @@ bool8 window_linux::on_init(window_info const & GG_UNUSED_ARGUMENT(info)) noexce
     GG_RETURN_FALSE_IF(!m_display);
 
     m_screen = DefaultScreen(m_display);
-    return None != m_screen;
+    return true;
 }
 
 //==============================================================================
