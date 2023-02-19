@@ -106,7 +106,9 @@ namespace gg::type
     template <typename TYPE>
     struct is_pod
     {
-        static constexpr bool8 value = std::is_pod<TYPE>::value;
+        static constexpr bool8 value =
+            std::is_standard_layout<TYPE>::value &&
+            std::is_trivial<TYPE>::value;
     };
 
     template <typename TYPE>
