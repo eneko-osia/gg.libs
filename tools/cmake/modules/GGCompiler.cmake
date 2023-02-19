@@ -1,6 +1,6 @@
 #===============================================================================
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+if((CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
     set(compiler "clang" CACHE STRING "Build compiler" FORCE)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(compiler "gnu" CACHE STRING "Build compiler" FORCE)
