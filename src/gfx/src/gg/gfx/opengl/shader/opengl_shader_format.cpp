@@ -9,8 +9,8 @@ namespace gg::gfx
 {
 //==============================================================================
 
-uint32 const opengl_shader_format::k_invalid_attribute_location = uint32_max;
-uint32 const opengl_shader_format::k_invalid_uniform_location = uint32_max;
+uint32 const opengl_shader_format::k_invalid_attribute_location = k_uint32_max;
+uint32 const opengl_shader_format::k_invalid_uniform_location = k_uint32_max;
 
 //==============================================================================
 
