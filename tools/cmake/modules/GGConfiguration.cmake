@@ -21,11 +21,11 @@ set(CMAKE_EXE_LINKER_FLAGS_DISTRIBUTION
 foreach(configuration ${CMAKE_CONFIGURATION_TYPES})
     string(TOUPPER ${configuration} upper_configuration)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${upper_configuration}
-        ${CMAKE_BINARY_DIR}/bin/${platform}/${platform_architecture}/${configuration}
-        CACHE INTERNAL "Runtime output directory [${configuration}]" FORCE)
+        ${CMAKE_BINARY_DIR}/lib/${platform}/${platform_architecture}/${configuration}
+        CACHE INTERNAL "Archive output directory [${configuration}]" FORCE)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${upper_configuration}
-        ${CMAKE_BINARY_DIR}/bin/${platform}/${platform_architecture}/${configuration}
-        CACHE INTERNAL "Runtime output directory [${configuration}]" FORCE)
+        ${CMAKE_BINARY_DIR}/lib/${platform}/${platform_architecture}/${configuration}
+        CACHE INTERNAL "Library output directory [${configuration}]" FORCE)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${upper_configuration}
         ${CMAKE_BINARY_DIR}/bin/${platform}/${platform_architecture}/${configuration}
         CACHE INTERNAL "Runtime output directory [${configuration}]" FORCE)
