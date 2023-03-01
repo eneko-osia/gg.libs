@@ -43,7 +43,7 @@ id_type runtime_windows::create_window(
     if (!window.init(info))
     {
         m_windows.pop_back();
-        return id_type_invalid;
+        return k_id_type_invalid;
     }
 
     return type::cast_static<id_type>(m_windows.size() - 1);
