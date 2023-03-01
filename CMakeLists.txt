@@ -62,68 +62,68 @@ include(GGFunctions)
 option(
     GG_CORE
     "core library"
-    ON
+    OFF
 )
 
 option(
     GG_TEST
     "test library"
-    ON
+    OFF
 )
 
 # dependent options
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GG_LOG
     "log library"
-    ON
+    OFF
     GG_CORE
     OFF
 )
 
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GG_APP
     "app library"
-    ON
+    OFF
     GG_CORE
     OFF
 )
 
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GG_CONFIG
     "config library"
-    ON
+    OFF
     GG_CORE
     OFF
 )
 
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GG_GFX
     "gfx library"
-    ON
-    GG_LOG;GG_APP
+    OFF
+    GG_APP;GG_APP_WINDOW_SUPPORT
     OFF
 )
 
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GG_GUI
     "gui library"
-    ON
+    OFF
     GG_GFX
     OFF
 )
 
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GGLIBS_ENABLE_DOC
     "enable documentation"
-    ON
+    OFF
     GG_CORE
     OFF
 )
 
-CMAKE_DEPENDENT_OPTION(
+cmake_dependent_option(
     GGLIBS_ENABLE_TESTING
     "enable tests"
-    ON
+    OFF
     GG_TEST
     OFF
 )

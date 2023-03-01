@@ -5,13 +5,13 @@ generate_src_files(${CMAKE_CURRENT_SOURCE_DIR})
 option(
     GG_GFX_OPENGL_SUPPORT
     "gfx opengl support"
-    ON
+    OFF
 )
 
 option(
     GG_GFX_VULKAN_SUPPORT
     "gfx vulkan support"
-    ON
+    OFF
 )
 
 # includes

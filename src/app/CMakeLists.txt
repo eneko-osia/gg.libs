@@ -5,7 +5,7 @@ generate_src_files(${CMAKE_CURRENT_SOURCE_DIR})
 option(
     GG_APP_WINDOW_SUPPORT
     "app window support"
-    ON
+    OFF
 )
 
 # includes
