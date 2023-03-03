@@ -100,7 +100,7 @@ cmake_dependent_option(
     GG_GFX
     "gfx library"
     OFF
-    GG_APP;GG_APP_WINDOW_SUPPORT
+    "GG_APP;GG_APP_WINDOW_SUPPORT;GG_LOG"
     OFF
 )
 
