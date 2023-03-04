@@ -131,7 +131,7 @@ endif()
 set_target_properties(gg.gfx PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GGLIBS_ENABLE_TESTING)
+if(GG_LIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.gfx.test ${test_files})
 

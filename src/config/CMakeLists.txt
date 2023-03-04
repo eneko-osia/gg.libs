@@ -51,7 +51,7 @@ target_link_libraries(gg.config gg.core)
 set_target_properties(gg.config PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GGLIBS_ENABLE_TESTING)
+if(GG_LIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.config.test ${test_files})
 

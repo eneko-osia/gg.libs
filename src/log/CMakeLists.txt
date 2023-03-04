@@ -55,7 +55,7 @@ target_link_libraries(
 set_target_properties(gg.log PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GGLIBS_ENABLE_TESTING)
+if(GG_LIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.log.test ${test_files})
 

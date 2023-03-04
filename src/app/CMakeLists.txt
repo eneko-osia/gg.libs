@@ -74,7 +74,7 @@ endif()
 set_target_properties(gg.app PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GGLIBS_ENABLE_TESTING)
+if(GG_LIBS_ENABLE_TESTING)
     # executable
     add_executable(gg.app.test ${test_files})
 

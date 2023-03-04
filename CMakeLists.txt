@@ -73,18 +73,10 @@ option(
 
 # dependent options
 cmake_dependent_option(
-    GG_LOG
-    "log library"
-    OFF
-    GG_CORE
-    OFF
-)
-
-cmake_dependent_option(
     GG_APP
     "app library"
     OFF
-    GG_CORE
+    "GG_CORE"
     OFF
 )
 
@@ -92,7 +84,15 @@ cmake_dependent_option(
     GG_CONFIG
     "config library"
     OFF
-    GG_CORE
+    "GG_CORE"
+    OFF
+)
+
+cmake_dependent_option(
+    GG_LOG
+    "log library"
+    OFF
+    "GG_CORE"
     OFF
 )
 
@@ -108,23 +108,23 @@ cmake_dependent_option(
     GG_GUI
     "gui library"
     OFF
-    GG_GFX
+    "GG_GFX"
     OFF
 )
 
 cmake_dependent_option(
-    GGLIBS_ENABLE_DOC
+    GG_LIBS_ENABLE_DOC
     "enable documentation"
     OFF
-    GG_CORE
+    "GG_CORE"
     OFF
 )
 
 cmake_dependent_option(
-    GGLIBS_ENABLE_TESTING
+    GG_LIBS_ENABLE_TESTING
     "enable tests"
     OFF
-    GG_TEST
+    "GG_TEST"
     OFF
 )
 
@@ -139,7 +139,7 @@ configure_file(
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # documentation
-if(GGLIBS_ENABLE_DOC)
+if(GG_LIBS_ENABLE_DOC)
     # find doxygen dependency
     find_package(Doxygen REQUIRED)
 
@@ -177,7 +177,7 @@ if(GGLIBS_ENABLE_DOC)
 endif()
 
 # testing
-if(GGLIBS_ENABLE_TESTING)
+if(GG_LIBS_ENABLE_TESTING)
     # enable testing
     enable_testing()
 
