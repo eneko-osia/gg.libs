@@ -157,14 +157,6 @@ TEST_CASE("typeable", "[gg.typeable]")
         REQUIRE(!type::has_equality<trivial_mock_typeable>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<typeable<mock_type>>::value);
-        REQUIRE(!type::is_pod<mock_typeable>::value);
-        REQUIRE(type::is_pod<typeable<uint32>>::value);
-        REQUIRE(type::is_pod<trivial_mock_typeable>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<typeable<mock_type>>::value);

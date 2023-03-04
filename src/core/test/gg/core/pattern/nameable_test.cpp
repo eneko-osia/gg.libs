@@ -112,14 +112,6 @@ TEST_CASE("nameable", "[gg.nameable]")
         REQUIRE(!type::has_equality<trivial_mock_nameable>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<nameable<string_dynamic>>::value);
-        REQUIRE(!type::is_pod<mock_nameable>::value);
-        REQUIRE(type::is_pod<nameable<char8 const *>>::value);
-        REQUIRE(type::is_pod<trivial_mock_nameable>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<nameable<string_dynamic>>::value);

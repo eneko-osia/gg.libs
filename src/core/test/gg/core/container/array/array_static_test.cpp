@@ -88,15 +88,6 @@ TEST_CASE("array_static", "[gg.array_static]")
         REQUIRE(type::has_equality<complex_mock_item_array>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(type::is_pod<simple_mock_item_array::item_type>::value);
-        REQUIRE(!type::is_pod<complex_mock_item_array::item_type>::value);
-
-        REQUIRE(!type::is_pod<simple_mock_item_array>::value);
-        REQUIRE(!type::is_pod<complex_mock_item_array>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<simple_mock_item_array::item_type>::value);

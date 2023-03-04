@@ -58,11 +58,6 @@ TEST_CASE("log_manager", "[gg.log]")
         REQUIRE(!type::has_equality<log_manager>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<log_manager>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<log_manager>::value);

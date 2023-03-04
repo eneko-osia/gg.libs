@@ -38,14 +38,8 @@ namespace gg
             for (; *lhs; ++lhs)
             {
                 char8 const * j = rhs;
-                for (char8 const * i = lhs; (*i && *j) && (*i == *j); ++i, ++j)
-                {
-                }
-
-                if (!(*j))
-                {
-                    return lhs;
-                }
+                for (char8 const * i = lhs; (*i && *j) && (*i == *j); ++i, ++j) {}
+                GG_RETURN_VALUE_IF(!(*j), lhs);
             }
             return nullptr;
         }

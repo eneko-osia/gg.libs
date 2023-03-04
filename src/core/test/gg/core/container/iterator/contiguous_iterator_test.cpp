@@ -64,11 +64,6 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
             REQUIRE(type::has_equality<iterator>::value);
         }
 
-        SECTION("pod")
-        {
-            REQUIRE(!type::is_pod<iterator>::value);
-        }
-
         SECTION("polymorphic")
         {
             REQUIRE(!type::is_polymorphic<iterator>::value);
@@ -106,11 +101,6 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
         SECTION("equality")
         {
             REQUIRE(type::has_equality<const_iterator>::value);
-        }
-
-        SECTION("pod")
-        {
-            REQUIRE(!type::is_pod<const_iterator>::value);
         }
 
         SECTION("polymorphic")

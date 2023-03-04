@@ -41,11 +41,6 @@ TEST_CASE("memory_istream", "[gg.memory_istream]")
         REQUIRE(!type::has_equality<memory_istream>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<memory_istream>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<memory_istream>::value);

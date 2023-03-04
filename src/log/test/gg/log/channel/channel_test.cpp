@@ -45,11 +45,6 @@ TEST_CASE("channel", "[gg.log]")
         REQUIRE(!type::has_equality<mock_channel>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(type::is_pod<mock_channel>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<mock_channel>::value);

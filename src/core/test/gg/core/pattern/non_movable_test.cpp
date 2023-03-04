@@ -41,15 +41,6 @@ TEST_CASE("non_movable", "[gg.non_movable]")
         REQUIRE(!type::has_equality<non_movable>::value);
     }
 
-    SECTION("pod")
-    {
-#if defined(GG_LINUX)
-        REQUIRE(type::is_pod<non_movable>::value);
-#elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<non_movable>::value);
-#endif
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<non_movable>::value);

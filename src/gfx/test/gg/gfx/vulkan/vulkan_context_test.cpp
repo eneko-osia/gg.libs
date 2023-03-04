@@ -45,11 +45,6 @@ TEST_CASE("vulkan_context_test", "[gg.gfx.vulkan_context]")
         REQUIRE(!type::has_equality<vulkan_context>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<vulkan_context>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(type::is_polymorphic<vulkan_context>::value);

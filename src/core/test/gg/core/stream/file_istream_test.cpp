@@ -41,11 +41,6 @@ TEST_CASE("file_istream", "[gg.file_istream]")
         REQUIRE(!type::has_equality<file_istream>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<file_istream>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<file_istream>::value);

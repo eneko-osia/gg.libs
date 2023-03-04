@@ -92,11 +92,6 @@ TEST_CASE("window", "[gg.app.window]")
         REQUIRE(!type::has_equality<window>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<window>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<window>::value);

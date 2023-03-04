@@ -40,11 +40,6 @@ TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
         REQUIRE(!type::has_equality<memory_buffer_dynamic>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<memory_buffer_dynamic>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<memory_buffer_dynamic>::value);

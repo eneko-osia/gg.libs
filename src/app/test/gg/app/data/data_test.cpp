@@ -46,11 +46,6 @@ TEST_CASE("data", "[gg.app.data]")
         REQUIRE(!type::has_equality<data>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<data>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<data>::value);

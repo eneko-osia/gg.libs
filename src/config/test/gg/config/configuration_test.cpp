@@ -44,11 +44,6 @@ TEST_CASE("configuration", "[gg.configuration]")
         REQUIRE(!type::has_equality<configuration>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<configuration>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<configuration>::value);

@@ -110,6 +110,11 @@ namespace gg
             return string::compare(c_str(), string) == 0;
         }
 
+        bool8 operator==(string_static const & string) const noexcept
+        {
+            return *this == string.c_str();
+        }
+
         template <typename STRING_TYPE>
         bool8 operator==(STRING_TYPE const & string) const noexcept
         {
@@ -117,6 +122,11 @@ namespace gg
         }
 
         bool8 operator!=(const_pointer string) const noexcept
+        {
+            return !(*this == string);
+        }
+
+        bool8 operator!=(string_static const & string) const noexcept
         {
             return !(*this == string);
         }

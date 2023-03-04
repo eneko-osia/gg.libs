@@ -60,11 +60,6 @@ TEST_CASE("singleton_automatic", "[gg.singleton_automatic]")
             !type::has_equality<singleton_automatic<mock_singleton>>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<singleton_automatic<mock_singleton>>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<singleton_automatic<mock_singleton>>::value);

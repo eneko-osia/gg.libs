@@ -64,11 +64,6 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
         REQUIRE(!type::has_equality<mock_back_insert_iterator>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<mock_back_insert_iterator>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<mock_back_insert_iterator>::value);

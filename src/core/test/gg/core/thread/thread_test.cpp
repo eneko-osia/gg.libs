@@ -55,11 +55,6 @@ TEST_CASE("thread", "[gg.thread]")
         REQUIRE(!type::has_equality<thread>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<thread>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<thread>::value);

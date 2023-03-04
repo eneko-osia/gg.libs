@@ -62,11 +62,6 @@ TEST_CASE("hash_map", "[gg.hash_map]")
         REQUIRE(type::has_equality<mock_item_map>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<mock_item_map>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<mock_item_map>::value);

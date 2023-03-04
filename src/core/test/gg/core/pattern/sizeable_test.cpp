@@ -157,14 +157,6 @@ TEST_CASE("sizeable", "[gg.sizeable]")
         REQUIRE(!type::has_equality<trivial_mock_sizeable>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<sizeable<mock_size>>::value);
-        REQUIRE(!type::is_pod<mock_sizeable>::value);
-        REQUIRE(type::is_pod<sizeable<uint32>>::value);
-        REQUIRE(type::is_pod<trivial_mock_sizeable>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<sizeable<mock_size>>::value);

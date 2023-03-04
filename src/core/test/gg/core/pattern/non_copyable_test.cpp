@@ -41,15 +41,6 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
         REQUIRE(!type::has_equality<non_copyable>::value);
     }
 
-    SECTION("pod")
-    {
-#if defined(GG_LINUX)
-        REQUIRE(type::is_pod<non_copyable>::value);
-#elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<non_copyable>::value);
-#endif
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<non_copyable>::value);

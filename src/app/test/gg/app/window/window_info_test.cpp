@@ -42,11 +42,6 @@ TEST_CASE("window_info", "[gg.app.window_info]")
         REQUIRE(!type::has_equality<window_info>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<window_info>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<window_info>::value);

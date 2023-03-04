@@ -88,6 +88,11 @@ namespace gg
             return string::compare(c_str(), string) == 0;
         }
 
+        constexpr bool8 operator==(string_ref const & string) const noexcept
+        {
+            return *this == string.c_str();
+        }
+
         template <typename STRING_TYPE>
         constexpr bool8 operator==(STRING_TYPE const & string) const noexcept
         {
@@ -95,6 +100,11 @@ namespace gg
         }
 
         constexpr bool8 operator!=(const_pointer string) const noexcept
+        {
+            return !(*this == string);
+        }
+
+        constexpr bool8 operator!=(string_ref const & string) const noexcept
         {
             return !(*this == string);
         }

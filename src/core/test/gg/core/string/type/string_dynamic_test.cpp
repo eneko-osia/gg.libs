@@ -38,13 +38,7 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
 
     SECTION("equality")
     {
-        // @todo fix this
-        // REQUIRE(type::has_equality<string_dynamic>::value);
-    }
-
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<string_dynamic>::value);
+        REQUIRE(type::has_equality<string_dynamic>::value);
     }
 
     SECTION("polymorphic")

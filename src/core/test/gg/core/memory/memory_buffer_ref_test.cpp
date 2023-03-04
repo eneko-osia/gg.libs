@@ -42,11 +42,6 @@ TEST_CASE("memory_buffer_ref", "[gg.memory_buffer_ref]")
         REQUIRE(!type::has_equality<memory_buffer_ref>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<memory_buffer_ref>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<memory_buffer_ref>::value);

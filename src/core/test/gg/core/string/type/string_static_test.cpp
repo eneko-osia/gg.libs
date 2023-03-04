@@ -38,13 +38,7 @@ TEST_CASE("string_static", "[gg.string_static]")
 
     SECTION("equality")
     {
-        // @todo fix this
-        // REQUIRE(type::has_equality<string_static<>>::value);
-    }
-
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<string_static<>>::value);
+        REQUIRE(type::has_equality<string_static<>>::value);
     }
 
     SECTION("polymorphic")

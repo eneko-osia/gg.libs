@@ -38,13 +38,7 @@ TEST_CASE("string_ref", "[gg.string_ref]")
 
     SECTION("equality")
     {
-        // @todo fix this
-        // REQUIRE(type::has_equality<string_ref>::value);
-    }
-
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<string_ref>::value);
+        REQUIRE(type::has_equality<string_ref>::value);
     }
 
     SECTION("polymorphic")

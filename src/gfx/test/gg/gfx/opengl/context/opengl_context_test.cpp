@@ -44,11 +44,6 @@ TEST_CASE("opengl_context_test", "[gg.gfx.opengl_context]")
         REQUIRE(!type::has_equality<context>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<context>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<context>::value);

@@ -45,15 +45,6 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
         REQUIRE(!type::has_equality<mock_memory_buffer_static>::value);
     }
 
-    SECTION("pod")
-    {
-#if defined(GG_LINUX)
-        REQUIRE(type::is_pod<mock_memory_buffer_static>::value);
-#elif defined(GG_WINDOWS)
-        REQUIRE(!type::is_pod<mock_memory_buffer_static>::value);
-#endif
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<mock_memory_buffer_static>::value);

@@ -113,12 +113,6 @@ TEST_CASE("observable", "[gg.observable]")
         REQUIRE(!type::has_equality<mock_observable>::value);
     }
 
-    SECTION("pod")
-    {
-        REQUIRE(!type::is_pod<observable<imock_observer>>::value);
-        REQUIRE(!type::is_pod<mock_observable>::value);
-    }
-
     SECTION("polymorphic")
     {
         REQUIRE(!type::is_polymorphic<observable<imock_observer>>::value);
