@@ -7,11 +7,9 @@
 //==============================================================================
 
 #include "gg/app/window/window.h"
-#include "gg/gfx/gfx_log.h"
 #include "gg/gfx/opengl/context/opengl_context_info.h"
 #include "gg/gfx/opengl/debug/opengl_assert.h"
 #include "gg/gfx/opengl/opengl_includes.h"
-#include "gg/log/logger.h"
 
 #include <windows.h>
 
@@ -117,16 +115,6 @@ bool8 context_windows::on_init(context_info const & info) noexcept
     GG_RETURN_FALSE_IF(!m_render_context);
 
     GG_RETURN_FALSE_IF(!enable());
-    int32 major = 0;
-    int32 minor = 0;
-    string_ref version = (char8 const *) glGetString(GL_VERSION);
-    GG_ASSERT_GL_ERROR();
-    glGetIntegerv(GL_MAJOR_VERSION, &major);
-    GG_ASSERT_GL_ERROR();
-    glGetIntegerv(GL_MINOR_VERSION, &minor);
-    GG_ASSERT_GL_ERROR();
-    log::logger::verbose<log::gfx>(
-        "Using OpenGL %s [%d.%d]", version.c_str(), major, minor);
     GG_RETURN_FALSE_IF(!disable());
 
     return true;

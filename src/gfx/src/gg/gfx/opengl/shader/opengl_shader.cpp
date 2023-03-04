@@ -7,10 +7,8 @@
 //==============================================================================
 
 #include "gg/core/string/type/string_static.h"
-#include "gg/gfx/gfx_log.h"
 #include "gg/gfx/opengl/debug/opengl_assert.h"
 #include "gg/gfx/opengl/opengl_includes.h"
-#include "gg/log/logger.h"
 
 //==============================================================================
 namespace gg::gfx
@@ -46,14 +44,7 @@ opengl_shader::compile(
 
         GLint status = 0;
         glGetShaderiv(shader_hw, GL_COMPILE_STATUS, &status);
-
-        if (GL_FALSE == status)
-        {
-            string_static<256> message;
-            glGetShaderInfoLog(shader_hw, (GLsizei) message.max_size(), 0, message.c_str());
-            log::logger::error<log::gfx>("could not compile shader\n%s", message.c_str());
-            return 0;
-        }
+        GG_RETURN_VALUE_IF(GL_FALSE == status, 0);
     }
 
     return shader_hw;
@@ -100,7 +91,6 @@ bool8 opengl_shader::init(void const * shader[], uint32 size[], uint32 count) no
 
     if (0 == has_compiler)
     {
-        log::logger::error<log::gfx>("could not find a compiler for glsl shader");
         return false;
     }
 

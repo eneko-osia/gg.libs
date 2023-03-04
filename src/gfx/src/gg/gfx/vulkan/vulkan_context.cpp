@@ -8,8 +8,6 @@
 #include "gg/core/container/array/array_dynamic.h"
 #include "gg/core/container/array/array_static.h"
 #include "gg/core/version.h"
-#include "gg/gfx/gfx_log.h"
-#include "gg/log/logger.h"
 
 //==============================================================================
 namespace gg::gfx
@@ -71,29 +69,29 @@ static VKAPI_ATTR VkBool32
 VKAPI_CALL log_callback(
     VkDebugUtilsMessageSeverityFlagBitsEXT severity,
     VkDebugUtilsMessageTypeFlagsEXT GG_UNUSED_ARGUMENT(type),
-    const VkDebugUtilsMessengerCallbackDataEXT* data,
+    const VkDebugUtilsMessengerCallbackDataEXT* GG_UNUSED_ARGUMENT(data),
     void* GG_UNUSED_ARGUMENT(user_data))
 {
     switch (severity)
     {
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
         {
-            log::logger::verbose<log::gfx>("validation layer: %s", data->pMessage);
+            // log::logger::verbose<log::gfx>("validation layer: %s", data->pMessage);
             break;
         }
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
         {
-            log::logger::normal<log::gfx>("validation layer: %s", data->pMessage);
+            // log::logger::normal<log::gfx>("validation layer: %s", data->pMessage);
             break;
         }
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
         {
-            log::logger::warning<log::gfx>("validation layer: %s", data->pMessage);
+            // log::logger::warning<log::gfx>("validation layer: %s", data->pMessage);
             break;
         }
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
         {
-            log::logger::error<log::gfx>("validation layer: %s", data->pMessage);
+            // log::logger::error<log::gfx>("validation layer: %s", data->pMessage);
             break;
         }
         default:
