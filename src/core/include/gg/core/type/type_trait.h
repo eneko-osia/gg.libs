@@ -42,35 +42,35 @@ namespace gg::type
     };
 
     template <typename TYPE>
-    struct has_trivial_assign
+    struct is_trivially_assignable
     {
         static constexpr bool8 value =
             std::is_trivially_assignable<TYPE, TYPE>::value;
     };
 
     template <typename TYPE>
-    struct has_trivial_constructor
+    struct is_trivially_constructible
     {
         static constexpr bool8 value =
             std::is_trivially_constructible<TYPE>::value;
     };
 
     template <typename TYPE>
-    struct has_trivial_copy
+    struct is_trivially_copy_constructible
     {
         static constexpr bool8 value =
             std::is_trivially_copy_constructible<TYPE>::value;
     };
 
     template <typename TYPE>
-    struct has_trivial_destructor
+    struct is_trivially_destructible
     {
         static constexpr bool8 value =
             std::is_trivially_destructible<TYPE>::value;
     };
 
     template <typename TYPE>
-    struct is_assignable
+    struct is_copy_assignable
     {
         static constexpr bool8 value =
             std::is_copy_assignable<TYPE>::value;
@@ -90,7 +90,7 @@ namespace gg::type
     };
 
     template <typename TYPE>
-    struct is_copyable
+    struct is_copy_constructible
     {
         static constexpr bool8 value =
             std::is_copy_constructible<TYPE>::value;
