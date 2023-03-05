@@ -18,26 +18,26 @@ TEST_CASE("vulkan_context_test", "[gg.gfx.vulkan_context]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<vulkan_context>::value);
-        REQUIRE(!type::has_trivial_assign<vulkan_context>::value);
+        REQUIRE(type::is_copy_assignable<vulkan_context>::value);
+        REQUIRE(!type::is_trivially_assignable<vulkan_context>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<vulkan_context>::value);
-        REQUIRE(!type::has_trivial_constructor<vulkan_context>::value);
+        REQUIRE(!type::is_trivially_constructible<vulkan_context>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<vulkan_context>::value);
-        REQUIRE(!type::has_trivial_copy<vulkan_context>::value);
+        REQUIRE(type::is_copy_constructible<vulkan_context>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<vulkan_context>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<vulkan_context>::value);
-        REQUIRE(!type::has_trivial_destructor<vulkan_context>::value);
+        REQUIRE(!type::is_trivially_destructible<vulkan_context>::value);
     }
 
     SECTION("equality")

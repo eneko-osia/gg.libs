@@ -73,38 +73,38 @@ TEST_CASE("observable", "[gg.observable]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<observable<imock_observer>>::value);
-        REQUIRE(!type::has_trivial_assign<observable<imock_observer>>::value);
+        REQUIRE(!type::is_copy_assignable<observable<imock_observer>>::value);
+        REQUIRE(!type::is_trivially_assignable<observable<imock_observer>>::value);
 
-        REQUIRE(!type::is_assignable<mock_observable>::value);
-        REQUIRE(!type::has_trivial_assign<mock_observable>::value);
+        REQUIRE(!type::is_copy_assignable<mock_observable>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_observable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<observable<imock_observer>>::value);
-        REQUIRE(!type::has_trivial_constructor<observable<imock_observer>>::value);
+        REQUIRE(!type::is_trivially_constructible<observable<imock_observer>>::value);
 
         REQUIRE(type::is_constructible<mock_observable>::value);
-        REQUIRE(!type::has_trivial_constructor<mock_observable>::value);
+        REQUIRE(!type::is_trivially_constructible<mock_observable>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<observable<imock_observer>>::value);
-        REQUIRE(!type::has_trivial_copy<observable<imock_observer>>::value);
+        REQUIRE(!type::is_copy_constructible<observable<imock_observer>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<observable<imock_observer>>::value);
 
-        REQUIRE(type::is_copyable<mock_observable>::value);
-        REQUIRE(!type::has_trivial_copy<mock_observable>::value);
+        REQUIRE(type::is_copy_constructible<mock_observable>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<mock_observable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<observable<imock_observer>>::value);
-        REQUIRE(!type::has_trivial_destructor<observable<imock_observer>>::value);
+        REQUIRE(!type::is_trivially_destructible<observable<imock_observer>>::value);
 
         REQUIRE(type::is_destructible<mock_observable>::value);
-        REQUIRE(!type::has_trivial_destructor<mock_observable>::value);
+        REQUIRE(!type::is_trivially_destructible<mock_observable>::value);
     }
 
     SECTION("equality")

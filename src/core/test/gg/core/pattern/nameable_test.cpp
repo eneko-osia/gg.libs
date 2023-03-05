@@ -46,62 +46,62 @@ TEST_CASE("nameable", "[gg.nameable]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<nameable<string_dynamic>>::value);
-        REQUIRE(!type::has_trivial_assign<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_copy_assignable<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_trivially_assignable<nameable<string_dynamic>>::value);
 
-        REQUIRE(!type::is_assignable<mock_nameable>::value);
-        REQUIRE(!type::has_trivial_assign<mock_nameable>::value);
+        REQUIRE(!type::is_copy_assignable<mock_nameable>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_nameable>::value);
 
-        REQUIRE(!type::is_assignable<nameable<char8 const *>>::value);
-        REQUIRE(!type::has_trivial_assign<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_copy_assignable<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_trivially_assignable<nameable<char8 const *>>::value);
 
-        REQUIRE(!type::is_assignable<trivial_mock_nameable>::value);
-        REQUIRE(!type::has_trivial_assign<trivial_mock_nameable>::value);
+        REQUIRE(!type::is_copy_assignable<trivial_mock_nameable>::value);
+        REQUIRE(!type::is_trivially_assignable<trivial_mock_nameable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<nameable<string_dynamic>>::value);
-        REQUIRE(!type::has_trivial_constructor<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_trivially_constructible<nameable<string_dynamic>>::value);
 
         REQUIRE(type::is_constructible<mock_nameable>::value);
-        REQUIRE(!type::has_trivial_constructor<mock_nameable>::value);
+        REQUIRE(!type::is_trivially_constructible<mock_nameable>::value);
 
         REQUIRE(!type::is_constructible<nameable<char8 const *>>::value);
-        REQUIRE(!type::has_trivial_constructor<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_trivially_constructible<nameable<char8 const *>>::value);
 
         REQUIRE(type::is_constructible<trivial_mock_nameable>::value);
-        REQUIRE(type::has_trivial_constructor<trivial_mock_nameable>::value);
+        REQUIRE(type::is_trivially_constructible<trivial_mock_nameable>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<nameable<string_dynamic>>::value);
-        REQUIRE(!type::has_trivial_copy<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_copy_constructible<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<nameable<string_dynamic>>::value);
 
-        REQUIRE(type::is_copyable<mock_nameable>::value);
-        REQUIRE(!type::has_trivial_copy<mock_nameable>::value);
+        REQUIRE(type::is_copy_constructible<mock_nameable>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<mock_nameable>::value);
 
-        REQUIRE(!type::is_copyable<nameable<char8 const *>>::value);
-        REQUIRE(!type::has_trivial_copy<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_copy_constructible<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<nameable<char8 const *>>::value);
 
-        REQUIRE(type::is_copyable<trivial_mock_nameable>::value);
-        REQUIRE(type::has_trivial_copy<trivial_mock_nameable>::value);
+        REQUIRE(type::is_copy_constructible<trivial_mock_nameable>::value);
+        REQUIRE(type::is_trivially_copy_constructible<trivial_mock_nameable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<nameable<string_dynamic>>::value);
-        REQUIRE(!type::has_trivial_destructor<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_trivially_destructible<nameable<string_dynamic>>::value);
 
         REQUIRE(type::is_destructible<mock_nameable>::value);
-        REQUIRE(!type::has_trivial_destructor<mock_nameable>::value);
+        REQUIRE(!type::is_trivially_destructible<mock_nameable>::value);
 
         REQUIRE(!type::is_destructible<nameable<char8 const *>>::value);
-        REQUIRE(!type::has_trivial_destructor<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_trivially_destructible<nameable<char8 const *>>::value);
 
         REQUIRE(type::is_destructible<trivial_mock_nameable>::value);
-        REQUIRE(type::has_trivial_destructor<trivial_mock_nameable>::value);
+        REQUIRE(type::is_trivially_destructible<trivial_mock_nameable>::value);
     }
 
     SECTION("equality")

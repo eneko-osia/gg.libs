@@ -20,62 +20,62 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::has_trivial_assign<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_copy_assignable<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_trivially_assignable<simple_mock_item_array::item_type>::value);
 
-        REQUIRE(type::is_assignable<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::has_trivial_assign<complex_mock_item_array::item_type>::value);
+        REQUIRE(type::is_copy_assignable<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::is_trivially_assignable<complex_mock_item_array::item_type>::value);
 
-        REQUIRE(type::is_assignable<simple_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_assign<simple_mock_item_array>::value);
+        REQUIRE(type::is_copy_assignable<simple_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_assignable<simple_mock_item_array>::value);
 
-        REQUIRE(type::is_assignable<complex_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_assign<complex_mock_item_array>::value);
+        REQUIRE(type::is_copy_assignable<complex_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_assignable<complex_mock_item_array>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::has_trivial_constructor<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_trivially_constructible<simple_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_constructible<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::has_trivial_constructor<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::is_trivially_constructible<complex_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_constructible<simple_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_constructor<simple_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_constructible<simple_mock_item_array>::value);
 
         REQUIRE(type::is_constructible<complex_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_constructor<complex_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_constructible<complex_mock_item_array>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::has_trivial_copy<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_copy_constructible<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_trivially_copy_constructible<simple_mock_item_array::item_type>::value);
 
-        REQUIRE(type::is_copyable<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::has_trivial_copy<complex_mock_item_array::item_type>::value);
+        REQUIRE(type::is_copy_constructible<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<complex_mock_item_array::item_type>::value);
 
-        REQUIRE(type::is_copyable<simple_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_copy<simple_mock_item_array>::value);
+        REQUIRE(type::is_copy_constructible<simple_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<simple_mock_item_array>::value);
 
-        REQUIRE(type::is_copyable<complex_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_copy<complex_mock_item_array>::value);
+        REQUIRE(type::is_copy_constructible<complex_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<complex_mock_item_array>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::has_trivial_destructor<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_trivially_destructible<simple_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_destructible<complex_mock_item_array::item_type>::value);
-        REQUIRE(!type::has_trivial_destructor<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::is_trivially_destructible<complex_mock_item_array::item_type>::value);
 
         REQUIRE(type::is_destructible<simple_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_destructor<simple_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_destructible<simple_mock_item_array>::value);
 
         REQUIRE(type::is_destructible<complex_mock_item_array>::value);
-        REQUIRE(!type::has_trivial_destructor<complex_mock_item_array>::value);
+        REQUIRE(!type::is_trivially_destructible<complex_mock_item_array>::value);
     }
 
     SECTION("equality")

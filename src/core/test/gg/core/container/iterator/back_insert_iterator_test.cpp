@@ -37,26 +37,26 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<mock_back_insert_iterator>::value);
-        REQUIRE(!type::has_trivial_assign<mock_back_insert_iterator>::value);
+        REQUIRE(!type::is_copy_assignable<mock_back_insert_iterator>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_back_insert_iterator>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<mock_back_insert_iterator>::value);
-        REQUIRE(!type::has_trivial_constructor<mock_back_insert_iterator>::value);
+        REQUIRE(!type::is_trivially_constructible<mock_back_insert_iterator>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<mock_back_insert_iterator>::value);
-        REQUIRE(type::has_trivial_copy<mock_back_insert_iterator>::value);
+        REQUIRE(type::is_copy_constructible<mock_back_insert_iterator>::value);
+        REQUIRE(type::is_trivially_copy_constructible<mock_back_insert_iterator>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<mock_back_insert_iterator>::value);
-        REQUIRE(type::has_trivial_destructor<mock_back_insert_iterator>::value);
+        REQUIRE(type::is_trivially_destructible<mock_back_insert_iterator>::value);
     }
 
     SECTION("equality")

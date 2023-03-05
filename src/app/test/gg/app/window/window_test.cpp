@@ -65,26 +65,26 @@ TEST_CASE("window", "[gg.app.window]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<window>::value);
-        REQUIRE(!type::has_trivial_assign<window>::value);
+        REQUIRE(!type::is_copy_assignable<window>::value);
+        REQUIRE(!type::is_trivially_assignable<window>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<window>::value);
-        REQUIRE(!type::has_trivial_constructor<window>::value);
+        REQUIRE(!type::is_trivially_constructible<window>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<window>::value);
-        REQUIRE(!type::has_trivial_copy<window>::value);
+        REQUIRE(type::is_copy_constructible<window>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<window>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<window>::value);
-        REQUIRE(!type::has_trivial_destructor<window>::value);
+        REQUIRE(!type::is_trivially_destructible<window>::value);
     }
 
     SECTION("equality")

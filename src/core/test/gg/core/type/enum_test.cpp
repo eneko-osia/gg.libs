@@ -26,26 +26,26 @@ TEST_CASE("enum", "[gg.enum]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<mock_enum>::value);
-        REQUIRE(!type::has_trivial_assign<mock_enum>::value);
+        REQUIRE(type::is_copy_assignable<mock_enum>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_enum>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<mock_enum>::value);
-        REQUIRE(type::has_trivial_constructor<mock_enum>::value);
+        REQUIRE(type::is_trivially_constructible<mock_enum>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<mock_enum>::value);
-        REQUIRE(type::has_trivial_copy<mock_enum>::value);
+        REQUIRE(type::is_copy_constructible<mock_enum>::value);
+        REQUIRE(type::is_trivially_copy_constructible<mock_enum>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<mock_enum>::value);
-        REQUIRE(type::has_trivial_destructor<mock_enum>::value);
+        REQUIRE(type::is_trivially_destructible<mock_enum>::value);
     }
 
     SECTION("equality")

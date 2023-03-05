@@ -26,26 +26,26 @@ TEST_CASE("number", "[gg.number]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<number<mock_number, int32>>::value);
-        REQUIRE(type::has_trivial_assign<number<mock_number, int32>>::value);
+        REQUIRE(type::is_copy_assignable<number<mock_number, int32>>::value);
+        REQUIRE(type::is_trivially_assignable<number<mock_number, int32>>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<number<mock_number, int32>>::value);
-        REQUIRE(!type::has_trivial_constructor<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_trivially_constructible<number<mock_number, int32>>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<number<mock_number, int32>>::value);
-        REQUIRE(!type::has_trivial_copy<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_copy_constructible<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<number<mock_number, int32>>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<number<mock_number, int32>>::value);
-        REQUIRE(!type::has_trivial_destructor<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_trivially_destructible<number<mock_number, int32>>::value);
     }
 
     SECTION("equality")

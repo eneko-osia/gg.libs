@@ -35,26 +35,26 @@ TEST_CASE("hash_map", "[gg.hash_map]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<mock_item_map>::value);
-        REQUIRE(!type::has_trivial_assign<mock_item_map>::value);
+        REQUIRE(type::is_copy_assignable<mock_item_map>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_item_map>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<mock_item_map>::value);
-        REQUIRE(!type::has_trivial_constructor<mock_item_map>::value);
+        REQUIRE(!type::is_trivially_constructible<mock_item_map>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<mock_item_map>::value);
-        REQUIRE(!type::has_trivial_copy<mock_item_map>::value);
+        REQUIRE(type::is_copy_constructible<mock_item_map>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<mock_item_map>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<mock_item_map>::value);
-        REQUIRE(!type::has_trivial_destructor<mock_item_map>::value);
+        REQUIRE(!type::is_trivially_destructible<mock_item_map>::value);
     }
 
     SECTION("equality")

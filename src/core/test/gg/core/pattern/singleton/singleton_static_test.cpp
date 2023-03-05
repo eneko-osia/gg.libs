@@ -25,9 +25,9 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
     SECTION("assign")
     {
         REQUIRE(
-            !type::is_assignable<singleton_static<mock_singleton>>::value);
+            !type::is_copy_assignable<singleton_static<mock_singleton>>::value);
         REQUIRE(
-            !type::has_trivial_assign<singleton_static<mock_singleton>>::value);
+            !type::is_trivially_assignable<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("construct")
@@ -35,15 +35,15 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
         REQUIRE(
             !type::is_constructible<singleton_static<mock_singleton>>::value);
         REQUIRE(
-            !type::has_trivial_constructor<singleton_static<mock_singleton>>::value);
+            !type::is_trivially_constructible<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("copy")
     {
         REQUIRE(
-            !type::is_copyable<singleton_static<mock_singleton>>::value);
+            !type::is_copy_constructible<singleton_static<mock_singleton>>::value);
         REQUIRE(
-            !type::has_trivial_copy<singleton_static<mock_singleton>>::value);
+            !type::is_trivially_copy_constructible<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("destroy")
@@ -51,7 +51,7 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
         REQUIRE(
             !type::is_destructible<singleton_static<mock_singleton>>::value);
         REQUIRE(
-            !type::has_trivial_destructor<singleton_static<mock_singleton>>::value);
+            !type::is_trivially_destructible<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("equality")

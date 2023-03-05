@@ -91,62 +91,62 @@ TEST_CASE("typeable", "[gg.typeable]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<typeable<mock_type>>::value);
-        REQUIRE(!type::has_trivial_assign<typeable<mock_type>>::value);
+        REQUIRE(!type::is_copy_assignable<typeable<mock_type>>::value);
+        REQUIRE(!type::is_trivially_assignable<typeable<mock_type>>::value);
 
-        REQUIRE(!type::is_assignable<mock_typeable>::value);
-        REQUIRE(!type::has_trivial_assign<mock_typeable>::value);
+        REQUIRE(!type::is_copy_assignable<mock_typeable>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_typeable>::value);
 
-        REQUIRE(!type::is_assignable<typeable<uint32>>::value);
-        REQUIRE(!type::has_trivial_assign<typeable<uint32>>::value);
+        REQUIRE(!type::is_copy_assignable<typeable<uint32>>::value);
+        REQUIRE(!type::is_trivially_assignable<typeable<uint32>>::value);
 
-        REQUIRE(!type::is_assignable<trivial_mock_typeable>::value);
-        REQUIRE(!type::has_trivial_assign<trivial_mock_typeable>::value);
+        REQUIRE(!type::is_copy_assignable<trivial_mock_typeable>::value);
+        REQUIRE(!type::is_trivially_assignable<trivial_mock_typeable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<typeable<mock_type>>::value);
-        REQUIRE(!type::has_trivial_constructor<typeable<mock_type>>::value);
+        REQUIRE(!type::is_trivially_constructible<typeable<mock_type>>::value);
 
         REQUIRE(type::is_constructible<mock_typeable>::value);
-        REQUIRE(!type::has_trivial_constructor<mock_typeable>::value);
+        REQUIRE(!type::is_trivially_constructible<mock_typeable>::value);
 
         REQUIRE(!type::is_constructible<typeable<uint32>>::value);
-        REQUIRE(!type::has_trivial_constructor<typeable<uint32>>::value);
+        REQUIRE(!type::is_trivially_constructible<typeable<uint32>>::value);
 
         REQUIRE(type::is_constructible<trivial_mock_typeable>::value);
-        REQUIRE(type::has_trivial_constructor<trivial_mock_typeable>::value);
+        REQUIRE(type::is_trivially_constructible<trivial_mock_typeable>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<typeable<mock_type>>::value);
-        REQUIRE(!type::has_trivial_copy<typeable<mock_type>>::value);
+        REQUIRE(!type::is_copy_constructible<typeable<mock_type>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<typeable<mock_type>>::value);
 
-        REQUIRE(type::is_copyable<mock_typeable>::value);
-        REQUIRE(!type::has_trivial_copy<mock_typeable>::value);
+        REQUIRE(type::is_copy_constructible<mock_typeable>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<mock_typeable>::value);
 
-        REQUIRE(!type::is_copyable<typeable<uint32>>::value);
-        REQUIRE(!type::has_trivial_copy<typeable<uint32>>::value);
+        REQUIRE(!type::is_copy_constructible<typeable<uint32>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<typeable<uint32>>::value);
 
-        REQUIRE(type::is_copyable<trivial_mock_typeable>::value);
-        REQUIRE(type::has_trivial_copy<trivial_mock_typeable>::value);
+        REQUIRE(type::is_copy_constructible<trivial_mock_typeable>::value);
+        REQUIRE(type::is_trivially_copy_constructible<trivial_mock_typeable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<typeable<mock_type>>::value);
-        REQUIRE(!type::has_trivial_destructor<typeable<mock_type>>::value);
+        REQUIRE(!type::is_trivially_destructible<typeable<mock_type>>::value);
 
         REQUIRE(type::is_destructible<mock_typeable>::value);
-        REQUIRE(type::has_trivial_destructor<mock_typeable>::value);
+        REQUIRE(type::is_trivially_destructible<mock_typeable>::value);
 
         REQUIRE(!type::is_destructible<typeable<uint32>>::value);
-        REQUIRE(!type::has_trivial_destructor<typeable<uint32>>::value);
+        REQUIRE(!type::is_trivially_destructible<typeable<uint32>>::value);
 
         REQUIRE(type::is_destructible<trivial_mock_typeable>::value);
-        REQUIRE(type::has_trivial_destructor<trivial_mock_typeable>::value);
+        REQUIRE(type::is_trivially_destructible<trivial_mock_typeable>::value);
     }
 
     SECTION("equality")

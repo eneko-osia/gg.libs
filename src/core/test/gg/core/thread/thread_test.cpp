@@ -28,26 +28,26 @@ TEST_CASE("thread", "[gg.thread]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<thread>::value);
-        REQUIRE(!type::has_trivial_assign<thread>::value);
+        REQUIRE(!type::is_copy_assignable<thread>::value);
+        REQUIRE(!type::is_trivially_assignable<thread>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<thread>::value);
-        REQUIRE(!type::has_trivial_constructor<thread>::value);
+        REQUIRE(!type::is_trivially_constructible<thread>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<thread>::value);
-        REQUIRE(!type::has_trivial_copy<thread>::value);
+        REQUIRE(!type::is_copy_constructible<thread>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<thread>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<thread>::value);
-        REQUIRE(!type::has_trivial_destructor<thread>::value);
+        REQUIRE(!type::is_trivially_destructible<thread>::value);
     }
 
     SECTION("equality")

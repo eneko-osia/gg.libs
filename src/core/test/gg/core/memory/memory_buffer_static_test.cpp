@@ -18,26 +18,26 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<mock_memory_buffer_static>::value);
-        REQUIRE(!type::has_trivial_assign<mock_memory_buffer_static>::value);
+        REQUIRE(!type::is_copy_assignable<mock_memory_buffer_static>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_memory_buffer_static>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<mock_memory_buffer_static>::value);
-        REQUIRE(type::has_trivial_constructor<mock_memory_buffer_static>::value);
+        REQUIRE(type::is_trivially_constructible<mock_memory_buffer_static>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<mock_memory_buffer_static>::value);
-        REQUIRE(!type::has_trivial_copy<mock_memory_buffer_static>::value);
+        REQUIRE(!type::is_copy_constructible<mock_memory_buffer_static>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<mock_memory_buffer_static>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<mock_memory_buffer_static>::value);
-        REQUIRE(type::has_trivial_destructor<mock_memory_buffer_static>::value);
+        REQUIRE(type::is_trivially_destructible<mock_memory_buffer_static>::value);
     }
 
     SECTION("equality")

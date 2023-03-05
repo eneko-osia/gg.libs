@@ -14,26 +14,26 @@ TEST_CASE("string_ref", "[gg.string_ref]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<string_ref>::value);
-        REQUIRE(!type::has_trivial_assign<string_ref>::value);
+        REQUIRE(type::is_copy_assignable<string_ref>::value);
+        REQUIRE(!type::is_trivially_assignable<string_ref>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<string_ref>::value);
-        REQUIRE(!type::has_trivial_constructor<string_ref>::value);
+        REQUIRE(!type::is_trivially_constructible<string_ref>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<string_ref>::value);
-        REQUIRE(!type::has_trivial_copy<string_ref>::value);
+        REQUIRE(type::is_copy_constructible<string_ref>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<string_ref>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<string_ref>::value);
-        REQUIRE(type::has_trivial_destructor<string_ref>::value);
+        REQUIRE(type::is_trivially_destructible<string_ref>::value);
     }
 
     SECTION("equality")

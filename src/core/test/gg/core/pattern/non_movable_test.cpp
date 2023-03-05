@@ -14,26 +14,26 @@ TEST_CASE("non_movable", "[gg.non_movable]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<non_movable>::value);
-        REQUIRE(!type::has_trivial_assign<non_movable>::value);
+        REQUIRE(!type::is_copy_assignable<non_movable>::value);
+        REQUIRE(!type::is_trivially_assignable<non_movable>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<non_movable>::value);
-        REQUIRE(!type::has_trivial_constructor<non_movable>::value);
+        REQUIRE(!type::is_trivially_constructible<non_movable>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<non_movable>::value);
-        REQUIRE(!type::has_trivial_copy<non_movable>::value);
+        REQUIRE(!type::is_copy_constructible<non_movable>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<non_movable>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<non_movable>::value);
-        REQUIRE(!type::has_trivial_destructor<non_movable>::value);
+        REQUIRE(!type::is_trivially_destructible<non_movable>::value);
     }
 
     SECTION("equality")

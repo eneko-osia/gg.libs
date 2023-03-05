@@ -31,26 +31,26 @@ TEST_CASE("log_manager", "[gg.log]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<log_manager>::value);
-        REQUIRE(!type::has_trivial_assign<log_manager>::value);
+        REQUIRE(!type::is_copy_assignable<log_manager>::value);
+        REQUIRE(!type::is_trivially_assignable<log_manager>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<log_manager>::value);
-        REQUIRE(!type::has_trivial_constructor<log_manager>::value);
+        REQUIRE(!type::is_trivially_constructible<log_manager>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<log_manager>::value);
-        REQUIRE(!type::has_trivial_copy<log_manager>::value);
+        REQUIRE(!type::is_copy_constructible<log_manager>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<log_manager>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(!type::is_destructible<log_manager>::value);
-        REQUIRE(!type::has_trivial_destructor<log_manager>::value);
+        REQUIRE(!type::is_trivially_destructible<log_manager>::value);
     }
 
     SECTION("equality")

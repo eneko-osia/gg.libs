@@ -19,26 +19,26 @@ TEST_CASE("data", "[gg.app.data]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<data>::value);
-        REQUIRE(!type::has_trivial_assign<data>::value);
+        REQUIRE(!type::is_copy_assignable<data>::value);
+        REQUIRE(!type::is_trivially_assignable<data>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<data>::value);
-        REQUIRE(!type::has_trivial_constructor<data>::value);
+        REQUIRE(!type::is_trivially_constructible<data>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<data>::value);
-        REQUIRE(!type::has_trivial_copy<data>::value);
+        REQUIRE(!type::is_copy_constructible<data>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<data>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<data>::value);
-        REQUIRE(!type::has_trivial_destructor<data>::value);
+        REQUIRE(!type::is_trivially_destructible<data>::value);
     }
 
     SECTION("equality")

@@ -14,26 +14,26 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<string_dynamic>::value);
-        REQUIRE(!type::has_trivial_assign<string_dynamic>::value);
+        REQUIRE(type::is_copy_assignable<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_assignable<string_dynamic>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<string_dynamic>::value);
-        REQUIRE(!type::has_trivial_constructor<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_constructible<string_dynamic>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<string_dynamic>::value);
-        REQUIRE(!type::has_trivial_copy<string_dynamic>::value);
+        REQUIRE(type::is_copy_constructible<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<string_dynamic>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<string_dynamic>::value);
-        REQUIRE(!type::has_trivial_destructor<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_destructible<string_dynamic>::value);
     }
 
     SECTION("equality")

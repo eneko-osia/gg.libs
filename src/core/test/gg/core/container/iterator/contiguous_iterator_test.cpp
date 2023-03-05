@@ -37,26 +37,26 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
 
         SECTION("assign")
         {
-            REQUIRE(type::is_assignable<iterator>::value);
-            REQUIRE(type::has_trivial_assign<iterator>::value);
+            REQUIRE(type::is_copy_assignable<iterator>::value);
+            REQUIRE(type::is_trivially_assignable<iterator>::value);
         }
 
         SECTION("construct")
         {
             REQUIRE(type::is_constructible<iterator>::value);
-            REQUIRE(!type::has_trivial_constructor<iterator>::value);
+            REQUIRE(!type::is_trivially_constructible<iterator>::value);
         }
 
         SECTION("copy")
         {
-            REQUIRE(type::is_copyable<iterator>::value);
-            REQUIRE(!type::has_trivial_copy<iterator>::value);
+            REQUIRE(type::is_copy_constructible<iterator>::value);
+            REQUIRE(!type::is_trivially_copy_constructible<iterator>::value);
         }
 
         SECTION("destroy")
         {
             REQUIRE(type::is_destructible<iterator>::value);
-            REQUIRE(type::has_trivial_destructor<iterator>::value);
+            REQUIRE(type::is_trivially_destructible<iterator>::value);
         }
 
         SECTION("equality")
@@ -76,26 +76,26 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
 
         SECTION("assign")
         {
-            REQUIRE(type::is_assignable<const_iterator>::value);
-            REQUIRE(type::has_trivial_assign<const_iterator>::value);
+            REQUIRE(type::is_copy_assignable<const_iterator>::value);
+            REQUIRE(type::is_trivially_assignable<const_iterator>::value);
         }
 
         SECTION("construct")
         {
             REQUIRE(type::is_constructible<const_iterator>::value);
-            REQUIRE(!type::has_trivial_constructor<const_iterator>::value);
+            REQUIRE(!type::is_trivially_constructible<const_iterator>::value);
         }
 
         SECTION("copy")
         {
-            REQUIRE(type::is_copyable<const_iterator>::value);
-            REQUIRE(type::has_trivial_copy<const_iterator>::value);
+            REQUIRE(type::is_copy_constructible<const_iterator>::value);
+            REQUIRE(type::is_trivially_copy_constructible<const_iterator>::value);
         }
 
         SECTION("destroy")
         {
             REQUIRE(type::is_destructible<const_iterator>::value);
-            REQUIRE(type::has_trivial_destructor<const_iterator>::value);
+            REQUIRE(type::is_trivially_destructible<const_iterator>::value);
         }
 
         SECTION("equality")

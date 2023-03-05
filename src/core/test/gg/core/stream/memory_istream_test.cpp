@@ -14,26 +14,26 @@ TEST_CASE("memory_istream", "[gg.memory_istream]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<memory_istream>::value);
-        REQUIRE(!type::has_trivial_assign<memory_istream>::value);
+        REQUIRE(!type::is_copy_assignable<memory_istream>::value);
+        REQUIRE(!type::is_trivially_assignable<memory_istream>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<memory_istream>::value);
-        REQUIRE(!type::has_trivial_constructor<memory_istream>::value);
+        REQUIRE(!type::is_trivially_constructible<memory_istream>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<memory_istream>::value);
-        REQUIRE(!type::has_trivial_copy<memory_istream>::value);
+        REQUIRE(!type::is_copy_constructible<memory_istream>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<memory_istream>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<memory_istream>::value);
-        REQUIRE(type::has_trivial_destructor<memory_istream>::value);
+        REQUIRE(type::is_trivially_destructible<memory_istream>::value);
     }
 
     SECTION("equality")

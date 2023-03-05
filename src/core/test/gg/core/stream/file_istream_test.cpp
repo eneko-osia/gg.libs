@@ -14,26 +14,26 @@ TEST_CASE("file_istream", "[gg.file_istream]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_assignable<file_istream>::value);
-        REQUIRE(!type::has_trivial_assign<file_istream>::value);
+        REQUIRE(!type::is_copy_assignable<file_istream>::value);
+        REQUIRE(!type::is_trivially_assignable<file_istream>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<file_istream>::value);
-        REQUIRE(!type::has_trivial_constructor<file_istream>::value);
+        REQUIRE(!type::is_trivially_constructible<file_istream>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(!type::is_copyable<file_istream>::value);
-        REQUIRE(!type::has_trivial_copy<file_istream>::value);
+        REQUIRE(!type::is_copy_constructible<file_istream>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<file_istream>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<file_istream>::value);
-        REQUIRE(!type::has_trivial_destructor<file_istream>::value);
+        REQUIRE(!type::is_trivially_destructible<file_istream>::value);
     }
 
     SECTION("equality")

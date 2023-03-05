@@ -14,26 +14,26 @@ TEST_CASE("string_static", "[gg.string_static]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<string_static<>>::value);
-        REQUIRE(!type::has_trivial_assign<string_static<>>::value);
+        REQUIRE(type::is_copy_assignable<string_static<>>::value);
+        REQUIRE(!type::is_trivially_assignable<string_static<>>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<string_static<>>::value);
-        REQUIRE(!type::has_trivial_constructor<string_static<>>::value);
+        REQUIRE(!type::is_trivially_constructible<string_static<>>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<string_static<>>::value);
-        REQUIRE(!type::has_trivial_copy<string_static<>>::value);
+        REQUIRE(type::is_copy_constructible<string_static<>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<string_static<>>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<string_static<>>::value);
-        REQUIRE(!type::has_trivial_destructor<string_static<>>::value);
+        REQUIRE(!type::is_trivially_destructible<string_static<>>::value);
     }
 
     SECTION("equality")

@@ -17,26 +17,26 @@ TEST_CASE("configuration", "[gg.configuration]")
 {
     SECTION("assign")
     {
-        REQUIRE(type::is_assignable<configuration>::value);
-        REQUIRE(!type::has_trivial_assign<configuration>::value);
+        REQUIRE(type::is_copy_assignable<configuration>::value);
+        REQUIRE(!type::is_trivially_assignable<configuration>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<configuration>::value);
-        REQUIRE(!type::has_trivial_constructor<configuration>::value);
+        REQUIRE(!type::is_trivially_constructible<configuration>::value);
     }
 
     SECTION("copy")
     {
-        REQUIRE(type::is_copyable<configuration>::value);
-        REQUIRE(!type::has_trivial_copy<configuration>::value);
+        REQUIRE(type::is_copy_constructible<configuration>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<configuration>::value);
     }
 
     SECTION("destroy")
     {
         REQUIRE(type::is_destructible<configuration>::value);
-        REQUIRE(!type::has_trivial_destructor<configuration>::value);
+        REQUIRE(!type::is_trivially_destructible<configuration>::value);
     }
 
     SECTION("equality")
