@@ -125,8 +125,7 @@ bool8 context_linux::on_init(context_info const & info) noexcept
         ButtonReleaseMask |
         KeyPressMask |
         KeyReleaseMask |
-        LeaveWindowMask |
-        PointerMotionMask;
+        FocusChangeMask;
 
     m_window =
         XCreateWindow(

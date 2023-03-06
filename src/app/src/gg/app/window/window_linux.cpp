@@ -37,11 +37,29 @@ void window_linux::handle_messages(void) noexcept
 
         switch (event.type)
         {
+            case DestroyNotify:
+            {
+                notify_observers(&iwindow_observer::on_close);
+                break;
+            }
+
             case Expose:
             {
                 // XGetWindowAttributes(dpy, win, &gwa);
                 // glViewport(0, 0, gwa.width, gwa.height);
 
+                break;
+            }
+
+            case FocusIn:
+            {
+                notify_observers(&iwindow_observer::on_gain_focus);
+                break;
+            }
+
+            case FocusOut:
+            {
+                notify_observers(&iwindow_observer::on_lost_focus);
                 break;
             }
 
