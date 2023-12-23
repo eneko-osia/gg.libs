@@ -17,11 +17,11 @@ TEST_CASE("stream", "[gg.stream]")
     {
         REQUIRE(
             string_ref(GG_TEXT("binary")) ==
-            stream_mode_descriptors[enums::cast(stream_mode::binary)]);
+            k_stream_mode_descriptors[enums::cast(stream_mode::binary)]);
 
         REQUIRE(
             string_ref(GG_TEXT("text")) ==
-            stream_mode_descriptors[enums::cast(stream_mode::text)]);
+            k_stream_mode_descriptors[enums::cast(stream_mode::text)]);
     }
 #endif
 }

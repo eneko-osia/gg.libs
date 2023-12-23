@@ -148,10 +148,10 @@ bool8 vulkan_context::on_init(context_info_base const * info) noexcept
     app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     app_info.pApplicationName = "gg.engine";
     app_info.applicationVersion =
-        VK_MAKE_VERSION(version_major, version_minor, version_patch);
+        VK_MAKE_VERSION(k_version_major, k_version_minor, k_version_patch);
     app_info.pEngineName = "gg.libs";
     app_info.engineVersion =
-        VK_MAKE_VERSION(version_major, version_minor, version_patch);
+        VK_MAKE_VERSION(k_version_major, k_version_minor, k_version_patch);
     app_info.apiVersion = VK_API_VERSION_1_0;
 
     array_dynamic<char8 const *> extensions;

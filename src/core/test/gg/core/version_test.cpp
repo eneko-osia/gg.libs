@@ -19,7 +19,7 @@ TEST_CASE("version", "[gg.version]")
             version_number.c_str(),
             version_number.max_size(),
             "%u.%u.%u",
-            version_major, version_minor, version_patch);
+            k_version_major, k_version_minor, k_version_patch);
         REQUIRE(version_number == version_string);
     }
 }

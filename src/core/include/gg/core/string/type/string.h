@@ -14,7 +14,7 @@ namespace gg
     {
         // constants
 
-        static constexpr char8 const * empty = GG_TEXT("");
+        static constexpr char8 const * k_empty = GG_TEXT("");
         static constexpr size_type npos = k_uint32_max;
 
         // methods

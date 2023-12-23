@@ -3,7 +3,9 @@
 
 #include "gg/core/debug/assert.h"
 #include "gg/core/string/macro/macro.h"
+#include "gg/core/string/type/string_ref.h"
 #include "gg/core/type/enum.h"
+#include "gg/core/container/array/array_static.h"
 
 namespace gg::log
 {
@@ -30,7 +32,7 @@ namespace gg::log
 
     GG_ENUM(level);
 
-    static constexpr char8 const * level_descriptors[] = {
+    static constexpr char8 const * k_level_descriptors[] = {
         GG_TEXT("error"),
         GG_TEXT("warning"),
         GG_TEXT("normal"),
@@ -38,9 +40,11 @@ namespace gg::log
         GG_TEXT("verbose")
     };
 
+    static const array_static<string_ref, type::cast_static<size_type>(1)> k_level = { string_ref(GG_TEXT("")) };
+
     GG_ASSERT_STATIC(
         enums::cast(level::max) ==
-            sizeof(level_descriptors) / sizeof(level_descriptors[0]),
+            sizeof(k_level_descriptors) / sizeof(k_level_descriptors[0]),
         "descriptor missing for level_descriptors enumeration");
 }
 

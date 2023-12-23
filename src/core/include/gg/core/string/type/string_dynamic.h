@@ -34,7 +34,7 @@ namespace gg
         string_dynamic(void) noexcept
             : m_data()
         {
-            set(string::empty);
+            set(string::k_empty);
         }
 
         string_dynamic(string_dynamic const & string) noexcept

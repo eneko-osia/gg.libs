@@ -123,7 +123,7 @@ namespace gg::log
                     buffer.c_str() + size,
                     max_size,
                     "[%s] ",
-                    level_descriptors[enums::cast(level)]);
+                    k_level_descriptors[enums::cast(level)]);
             }
 
             size_type const size = buffer.size();

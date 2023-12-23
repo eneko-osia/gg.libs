@@ -142,7 +142,7 @@ TEST_CASE("nameable.constructor", "[gg.nameable]")
     SECTION("nameable")
     {
         mock_nameable nameable;
-        REQUIRE(nameable.is_named(string::empty));
+        REQUIRE(nameable.is_named(string::k_empty));
     }
 
     SECTION("nameable(name_type)")

@@ -25,7 +25,7 @@ namespace gg
         constexpr string_ref(void) noexcept
             : m_data()
         {
-            set(string::empty);
+            set(string::k_empty);
         }
 
         constexpr string_ref(string_ref const & string) noexcept
@@ -151,7 +151,7 @@ namespace gg
 
         constexpr void clear(void) noexcept
         {
-            m_data = string::empty;
+            m_data = string::k_empty;
         }
 
         constexpr const_iterator end(void) const noexcept
@@ -196,7 +196,7 @@ namespace gg
         {
             GG_ASSERT(this != &string);
             m_data = type::move(string.m_data);
-            string.m_data = string::empty;
+            string.m_data = string::k_empty;
             return *this;
         }
 

@@ -35,7 +35,7 @@ namespace gg
         string_static(void) noexcept
             : m_data()
         {
-            set(string::empty);
+            set(string::k_empty);
         }
 
         string_static(string_static const & string) noexcept

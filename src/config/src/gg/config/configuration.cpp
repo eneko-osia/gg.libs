@@ -11,7 +11,7 @@ bool8
 configuration::load(string_ref const & line, string & section) noexcept
 {
     GG_RETURN_TRUE_IF(line.is_empty());
-    static string_ref constexpr k_chars_to_ignore = GG_TEXT("-/;#\r\n");
+    static constexpr string_ref k_chars_to_ignore = GG_TEXT("-/;#\r\n");
     for (auto char_to_ignore : k_chars_to_ignore)
     {
         GG_RETURN_TRUE_IF(char_to_ignore == line[0]);

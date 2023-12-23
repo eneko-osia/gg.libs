@@ -32,11 +32,11 @@ TEST_CASE("endian", "[gg.endian]")
     {
         REQUIRE(
             string_ref(GG_TEXT("big_endian")) ==
-            endian_mode_descriptors[enums::cast(endian_mode::big_endian)]);
+            k_endian_mode_descriptors[enums::cast(endian_mode::big_endian)]);
 
         REQUIRE(
             string_ref(GG_TEXT("little_endian")) ==
-            endian_mode_descriptors[enums::cast(endian_mode::little_endian)]);
+            k_endian_mode_descriptors[enums::cast(endian_mode::little_endian)]);
     }
 #endif
 }

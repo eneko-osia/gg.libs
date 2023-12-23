@@ -20,15 +20,15 @@ namespace gg
     GG_ENUM(iterator_type);
 
 #if defined(GG_DEBUG)
-    static constexpr char8 const * iterator_type_descriptors[] = {
+    static constexpr char8 const * k_iterator_type_descriptors[] = {
         GG_TEXT("no_const"),
         GG_TEXT("is_const")
     };
 
     GG_ASSERT_STATIC(
         enums::cast(iterator_type::max) ==
-            sizeof(iterator_type_descriptors) /
-                sizeof(iterator_type_descriptors[0]),
+            sizeof(k_iterator_type_descriptors) /
+                sizeof(k_iterator_type_descriptors[0]),
         "descriptor missing for iterator_type_descriptors enumeration");
 #endif
 }

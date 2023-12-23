@@ -38,23 +38,23 @@ TEST_CASE("logger.level", "[gg.log]")
     {
         REQUIRE(
             string_ref(GG_TEXT("error")) ==
-            level_descriptors[enums::cast(level::error)]);
+            k_level_descriptors[enums::cast(level::error)]);
 
         REQUIRE(
             string_ref(GG_TEXT("warning")) ==
-            level_descriptors[enums::cast(level::warning)]);
+            k_level_descriptors[enums::cast(level::warning)]);
 
         REQUIRE(
             string_ref(GG_TEXT("normal")) ==
-            level_descriptors[enums::cast(level::normal)]);
+            k_level_descriptors[enums::cast(level::normal)]);
 
         REQUIRE(
             string_ref(GG_TEXT("debug")) ==
-            level_descriptors[enums::cast(level::debug)]);
+            k_level_descriptors[enums::cast(level::debug)]);
 
         REQUIRE(
             string_ref(GG_TEXT("verbose")) ==
-            level_descriptors[enums::cast(level::verbose)]);
+            k_level_descriptors[enums::cast(level::verbose)]);
     }
 }
 

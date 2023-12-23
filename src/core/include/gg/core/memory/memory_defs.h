@@ -20,15 +20,15 @@ namespace gg
     GG_ENUM(memory_owner_mode);
 
 #if defined(GG_DEBUG)
-    static constexpr char8 const * memory_owner_mode_descriptors[] = {
+    static constexpr char8 const * k_memory_owner_mode_descriptors[] = {
         GG_TEXT("is_not_owner"),
         GG_TEXT("is_owner")
     };
 
     GG_ASSERT_STATIC(
         enums::cast(memory_owner_mode::max) ==
-            sizeof(memory_owner_mode_descriptors) /
-                sizeof(memory_owner_mode_descriptors[0]),
+            sizeof(k_memory_owner_mode_descriptors) /
+                sizeof(k_memory_owner_mode_descriptors[0]),
         "descriptor missing for memory_owner_mode enumeration");
 #endif
 }

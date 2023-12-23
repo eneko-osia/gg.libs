@@ -17,11 +17,11 @@ TEST_CASE("iterator", "[gg.iterator]")
     {
         REQUIRE(
             string_ref(GG_TEXT("no_const")) ==
-            iterator_type_descriptors[enums::cast(iterator_type::no_const)]);
+            k_iterator_type_descriptors[enums::cast(iterator_type::no_const)]);
 
         REQUIRE(
             string_ref(GG_TEXT("is_const")) ==
-            iterator_type_descriptors[enums::cast(iterator_type::is_const)]);
+            k_iterator_type_descriptors[enums::cast(iterator_type::is_const)]);
     }
 #endif
 }

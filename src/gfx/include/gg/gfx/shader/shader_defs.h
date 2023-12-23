@@ -20,15 +20,15 @@ namespace gg::gfx
     GG_ENUM(shader_type);
 
 #if defined(GG_DEBUG)
-    static constexpr char8 const * shader_type_descriptors[] = {
+    static constexpr char8 const * k_shader_type_descriptors[] = {
         GG_TEXT("pixel_shader_type"),
         GG_TEXT("vertex_shader_type")
     };
 
     GG_ASSERT_STATIC(
         enums::cast(shader_type::max) ==
-            sizeof(shader_type_descriptors) /
-                sizeof(shader_type_descriptors[0]),
+            sizeof(k_shader_type_descriptors) /
+                sizeof(k_shader_type_descriptors[0]),
         "descriptor missing for shader_type_descriptors enumeration");
 #endif
 }

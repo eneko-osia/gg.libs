@@ -20,15 +20,15 @@ namespace gg
     GG_ENUM(stream_mode);
 
 #if defined(GG_DEBUG)
-    static constexpr char8 const * stream_mode_descriptors[] = {
+    static constexpr char8 const * k_stream_mode_descriptors[] = {
         GG_TEXT("binary"),
         GG_TEXT("text")
     };
 
     GG_ASSERT_STATIC(
         enums::cast(stream_mode::max) ==
-            sizeof(stream_mode_descriptors) /
-                sizeof(stream_mode_descriptors[0]),
+            sizeof(k_stream_mode_descriptors) /
+                sizeof(k_stream_mode_descriptors[0]),
         "descriptor missing for stream_mode enumeration");
 #endif
 }

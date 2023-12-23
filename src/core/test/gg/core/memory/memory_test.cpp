@@ -27,12 +27,12 @@ TEST_CASE("memory", "[gg.memory]")
     {
         REQUIRE(
             string_ref(GG_TEXT("is_not_owner")) ==
-            memory_owner_mode_descriptors[
+            k_memory_owner_mode_descriptors[
                 enums::cast(memory_owner_mode::is_not_owner)]);
 
         REQUIRE(
             string_ref(GG_TEXT("is_owner")) ==
-            memory_owner_mode_descriptors[
+            k_memory_owner_mode_descriptors[
                 enums::cast(memory_owner_mode::is_owner)]);
     }
 #endif
