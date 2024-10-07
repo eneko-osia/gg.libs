@@ -17,20 +17,16 @@ namespace gg::type
         template <typename TYPE>
         equality operator==(TYPE const &, TYPE const &);
 
-        template <typename TYPE>
-        struct has_equality
-        {
-            enum
+            template <typename TYPE>
+            struct has_equality
             {
-                value =
-                    !std::is_same<
-                        decltype(
-                            *static_cast<TYPE *>(nullptr) ==
-                            *static_cast<TYPE *>(nullptr)),
-                        equality>::value
+                enum
+                {
+                    value =
+                        !std::is_same<decltype(*(TYPE *)(0) == *(TYPE *)(0)),equality>::value
+                };
             };
-        };
-    }
+        }
 
     // structs
 
