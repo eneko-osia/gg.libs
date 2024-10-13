@@ -31,7 +31,7 @@ file_istream::file_istream(
     }
 }
 
-file_istream::~file_istream(void)
+file_istream::~file_istream(void) noexcept
 {
     if (is_valid())
     {
