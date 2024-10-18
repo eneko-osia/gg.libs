@@ -57,7 +57,7 @@ target_compile_options(
     PUBLIC
         $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:debug>:-g>>
         $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:debug>:-O0>>
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-s>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-g>>
         $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-O3>>
         $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release>:-s>>
         $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release>:-O3>>
