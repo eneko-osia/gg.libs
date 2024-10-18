@@ -10,8 +10,8 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04]
-        build_type: [debug, release, distribution]
+        os: [ubuntu-20.04, ubuntu-22.04]
+        build_type: [debug, release_with_debug, release]
       fail-fast: false
 
     steps:
