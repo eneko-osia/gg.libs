@@ -30,7 +30,8 @@ target_compile_definitions(
     PUBLIC
         GG_GUI
     PRIVATE
-        $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
+        $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
+        $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
 )
 
 # compile options

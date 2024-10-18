@@ -27,6 +27,7 @@ target_compile_definitions(
     PUBLIC
         GG_LOG
     PRIVATE
+        $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
         $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
 )
 
@@ -71,7 +72,6 @@ if(GG_ENABLE_TESTING)
         gg.log.test
         PRIVATE
             $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
-            $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
     )
 
     # compile options
