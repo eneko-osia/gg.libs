@@ -66,6 +66,13 @@ if(GG_ENABLE_TESTING)
             ${CMAKE_CURRENT_SOURCE_DIR}/test
     )
 
+    # compile definitions
+    target_compile_definitions(
+        gg.log.test
+         PRIVATE
+            $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
+    )
+
     # compile options
     target_compile_options(
         gg.log.test
