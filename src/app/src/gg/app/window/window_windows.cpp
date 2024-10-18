@@ -66,7 +66,7 @@ window_windows::~window_windows(void)
 bool8
 window_windows::handle_messages(uint32 msg, int64 wparam, int64 lparam) noexcept
 {
-    GG_UNUSED(lparam);
+    GG_UNUSED_VARIABLE(lparam);
 
     switch(msg)
     {
