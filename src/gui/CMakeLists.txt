@@ -60,7 +60,7 @@ target_link_libraries(
 set_target_properties(gg.gui PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GG_LIBS_ENABLE_TESTING)
+if(GG_ENABLE_TESTING)
     # executable
     add_executable(gg.gui.test ${test_files})
 
@@ -75,14 +75,16 @@ if(GG_LIBS_ENABLE_TESTING)
     target_compile_options(
         gg.gui.test
         PRIVATE
-            $<$<STREQUAL:${compiler},gnu>:-fexceptions>
-            $<$<STREQUAL:${compiler},gnu>:-Wall>
-            $<$<STREQUAL:${compiler},gnu>:-Wextra>
-            $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-            $<$<STREQUAL:${compiler},gnu>:-Werror>
-            $<$<STREQUAL:${compiler},msvc>:/EHsc>
-            $<$<STREQUAL:${compiler},msvc>:/W4>
-            $<$<STREQUAL:${compiler},msvc>:/WX>
+            $<$<STREQUAL:${COMPILER},gnu>:-fexceptions>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+            $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wno-format-security>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wno-nonnull>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+            $<$<STREQUAL:${COMPILER},msvc>:/EHsc>
+            $<$<STREQUAL:${COMPILER},msvc>:/W4>
+            $<$<STREQUAL:${COMPILER},msvc>:/WX>
     )
 
     # link libraries

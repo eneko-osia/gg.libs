@@ -91,9 +91,11 @@ if(GG_ENABLE_TESTING)
         PRIVATE
             $<$<STREQUAL:${COMPILER},gnu>:-fexceptions>
             $<$<STREQUAL:${COMPILER},gnu>:-Wall>
-            $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
-            $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
             $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wno-format-security>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wno-nonnull>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
             $<$<STREQUAL:${COMPILER},msvc>:/EHsc>
             $<$<STREQUAL:${COMPILER},msvc>:/W4>
             $<$<STREQUAL:${COMPILER},msvc>:/WX>
