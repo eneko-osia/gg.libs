@@ -15,9 +15,9 @@ namespace gg
         {
             // structs
 
-        struct equality {};
-        template <typename TYPE>
-        equality operator==(TYPE const &, TYPE const &);
+            struct equality {};
+            template <typename TYPE>
+            equality operator==(TYPE const &, TYPE const &);
 
             template <typename TYPE>
             struct is_comparable
@@ -27,7 +27,7 @@ namespace gg
             };
         }
 
-    // structs
+        // structs
 
         template <bool8 TEST, typename TYPE1, typename TYPE2>
         using conditional = std::conditional<TEST, TYPE1, TYPE2>;
@@ -89,12 +89,6 @@ namespace gg
 
         // methods
 
-    template <typename TO, typename FROM>
-    inline
-    constexpr TO cast_const(FROM const & value) noexcept
-    {
-        return const_cast<TO>(value);
-    }
         template <typename TO, typename FROM>
         inline constexpr TO cast_const(FROM const & value) noexcept
         {

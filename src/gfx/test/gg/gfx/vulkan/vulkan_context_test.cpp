@@ -40,9 +40,9 @@ TEST_CASE("vulkan_context_test", "[gg.gfx.vulkan_context]")
         REQUIRE(!type::is_trivially_destructible<vulkan_context>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<vulkan_context>::value);
+        REQUIRE(!type::is_comparable<vulkan_context>::value);
     }
 
     SECTION("polymorphic")

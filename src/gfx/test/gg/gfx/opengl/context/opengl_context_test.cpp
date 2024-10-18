@@ -39,9 +39,9 @@ TEST_CASE("opengl_context_test", "[gg.gfx.opengl_context]")
         REQUIRE(!type::is_trivially_destructible<context>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<context>::value);
+        REQUIRE(!type::is_comparable<context>::value);
     }
 
     SECTION("polymorphic")
