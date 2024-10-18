@@ -4,6 +4,7 @@
 #include "gg/core/container/iterator/contiguous_iterator.h"
 #include "gg/core/memory/memory_buffer_static.h"
 #include "gg/core/memory/memory.h"
+#include <array>
 
 namespace gg
 {
@@ -220,7 +221,7 @@ namespace gg
 
         template<typename T>
         type::enable_if_t<
-            type::has_equality<typename T::item_type>::value, bool8>
+            type::is_comparable<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
         {
             bool8 equals = true;
@@ -233,7 +234,7 @@ namespace gg
 
         template<typename T>
         type::enable_if_t<
-            !type::has_equality<typename T::item_type>::value, bool8>
+            !type::is_comparable<typename T::item_type>::value, bool8>
         compare_data(T const & array) const noexcept
         {
             return memory::compare(data(), array.data(), array.size()) == 0;

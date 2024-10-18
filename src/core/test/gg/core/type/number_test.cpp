@@ -3,7 +3,6 @@
 //==============================================================================
 
 #include "gg/core/type/number.h"
-#include "gg/core/type/type_trait.h"
 
 //==============================================================================
 namespace gg::number_test
@@ -15,8 +14,7 @@ class mock_number : public number<mock_number, int32>
 public:
 
     mock_number(void) = default;
-    mock_number(mock_number const & value) = default;
-    mock_number(storage_type value) : number<mock_number, int32>(value) { }
+    mock_number(int32 && value) : number<mock_number, int32>(type::move(value)) {}
     ~mock_number(void) = default;
 };
 
@@ -24,20 +22,17 @@ public:
 
 TEST_CASE("number", "[gg.number]")
 {
-    SECTION("assign")
-    {
-        REQUIRE(type::is_copy_assignable<number<mock_number, int32>>::value);
-        REQUIRE(type::is_trivially_assignable<number<mock_number, int32>>::value);
-    }
-
     SECTION("construct")
     {
         REQUIRE(!type::is_constructible<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_trivially_constructible<number<mock_number, int32>>::value);
         REQUIRE(!type::is_trivially_constructible<number<mock_number, int32>>::value);
     }
 
     SECTION("copy")
     {
+        REQUIRE(!type::is_copy_constructible<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<number<mock_number, int32>>::value);
         REQUIRE(!type::is_copy_constructible<number<mock_number, int32>>::value);
         REQUIRE(!type::is_trivially_copy_constructible<number<mock_number, int32>>::value);
     }
@@ -46,11 +41,23 @@ TEST_CASE("number", "[gg.number]")
     {
         REQUIRE(!type::is_destructible<number<mock_number, int32>>::value);
         REQUIRE(!type::is_trivially_destructible<number<mock_number, int32>>::value);
+        REQUIRE(!type::is_trivially_destructible<number<mock_number, int32>>::value);
     }
 
-    SECTION("equality")
+    SECTION("assign")
     {
-        REQUIRE(!type::has_equality<number<mock_number, int32>>::value);
+        REQUIRE(type::is_copy_assignable<number<mock_number, int32>>::value);
+        REQUIRE(type::is_trivially_assignable<number<mock_number, int32>>::value);
+    }
+
+    SECTION("compare")
+    {
+        REQUIRE(!type::is_comparable<number<mock_number, int32>>::value);
+    }
+
+    SECTION("pod")
+    {
+        REQUIRE(type::is_pod<number<mock_number, int32>>::value);
     }
 
     SECTION("polymorphic")
@@ -62,7 +69,8 @@ TEST_CASE("number", "[gg.number]")
     {
         REQUIRE(
             sizeof(number<mock_number, int32>) ==
-            sizeof(number<mock_number, int32>::storage_type));
+            sizeof(number<mock_number, int32>::storage_type)
+        );
     }
 }
 
@@ -78,9 +86,11 @@ TEST_CASE("number.constructor", "[gg.number]")
         REQUIRE(mock_number(5).get() == 5);
     }
 
-    SECTION("number(number")
+    SECTION("number(number)")
     {
-        REQUIRE(mock_number(mock_number(5)).get() == 5);
+        mock_number number(5);
+        REQUIRE(mock_number(number).get() == 5);
+        REQUIRE(number.get() == 5);
     }
 }
 

@@ -78,13 +78,13 @@ TEST_CASE("array_dynamic", "[gg.array_dynamic]")
         REQUIRE(!type::is_trivially_destructible<complex_mock_item_array>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<simple_mock_item_array::item_type>::value);
-        REQUIRE(type::has_equality<complex_mock_item_array::item_type>::value);
+        REQUIRE(!type::is_comparable<simple_mock_item_array::item_type>::value);
+        REQUIRE(type::is_comparable<complex_mock_item_array::item_type>::value);
 
-        REQUIRE(type::has_equality<simple_mock_item_array>::value);
-        REQUIRE(type::has_equality<complex_mock_item_array>::value);
+        REQUIRE(type::is_comparable<simple_mock_item_array>::value);
+        REQUIRE(type::is_comparable<complex_mock_item_array>::value);
     }
 
     SECTION("polymorphic")

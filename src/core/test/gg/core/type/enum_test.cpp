@@ -17,27 +17,23 @@ enum class mock_enum : uint8
     value_4 =   1 << 2,
     value_8 =   1 << 3
 };
-
 GG_ENUM(mock_enum);
 
 //==============================================================================
 
 TEST_CASE("enum", "[gg.enum]")
 {
-    SECTION("assign")
-    {
-        REQUIRE(type::is_copy_assignable<mock_enum>::value);
-        REQUIRE(!type::is_trivially_assignable<mock_enum>::value);
-    }
-
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<mock_enum>::value);
+        REQUIRE(type::is_trivially_constructible<mock_enum>::value);
         REQUIRE(type::is_trivially_constructible<mock_enum>::value);
     }
 
     SECTION("copy")
     {
+        REQUIRE(type::is_copy_constructible<mock_enum>::value);
+        REQUIRE(type::is_trivially_copy_constructible<mock_enum>::value);
         REQUIRE(type::is_copy_constructible<mock_enum>::value);
         REQUIRE(type::is_trivially_copy_constructible<mock_enum>::value);
     }
@@ -46,11 +42,23 @@ TEST_CASE("enum", "[gg.enum]")
     {
         REQUIRE(type::is_destructible<mock_enum>::value);
         REQUIRE(type::is_trivially_destructible<mock_enum>::value);
+        REQUIRE(type::is_trivially_destructible<mock_enum>::value);
     }
 
-    SECTION("equality")
+    SECTION("assign")
     {
-        REQUIRE(type::has_equality<mock_enum>::value);
+        REQUIRE(type::is_copy_assignable<mock_enum>::value);
+        REQUIRE(!type::is_trivially_assignable<mock_enum>::value);
+    }
+
+    SECTION("compare")
+    {
+        REQUIRE(type::is_comparable<mock_enum>::value);
+    }
+
+    SECTION("pod")
+    {
+        REQUIRE(type::is_pod<mock_enum>::value);
     }
 
     SECTION("polymorphic")
@@ -104,8 +112,8 @@ TEST_CASE("enum.operator|", "[gg.enum]")
     SECTION("enum | enum")
     {
         REQUIRE(
-            (mock_enum::value_1 | mock_enum::value_4) ==
-                enums::cast<mock_enum>(5));
+            (mock_enum::value_1 | mock_enum::value_4) == enums::cast<mock_enum>(5)
+        );
     }
 }
 

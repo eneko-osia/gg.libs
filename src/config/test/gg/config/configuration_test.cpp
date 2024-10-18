@@ -39,9 +39,9 @@ TEST_CASE("configuration", "[gg.configuration]")
         REQUIRE(!type::is_trivially_destructible<configuration>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<configuration>::value);
+        REQUIRE(!type::is_comparable<configuration>::value);
     }
 
     SECTION("polymorphic")

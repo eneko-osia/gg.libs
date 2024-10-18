@@ -59,9 +59,9 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
             REQUIRE(type::is_trivially_destructible<iterator>::value);
         }
 
-        SECTION("equality")
+        SECTION("compare")
         {
-            REQUIRE(type::has_equality<iterator>::value);
+            REQUIRE(type::is_comparable<iterator>::value);
         }
 
         SECTION("polymorphic")
@@ -98,9 +98,9 @@ TEST_CASE("contiguous_iterator", "[gg.contiguous_iterator]")
             REQUIRE(type::is_trivially_destructible<const_iterator>::value);
         }
 
-        SECTION("equality")
+        SECTION("compare")
         {
-            REQUIRE(type::has_equality<const_iterator>::value);
+            REQUIRE(type::is_comparable<const_iterator>::value);
         }
 
         SECTION("polymorphic")

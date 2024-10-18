@@ -3,6 +3,7 @@
 
 #include "gg/core/container/container.h"
 #include "gg/core/debug/assert.h"
+#include "gg/core/macro/macro.h"
 
 #include <unordered_map>
 

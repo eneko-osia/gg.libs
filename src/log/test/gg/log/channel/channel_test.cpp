@@ -40,9 +40,9 @@ TEST_CASE("channel", "[gg.log]")
         REQUIRE(!type::is_trivially_destructible<mock_channel>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<mock_channel>::value);
+        REQUIRE(!type::is_comparable<mock_channel>::value);
     }
 
     SECTION("polymorphic")

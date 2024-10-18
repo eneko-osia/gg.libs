@@ -41,7 +41,7 @@ namespace gg
         // constructors
 
         hour(void) = default;
-        hour(storage_type hour) : base(hour)
+        hour(storage_type && hour) : base(type::move(hour))
         {
         }
 

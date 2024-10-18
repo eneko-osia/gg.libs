@@ -46,7 +46,7 @@ namespace gg
         // constructors
 
         nanosecond(void) = default;
-        nanosecond(storage_type nanosecond) : base(nanosecond)
+        nanosecond(storage_type && nanosecond) : base(type::move(nanosecond))
         {
         }
         ~nanosecond(void) = default;

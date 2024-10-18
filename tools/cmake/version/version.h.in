@@ -1,11 +1,7 @@
 #ifndef _gg_version_h_
 #define _gg_version_h_
 
-// include files
-
 #include "gg/core/string/type/string_ref.h"
-
-// namespace
 
 namespace gg
 {

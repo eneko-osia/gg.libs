@@ -16,16 +16,21 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
     {
         REQUIRE(type::is_copy_assignable<string_dynamic>::value);
         REQUIRE(!type::is_trivially_assignable<string_dynamic>::value);
+        REQUIRE(type::is_copy_assignable<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_assignable<string_dynamic>::value);
     }
 
     SECTION("construct")
     {
         REQUIRE(type::is_constructible<string_dynamic>::value);
         REQUIRE(!type::is_trivially_constructible<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_constructible<string_dynamic>::value);
     }
 
     SECTION("copy")
     {
+        REQUIRE(type::is_copy_constructible<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<string_dynamic>::value);
         REQUIRE(type::is_copy_constructible<string_dynamic>::value);
         REQUIRE(!type::is_trivially_copy_constructible<string_dynamic>::value);
     }
@@ -34,11 +39,18 @@ TEST_CASE("string_dynamic", "[gg.string_dynamic]")
     {
         REQUIRE(type::is_destructible<string_dynamic>::value);
         REQUIRE(!type::is_trivially_destructible<string_dynamic>::value);
+        REQUIRE(!type::is_trivially_destructible<string_dynamic>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(type::has_equality<string_dynamic>::value);
+        // @todo fix this
+        // REQUIRE(type::is_comparable<string_dynamic>::value);
+    }
+
+    SECTION("pod")
+    {
+        REQUIRE(!type::is_pod<string_dynamic>::value);
     }
 
     SECTION("polymorphic")

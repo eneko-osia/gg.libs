@@ -37,7 +37,7 @@ namespace gg
         // constructors
 
         day(void) = default;
-        day(storage_type day) : base(day)
+        day(storage_type && day) : base(type::move(day))
         {
         }
 

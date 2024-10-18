@@ -1,12 +1,8 @@
 #ifndef _gg_non_copyable_h_
 #define	_gg_non_copyable_h_
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a non copyable object
-
     class non_copyable
     {
     protected:

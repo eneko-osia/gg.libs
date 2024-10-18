@@ -17,7 +17,6 @@ enum class mock_enum : uint8
     value_4 =   1 << 2,
     value_8 =   1 << 3
 };
-
 GG_ENUM(mock_enum);
 
 //==============================================================================
@@ -48,7 +47,9 @@ TEST_CASE("bit_field.is_partially_set", "[gg.bit_field]")
         mock_enum value = bit_field::add(mock_enum::value_1, mock_enum::value_4);
         REQUIRE(
             bit_field::is_partially_set(
-                value, bit_field::add(mock_enum::value_1, mock_enum::value_8)));
+                value, bit_field::add(mock_enum::value_1, mock_enum::value_8)
+            )
+        );
     }
 
     SECTION("!is_partially_set")
@@ -56,7 +57,9 @@ TEST_CASE("bit_field.is_partially_set", "[gg.bit_field]")
         mock_enum value = bit_field::add(mock_enum::value_1, mock_enum::value_4);
         REQUIRE(
             !bit_field::is_partially_set(
-                value, bit_field::add(mock_enum::value_2, mock_enum::value_8)));
+                value, bit_field::add(mock_enum::value_2, mock_enum::value_8)
+            )
+        );
     }
 }
 
@@ -73,7 +76,9 @@ TEST_CASE("bit_field.is_set", "[gg.bit_field]")
         mock_enum value = bit_field::add(mock_enum::value_1, mock_enum::value_4);
         REQUIRE(
             !bit_field::is_set(
-                value, bit_field::add(mock_enum::value_1, mock_enum::value_8)));
+                value, bit_field::add(mock_enum::value_1, mock_enum::value_8)
+            )
+        );
     }
 }
 

@@ -35,9 +35,9 @@ TEST_CASE("memory_buffer_dynamic", "[gg.memory_buffer_dynamic]")
         REQUIRE(!type::is_trivially_destructible<memory_buffer_dynamic>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<memory_buffer_dynamic>::value);
+        REQUIRE(!type::is_comparable<memory_buffer_dynamic>::value);
     }
 
     SECTION("polymorphic")

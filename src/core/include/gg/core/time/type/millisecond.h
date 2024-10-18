@@ -44,7 +44,7 @@ namespace gg
         // constructors
 
         millisecond(void) = default;
-        millisecond(storage_type millisecond) : base(millisecond)
+        millisecond(storage_type && millisecond) : base(type::move(millisecond))
         {
         }
         ~millisecond(void) = default;

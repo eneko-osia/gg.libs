@@ -59,9 +59,9 @@ TEST_CASE("back_insert_iterator", "[gg.back_insert_iterator]")
         REQUIRE(type::is_trivially_destructible<mock_back_insert_iterator>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<mock_back_insert_iterator>::value);
+        REQUIRE(!type::is_comparable<mock_back_insert_iterator>::value);
     }
 
     SECTION("polymorphic")

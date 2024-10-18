@@ -50,9 +50,9 @@ TEST_CASE("thread", "[gg.thread]")
         REQUIRE(!type::is_trivially_destructible<thread>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<thread>::value);
+        REQUIRE(!type::is_comparable<thread>::value);
     }
 
     SECTION("polymorphic")

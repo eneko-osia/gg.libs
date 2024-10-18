@@ -36,9 +36,9 @@ TEST_CASE("non_copyable", "[gg.non_copyable]")
         REQUIRE(!type::is_trivially_destructible<non_copyable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<non_copyable>::value);
+        REQUIRE(!type::is_comparable<non_copyable>::value);
     }
 
     SECTION("polymorphic")

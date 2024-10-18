@@ -1,6 +1,7 @@
 #ifndef _gg_memory_buffer_dynamic_h_
 #define _gg_memory_buffer_dynamic_h_
 
+#include "gg/core/debug/assert.h"
 #include "gg/core/memory/memory.h"
 #include "gg/core/pattern/non_copyable.h"
 

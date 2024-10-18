@@ -1,17 +1,10 @@
 #ifndef _gg_limit_h_
 #define _gg_limit_h_
 
-// include files
-
-#include <algorithm>
 #include <limits>
-
-// namespace
 
 namespace gg
 {
-    // namespace in charge of define limit utilities
-
     namespace limit
     {
         // structs
@@ -41,14 +34,14 @@ namespace gg
         inline constexpr TYPE const &
         max(TYPE const & lvalue, TYPE const & rvalue) noexcept
         {
-            return std::max<TYPE>(lvalue, rvalue);
+            return lvalue > rvalue ? lvalue : rvalue;
         }
 
         template <typename TYPE>
         inline constexpr TYPE const &
         min(TYPE const & lvalue, TYPE const & rvalue) noexcept
         {
-            return std::min<TYPE>(lvalue, rvalue);
+            return lvalue < rvalue ? lvalue : rvalue;
         }
     }
 }

@@ -36,9 +36,9 @@ TEST_CASE("memory_istream", "[gg.memory_istream]")
         REQUIRE(type::is_trivially_destructible<memory_istream>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<memory_istream>::value);
+        REQUIRE(!type::is_comparable<memory_istream>::value);
     }
 
     SECTION("polymorphic")

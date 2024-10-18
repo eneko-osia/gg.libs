@@ -57,9 +57,9 @@ TEST_CASE("hash_map", "[gg.hash_map]")
         REQUIRE(!type::is_trivially_destructible<mock_item_map>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(type::has_equality<mock_item_map>::value);
+        REQUIRE(type::is_comparable<mock_item_map>::value);
     }
 
     SECTION("polymorphic")

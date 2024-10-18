@@ -36,9 +36,9 @@ TEST_CASE("file_istream", "[gg.file_istream]")
         REQUIRE(!type::is_trivially_destructible<file_istream>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<file_istream>::value);
+        REQUIRE(!type::is_comparable<file_istream>::value);
     }
 
     SECTION("polymorphic")

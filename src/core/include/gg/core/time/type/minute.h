@@ -42,7 +42,7 @@ namespace gg
         // constructors
 
         minute(void) = default;
-        minute(storage_type minute) : base(minute)
+        minute(storage_type && minute) : base(type::move(minute))
         {
         }
         ~minute(void) = default;

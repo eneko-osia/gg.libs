@@ -54,10 +54,10 @@ TEST_CASE("singleton_static", "[gg.singleton_static]")
             !type::is_trivially_destructible<singleton_static<mock_singleton>>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
         REQUIRE(
-            !type::has_equality<singleton_static<mock_singleton>>::value);
+            !type::is_comparable<singleton_static<mock_singleton>>::value);
     }
 
     SECTION("polymorphic")

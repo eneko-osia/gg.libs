@@ -43,7 +43,7 @@ namespace gg
         // constructors
 
         second(void) = default;
-        second(storage_type second) : base(second)
+        second(storage_type && second) : base(type::move(second))
         {
         }
         ~second(void) = default;

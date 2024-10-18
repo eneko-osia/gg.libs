@@ -1,16 +1,10 @@
 #ifndef _gg_type_h_
 #define _gg_type_h_
 
-// include files
-
 #include <cstddef>
-
-// namespace
 
 namespace gg
 {
-    // namespace in charge of define type utilities
-
     namespace type
     {
         // boolean types

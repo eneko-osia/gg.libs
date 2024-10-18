@@ -40,9 +40,9 @@ TEST_CASE("memory_buffer_static", "[gg.memory_buffer_static]")
         REQUIRE(type::is_trivially_destructible<mock_memory_buffer_static>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<mock_memory_buffer_static>::value);
+        REQUIRE(!type::is_comparable<mock_memory_buffer_static>::value);
     }
 
     SECTION("polymorphic")

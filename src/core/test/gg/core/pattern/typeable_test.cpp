@@ -149,12 +149,12 @@ TEST_CASE("typeable", "[gg.typeable]")
         REQUIRE(type::is_trivially_destructible<trivial_mock_typeable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<typeable<mock_type>>::value);
-        REQUIRE(!type::has_equality<mock_typeable>::value);
-        REQUIRE(!type::has_equality<typeable<uint32>>::value);
-        REQUIRE(!type::has_equality<trivial_mock_typeable>::value);
+        REQUIRE(!type::is_comparable<typeable<mock_type>>::value);
+        REQUIRE(!type::is_comparable<mock_typeable>::value);
+        REQUIRE(!type::is_comparable<typeable<uint32>>::value);
+        REQUIRE(!type::is_comparable<trivial_mock_typeable>::value);
     }
 
     SECTION("polymorphic")

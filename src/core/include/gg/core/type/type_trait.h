@@ -7,122 +7,87 @@
 #include <type_traits>
 #include <utility>
 
-namespace gg::type
+namespace gg
 {
-    namespace impl
+    namespace type
     {
-        // structs
+        namespace impl
+        {
+            // structs
 
         struct equality {};
         template <typename TYPE>
         equality operator==(TYPE const &, TYPE const &);
 
             template <typename TYPE>
-            struct has_equality
+            struct is_comparable
             {
-                enum
-                {
-                    value =
-                        !std::is_same<decltype(*(TYPE *)(0) == *(TYPE *)(0)),equality>::value
-                };
+                static constexpr bool8 value =
+                    !std::is_same<decltype(*(TYPE *)(0) == *(TYPE *)(0)), equality>::value;
             };
         }
 
     // structs
 
-    template <typename TYPE>
-    struct has_equality
-    {
-        static constexpr bool8 value =
-            impl::has_equality<TYPE>::value;
-    };
+        template <bool8 TEST, typename TYPE1, typename TYPE2>
+        using conditional = std::conditional<TEST, TYPE1, TYPE2>;
 
-    template <typename TYPE>
-    struct is_trivially_assignable
-    {
-        static constexpr bool8 value =
-            std::is_trivially_assignable<TYPE, TYPE>::value;
-    };
+        template<bool8 TEST, typename TYPE = void>
+        using enable_if = std::enable_if<TEST, TYPE>;
 
-    template <typename TYPE>
-    struct is_trivially_constructible
-    {
-        static constexpr bool8 value =
-            std::is_trivially_constructible<TYPE>::value;
-    };
+        template<bool8 TEST, typename TYPE = void>
+        using enable_if_t = std::enable_if_t<TEST, TYPE>;
 
-    template <typename TYPE>
-    struct is_trivially_copy_constructible
-    {
-        static constexpr bool8 value =
-            std::is_trivially_copy_constructible<TYPE>::value;
-    };
+        template <typename TYPE1, typename TYPE2 = TYPE1>
+        using is_assignable = std::is_assignable<TYPE1, TYPE2>;
 
-    template <typename TYPE>
-    struct is_trivially_destructible
-    {
-        static constexpr bool8 value =
-            std::is_trivially_destructible<TYPE>::value;
-    };
+        template <typename TYPE>
+        struct is_comparable
+        {
+            static constexpr bool8 value =
+                impl::is_comparable<TYPE>::value;
+        };
 
-    template <typename TYPE>
-    struct is_copy_assignable
-    {
-        static constexpr bool8 value =
-            std::is_copy_assignable<TYPE>::value;
-    };
+        template <typename TYPE>
+        using is_const = std::is_const<TYPE>;
 
-    template <typename TYPE>
-    struct is_const
-    {
-        static constexpr bool8 value = std::is_const<TYPE>::value;
-    };
+        template <typename TYPE, typename... ARGS>
+        using is_constructible = std::is_constructible<TYPE, ARGS...>;
 
-    template <typename TYPE, typename... ARGS>
-    struct is_constructible
-    {
-        static constexpr bool8 value =
-            std::is_constructible<TYPE, ARGS...>::value;
-    };
+        template <typename TYPE>
+        using is_copy_assignable = std::is_copy_assignable<TYPE>;
 
-    template <typename TYPE>
-    struct is_copy_constructible
-    {
-        static constexpr bool8 value =
-            std::is_copy_constructible<TYPE>::value;
-    };
+        template <typename TYPE>
+        using is_copy_constructible = std::is_copy_constructible<TYPE>;
 
-    template <typename TYPE>
-    struct is_destructible
-    {
-        static constexpr bool8 value =
-            std::is_destructible<TYPE>::value;
-    };
+        template <typename TYPE>
+        using is_destructible = std::is_destructible<TYPE>;
 
-    template <typename TYPE>
-    struct is_pointer
-    {
-        static constexpr bool8 value = std::is_pointer<TYPE>::value;
-    };
+        template <typename TYPE>
+        using is_pod = std::is_pod<TYPE>;
 
-    template <typename TYPE>
-    struct is_polymorphic
-    {
-        static constexpr bool8 value = std::is_polymorphic<TYPE>::value;
-    };
+        template <typename TYPE>
+        using is_pointer = std::is_pointer<TYPE>;
 
-    // using
+        template <typename TYPE>
+        using is_polymorphic = std::is_polymorphic<TYPE>;
 
-    template <bool8 TEST, typename TYPE1, typename TYPE2>
-    using conditional = std::conditional<TEST, TYPE1, TYPE2>;
+        template <typename TYPE1, typename TYPE2 = TYPE1>
+        using is_trivially_assignable = std::is_trivially_assignable<TYPE1, TYPE2>;
 
-    template<bool8 TEST, typename TYPE = void>
-    using enable_if = std::enable_if<TEST, TYPE>;
+        template <typename TYPE, typename... ARGS>
+        using is_trivially_constructible = std::is_trivially_constructible<TYPE, ARGS...>;
 
-    template<bool8 TEST, typename TYPE = void>
-    using enable_if_t = typename enable_if<TEST, TYPE>::type;
+        template <typename TYPE>
+        using is_trivially_copy_constructible = std::is_trivially_copy_constructible<TYPE>;
 
-    // methods
+        template <typename TYPE>
+        using is_trivially_destructible = std::is_trivially_destructible<TYPE>;
+
+        template <typename TYPE>
+        using underlying = std::underlying_type<TYPE>;
+
+        // methods
 
     template <typename TO, typename FROM>
     inline
@@ -130,56 +95,56 @@ namespace gg::type
     {
         return const_cast<TO>(value);
     }
+        template <typename TO, typename FROM>
+        inline constexpr TO cast_const(FROM const & value) noexcept
+        {
+            return const_cast<TO>(value);
+        }
 
-    template <typename TO, typename FROM>
-    inline
-    constexpr TO cast_dynamic(FROM const & value) noexcept
-    {
-        return dynamic_cast<TO>(value);
-    }
+        template <typename TO, typename FROM>
+        inline constexpr TO cast_dynamic(FROM const & value) noexcept
+        {
+            return dynamic_cast<TO>(value);
+        }
 
-    template <typename TO, typename FROM>
-    inline
-    constexpr TO cast_reinterpret(FROM const & value) noexcept
-    {
-        return reinterpret_cast<TO>(value);
-    }
+        template <typename TO, typename FROM>
+        inline constexpr TO cast_reinterpret(FROM const & value) noexcept
+        {
+            return reinterpret_cast<TO>(value);
+        }
 
-    template <typename TO, typename FROM>
-    inline
-    constexpr TO cast_static(FROM const & value) noexcept
-    {
-        return static_cast<TO>(value);
-    }
+        template <typename TO, typename FROM>
+        inline constexpr TO cast_static(FROM const & value) noexcept
+        {
+            return static_cast<TO>(value);
+        }
 
-    template <typename TYPE>
-    inline
-    constexpr TYPE &&
-    forward(typename std::remove_reference<TYPE>::type & args) noexcept
-    {
-        return std::forward<TYPE>(args);
-    }
+        template <typename TYPE>
+        inline constexpr TYPE &&
+        forward(typename std::remove_reference<TYPE>::type & args) noexcept
+        {
+            return std::forward<TYPE>(args);
+        }
 
-    template <typename TYPE>
-    inline
-    constexpr TYPE &&
-    forward(typename std::remove_reference<TYPE>::type && args) noexcept
-    {
-        return std::forward<TYPE>(args);
-    }
+        template <typename TYPE>
+        inline constexpr TYPE &&
+        forward(typename std::remove_reference<TYPE>::type && args) noexcept
+        {
+            return std::forward<TYPE>(args);
+        }
 
-    template <typename TYPE>
-    inline
-    constexpr typename std::remove_reference<TYPE>::type &&
-    move(TYPE && args) noexcept
-    {
-        return std::move(args);
-    }
+        template <typename TYPE>
+        inline constexpr typename std::remove_reference<TYPE>::type &&
+        move(TYPE && args) noexcept
+        {
+            return std::move(args);
+        }
 
-    template <typename TYPE>
-    inline std::reference_wrapper<TYPE> ref(TYPE & value) noexcept
-    {
-        return std::ref<TYPE>(value);
+        template <typename TYPE>
+        inline std::reference_wrapper<TYPE> ref(TYPE & value) noexcept
+        {
+            return std::ref<TYPE>(value);
+        }
     }
 }
 

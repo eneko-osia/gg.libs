@@ -19,20 +19,19 @@ namespace gg
         // static asserts
 
         GG_ASSERT_STATIC(
+            type::is_pod<storage_type>::value,
+            "storage_type is not a pod type"
+        );
+
+        GG_ASSERT_STATIC(
             !type::is_pointer<actual_type>::value,
-            "pointer actual_type is not allowed");
+            "pointer actual_type is not allowed"
+        );
 
         GG_ASSERT_STATIC(
             !type::is_pointer<storage_type>::value,
-            "pointer storage_type is not allowed");
-
-        // constructors
-
-        number(void) noexcept = default;
-        number(number const & value) noexcept = default;
-        number(storage_type value) noexcept : m_value(value)
-        {
-        }
+            "pointer storage_type is not allowed"
+        );
 
         // operators
 
@@ -138,6 +137,10 @@ namespace gg
 
         // constructors
 
+        number(void) noexcept = default;
+        number(storage_type && value) noexcept : m_value(type::move(value))
+        {
+        }
         ~number(void) noexcept = default;
 
     private:

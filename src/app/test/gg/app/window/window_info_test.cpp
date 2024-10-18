@@ -37,9 +37,9 @@ TEST_CASE("window_info", "[gg.app.window_info]")
         REQUIRE(type::is_trivially_destructible<window_info>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<window_info>::value);
+        REQUIRE(!type::is_comparable<window_info>::value);
     }
 
     SECTION("polymorphic")

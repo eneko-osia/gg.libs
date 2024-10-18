@@ -91,16 +91,16 @@ TEST_CASE("identifiable", "[gg.identifiable]")
 {
     SECTION("assign")
     {
-        REQUIRE(!type::is_copy_assignable<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_assignable<identifiable<mock_id>>::value);
         REQUIRE(!type::is_trivially_assignable<identifiable<mock_id>>::value);
 
-        REQUIRE(!type::is_copy_assignable<mock_identifiable>::value);
+        REQUIRE(!type::is_assignable<mock_identifiable>::value);
         REQUIRE(!type::is_trivially_assignable<mock_identifiable>::value);
 
-        REQUIRE(!type::is_copy_assignable<identifiable<uint32>>::value);
+        REQUIRE(!type::is_assignable<identifiable<uint32>>::value);
         REQUIRE(!type::is_trivially_assignable<identifiable<uint32>>::value);
 
-        REQUIRE(!type::is_copy_assignable<trivial_mock_identifiable>::value);
+        REQUIRE(!type::is_assignable<trivial_mock_identifiable>::value);
         REQUIRE(!type::is_trivially_assignable<trivial_mock_identifiable>::value);
     }
 
@@ -108,14 +108,18 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     {
         REQUIRE(!type::is_constructible<identifiable<mock_id>>::value);
         REQUIRE(!type::is_trivially_constructible<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_trivially_constructible<identifiable<mock_id>>::value);
 
         REQUIRE(type::is_constructible<mock_identifiable>::value);
+        REQUIRE(!type::is_trivially_constructible<mock_identifiable>::value);
         REQUIRE(!type::is_trivially_constructible<mock_identifiable>::value);
 
         REQUIRE(!type::is_constructible<identifiable<uint32>>::value);
         REQUIRE(!type::is_trivially_constructible<identifiable<uint32>>::value);
+        REQUIRE(!type::is_trivially_constructible<identifiable<uint32>>::value);
 
         REQUIRE(type::is_constructible<trivial_mock_identifiable>::value);
+        REQUIRE(type::is_trivially_constructible<trivial_mock_identifiable>::value);
         REQUIRE(type::is_trivially_constructible<trivial_mock_identifiable>::value);
     }
 
@@ -123,13 +127,21 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     {
         REQUIRE(!type::is_copy_constructible<identifiable<mock_id>>::value);
         REQUIRE(!type::is_trivially_copy_constructible<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_copy_constructible<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<identifiable<mock_id>>::value);
 
+        REQUIRE(type::is_copy_constructible<mock_identifiable>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<mock_identifiable>::value);
         REQUIRE(type::is_copy_constructible<mock_identifiable>::value);
         REQUIRE(!type::is_trivially_copy_constructible<mock_identifiable>::value);
 
         REQUIRE(!type::is_copy_constructible<identifiable<uint32>>::value);
         REQUIRE(!type::is_trivially_copy_constructible<identifiable<uint32>>::value);
+        REQUIRE(!type::is_copy_constructible<identifiable<uint32>>::value);
+        REQUIRE(!type::is_trivially_copy_constructible<identifiable<uint32>>::value);
 
+        REQUIRE(type::is_copy_constructible<trivial_mock_identifiable>::value);
+        REQUIRE(type::is_trivially_copy_constructible<trivial_mock_identifiable>::value);
         REQUIRE(type::is_copy_constructible<trivial_mock_identifiable>::value);
         REQUIRE(type::is_trivially_copy_constructible<trivial_mock_identifiable>::value);
     }
@@ -138,23 +150,35 @@ TEST_CASE("identifiable", "[gg.identifiable]")
     {
         REQUIRE(!type::is_destructible<identifiable<mock_id>>::value);
         REQUIRE(!type::is_trivially_destructible<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_trivially_destructible<identifiable<mock_id>>::value);
 
         REQUIRE(type::is_destructible<mock_identifiable>::value);
+        REQUIRE(type::is_trivially_destructible<mock_identifiable>::value);
         REQUIRE(type::is_trivially_destructible<mock_identifiable>::value);
 
         REQUIRE(!type::is_destructible<identifiable<uint32>>::value);
         REQUIRE(!type::is_trivially_destructible<identifiable<uint32>>::value);
+        REQUIRE(!type::is_trivially_destructible<identifiable<uint32>>::value);
 
         REQUIRE(type::is_destructible<trivial_mock_identifiable>::value);
         REQUIRE(type::is_trivially_destructible<trivial_mock_identifiable>::value);
+        REQUIRE(type::is_trivially_destructible<trivial_mock_identifiable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<identifiable<mock_id>>::value);
-        REQUIRE(!type::has_equality<mock_identifiable>::value);
-        REQUIRE(!type::has_equality<identifiable<uint32>>::value);
-        REQUIRE(!type::has_equality<trivial_mock_identifiable>::value);
+        REQUIRE(!type::is_comparable<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_comparable<mock_identifiable>::value);
+        REQUIRE(!type::is_comparable<identifiable<uint32>>::value);
+        REQUIRE(!type::is_comparable<trivial_mock_identifiable>::value);
+    }
+
+    SECTION("pod")
+    {
+        REQUIRE(!type::is_pod<identifiable<mock_id>>::value);
+        REQUIRE(!type::is_pod<mock_identifiable>::value);
+        REQUIRE(type::is_pod<identifiable<uint32>>::value);
+        REQUIRE(type::is_pod<trivial_mock_identifiable>::value);
     }
 
     SECTION("polymorphic")

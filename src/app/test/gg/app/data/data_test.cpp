@@ -41,9 +41,9 @@ TEST_CASE("data", "[gg.app.data]")
         REQUIRE(!type::is_trivially_destructible<data>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<data>::value);
+        REQUIRE(!type::is_comparable<data>::value);
     }
 
     SECTION("polymorphic")

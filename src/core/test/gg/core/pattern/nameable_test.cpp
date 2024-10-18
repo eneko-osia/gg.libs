@@ -104,12 +104,12 @@ TEST_CASE("nameable", "[gg.nameable]")
         REQUIRE(type::is_trivially_destructible<trivial_mock_nameable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<nameable<string_dynamic>>::value);
-        REQUIRE(!type::has_equality<mock_nameable>::value);
-        REQUIRE(!type::has_equality<nameable<char8 const *>>::value);
-        REQUIRE(!type::has_equality<trivial_mock_nameable>::value);
+        REQUIRE(!type::is_comparable<nameable<string_dynamic>>::value);
+        REQUIRE(!type::is_comparable<mock_nameable>::value);
+        REQUIRE(!type::is_comparable<nameable<char8 const *>>::value);
+        REQUIRE(!type::is_comparable<trivial_mock_nameable>::value);
     }
 
     SECTION("polymorphic")

@@ -36,9 +36,9 @@ TEST_CASE("non_movable", "[gg.non_movable]")
         REQUIRE(!type::is_trivially_destructible<non_movable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<non_movable>::value);
+        REQUIRE(!type::is_comparable<non_movable>::value);
     }
 
     SECTION("polymorphic")

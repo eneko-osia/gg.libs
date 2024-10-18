@@ -107,10 +107,10 @@ TEST_CASE("observable", "[gg.observable]")
         REQUIRE(!type::is_trivially_destructible<mock_observable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<observable<imock_observer>>::value);
-        REQUIRE(!type::has_equality<mock_observable>::value);
+        REQUIRE(!type::is_comparable<observable<imock_observer>>::value);
+        REQUIRE(!type::is_comparable<mock_observable>::value);
     }
 
     SECTION("polymorphic")

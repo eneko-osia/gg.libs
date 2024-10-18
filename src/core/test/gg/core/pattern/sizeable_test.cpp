@@ -149,12 +149,12 @@ TEST_CASE("sizeable", "[gg.sizeable]")
         REQUIRE(type::is_trivially_destructible<trivial_mock_sizeable>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<sizeable<mock_size>>::value);
-        REQUIRE(!type::has_equality<mock_sizeable>::value);
-        REQUIRE(!type::has_equality<sizeable<uint32>>::value);
-        REQUIRE(!type::has_equality<trivial_mock_sizeable>::value);
+        REQUIRE(!type::is_comparable<sizeable<mock_size>>::value);
+        REQUIRE(!type::is_comparable<mock_sizeable>::value);
+        REQUIRE(!type::is_comparable<sizeable<uint32>>::value);
+        REQUIRE(!type::is_comparable<trivial_mock_sizeable>::value);
     }
 
     SECTION("polymorphic")

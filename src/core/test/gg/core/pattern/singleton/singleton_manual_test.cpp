@@ -63,10 +63,10 @@ TEST_CASE("singleton_manual", "[gg.singleton_manual]")
             !type::is_trivially_destructible<singleton_manual<mock_singleton>>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
         REQUIRE(
-            !type::has_equality<singleton_manual<mock_singleton>>::value);
+            !type::is_comparable<singleton_manual<mock_singleton>>::value);
     }
 
     SECTION("polymorphic")

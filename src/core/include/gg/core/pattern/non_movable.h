@@ -1,12 +1,8 @@
 #ifndef _gg_non_movable_h_
 #define	_gg_non_movable_h_
 
-// namespace
-
 namespace gg
 {
-    // class in charge of define a non movable object
-
     class non_movable
     {
     protected:

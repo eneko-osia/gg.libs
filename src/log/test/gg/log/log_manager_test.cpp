@@ -53,9 +53,9 @@ TEST_CASE("log_manager", "[gg.log]")
         REQUIRE(!type::is_trivially_destructible<log_manager>::value);
     }
 
-    SECTION("equality")
+    SECTION("compare")
     {
-        REQUIRE(!type::has_equality<log_manager>::value);
+        REQUIRE(!type::is_comparable<log_manager>::value);
     }
 
     SECTION("polymorphic")
