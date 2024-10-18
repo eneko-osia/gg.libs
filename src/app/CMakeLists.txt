@@ -65,10 +65,17 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.app gg.core)
+target_link_libraries(
+    gg.app
+    PUBLIC
+        gg.core
+)
 
 if(GG_APP_WINDOW_SUPPORT)
-    target_link_libraries(gg.app ${X11_LIBRARIES})
+    target_link_libraries(
+        gg.app
+        PRIVATE
+            ${X11_LIBRARIES})
 endif()
 
 # group folder
@@ -110,7 +117,12 @@ if(GG_ENABLE_TESTING)
     )
 
     # link libraries
-    target_link_libraries(gg.app.test gg.test gg.app)
+    target_link_libraries(
+        gg.app.test
+        PRIVATE
+            gg.test
+            gg.app
+    )
 
     # group folder
     set_target_properties(gg.app.test PROPERTIES FOLDER gg.libs.test)

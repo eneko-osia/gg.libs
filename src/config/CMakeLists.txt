@@ -46,7 +46,11 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.config gg.core)
+target_link_libraries(
+    gg.config
+    PUBLIC
+        gg.core
+)
 
 # group folder
 set_target_properties(gg.config PROPERTIES FOLDER gg.libs)
@@ -87,7 +91,12 @@ if(GG_ENABLE_TESTING)
     )
 
     # link libraries
-    target_link_libraries(gg.config.test gg.test gg.config)
+    target_link_libraries(
+        gg.config.test
+        PRIVATE
+            gg.test
+            gg.config
+    )
 
     # group folder
     set_target_properties(gg.config.test PROPERTIES FOLDER gg.libs.test)

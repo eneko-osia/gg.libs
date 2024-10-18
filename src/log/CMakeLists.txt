@@ -91,7 +91,12 @@ if(GG_ENABLE_TESTING)
     )
 
     # link libraries
-    target_link_libraries(gg.log.test gg.test gg.log)
+    target_link_libraries(
+        gg.log.test
+        PRIVATE
+            gg.test
+            gg.log
+    )
 
     # group folder
     set_target_properties(gg.log.test PROPERTIES FOLDER gg.libs.test)

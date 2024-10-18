@@ -54,22 +54,6 @@ target_compile_definitions(
 # compile options
 target_compile_options(
     gg.core
-    PUBLIC
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:debug>:-g>>
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:debug>:-O0>>
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-g>>
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-O3>>
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release>:-s>>
-        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release>:-O3>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:debug>:/MDd>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:debug>:/Ob0>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:debug>:/Od>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release_with_debug>:/MDd>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release_with_debug>:/Ob2>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release_with_debug>:/Ox>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release>:/MD>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release>:/Ob2>>
-        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release>:/Ox>>
     PRIVATE
         $<$<STREQUAL:${COMPILER},gnu>:-fno-exceptions>
         $<$<STREQUAL:${COMPILER},gnu>:-Wall>
@@ -84,7 +68,12 @@ target_compile_options(
 )
 
 # link libraries
-target_link_libraries(gg.core Threads::Threads ${CMAKE_DL_LIBS})
+target_link_libraries(
+    gg.core
+    PRIVATE
+        Threads::Threads
+        ${CMAKE_DL_LIBS}
+)
 
 # group folder
 set_target_properties(gg.core PROPERTIES FOLDER gg.libs)
@@ -125,7 +114,12 @@ if(GG_ENABLE_TESTING)
     )
 
     # link libraries
-    target_link_libraries(gg.core.test gg.test gg.core)
+    target_link_libraries(
+        gg.core.test
+        PRIVATE
+            gg.test
+            gg.core
+    )
 
     # group folder
     set_target_properties(gg.core.test PROPERTIES FOLDER gg.libs.test)

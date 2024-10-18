@@ -166,7 +166,12 @@ if(GG_ENABLE_TESTING)
     )
 
     # link libraries
-    target_link_libraries(gg.gfx.test gg.test gg.gfx)
+    target_link_libraries(
+        gg.gfx.test
+        PRIVATE
+            gg.test
+            gg.gfx
+    )
 
     # group folder
     set_target_properties(gg.gfx.test PROPERTIES FOLDER gg.libs.test)
