@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04]
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
         build_type: [debug, release_with_debug, release]
       fail-fast: false
 
@@ -33,7 +33,7 @@ jobs:
     - name: Configure
       shell: bash
       working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DGG_CORE=ON -DGG_TEST=ON -DGG_APP=ON -DGG_APP_WINDOW_SUPPORT=ON -DGG_CONFIG=ON -DGG_LOG=ON -DGG_GFX=ON -DGG_GFX_OPENGL_SUPPORT=ON -DGG_GFX_VULKAN_SUPPORT=ON -DGG_GUI=OFF -DGG_ENABLE_DOC=OFF -DGG_ENABLE_TESTING=ON
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DGG_CORE=ON -DGG_TEST=ON -DGG_APP=ON -DGG_APP_WINDOW_SUPPORT=ON -DGG_CONFIG=ON -DGG_LOG=ON -DGG_GFX=ON -DGG_GFX_OPENGL_SUPPORT=ON -DGG_GFX_VULKAN_SUPPORT=ON -DGG_ENABLE_TESTING=ON
 
     - name: Build
       shell: bash

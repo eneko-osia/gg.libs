@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [windows-2019]
+        os: [windows-2019, windows-2022]
         architecture: [Win32, x64]
         build_type: [debug, release_with_debug, release]
       fail-fast: false
@@ -46,7 +46,7 @@ jobs:
 
     - name: Configure
       working-directory: ${{runner.workspace}}/build
-      run: cmake ${env:GITHUB_WORKSPACE} -A ${{matrix.architecture}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DGG_CORE=ON -DGG_TEST=ON -DGG_APP=ON -DGG_APP_WINDOW_SUPPORT=ON -DGG_CONFIG=ON -DGG_LOG=ON -DGG_GFX=ON -DGG_GFX_OPENGL_SUPPORT=ON -DGG_GFX_VULKAN_SUPPORT=OFF -DGG_GUI=OFF -DGG_ENABLE_DOC=OFF -DGG_ENABLE_TESTING=ON
+      run: cmake ${env:GITHUB_WORKSPACE} -A ${{matrix.architecture}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DGG_CORE=ON -DGG_TEST=ON -DGG_APP=ON -DGG_APP_WINDOW_SUPPORT=ON -DGG_CONFIG=ON -DGG_LOG=ON -DGG_GFX=ON -DGG_GFX_OPENGL_SUPPORT=ON -DGG_GFX_VULKAN_SUPPORT=OFF -DGG_ENABLE_TESTING=ON
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
