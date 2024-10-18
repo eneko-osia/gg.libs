@@ -33,11 +33,11 @@ option(GG_CORE "core library" OFF)
 option(GG_TEST "test library" OFF)
 
 # dependent libraries
-cmake_dependent_option(GG_APP    "app library"    OFF GG_CORE       OFF)
-cmake_dependent_option(GG_CONFIG "config library" OFF GG_CORE       OFF)
-cmake_dependent_option(GG_LOG    "log library"    OFF GG_CORE       OFF)
-cmake_dependent_option(GG_GFX    "gfx library"    OFF GG_APP;GG_LOG OFF)
-cmake_dependent_option(GG_GUI    "gui library"    OFF GG_GFX        OFF)
+cmake_dependent_option(GG_APP    "app library"    OFF "GG_CORE"       OFF)
+cmake_dependent_option(GG_CONFIG "config library" OFF "GG_CORE"       OFF)
+cmake_dependent_option(GG_LOG    "log library"    OFF "GG_CORE"       OFF)
+cmake_dependent_option(GG_GFX    "gfx library"    OFF "GG_APP;GG_LOG" OFF)
+cmake_dependent_option(GG_GUI    "gui library"    OFF "GG_GFX"        OFF)
 
 # dependent documentation and testing
 cmake_dependent_option(GG_ENABLE_DOC     "enable documentation" OFF GG_CORE OFF)
