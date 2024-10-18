@@ -14,27 +14,21 @@ namespace gg
         inline ITERATOR
         find_if(ITERATOR begin, ITERATOR end, FUNCTION && function) noexcept
         {
-            return
-                std::find_if(
-                    begin, end, type::forward<FUNCTION>(function));
+            return std::find_if(begin, end, type::forward<FUNCTION>(function));
         }
 
         template <typename ITERATOR, typename FUNCTION>
         inline FUNCTION
         for_each(ITERATOR begin, ITERATOR end, FUNCTION && function) noexcept
         {
-            return
-                std::for_each(
-                    begin, end, type::forward<FUNCTION>(function));
+            return std::for_each(begin, end, type::forward<FUNCTION>(function));
         }
 
         template <typename ITERATOR, typename FUNCTION>
         inline ITERATOR
         remove_if(ITERATOR begin, ITERATOR end, FUNCTION && function) noexcept
         {
-            return
-                std::remove_if(
-                    begin, end, type::forward<FUNCTION>(function));
+            return std::remove_if(begin, end, type::forward<FUNCTION>(function));
         }
 
         template <typename ITERATOR>
