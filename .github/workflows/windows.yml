@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       env:
         cache-name: cache-chocolatey
       with:
@@ -39,7 +39,7 @@ jobs:
         echo "::set-env name=VULKAN_SDK::${env:VULKAN_SDK}"
 
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Create build directory
       run: cmake -E make_directory ${{runner.workspace}}/build
