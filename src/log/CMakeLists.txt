@@ -69,8 +69,9 @@ if(GG_ENABLE_TESTING)
     # compile definitions
     target_compile_definitions(
         gg.log.test
-         PRIVATE
+        PRIVATE
             $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
+            $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
     )
 
     # compile options

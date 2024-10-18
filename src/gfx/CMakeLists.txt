@@ -69,6 +69,7 @@ target_compile_definitions(
     PUBLIC
         GG_GFX
     PRIVATE
+        $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
         $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
 )
 
