@@ -9,17 +9,17 @@ include(GGSrcFiles.cmake)
 add_library(
     gg.core
     STATIC
-        ${include_files}
-        ${src_files}
+        ${INCLUDE_FILES}
+        ${SRC_FILES}
 )
 
 # include directories
 target_include_directories(
     gg.core
     PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
 # compile features
@@ -35,52 +35,52 @@ target_compile_definitions(
     PUBLIC
         GG_CORE
         $<$<CONFIG:debug>:GG_DEBUG>
-        $<$<CONFIG:release>:GG_DEBUG>
-        $<$<STREQUAL:${compiler},gnu>:GG_GNU>
-        $<$<STREQUAL:${compiler},msvc>:GG_MSVC>
-        $<$<STREQUAL:${compiler},msvc>:_CRT_SECURE_NO_WARNINGS>
-        $<$<STREQUAL:${platform},android>:GG_ANDROID>
-        $<$<STREQUAL:${platform},mac>:GG_MAC>
-        $<$<STREQUAL:${platform},linux>:GG_LINUX>
-        $<$<STREQUAL:${platform},windows>:GG_WINDOWS>
-        $<$<STREQUAL:${platform},windows>:NOMINMAX>
-        $<$<STREQUAL:${platform},uwp>:GG_UWP>
-        $<$<STREQUAL:${platform_architecture},x86>:GG_X86>
-        $<$<STREQUAL:${platform_architecture},x86_64>:GG_X86_64>
+        $<$<CONFIG:release_with_debug>:GG_DEBUG>
+        $<$<STREQUAL:${COMPILER},gnu>:GG_GNU>
+        $<$<STREQUAL:${COMPILER},msvc>:GG_MSVC>
+        $<$<STREQUAL:${SYSTEM},android>:GG_ANDROID>
+        $<$<STREQUAL:${SYSTEM},linux>:GG_LINUX>
+        $<$<STREQUAL:${SYSTEM},mac>:GG_MAC>
+        $<$<STREQUAL:${SYSTEM},uwp>:GG_UWP>
+        $<$<STREQUAL:${SYSTEM},windows>:GG_WINDOWS>
+        $<$<STREQUAL:${SYSTEM_ARCHITECTURE},x86>:GG_X86>
+        $<$<STREQUAL:${SYSTEM_ARCHITECTURE},x86_64>:GG_X86_64>
     PRIVATE
-        $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
+        $<$<STREQUAL:${COMPILER},msvc>:_CRT_SECURE_NO_WARNINGS>
+        $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
+        $<$<STREQUAL:${SYSTEM},windows>:NOMINMAX>
 )
 
 # compile options
 target_compile_options(
     gg.core
     PUBLIC
-        $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:debug>:-g>>
-        $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:debug>:-O0>>
-        $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:release>:-s>>
-        $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:release>:-O3>>
-        $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:distribution>:-s>>
-        $<$<STREQUAL:${compiler},gnu>:$<$<CONFIG:distribution>:-O3>>
-        $<$<STREQUAL:${compiler},gnu>:-Wno-format-security>
-        $<$<STREQUAL:${compiler},gnu>:-Wno-nonnull>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:debug>:/MDd>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:debug>:/Ob0>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:debug>:/Od>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:release>:/MD>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:release>:/Ob2>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:release>:/Ox>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:distribution>:/MD>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:distribution>:/Ob2>>
-        $<$<STREQUAL:${compiler},msvc>:$<$<CONFIG:distribution>:/Ox>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:debug>:-g>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:debug>:-O0>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-s>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release_with_debug>:-O3>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release>:-s>>
+        $<$<STREQUAL:${COMPILER},gnu>:$<$<CONFIG:release>:-O3>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:debug>:/MDd>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:debug>:/Ob0>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:debug>:/Od>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release_with_debug>:/MDd>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release_with_debug>:/Ob2>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release_with_debug>:/Ox>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release>:/MD>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release>:/Ob2>>
+        $<$<STREQUAL:${COMPILER},msvc>:$<$<CONFIG:release>:/Ox>>
     PRIVATE
-        $<$<STREQUAL:${compiler},gnu>:-fno-exceptions>
-        $<$<STREQUAL:${compiler},gnu>:-Wall>
-        $<$<STREQUAL:${compiler},gnu>:-Wextra>
-        $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-        $<$<STREQUAL:${compiler},gnu>:-Werror>
-        #$<$<STREQUAL:${compiler},msvc>:/EHs-c->
-        $<$<STREQUAL:${compiler},msvc>:/W4>
-        $<$<STREQUAL:${compiler},msvc>:/WX>
+        $<$<STREQUAL:${COMPILER},gnu>:-fno-exceptions>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+        $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wno-format-security>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wno-nonnull>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+        # $<$<STREQUAL:${COMPILER},msvc>:/EHs-c->
+        $<$<STREQUAL:${COMPILER},msvc>:/W4>
+        $<$<STREQUAL:${COMPILER},msvc>:/WX>
 )
 
 # link libraries
@@ -90,9 +90,9 @@ target_link_libraries(gg.core Threads::Threads ${CMAKE_DL_LIBS})
 set_target_properties(gg.core PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GG_LIBS_ENABLE_TESTING)
+if(GG_ENABLE_TESTING)
     # executable
-    add_executable(gg.core.test ${test_files})
+    add_executable(gg.core.test ${TEST_FILES})
 
     # include directories
     target_include_directories(
@@ -105,14 +105,16 @@ if(GG_LIBS_ENABLE_TESTING)
     target_compile_options(
         gg.core.test
         PRIVATE
-            $<$<STREQUAL:${compiler},gnu>:-fexceptions>
-            $<$<STREQUAL:${compiler},gnu>:-Wall>
-            $<$<STREQUAL:${compiler},gnu>:-Wextra>
-            $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-            $<$<STREQUAL:${compiler},gnu>:-Werror>
-            $<$<STREQUAL:${compiler},msvc>:/EHsc>
-            $<$<STREQUAL:${compiler},msvc>:/W4>
-            $<$<STREQUAL:${compiler},msvc>:/WX>
+            $<$<STREQUAL:${COMPILER},gnu>:-fexceptions>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+            $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wno-format-security>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wno-nonnull>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+            $<$<STREQUAL:${COMPILER},msvc>:/EHsc>
+            $<$<STREQUAL:${COMPILER},msvc>:/W4>
+            $<$<STREQUAL:${COMPILER},msvc>:/WX>
     )
 
     # link libraries

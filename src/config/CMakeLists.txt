@@ -8,8 +8,8 @@ include(GGSrcFiles.cmake)
 add_library(
     gg.config
     STATIC
-        ${include_files}
-        ${src_files}
+        ${INCLUDE_FILES}
+        ${SRC_FILES}
 )
 
 # include directories
@@ -27,21 +27,21 @@ target_compile_definitions(
     PUBLIC
         GG_CONFIG
     PRIVATE
-        $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
+        $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
 )
 
 # compile options
 target_compile_options(
     gg.config
     PRIVATE
-        $<$<STREQUAL:${compiler},gnu>:-fno-exceptions>
-        $<$<STREQUAL:${compiler},gnu>:-Wall>
-        $<$<STREQUAL:${compiler},gnu>:-Wextra>
-        $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-        $<$<STREQUAL:${compiler},gnu>:-Werror>
-        #$<$<STREQUAL:${compiler},msvc>:/EHs-c->
-        $<$<STREQUAL:${compiler},msvc>:/W4>
-        $<$<STREQUAL:${compiler},msvc>:/WX>
+        $<$<STREQUAL:${COMPILER},gnu>:-fno-exceptions>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+        $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+        #$<$<STREQUAL:${COMPILER},msvc>:/EHs-c->
+        $<$<STREQUAL:${COMPILER},msvc>:/W4>
+        $<$<STREQUAL:${COMPILER},msvc>:/WX>
 )
 
 # link libraries
@@ -51,9 +51,9 @@ target_link_libraries(gg.config gg.core)
 set_target_properties(gg.config PROPERTIES FOLDER gg.libs)
 
 # testing
-if(GG_LIBS_ENABLE_TESTING)
+if(GG_ENABLE_TESTING)
     # executable
-    add_executable(gg.config.test ${test_files})
+    add_executable(gg.config.test ${TEST_FILES})
 
     # include directories
     target_include_directories(
@@ -66,14 +66,14 @@ if(GG_LIBS_ENABLE_TESTING)
     target_compile_options(
         gg.config.test
         PRIVATE
-            $<$<STREQUAL:${compiler},gnu>:-fexceptions>
-            $<$<STREQUAL:${compiler},gnu>:-Wall>
-            $<$<STREQUAL:${compiler},gnu>:-Wextra>
-            $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-            $<$<STREQUAL:${compiler},gnu>:-Werror>
-            $<$<STREQUAL:${compiler},msvc>:/EHsc>
-            $<$<STREQUAL:${compiler},msvc>:/W4>
-            $<$<STREQUAL:${compiler},msvc>:/WX>
+            $<$<STREQUAL:${COMPILER},gnu>:-fexceptions>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+            $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+            $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+            $<$<STREQUAL:${COMPILER},msvc>:/EHsc>
+            $<$<STREQUAL:${COMPILER},msvc>:/W4>
+            $<$<STREQUAL:${COMPILER},msvc>:/WX>
     )
 
     # link libraries

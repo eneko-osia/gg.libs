@@ -8,8 +8,8 @@ include(GGSrcFiles.cmake)
 add_library(
     gg.test
     STATIC
-        ${include_files}
-        ${src_files}
+        ${INCLUDE_FILES}
+        ${SRC_FILES}
 )
 
 # include directories
@@ -33,14 +33,14 @@ target_compile_definitions(
 target_compile_options(
     gg.test
     PRIVATE
-        $<$<STREQUAL:${compiler},gnu>:-fexceptions>
-        $<$<STREQUAL:${compiler},gnu>:-Wall>
-        $<$<STREQUAL:${compiler},gnu>:-Wextra>
-        $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-        $<$<STREQUAL:${compiler},gnu>:-Werror>
-        $<$<STREQUAL:${compiler},msvc>:/EHsc>
-        $<$<STREQUAL:${compiler},msvc>:/W4>
-        $<$<STREQUAL:${compiler},msvc>:/WX>
+        $<$<STREQUAL:${COMPILER},gnu>:-fexceptions>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+        $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+        $<$<STREQUAL:${COMPILER},msvc>:/EHsc>
+        $<$<STREQUAL:${COMPILER},msvc>:/W4>
+        $<$<STREQUAL:${COMPILER},msvc>:/WX>
 )
 
 # group folder

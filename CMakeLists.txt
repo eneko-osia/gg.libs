@@ -4,170 +4,80 @@ cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 # project
 project(gg.libs VERSION 0.0.1 LANGUAGES C CXX)
 
-# variables
-set(gg_directory
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    CACHE INTERNAL
-    "GG directory"
-    FORCE
-)
+# directories
+set(DOC_DIRECTORY   "${CMAKE_CURRENT_SOURCE_DIR}/doc")
+set(SRC_DIRECTORY   "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(TOOLS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 
-set(gg_doc_directory
-    ${gg_directory}/doc
-    CACHE INTERNAL
-    "GG documentation directory"
-    FORCE
-)
-
-set(gg_src_directory
-    ${gg_directory}/src
-    CACHE INTERNAL
-    "GG source directory"
-    FORCE
-)
-
-set(gg_tools_directory
-    ${gg_directory}/tools
-    CACHE INTERNAL
-    "GG tools directory"
-    FORCE
-)
-
-set(gg_libraries
+# libraries
+set(LIBRARIES
     "core"
     "test"
-    "log"
     "app"
     "config"
+    "log"
     "gfx"
     "gui"
 )
 
 # modules path
-set(CMAKE_MODULE_PATH
-    ${CMAKE_MODULE_PATH} ${gg_tools_directory}/cmake/modules
-    CACHE INTERNAL
-    "CMake module path"
-    FORCE
-)
+set(CMAKE_MODULE_PATH "${TOOLS_DIRECTORY}/cmake/modules" ${CMAKE_MODULE_PATH})
 
 # includes
 include(CMakeDependentOption)
-include(GGPlatform)
-include(GGCompiler)
-include(GGConfiguration)
 include(GGFunctions)
+include(GGSystem)
 
 # options
-option(
-    GG_CORE
-    "core library"
-    OFF
-)
+option(GG_CORE "core library" ON)
+option(GG_TEST "test library" ON)
 
-option(
-    GG_TEST
-    "test library"
-    OFF
-)
+# dependent libraries
+cmake_dependent_option(GG_APP    "app library"    ON GG_CORE       OFF)
+cmake_dependent_option(GG_CONFIG "config library" ON GG_CORE       OFF)
+cmake_dependent_option(GG_LOG    "log library"    ON GG_CORE       OFF)
+cmake_dependent_option(GG_GFX    "gfx library"    ON GG_APP;GG_LOG OFF)
 
-# dependent options
-cmake_dependent_option(
-    GG_APP
-    "app library"
-    OFF
-    "GG_CORE"
-    OFF
-)
-
-cmake_dependent_option(
-    GG_CONFIG
-    "config library"
-    OFF
-    "GG_CORE"
-    OFF
-)
-
-cmake_dependent_option(
-    GG_LOG
-    "log library"
-    OFF
-    "GG_CORE"
-    OFF
-)
-
-cmake_dependent_option(
-    GG_GFX
-    "gfx library"
-    OFF
-    "GG_APP;GG_APP_WINDOW_SUPPORT"
-    OFF
-)
-
-cmake_dependent_option(
-    GG_GUI
-    "gui library"
-    OFF
-    "GG_GFX"
-    OFF
-)
-
-cmake_dependent_option(
-    GG_LIBS_ENABLE_DOC
-    "enable documentation"
-    OFF
-    "GG_CORE"
-    OFF
-)
-
-cmake_dependent_option(
-    GG_LIBS_ENABLE_TESTING
-    "enable tests"
-    OFF
-    "GG_TEST"
-    OFF
-)
+# dependent documentation and testing
+cmake_dependent_option(GG_ENABLE_DOC     "enable documentation" ON GG_CORE OFF)
+cmake_dependent_option(GG_ENABLE_TESTING "enable tests"         ON GG_TEST OFF)
 
 # configure version file
-set(version_file_path ${gg_src_directory}/core/include/gg/core/version.h)
 configure_file(
-    ${gg_tools_directory}/cmake/version/version.h.in
-    ${version_file_path} @ONLY
+    "${TOOLS_DIRECTORY}/cmake/version/version.h.in"
+    "${SRC_DIRECTORY}/core/include/gg/core/version.h"
 )
 
 # set global properties
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # documentation
-if(GG_LIBS_ENABLE_DOC)
-    # find doxygen dependency
-    find_package(Doxygen REQUIRED)
+if (GG_ENABLE_DOC)
+    # includes
+    include(GGDoxygen)
 
     # add documentaion source directories
-    foreach(library ${gg_libraries})
-        string(TOUPPER ${library} upper_library)
-        if(GG_${upper_library})
-            set(doxygen_src_dir
-                ${doxygen_src_dir}
-                ${gg_src_directory}/${library}
-            )
+    foreach(LIBRARY ${LIBRARIES})
+        string(TOUPPER ${LIBRARY} LIBRARY_UPPER)
+        if(GG_${LIBRARY_UPPER})
+            set(DOXYGEN_SRC_DIRECTORY ${DOXYGEN_SRC_DIRECTORY} "${SRC_DIRECTORY}/${LIBRARY}")
         endif()
     endforeach()
 
     # clean doxygen source directory
-    string(REPLACE ";" " " doxygen_src_dir "${doxygen_src_dir}")
+    string(REPLACE ";" " " DOXYGEN_SRC_DIRECTORY "${DOXYGEN_SRC_DIRECTORY}")
 
     # configure doxyfile
     configure_file(
-        ${gg_tools_directory}/cmake/doxygen/doxyfile.in
-        ${gg_doc_directory}/doxyfile @ONLY
+        "${TOOLS_DIRECTORY}/cmake/doxygen/doxyfile.in"
+        "${DOC_DIRECTORY}/doxyfile"
     )
 
     # add doc target
     add_custom_target(
         gg.docs
-        COMMAND ${DOXYGEN_EXECUTABLE} ${gg_doc_directory}/doxyfile
-        WORKING_DIRECTORY ${gg_doc_directory}
+        COMMAND ${DOXYGEN_EXECUTABLE} "${DOC_DIRECTORY}/doxyfile"
+        WORKING_DIRECTORY ${DOC_DIRECTORY}
         COMMENT "Generating documentation..."
         VERBATIM
     )
@@ -177,7 +87,7 @@ if(GG_LIBS_ENABLE_DOC)
 endif()
 
 # testing
-if(GG_LIBS_ENABLE_TESTING)
+if(GG_ENABLE_TESTING)
     # enable testing
     enable_testing()
 
@@ -186,9 +96,9 @@ if(GG_LIBS_ENABLE_TESTING)
 endif()
 
 # subdirectories
-foreach(library ${gg_libraries})
-    string(TOUPPER ${library} upper_library)
-    if(GG_${upper_library})
-        add_subdirectory(${gg_src_directory}/${library})
+foreach(LIBRARY ${LIBRARIES})
+    string(TOUPPER ${LIBRARY} LIBRARY_UPPER)
+    if(GG_${LIBRARY_UPPER})
+        add_subdirectory(${SRC_DIRECTORY}/${LIBRARY})
     endif()
 endforeach()

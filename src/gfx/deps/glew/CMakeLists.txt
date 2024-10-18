@@ -8,8 +8,8 @@ include(GGSrcFiles.cmake)
 add_library(
     gg.glew
     STATIC
-        ${include_files}
-        ${src_files}
+        ${INCLUDE_FILES}
+        ${SRC_FILES}
 )
 
 # include directories
@@ -29,22 +29,23 @@ target_compile_definitions(
         GLEW_NO_GLU
         GLEW_STATIC
     PRIVATE
-        $<$<STREQUAL:${compiler},msvc>:_HAS_EXCEPTIONS=0>
+        $<$<STREQUAL:${COMPILER},msvc>:_HAS_EXCEPTIONS=0>
 )
 
 # compile options
 target_compile_options(
     gg.glew
+    PUBLIC
+        $<$<STREQUAL:${COMPILER},gnu>:-Wno-address>
     PRIVATE
-        $<$<STREQUAL:${compiler},gnu>:-fno-exceptions>
-        $<$<STREQUAL:${compiler},gnu>:-Wall>
-        $<$<STREQUAL:${compiler},gnu>:-Werror>
-        $<$<STREQUAL:${compiler},gnu>:-Wextra>
-        $<$<STREQUAL:${compiler},gnu>:-Wno-address>
-        $<$<STREQUAL:${compiler},gnu>:-Wpedantic>
-        $<$<STREQUAL:${compiler},msvc>:/EHs-c->
-        $<$<STREQUAL:${compiler},msvc>:/W4>
-        $<$<STREQUAL:${compiler},msvc>:/WX>
+        $<$<STREQUAL:${COMPILER},gnu>:-fno-exceptions>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wall>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wextra>
+        $<$<STREQUAL:${COMPILER},gnu>:-Wpedantic>
+        $<$<STREQUAL:${COMPILER},gnu>:-Werror>
+        $<$<STREQUAL:${COMPILER},msvc>:/EHs-c->
+        $<$<STREQUAL:${COMPILER},msvc>:/W4>
+        $<$<STREQUAL:${COMPILER},msvc>:/WX>
 )
 
 # link libraries
